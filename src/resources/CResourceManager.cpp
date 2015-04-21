@@ -5,7 +5,6 @@
 #include "loaders\\CImagePNGLoader.h"
 
 #include "loaders\\CStaticMeshLoader_OBJ.h"
-#include "loaders\\CAssimpMeshLoader.h"
 
 #include "NovaEngine.h"
 
@@ -27,10 +26,6 @@ CResourceManager::CResourceManager(io::IFileSystem* FileSys)
 
 #endif // INCLUDE_LIBPNG
     registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
-#ifdef NE_INCLUDE_ASSIMP
-    registerStaticMeshLoader(new CAssimpMeshLoader(FileSystem,this));
-    registerAnimatedMeshLoader(new CAssimpMeshLoader(FileSystem,this));
-#endif // INCLUDE_ASSIMP
 }
 
 CResourceManager::~CResourceManager()

@@ -19,7 +19,6 @@
 #endif
 
 //#define NE_INCLUDE_LIBPNG
-//#define NE_INCLUDE_ASSIMP
 
 #ifdef NE_INCLUDE_GLEW
     #define GLEW_STATIC
