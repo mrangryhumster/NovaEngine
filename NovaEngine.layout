@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug Win32 App" />
+	<File name="src\NovaEngine.cpp" open="1" top="0" tabpos="50" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="840" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="src\scene\CSceneManager.cpp" open="1" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1739" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLTexture.cpp" open="1" top="0" tabpos="27" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1233" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="include\NTypes.h" open="1" top="0" tabpos="68" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="496" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IRenderer.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1727" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\trees.c" open="0" top="0" tabpos="64" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19367" topLine="516" />
+		</Cursor>
+	</File>
+	<File name="src\filesystem\CFileSystem.cpp" open="1" top="0" tabpos="79" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1792" topLine="48" />
+		</Cursor>
+	</File>
+	<File name="src\scene\CSceneManager.h" open="1" top="0" tabpos="29" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1138" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLTexture.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="540" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\NovaEngine.h" open="1" top="0" tabpos="26" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="852" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneNode.h" open="1" top="0" tabpos="32" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6814" topLine="101" />
+		</Cursor>
+	</File>
+	<File name="src\filesystem\CFileSystem.h" open="1" top="0" tabpos="96" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="479" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="src\scene\nodes\CSceneCamera.h" open="1" top="0" tabpos="61" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="880" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLVertexBuffer.cpp" open="1" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8800" topLine="254" />
+		</Cursor>
+	</File>
+	<File name="include\Object.h" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2314" topLine="81" />
+		</Cursor>
+	</File>
+	<File name="include\EKeycodes.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="21" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\scene\nodes\CSceneEmptyNode.h" open="1" top="0" tabpos="62" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="492" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLVertexBuffer.h" open="0" top="0" tabpos="83" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="91" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\Resource.h" open="1" top="0" tabpos="39" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1080" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="include\ERendererEnums.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="796" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="src\filesystem\CNativeFile.h" open="1" top="0" tabpos="78" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2865" topLine="87" />
+		</Cursor>
+	</File>
+	<File name="src\scene\nodes\CSceneSprite.h" open="1" top="0" tabpos="63" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1181" topLine="36" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\crc32.c" open="0" top="0" tabpos="63" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6241" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengles1\COpenGLES1Renderer.cpp" open="1" top="0" tabpos="93" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16579" topLine="451" />
+		</Cursor>
+	</File>
+	<File name="include\SEngineConf.h" open="1" top="0" tabpos="23" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="142" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\filesystem\CVirtualFile.h" open="1" top="0" tabpos="77" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3152" topLine="111" />
+		</Cursor>
+	</File>
+	<File name="src\scene\nodes\CSceneStaticMesh.h" open="1" top="0" tabpos="36" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1607" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengles1\COpenGLES1Renderer.h" open="1" top="0" tabpos="95" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1125" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\SEvent.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="786" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="src\libs\glew\include\GL\glew.h" open="0" top="0" tabpos="62" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="79291" topLine="1659" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\zutil.c" open="0" top="0" tabpos="69" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2878" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\time\NTime.h" open="1" top="0" tabpos="92" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="261" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\deflate.c" open="0" top="0" tabpos="65" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="48536" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\SPixelFormat.h" open="1" top="0" tabpos="55" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="343" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="src\libs\glew\src\glew.c" open="0" top="0" tabpos="100" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14237" topLine="15726" />
+		</Cursor>
+	</File>
+	<File name="src\window\CAndroidWindow.cpp" open="1" top="0" tabpos="89" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="956" topLine="24" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengles1\COpenGLES1VertexBuffer.h" open="1" top="0" tabpos="94" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="408" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="include\SPrimitive.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="233" topLine="87" />
+		</Cursor>
+	</File>
+	<File name="src\libs\libpng\png.c" open="0" top="0" tabpos="94" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="130476" topLine="3799" />
+		</Cursor>
+	</File>
+	<File name="src\log\NLog.cpp" open="1" top="0" tabpos="86" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1180" topLine="33" />
+		</Cursor>
+	</File>
+	<File name="src\window\CAndroidWindow.h" open="1" top="0" tabpos="90" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="411" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\STextureParameters.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="902" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="src\log\NLog.h" open="1" top="0" tabpos="84" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="94" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\window\CWin32Window.cpp" open="1" top="0" tabpos="25" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5573" topLine="274" />
+		</Cursor>
+	</File>
+	<File name="include\SVertex.h" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1097" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CAnimatedMesh.cpp" open="1" top="0" tabpos="47" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="74" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\window\CWin32Window.h" open="1" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2049" topLine="67" />
+		</Cursor>
+	</File>
+	<File name="include\IRendererPerformanceCounter.h" open="1" top="0" tabpos="33" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="424" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\color3.h" open="1" top="0" tabpos="81" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="172" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CAnimatedMesh.h" open="1" top="0" tabpos="48" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1262" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="version.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="444" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IRenderContext.h" open="1" top="0" tabpos="54" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="348" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\color4.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="747" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CBaseRenderer.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8145" topLine="171" />
+		</Cursor>
+	</File>
+	<File name="include\IEventListener.h" open="0" top="0" tabpos="96" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="297" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\dim2.h" open="0" top="0" tabpos="114" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="173" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CBaseRenderer.h" open="1" top="0" tabpos="85" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1736" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\infback.c" open="0" top="0" tabpos="66" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="21038" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IScene.h" open="0" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="157" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\matrix.h" open="1" top="0" tabpos="58" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="153" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CImage.cpp" open="1" top="0" tabpos="49" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2304" topLine="38" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\inffast.c" open="0" top="0" tabpos="67" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7043" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IEventManager.h" open="1" top="0" tabpos="88" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="140" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\quaternion.h" open="1" top="0" tabpos="83" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="350" topLine="207" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CImage.h" open="1" top="0" tabpos="57" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="444" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IAnimatedMesh.h" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1572" topLine="55" />
+		</Cursor>
+	</File>
+	<File name="include\types\rect.h" open="0" top="0" tabpos="30" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="195" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CMaterial.h" open="1" top="0" tabpos="42" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="511" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="include\IMaterial.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="65" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\vector2.h" open="0" top="0" tabpos="22" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4140" topLine="230" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CRendererPerformanceCounter.cpp" open="1" top="0" tabpos="40" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="180" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\INovaEngine.h" open="0" top="0" tabpos="70" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="524" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\types\vector3.h" open="1" top="0" tabpos="80" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4477" topLine="204" />
+		</Cursor>
+	</File>
+	<File name="src\resources\CResourceManager.cpp" open="1" top="0" tabpos="73" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1762" topLine="51" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CRendererPerformanceCounter.h" open="1" top="0" tabpos="41" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="823" topLine="2" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneNodeAnimator.h" open="1" top="0" tabpos="34" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="240" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IFileSystem.h" open="0" top="0" tabpos="113" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="656" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1539" topLine="49" />
+		</Cursor>
+	</File>
+	<File name="src\resources\CResourceManager.h" open="1" top="0" tabpos="72" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1070" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CStaticMesh.cpp" open="1" top="0" tabpos="38" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1933" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneSprite.h" open="0" top="0" tabpos="46" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="180" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IGeometryManager.h" open="1" top="0" tabpos="52" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="489" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CEventManager.cpp" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="295" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CAssimpMeshLoader.cpp" open="1" top="0" tabpos="69" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7141" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CStaticMesh.h" open="1" top="0" tabpos="37" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="333" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneStaticMesh.h" open="1" top="0" tabpos="66" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="547" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\ILog.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="169" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CEventManager.h" open="1" top="0" tabpos="28" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="123" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CAssimpMeshLoader.h" open="1" top="0" tabpos="71" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2451" topLine="77" />
+		</Cursor>
+	</File>
+	<File name="src\libs\libpng\pngrtran.c" open="0" top="0" tabpos="95" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="156233" topLine="4691" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\CVertexBuffer.h" open="1" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4364" topLine="122" />
+		</Cursor>
+	</File>
+	<File name="include\IShaderProgram.h" open="1" top="0" tabpos="44" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="500" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="include\IScene2DNode.h" open="1" top="0" tabpos="64" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="476" topLine="16" />
+		</Cursor>
+	</File>
+	<File name="src\CGeometryManager.cpp" open="1" top="0" tabpos="91" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7265" topLine="242" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CImagePNGLoader.cpp" open="1" top="0" tabpos="70" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5768" topLine="154" />
+		</Cursor>
+	</File>
+	<File name="include\IStaticMesh.h" open="1" top="0" tabpos="31" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="429" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IResourceManager.h" open="1" top="0" tabpos="43" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="328" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CGeometryManager.h" open="0" top="0" tabpos="91" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="81" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CImagePNGLoader.h" open="1" top="0" tabpos="82" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\ITexture.h" open="1" top="0" tabpos="45" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="430" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IFile.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="615" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CKeyMap.h" open="0" top="0" tabpos="68" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CStaticMeshLoader_OBJ.cpp" open="1" top="0" tabpos="76" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9180" topLine="257" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLRenderer.cpp" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="13907" topLine="370" />
+		</Cursor>
+	</File>
+	<File name="include\IVertexBuffer.h" open="1" top="0" tabpos="51" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2430" topLine="39" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneCamera.h" open="1" top="0" tabpos="60" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2174" topLine="50" />
+		</Cursor>
+	</File>
+	<File name="src\libs\zlib\inflate.c" open="0" top="0" tabpos="68" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="40592" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CNovaEngine.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2884" topLine="76" />
+		</Cursor>
+	</File>
+	<File name="src\resources\loaders\CStaticMeshLoader_OBJ.h" open="1" top="0" tabpos="75" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="922" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLRenderer.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="829" topLine="27" />
+		</Cursor>
+	</File>
+	<File name="include\IWindow.h" open="1" top="0" tabpos="24" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="516" topLine="25" />
+		</Cursor>
+	</File>
+	<File name="include\ISceneManager.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="664" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="src\CNovaEngine.h" open="1" top="0" tabpos="87" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="739" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\scene\CScene.cpp" open="1" top="0" tabpos="35" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3389" topLine="122" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLShaderProgram.cpp" open="1" top="0" tabpos="59" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2822" topLine="56" />
+		</Cursor>
+	</File>
+	<File name="include\NExTypes.h" open="0" top="0" tabpos="73" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1174" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IImageImporter.h" open="1" top="0" tabpos="53" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\CompileConfig.h" open="1" top="0" tabpos="74" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="392" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src\scene\CScene.h" open="1" top="0" tabpos="65" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="629" topLine="26" />
+		</Cursor>
+	</File>
+	<File name="src\renderer\opengl\COpenGLShaderProgram.h" open="1" top="0" tabpos="67" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1943" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="include\NMath.h" open="1" top="0" tabpos="56" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="53" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\IImage.h" open="1" top="0" tabpos="46" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="98" topLine="0" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>
