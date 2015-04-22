@@ -27,12 +27,10 @@ public:
     void addWindow(HWND hwnd,CWin32Window* cwin32window)
     {
         WindowMap[hwnd] = cwin32window;
-        LOG_DEBUG("addWindow (%d)\n",getMappedWindowCount());
     }
     void removeWindow(HWND hwnd)
     {
         WindowMap.erase(hwnd);
-        LOG_DEBUG("removeWindow (%d)\n",getMappedWindowCount());
     }
     u32 getMappedWindowCount()
     {
