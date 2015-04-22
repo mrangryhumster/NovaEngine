@@ -843,38 +843,6 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     //----------------------------------------------
 }
 //--------------------------------------------------------------------------------------------------------
-void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector2f* verticles,const core::vector2f* texverts,const core::color4u* colors,E_PRIMITIVE_TYPE PrimitiveType)
-{
-    //------------------------------------------------------------
-    bool have_verticles = (verticles!=NULL);
-    bool have_texcoords = (texverts !=NULL);
-    bool have_colors    = (colors   !=NULL);
-
-    //!Enable/disable client states for drawing
-    enable_client_states(have_verticles,have_texcoords,false,have_colors);
-
-    //!Send verticles to video adapter
-    if(have_verticles)
-        glVertexPointer(    2,  GL_FLOAT,           0,  verticles);
-    if(have_texcoords)
-        glTexCoordPointer(  2,  GL_FLOAT,           0,  texverts);
-    if(have_colors)
-        glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  colors);
-    //------------------------------------------------------------
-    GLenum GLPrimitiveType   = 0;
-    u32    VertexInPrimitive = 0;
-    //!Convert E_PRIMITIVE_TYPE to GLenum
-    to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType,GLPrimitiveType,VertexInPrimitive);
-    //----------------------------------------------
-    if(indices != NULL || indices_count != 0)
-        glDrawElements(GLPrimitiveType,indices_count,GL_UNSIGNED_SHORT,indices);
-    else
-        glDrawArrays(GLPrimitiveType,0,vertex_count);
-    //----------------------------------------------
-    RendererPerformanceCounter->register_draw(vertex_count,VertexInPrimitive);
-    //----------------------------------------------
-}
-//--------------------------------------------------------------------------------------------------------
 bool COpenGLRenderer::isOk()
 {
     return !(!noerror || exit);
@@ -911,7 +879,9 @@ bool COpenGLRenderer::update()
             LOG_ENGINE_DEBUG("OpenGL error - GL_INVALID_FRAMEBUFFER_OPERATION\n");
             break;
         }
+        #ifdef NE_DEBUG
         throw;
+        #endif // NE_DEBUG
     }
 
 
