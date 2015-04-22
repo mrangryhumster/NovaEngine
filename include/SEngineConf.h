@@ -4,7 +4,7 @@
 #include "NTypes.h"
 #include "types/dim2.h"
 #include "ERendererEnums.h"
-#include "ILog.h"
+#include "ILogger.h"
 
 namespace novaengine
 {

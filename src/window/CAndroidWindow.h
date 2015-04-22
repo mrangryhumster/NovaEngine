@@ -14,7 +14,7 @@
 
 #include "EKeycodes.h"
 
-#include "NLog.h"
+#include "NLogger.h"
 
 #include <jni.h>
 #include <errno.h>

@@ -2,7 +2,7 @@
 #define CSCENESTATICMESH_H
 
 #include "ISceneStaticMesh.h"
-#include "log/NLog.h"
+#include "log/NLogger.h"
 
 namespace novaengine
 {

@@ -13,7 +13,7 @@
 #endif // NE_OPENGL_RENDERER
 //------------------------------------------------------
 
-#include "NLog.h"
+#include "NLogger.h"
 #include "CEventManager.h"
 #include "CFileSystem.h"
 #include "CResourceManager.h"
@@ -39,7 +39,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     LOG_INFO("NovaEngine %s \"%s\" %s.%s.%s \n",NOVAENGINE_FULLVERSION_STRING,NOVAENGINE_STATUS,NOVAENGINE_YEAR,NOVAENGINE_MONTH,NOVAENGINE_DATE);
 #define NE_DEBUG
 #ifdef NE_DEBUG
-    log::CLog::get()->set_log_level(log::ELL_ENGINE_DEBUG);
+    log::CLogger::get()->set_log_level(log::ELL_ENGINE_DEBUG);
 #else
     log::CLog::get()->set_log_level(engine_conf.LogLevel);
 #endif // NE_DEBUG
@@ -176,9 +176,9 @@ scene::ISceneManager*   CNovaEngine::getSceneManager()
     return SceneManager;
 }
 //-------------------------------------------------------------------------------------------
-log::ILog* CNovaEngine::getLog()
+log::ILogger* CNovaEngine::getLogger()
 {
-    return log::CLog::get();
+    return log::CLogger::get();
 }
 //-------------------------------------------------------------------------------------------
 bool CNovaEngine::isOk()

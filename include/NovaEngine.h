@@ -18,7 +18,7 @@
 
 #include "NMath.h"
 
-#include "ILog.h"
+#include "ILogger.h"
 #include "Object.h"
 #include "INovaEngine.h"
 
@@ -81,7 +81,7 @@ IRenderer*      getRenderer();
 }
 namespace log
 {
-ILog*           getLog();
+ILogger*           getLogger();
 }
 
 

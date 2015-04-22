@@ -3,7 +3,7 @@
 
 #include "../NTypes.h"
 #include "matrix.h"
-//#include "log/NLog.h"
+//#include "log/NLogger.h"
 
 namespace novaengine
 {

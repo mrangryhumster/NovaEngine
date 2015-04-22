@@ -5,7 +5,7 @@
 #include "IStaticMeshLoader.h"
 #include "IResourceManager.h"
 
-#include "log/NLog.h"
+#include "log/NLogger.h"
 
 #include <vector>
 #include <map>

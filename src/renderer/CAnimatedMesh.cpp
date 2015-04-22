@@ -1,5 +1,5 @@
 #include "CAnimatedMesh.h"
-//#include "log/NLog.h"
+//#include "log/NLogger.h"
 #include <assert.h>
 
 namespace novaengine

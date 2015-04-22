@@ -6,7 +6,7 @@
 #include "CVirtualFile.h"
 #include "CNativeFile.h"
 
-#include "log/NLog.h"
+#include "log/NLogger.h"
 
 #include <stdio.h>
 

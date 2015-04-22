@@ -8,7 +8,7 @@
 #include "IRenderer.h"
 #include "CVertexBuffer.h"
 
-#include "log/NLog.h"
+#include "log/NLogger.h"
 
 #include <EGL/egl.h>
 #include <GLES/gl.h>

@@ -1,6 +1,6 @@
 #ifdef NE_WINDOW_WIN32
 #include "CWin32Window.h"
-#include "log\NLog.h"
+#include "log\NLogger.h"
 #include <map>
 
 namespace novaengine

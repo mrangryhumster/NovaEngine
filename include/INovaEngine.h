@@ -9,7 +9,7 @@
 #include "IResourceManager.h"
 #include "IGeometryManager.h"
 #include "ISceneManager.h"
-#include "ILog.h"
+#include "ILogger.h"
 
 namespace novaengine
 {
@@ -24,7 +24,7 @@ public:
     virtual IResourceManager*           getResourceManager()    = 0;
     virtual IGeometryManager*           getGeometryManager()    = 0;
     virtual scene::ISceneManager*       getSceneManager()       = 0;
-    virtual log::ILog*                  getLog()                = 0;
+    virtual log::ILogger*               getLogger()             = 0;
 
     virtual bool isOk()   = 0;
     virtual bool update() = 0;

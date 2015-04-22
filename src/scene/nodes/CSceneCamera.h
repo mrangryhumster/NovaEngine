@@ -3,7 +3,7 @@
 
 #include "NTypes.h"
 #include "ISceneCamera.h"
-#include "NLog.h"
+#include "NLogger.h"
 
 namespace novaengine
 {

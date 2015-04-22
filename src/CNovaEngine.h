@@ -26,7 +26,7 @@ public:
     IResourceManager*       getResourceManager();
     IGeometryManager*       getGeometryManager();
     scene::ISceneManager*   getSceneManager();
-    log::ILog*              getLog();
+    log::ILogger*           getLogger();
 
     bool isOk();
     bool update();
