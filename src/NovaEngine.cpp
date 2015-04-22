@@ -1,6 +1,6 @@
 #include "NovaEngine.h"
 #include "CNovaEngine.h"
-#include "NLog.h"
+#include "NLogger.h"
 
 #include "CompileConfig.h"
 #include "IWindow.h"
@@ -77,9 +77,9 @@ IRenderer* getRenderer()
 
 namespace log
 {
-ILog* getLog()
+ILogger* getLogger()
 {
-    return log::CLog::get();
+    return log::CLogger::get();
 }
 }
 

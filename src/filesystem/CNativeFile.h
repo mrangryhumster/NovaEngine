@@ -6,7 +6,7 @@
 #include "IFile.h"
 
 #include <stdio.h>
-#include "log\NLog.h"
+#include "log\NLogger.h"
 
 namespace novaengine
 {

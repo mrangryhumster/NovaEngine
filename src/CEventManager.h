@@ -4,7 +4,7 @@
 #include "IEventManager.h"
 #include "EKeycodes.h"
 
-#include "NLog.h"
+#include "NLogger.h"
 
 #include <vector>
 

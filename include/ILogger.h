@@ -1,5 +1,5 @@
-#ifndef ILOG_H
-#define ILOG_H
+#ifndef ILOGGER_H
+#define ILOGGER_H
 
 #include "NTypes.h"
 
@@ -20,7 +20,7 @@ enum E_LOG_LEVEL
     ELL_NEVER_SHOW   ,
 };
 
-class ILog
+class ILogger
 {
 public:
 

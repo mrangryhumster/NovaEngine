@@ -6,7 +6,7 @@
 #include "SEngineConf.h"
 #include "ERendererEnums.h"
 
-#include "NLog.h"
+#include "NLogger.h"
 
 #include "renderer\CRendererPerformanceCounter.h"
 #include "renderer\CVertexBuffer.h"

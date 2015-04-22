@@ -6,7 +6,7 @@
 #include "SEngineConf.h"
 #include "ERendererEnums.h"
 #include "renderer\CRendererPerformanceCounter.h"
-#include "log\NLog.h"
+#include "log\NLogger.h"
 
 
 #include "GL\glew.h"

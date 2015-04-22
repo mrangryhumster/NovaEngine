@@ -7,7 +7,7 @@
 #include <cstring>
 #include <memory.h>
 
-#include "Log\NLog.h"
+#include "Log\NLogger.h"
 
 namespace novaengine
 {

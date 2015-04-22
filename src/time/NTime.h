@@ -8,7 +8,7 @@
 #include "NTypes.h"
 
 #include "ITimer.h"
-#include "NLog.h"
+#include "NLogger.h"
 namespace novaengine
 {
 namespace time

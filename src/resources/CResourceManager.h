@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "NTime.h"
-#include "Log/NLog.h"
+#include "Log/NLogger.h"
 
 #include "IFileSystem.h"
 #include "IResourceManager.h"

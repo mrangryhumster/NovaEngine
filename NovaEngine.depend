@@ -3443,15 +3443,15 @@
 1429524482 source:d:\programming\novaengine\novaengine\src\renderer\opengles1\copengles1vertexbuffer.cpp
 	"COpenGLES1VertexBuffer.h"
 
-1427922647 source:d:\programming\git\novaengine\src\compileconfig.h
+1429659960 source:d:\programming\git\novaengine\src\compileconfig.h
 
 1427940945 source:d:\programming\git\novaengine\src\ceventmanager.cpp
 	"CEventManager.h"
 
-1427940313 d:\programming\git\novaengine\src\ceventmanager.h
+1429667050 d:\programming\git\novaengine\src\ceventmanager.h
 	"IEventManager.h"
 	"EKeycodes.h"
-	"NLog.h"
+	"NLogger.h"
 	<vector>
 
 1408873410 d:\programming\git\novaengine\include\ieventmanager.h
@@ -3503,7 +3503,7 @@
 	"../NTypes.h"
 	"../NMath.h"
 
-1411743828 d:\programming\git\novaengine\include\types\quaternion.h
+1429667050 d:\programming\git\novaengine\include\types\quaternion.h
 	"../NTypes.h"
 	"matrix.h"
 
@@ -3528,9 +3528,9 @@
 
 1425651918 d:\programming\git\novaengine\include\ekeycodes.h
 
-1427918645 d:\programming\git\novaengine\src\log\nlog.h
+1429666644 d:\programming\git\novaengine\src\log\nlog.h
 	"NTypes.h"
-	"ILog.h"
+	"ILogger.h"
 	<cstdarg>
 
 1427922292 d:\programming\git\novaengine\include\ilog.h
@@ -3546,7 +3546,7 @@
 	"INovaEngine.h"
 	"IGeometryManager.h"
 
-1425919717 d:\programming\git\novaengine\include\novaengine.h
+1429666663 d:\programming\git\novaengine\include\novaengine.h
 	"NTypes.h"
 	"NMath.h"
 	"NExTypes.h"
@@ -3559,7 +3559,7 @@
 	"types/dim2.h"
 	"types/rect.h"
 	"NMath.h"
-	"ILog.h"
+	"ILogger.h"
 	"Object.h"
 	"INovaEngine.h"
 	"IWindow.h"
@@ -3588,7 +3588,7 @@
 	"EKeycodes.h"
 	"ERendererEnums.h"
 
-1419313959 d:\programming\git\novaengine\include\inovaengine.h
+1429666714 d:\programming\git\novaengine\include\inovaengine.h
 	"Object.h"
 	"IEventManager.h"
 	"IWindow.h"
@@ -3597,7 +3597,7 @@
 	"IResourceManager.h"
 	"IGeometryManager.h"
 	"ISceneManager.h"
-	"ILog.h"
+	"ILogger.h"
 
 1415259554 d:\programming\git\novaengine\include\iwindow.h
 	"Object.h"
@@ -3607,7 +3607,7 @@
 	"types/vector2.h"
 	"IEventListener.h"
 
-1429568730 d:\programming\git\novaengine\include\irenderer.h
+1429666171 d:\programming\git\novaengine\include\irenderer.h
 	"Object.h"
 	"IRendererPerformanceCounter.h"
 	"NTypes.h"
@@ -3758,30 +3758,30 @@
 	"ISceneNode.h"
 	"IStaticMesh.h"
 
-1427936018 d:\programming\git\novaengine\include\sengineconf.h
+1429667105 d:\programming\git\novaengine\include\sengineconf.h
 	"NTypes.h"
 	"types/dim2.h"
 	"ERendererEnums.h"
-	"ILog.h"
+	"ILogger.h"
 
 1427943439 d:\programming\git\novaengine\src\renderer\cvertexbuffer.h
 	<vector>
 	"IVertexBuffer.h"
 
-1427941069 source:d:\programming\git\novaengine\src\cnovaengine.cpp
+1429667070 source:d:\programming\git\novaengine\src\cnovaengine.cpp
 	"CNovaEngine.h"
 	"window\CWin32Window.h"
 	"window\CAndroidWindow.h"
 	"opengl\COpenGLRenderer.h"
 	"opengles1/COpenGLES1Renderer.h"
-	"NLog.h"
+	"NLogger.h"
 	"CEventManager.h"
 	"CFileSystem.h"
 	"CResourceManager.h"
 	"CGeometryManager.h"
 	"CSceneManager.h"
 
-1419313971 d:\programming\git\novaengine\src\cnovaengine.h
+1429666714 d:\programming\git\novaengine\src\cnovaengine.h
 	"../version.h"
 	"INovaEngine.h"
 	"SEngineConf.h"
@@ -3806,7 +3806,7 @@
 1388399207 d:\programming\git\novaengine\src\ckeymap.h
 	<map>
 
-1427938572 d:\programming\git\novaengine\src\window\candroidwindow.h
+1429667050 d:\programming\git\novaengine\src\window\candroidwindow.h
 	"NTypes.h"
 	"IWindow.h"
 	"IEventManager.h"
@@ -3815,19 +3815,19 @@
 	"SEngineConf.h"
 	"CKeyMap.h"
 	"EKeycodes.h"
-	"NLog.h"
+	"NLogger.h"
 	<jni.h>
 	<errno.h>
 	<android/sensor.h>
 	<android_native_app_glue.h>
 
-1429568749 d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.h
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.h
 	"IWindow.h"
 	"IRenderer.h"
 	"SEngineConf.h"
 	"ERendererEnums.h"
 	"renderer\CRendererPerformanceCounter.h"
-	"log\NLog.h"
+	"log\NLogger.h"
 	"GL\glew.h"
 	<GL\gl.h>
 	<map>
@@ -3843,13 +3843,13 @@
 	"NTime.h"
 	"IRendererPerformanceCounter.h"
 
-1419307429 d:\programming\git\novaengine\src\time\ntime.h
+1429667050 d:\programming\git\novaengine\src\time\ntime.h
 	<chrono>
 	<time.h>
 	<sys/time.h>
 	"NTypes.h"
 	"ITimer.h"
-	"NLog.h"
+	"NLogger.h"
 
 1419271009 d:\programming\git\novaengine\include\itimer.h
 	"Object.h"
@@ -3862,20 +3862,20 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1427913547 d:\programming\git\novaengine\src\renderer\cbaserenderer.h
+1429667050 d:\programming\git\novaengine\src\renderer\cbaserenderer.h
 	"IWindow.h"
 	"IRenderer.h"
 	"SEngineConf.h"
 	"ERendererEnums.h"
-	"NLog.h"
+	"NLogger.h"
 	"renderer\CRendererPerformanceCounter.h"
 	"renderer\CVertexBuffer.h"
 	<map>
 
-1424893874 d:\programming\git\novaengine\src\renderer\opengl\copenglshaderprogram.h
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglshaderprogram.h
 	"NovaEngine.h"
 	"IShaderProgram.h"
-	"NLog.h"
+	"NLogger.h"
 	<GL\glew.h>
 
 1419313975 d:\programming\git\novaengine\src\renderer\opengl\copengltexture.h
@@ -3890,23 +3890,23 @@
 1390989343 d:\programming\git\novaengine\src\renderer\cimage.h
 	"IImage.h"
 
-1425919773 d:\programming\git\novaengine\src\renderer\opengl\copenglvertexbuffer.h
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglvertexbuffer.h
 	"NovaEngine.h"
 	"IRenderer.h"
 	"CVertexBuffer.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	"GL/glew.h"
 
 1389272102 d:\programming\git\novaengine\src\renderer\opengl\wglext.h
 	<windows.h>
 
-1429524363 d:\programming\git\novaengine\src\renderer\opengles1\copengles1renderer.h
+1429667050 d:\programming\git\novaengine\src\renderer\opengles1\copengles1renderer.h
 	"IWindow.h"
 	"IRenderer.h"
 	"SEngineConf.h"
 	"ERendererEnums.h"
 	"renderer\CRendererPerformanceCounter.h"
-	"log\NLog.h"
+	"log\NLogger.h"
 	<EGL/egl.h>
 	<GLES/gl.h>
 	<map>
@@ -3916,37 +3916,37 @@
 	"CBaseRenderer.h"
 	"opengles1/COpenGLES1VertexBuffer.h"
 
-1429524435 d:\programming\git\novaengine\src\renderer\opengles1\copengles1vertexbuffer.h
+1429667050 d:\programming\git\novaengine\src\renderer\opengles1\copengles1vertexbuffer.h
 	"NovaEngine.h"
 	"IRenderer.h"
 	"CVertexBuffer.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<EGL/egl.h>
 	<GLES/gl.h>
 
-1392135062 d:\programming\git\novaengine\src\filesystem\cfilesystem.h
+1429667050 d:\programming\git\novaengine\src\filesystem\cfilesystem.h
 	"IFileSystem.h"
 	"CVirtualFile.h"
 	"CNativeFile.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<stdio.h>
 
-1427081085 d:\programming\git\novaengine\src\filesystem\cvirtualfile.h
+1429667050 d:\programming\git\novaengine\src\filesystem\cvirtualfile.h
 	"IFile.h"
 	<malloc.h>
 	<cstring>
 	<memory.h>
-	"Log\NLog.h"
+	"Log\NLogger.h"
 
-1427081085 d:\programming\git\novaengine\src\filesystem\cnativefile.h
+1429667050 d:\programming\git\novaengine\src\filesystem\cnativefile.h
 	"IFile.h"
 	<stdio.h>
-	"log\NLog.h"
+	"log\NLogger.h"
 
-1426439117 d:\programming\git\novaengine\src\resources\cresourcemanager.h
+1429667050 d:\programming\git\novaengine\src\resources\cresourcemanager.h
 	<vector>
 	"NTime.h"
-	"Log/NLog.h"
+	"Log/NLogger.h"
 	"IFileSystem.h"
 	"IResourceManager.h"
 	<vector>
@@ -4199,17 +4199,17 @@
 	<wchar.h>
 	<android/log.h>
 
-1427925980 source:d:\programming\git\novaengine\src\novaengine.cpp
+1429667015 source:d:\programming\git\novaengine\src\novaengine.cpp
 	"NovaEngine.h"
 	"CNovaEngine.h"
-	"NLog.h"
+	"NLogger.h"
 	"CompileConfig.h"
 	"IWindow.h"
 	"IRenderer.h"
 
 1429659960 d:\programming\git\novaengine\src\compileconfig.h
 
-1427919489 source:d:\programming\git\novaengine\src\renderer\canimatedmesh.cpp
+1429667050 source:d:\programming\git\novaengine\src\renderer\canimatedmesh.cpp
 	"CAnimatedMesh.h"
 	<assert.h>
 
@@ -4234,7 +4234,7 @@
 	"IMaterial.h"
 	<vector>
 
-1429568749 source:d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.cpp
+1429666171 source:d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.cpp
 	"COpenGLRenderer.h"
 
 1427820815 source:d:\programming\git\novaengine\src\renderer\opengl\copenglshaderprogram.cpp
@@ -4252,31 +4252,30 @@
 1429524482 source:d:\programming\git\novaengine\src\renderer\opengles1\copengles1vertexbuffer.cpp
 	"COpenGLES1VertexBuffer.h"
 
-1427935861 source:d:\programming\git\novaengine\src\resources\cresourcemanager.cpp
+1429659960 source:d:\programming\git\novaengine\src\resources\cresourcemanager.cpp
 	"CResourceManager.h"
 	"CompileConfig.h"
 	"loaders\\CImagePNGLoader.h"
 	"loaders\\CStaticMeshLoader_OBJ.h"
-	"loaders\\CAssimpMeshLoader.h"
 	"NovaEngine.h"
 	"renderer\\CImage.h"
 	"renderer\\CStaticMesh.h"
 	"renderer\\CAnimatedMesh.h"
 	"renderer\\CMaterial.h"
 
-1425919456 d:\programming\git\novaengine\src\resources\loaders\\cimagepngloader.h
+1429667050 d:\programming\git\novaengine\src\resources\loaders\\cimagepngloader.h
 	"CompileConfig.h"
 	"IImageLoader.h"
 	"IFileSystem.h"
 	"IFile.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<cstring>
 
-1427101116 d:\programming\git\novaengine\src\resources\loaders\\cstaticmeshloader_obj.h
+1429667050 d:\programming\git\novaengine\src\resources\loaders\\cstaticmeshloader_obj.h
 	"IFileSystem.h"
 	"IStaticMeshLoader.h"
 	"IResourceManager.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<vector>
 	<map>
 
@@ -4305,12 +4304,12 @@
 	"renderer/CImage.h"
 	"png.h"
 
-1425919456 d:\programming\git\novaengine\src\resources\loaders\cimagepngloader.h
+1429667050 d:\programming\git\novaengine\src\resources\loaders\cimagepngloader.h
 	"CompileConfig.h"
 	"IImageLoader.h"
 	"IFileSystem.h"
 	"IFile.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<cstring>
 
 1427828685 source:d:\programming\git\novaengine\src\resources\loaders\cstaticmeshloader_obj.cpp
@@ -4319,11 +4318,11 @@
 	"CVertexBuffer.h"
 	<stdio.h>
 
-1427101116 d:\programming\git\novaengine\src\resources\loaders\cstaticmeshloader_obj.h
+1429667050 d:\programming\git\novaengine\src\resources\loaders\cstaticmeshloader_obj.h
 	"IFileSystem.h"
 	"IStaticMeshLoader.h"
 	"IResourceManager.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 	<vector>
 	<map>
 
@@ -4340,29 +4339,29 @@
 1423082905 d:\programming\git\novaengine\src\scene\nodes\csceneemptynode.h
 	"ISceneNode.h"
 
-1423088636 d:\programming\git\novaengine\src\scene\nodes\cscenecamera.h
+1429667050 d:\programming\git\novaengine\src\scene\nodes\cscenecamera.h
 	"NTypes.h"
 	"ISceneCamera.h"
-	"NLog.h"
+	"NLogger.h"
 
 1423082825 d:\programming\git\novaengine\src\scene\nodes\cscenesprite.h
 	"ISceneManager.h"
 	"ISceneSprite.h"
 
-1426193045 d:\programming\git\novaengine\src\scene\nodes\cscenestaticmesh.h
+1429667050 d:\programming\git\novaengine\src\scene\nodes\cscenestaticmesh.h
 	"ISceneStaticMesh.h"
-	"log/NLog.h"
+	"log/NLogger.h"
 
 1427941675 source:d:\programming\git\novaengine\src\window\candroidwindow.cpp
 	"CAndroidWindow.h"
 	<map>
 
-1427940995 source:d:\programming\git\novaengine\src\window\cwin32window.cpp
+1429667050 source:d:\programming\git\novaengine\src\window\cwin32window.cpp
 	"CWin32Window.h"
-	"log\NLog.h"
+	"log\NLogger.h"
 	<map>
 
-1429568865 source:d:\programming\git\novaengine\main.cpp
+1429666613 source:d:\programming\git\novaengine\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<cstdio>
@@ -4376,7 +4375,6 @@
 	"NTime.h"
 	"GL\glew.h"
 	<GL\gl.h>
-	"renderer\CMaterial.h"
 
 1420551956 d:\programming\git\novaengine\memorywatcher.h
 	<stdlib.h>
@@ -4389,4 +4387,20 @@
 	"IMaterial.h"
 	"ITexture.h"
 	<map>
+
+1429666613 d:\programming\git\novaengine\include\ilogger.h
+	"NTypes.h"
+
+1429667006 source:d:\programming\git\novaengine\src\log\nlogger.cpp
+	"NLogger.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<wchar.h>
+	<android/log.h>
+
+1429666943 d:\programming\git\novaengine\src\log\nlogger.h
+	"NTypes.h"
+	"ILogger.h"
+	<cstdarg>
 
