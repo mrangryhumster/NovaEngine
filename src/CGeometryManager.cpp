@@ -16,7 +16,7 @@ CGeometryManager::~CGeometryManager()
     //dtor
 }
 //--------------------------------------------------------------------------------------------------------
-renderer::IVertexBuffer* CGeometryManager::createCubeMesh()
+renderer::IStaticMesh* CGeometryManager::createCubeMesh()
 {
     core::vector3f Positions[24];
     core::vector2f TexCoords[24];
@@ -167,25 +167,33 @@ renderer::IVertexBuffer* CGeometryManager::createCubeMesh()
     indices[34]  = 23;
     indices[35]  = 20;
 
-    renderer::IVertexBuffer* buf = renderer::getRenderer()->GenVertexBuffer();
-    buf->addPositions(Positions,24);
-    buf->addUVs(TexCoords,24);
-    buf->addNormals(Normals,24);
-    buf->addIndices(indices,36);
-    buf->setBufferType(renderer::EVBT_RAWDATA);
-    buf->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
-    buf->setPrimitiveType(renderer::EPT_TRIANGLE);
-    return buf;
+    renderer::IVertexBuffer* VertexBuffer = renderer::getRenderer()->GenVertexBuffer();
+    VertexBuffer->addPositions(Positions,24);
+    VertexBuffer->addUVs(TexCoords,24);
+    VertexBuffer->addNormals(Normals,24);
+    VertexBuffer->addIndices(indices,36);
+    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
+    VertexBuffer->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
+    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+
+
+    //----------------
+    renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
+    Mesh->addMeshUnit(VertexBuffer,0);
+    VertexBuffer->release();
+    //----------------
+
+    return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
-renderer::IVertexBuffer* CGeometryManager::createGridMesh(core::dim2f CellSize,core::dim2u CellCount)
+renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,core::dim2u CellCount)
 {
     //----------------------------
-    renderer::IVertexBuffer* Mesh = renderer::getRenderer()->GenVertexBuffer();
-    if(Mesh == NULL)
+    renderer::IVertexBuffer* VertexBuffer = renderer::getRenderer()->GenVertexBuffer();
+    if(VertexBuffer == NULL)
         return NULL;
     //----------------------------
-    //Mesh->getVerticesArray()->reserve(CellCount.width * CellCount.height * 4);
+    //VertexBuffer->getVerticesArray()->reserve(CellCount.width * CellCount.height * 4);
 
 
     u16* indices = new u16[CellCount.width * CellCount.height * 6];
@@ -211,9 +219,6 @@ renderer::IVertexBuffer* CGeometryManager::createGridMesh(core::dim2f CellSize,c
 
             Quad[0].Normal = Quad[1].Normal = Quad[2].Normal = Quad[3].Normal = core::vector3f(0,0,1);
 
-
-            //Mesh->addVertices(Quad,4);
-
             indices[ip + 0] = vp + 0;
             indices[ip + 1] = vp + 1;
             indices[ip + 2] = vp + 2;
@@ -226,20 +231,26 @@ renderer::IVertexBuffer* CGeometryManager::createGridMesh(core::dim2f CellSize,c
         }
     }
 
-    Mesh->setIndices(indices,ip);
-    Mesh->setPrimitiveType(renderer::EPT_TRIANGLE);
-    Mesh->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
+    VertexBuffer->setIndices(indices,ip);
+    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+    VertexBuffer->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
 
     //Mesh->moveVertices(core::vector3<f32>(-(CellSize.width*CellCount.width)/2,-(CellSize.height*CellCount.height)/2,0));
 
-    Mesh->setBufferType(renderer::EVBT_RAWDATA);
+    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
 
     delete[] indices;
+
+    //----------------
+    renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
+    Mesh->addMeshUnit(VertexBuffer,0);
+    VertexBuffer->release();
+    //----------------
 
     return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
-renderer::IVertexBuffer* CGeometryManager::createSphereMesh(float Radius,unsigned int Resolution)
+renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned int Resolution)
 {
     if(Resolution < 4)
         Resolution = 4;
@@ -308,7 +319,13 @@ renderer::IVertexBuffer* CGeometryManager::createSphereMesh(float Radius,unsigne
 
     delete[] Indices;
 
-    return va;
+    //----------------
+    renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
+    Mesh->addMeshUnit(va,0);
+    va->release();
+    //----------------
+
+    return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
 }

@@ -17,9 +17,9 @@ class CGeometryManager : public IGeometryManager
         CGeometryManager(IResourceManager* ResourceManager_param);
         virtual ~CGeometryManager();
 
-        renderer::IVertexBuffer* createCubeMesh();
-        renderer::IVertexBuffer* createSphereMesh(float Radius,unsigned int Resolution);
-        renderer::IVertexBuffer* createGridMesh(core::dim2f,core::dim2u);
+        renderer::IStaticMesh* createCubeMesh();
+        renderer::IStaticMesh* createSphereMesh(float Radius,unsigned int Resolution);
+        renderer::IStaticMesh* createGridMesh(core::dim2f,core::dim2u);
 
     protected:
     private:
