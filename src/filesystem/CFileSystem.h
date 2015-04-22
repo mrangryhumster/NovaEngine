@@ -27,11 +27,8 @@ class CFileSystem : public IFileSystem
         IFile* create(const char* filename,bool NativeFile);
         void   save  (const char* filename,IFile* File);
 
-        void useNativeFileLoadMethod(bool mode);
-
     protected:
     private:
-        bool UseNativeFiles;
 };
 
 }

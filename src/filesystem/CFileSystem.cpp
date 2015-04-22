@@ -4,8 +4,7 @@ namespace novaengine
 {
 namespace io
 {
-CFileSystem::CFileSystem():
-    UseNativeFiles(false)
+CFileSystem::CFileSystem()
 {
 }
 //--------------------------------------------------------------------------------------------------------
@@ -35,7 +34,7 @@ IFile* CFileSystem::open_file(const char* filename,bool NativeFile)
     fseek (stream, 0, SEEK_SET);
 
     //Load file in ram and use(Virtual) or use directly from hdd(Native)
-    if(NativeFile || UseNativeFiles)
+    if(NativeFile)
     {
         return new CNativeFile(stream,FileLenght,FilePosition,filename);
     }
@@ -69,7 +68,7 @@ IFile* CFileSystem::create(const char* filename,bool NativeFile)
     }
 
     //Load file in ram and use(Virtual) or use directly from hdd(Native)
-    if(NativeFile || UseNativeFiles)
+    if(NativeFile)
     {
         return new CNativeFile(stream,0,0,filename);
     }
@@ -97,11 +96,6 @@ void   CFileSystem::save(const char* filename,IFile* File)
     {
        return;
     }
-}
-//--------------------------------------------------------------------------------------------------------
-void CFileSystem::useNativeFileLoadMethod(bool mode)
-{
-    UseNativeFiles = mode;
 }
 //--------------------------------------------------------------------------------------------------------
 }
