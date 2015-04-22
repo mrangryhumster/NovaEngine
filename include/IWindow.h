@@ -53,7 +53,7 @@ public:
     virtual bool isOk()   = 0;
 
 
-    //! This function the one way to get platform-specific varibles
+    //! This function the only one way to get platform-specific varibles
     //! HWND - win; XDisplay - X11; android_app - android
     virtual void* getWindowInternalVariable(const char* name) = 0;
 
