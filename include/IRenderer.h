@@ -62,7 +62,6 @@ public:
     virtual void              setRenderState(u32 flag,URenderStateValue value) = 0;
     virtual URenderStateValue getRenderState(u32 flag)                         = 0;
     //--------------------------------------------------------------------------
-    virtual bool isSupported(E_RENDERER_FEATURE ext) = 0;
     virtual s32  QueryRendererFeature(E_RENDERER_FEATURE feature) = 0;
     //--------------------------------------------------------------------------
     virtual void setViewport(core::rectu) = 0;

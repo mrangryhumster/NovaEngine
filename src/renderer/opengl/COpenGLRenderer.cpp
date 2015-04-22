@@ -364,26 +364,6 @@ URenderStateValue COpenGLRenderer::getRenderState(u32 flag)
     return CBaseRenderer::getRenderState(flag);
 }
 //--------------------------------------------------------------------------------------------------------
-bool COpenGLRenderer::isSupported(E_RENDERER_FEATURE ext)
-{
-    switch(ext)
-    {
-    case ERF_RENDER_GRAPHICS:
-        return true;
-    case ERF_VBO:
-        return (GLEW_ARB_vertex_buffer_object);
-    case ERF_RENDER_TO_TEXTURE:
-        return (GLEW_ARB_framebuffer_object);
-    case ERF_SHADERS_1_0:
-        return (GL_VERSION_2_0);
-    case ERF_SHADERS_2_0:
-        return (GL_VERSION_3_0);
-    case ERF_SHADERS_3_0:
-        return (GL_VERSION_4_0);
-    }
-    return false;
-}
-//--------------------------------------------------------------------------------------------------------
 s32  COpenGLRenderer::QueryRendererFeature(E_RENDERER_FEATURE feature)
 {
     switch(feature)

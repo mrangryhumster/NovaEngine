@@ -52,7 +52,6 @@ public:
     void setRenderState(u32 flag,URenderStateValue value);
     URenderStateValue getRenderState(u32 flag);
     //--------------------------------------------------------------------------
-    bool isSupported(E_RENDERER_FEATURE ext);
     s32  QueryRendererFeature(E_RENDERER_FEATURE feature);
     //--------------------------------------------------------------------------
     void setViewport(core::rectu);
