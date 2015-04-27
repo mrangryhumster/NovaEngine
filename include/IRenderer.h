@@ -85,7 +85,7 @@ public:
     //--------------------------------------------------------------------------
     virtual void bindMaterial(IMaterial* material) = 0;
     //--------------------------------------------------------------------------
-    virtual void setRenderTarget(ITexture* target,E_RENDER_TARGET_TYPE target_type) = 0;
+    virtual void setRenderTarget(ITexture* target,u32 target_type) = 0;
     //--------------------------------------------------------------------------
     virtual void begin_frame(bool clear_color_buffer = true,bool clear_zbuffer = true,core::color4f clear_color = core::color4f(0,0,0,1)) = 0;
     virtual void end_frame()   = 0;

@@ -23,25 +23,6 @@ public:
 
     bool compile();
 
-    void setUniform_Texture         (const char* UniformName,u32 TextureNumber);
-    void setUniform_Texture_Array   (const char* UniformName,u32 count,u32* TextureNumbers);
-
-    void setUniform_Matrix          (const char* UniformName,core::matrixf matrix);
-    void setUniform_Matrix_Array    (const char* UniformName,u32 count,core::matrixf* matrices);
-
-    void setUniform_f(const char* UniformName,f32,f32,f32,f32);
-    void setUniform_f(const char* UniformName,f32,f32,f32);
-    void setUniform_f(const char* UniformName,f32,f32);
-    void setUniform_f(const char* UniformName,f32);
-    void setUniformArray_f(const char* UniformName,u32 count,u32 format,f32* array);
-
-    void setUniform_s(const char* UniformName,s32,s32,s32,s32);
-    void setUniform_s(const char* UniformName,s32,s32,s32);
-    void setUniform_s(const char* UniformName,s32,s32);
-    void setUniform_s(const char* UniformName,s32);
-    void setUniformArray_s(const char* UniformName,u32 count,u32 format,s32* array);
-
-    //New api
     virtual s32  getUniformLocation(const char* UniformName);
 
     virtual void bindUniform_TextureUnit(s32 uniform_location,u32 TextureUnit);
@@ -50,6 +31,7 @@ public:
     virtual void bindUniform_f32(s32 uniform_location,u32 data_count,u32 uniform_format,f32* data);
 
     void bind();
+    u32 getLastError();
 
     u32 getProgramID();
 
@@ -60,6 +42,8 @@ private:
     GLuint VertexShader;
     GLuint FragmentShader;
     GLuint Program;
+
+    u32 LastError;
 
 };
 

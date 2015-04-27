@@ -37,7 +37,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 {
 
     LOG_INFO("NovaEngine %s \"%s\" %s.%s.%s \n",NOVAENGINE_FULLVERSION_STRING,NOVAENGINE_STATUS,NOVAENGINE_YEAR,NOVAENGINE_MONTH,NOVAENGINE_DATE);
-#define NE_DEBUG
+
 #ifdef NE_DEBUG
     log::CLogger::get()->set_log_level(log::ELL_ENGINE_DEBUG);
 #else

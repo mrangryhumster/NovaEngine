@@ -18,7 +18,8 @@ const char* Default_FragmentShader_Source =
     "  gl_FragColor = texture2D( texture  , Texcoord);\n"
     "}\n";
 
-COpenGLShaderProgram::COpenGLShaderProgram()
+COpenGLShaderProgram::COpenGLShaderProgram():
+    LastError(0)
 {
     VertexShader     = glCreateShader(GL_VERTEX_SHADER);
     FragmentShader   = glCreateShader(GL_FRAGMENT_SHADER);
@@ -47,6 +48,8 @@ void COpenGLShaderProgram::setFragmentShaderSource(const char* source)
 
 bool COpenGLShaderProgram::compile()
 {
+    LastError = 0;
+    //----------------------------------------------------------
     glCompileShaderARB(VertexShader);
     glCompileShaderARB(FragmentShader);
     //----------------------------------------------------------
@@ -57,6 +60,7 @@ bool COpenGLShaderProgram::compile()
     else
     {
         shader_log(VertexShader);
+        LastError = 1;
         return 0;
     }
     //----------------------------------------------------------
@@ -66,6 +70,7 @@ bool COpenGLShaderProgram::compile()
     else
     {
         shader_log(FragmentShader);
+        LastError = 2;
         return 0;
     }
     //----------------------------------------------------------
@@ -80,6 +85,7 @@ bool COpenGLShaderProgram::compile()
     else
     {
         shader_log(Program);
+        LastError = 3;
         return 0;
     }
     //----------------------------------------------------------
@@ -163,7 +169,10 @@ void COpenGLShaderProgram::bind()
 {
     getRenderer()->bindShaderProgram(this);
 }
-
+u32 COpenGLShaderProgram::getLastError()
+{
+    return LastError;
+}
 void COpenGLShaderProgram::shader_log(GLuint source)
 {
     int   LogLen   = 0;

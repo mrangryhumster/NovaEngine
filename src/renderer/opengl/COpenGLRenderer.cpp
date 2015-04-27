@@ -560,7 +560,9 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
     if(ShaderProgram != NULL)
     {
         COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(ShaderProgram);
-        glUseProgram(Program->getProgramID());
+
+        if(Program->getLastError() == 0)
+                glUseProgram(Program->getProgramID());
     }
     else
     {
@@ -588,13 +590,12 @@ void COpenGLRenderer::bindMaterial(IMaterial* Material)
     }
     }
 
-    //glColor4f(Material->getColor().Red,Material->getColor().Green,Material->getColor().Blue,Material->getColor().Alpha);
     core::color4f DiffuseColor = Material->getDiffuseColor();
     glColor4fv((float*)&DiffuseColor);
     ActiveMaterial = Material;
 }
 //--------------------------------------------------------------------------------------------------------
-void COpenGLRenderer::setRenderTarget(ITexture* target,E_RENDER_TARGET_TYPE target_type)
+void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
 {
     if(GLEW_ARB_framebuffer_object)
     {
@@ -791,7 +792,7 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     if(have_normals)
         glNormalPointer(        GL_FLOAT,           sizeof(SVertex),    &verticles[0].Normal    );
     if(have_colors)
-        glColorPointer(     4,  GL_UNSIGNED_BYTE,   sizeof(SVertex),    &verticles[0].Color);
+        glColorPointer(     4,  GL_UNSIGNED_BYTE,   sizeof(SVertex),    &verticles[0].Color     );
     //------------------------------------------------------------
     GLenum GLPrimitiveType   = 0;
     u32    VertexInPrimitive = 0;

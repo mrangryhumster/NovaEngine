@@ -27,6 +27,7 @@ public:
 
     virtual bool compile() = 0;
 
+
     virtual s32  getUniformLocation(const char* UniformName) = 0;
 
     virtual void bindUniform_TextureUnit(s32 uniform_location,u32 TextureUnit) = 0;
@@ -37,6 +38,8 @@ public:
 
 
     virtual void bind() = 0;
+
+    virtual u32 getLastError() = 0;
 
 protected:
 private:

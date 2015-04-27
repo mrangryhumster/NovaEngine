@@ -35,11 +35,9 @@ INovaEngine* createEngineEx(SEngineConf engine_conf)
         NovaEngineRenderer = NovaEngine->getRenderer();
         return NovaEngine;
     }
-    else
-    {
-        LOG_FATAL_ERROR("Error while loading NovaEngine occurred ...\n");
-    }
 
+
+    LOG_FATAL_ERROR("Error while loading NovaEngine occurred ...\n");
     delete NovaEngine;
     NovaEngine = NULL;
     return NULL;
@@ -47,7 +45,7 @@ INovaEngine* createEngineEx(SEngineConf engine_conf)
 
 void closeEngine()
 {
-    if(not NovaEngine->is_null())
+    if(NovaEngine)
     {
         NovaEngine->release();
         NovaEngine = NULL;

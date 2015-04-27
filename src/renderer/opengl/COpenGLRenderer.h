@@ -73,7 +73,7 @@ public:
     //--------------------------------------------------------------------------
     void bindMaterial(IMaterial*);
     //--------------------------------------------------------------------------
-    void setRenderTarget(ITexture* target,E_RENDER_TARGET_TYPE target_type);
+    void setRenderTarget(ITexture* target,u32 target_type);
     //--------------------------------------------------------------------------
     void clear(u32 flag,core::color4f clear_color = core::color4f(0,0,0,1));
     void flush();
