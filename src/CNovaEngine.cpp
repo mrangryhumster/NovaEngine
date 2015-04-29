@@ -20,8 +20,6 @@
 #include "CGeometryManager.h"
 #include "CSceneManager.h"
 
-
-
 namespace novaengine
 {
 
@@ -32,6 +30,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     FileSystem(nullptr),
     ResourceManager(nullptr),
     SceneManager(nullptr),
+    PerformanceCounter(nullptr),
     noerror(true),
     exit(false)
 {
@@ -43,8 +42,10 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 #else
     log::CLog::get()->set_log_level(engine_conf.LogLevel);
 #endif // NE_DEBUG
-    EventManager = new CEventManager();
-
+//------------------------------------------
+    EventManager       = new CEventManager();
+    PerformanceCounter = new CPerformanceCounter();
+//------------------------------------------
 #if defined(NE_WINDOW_WIN32)
     Window = new window::CWin32Window(engine_conf,EventManager);
 #elif defined(NE_WINDOW_ANDROID)
@@ -90,7 +91,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 
     case renderer::ERT_OPENGL:
 #if   defined(NE_OPENGL_RENDERER)
-        Renderer = new renderer::COpenGLRenderer(Window,engine_conf);
+        Renderer = new renderer::COpenGLRenderer(PerformanceCounter,Window,engine_conf);
 #elif defined(NE_OPENGLES1_RENDERER)
         Renderer = new renderer::COpenGLES1Renderer(Window,engine_conf);
 #else
@@ -106,15 +107,17 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
         noerror = false;
     }
 
-    FileSystem      = new io::CFileSystem();
-    ResourceManager = new CResourceManager(FileSystem);
-    GeometryManager = new CGeometryManager(ResourceManager);
-    SceneManager    = new scene::CSceneManager(Renderer,EventManager);
+    if(noerror)
+    {
+        FileSystem      = new io::CFileSystem();
+        ResourceManager = new CResourceManager(FileSystem);
+        GeometryManager = new CGeometryManager(ResourceManager);
+        SceneManager    = new scene::CSceneManager(Renderer,EventManager);
+    }
 }
 //-------------------------------------------------------------------------------------------
 CNovaEngine::~CNovaEngine()
 {
-
     LOG_ENGINE_DEBUG("Release SceneManager...\n");
     if(SceneManager)
         SceneManager->release();
@@ -134,9 +137,15 @@ CNovaEngine::~CNovaEngine()
     LOG_ENGINE_DEBUG("Release Window...\n");
     if(Window)
         Window->release();
+
+    LOG_ENGINE_DEBUG("Release EnginePerformanceCounter...\n");
+    if(PerformanceCounter)
+        PerformanceCounter->release();
+
     LOG_ENGINE_DEBUG("Release EventManager...\n");
     if(EventManager)
         EventManager->release();
+
 
     LOG_INFO("Engine closed\n");
 }
@@ -181,6 +190,11 @@ log::ILogger* CNovaEngine::getLogger()
     return log::CLogger::get();
 }
 //-------------------------------------------------------------------------------------------
+IPerformanceCounter* CNovaEngine::getPerformanceCounter()
+{
+    return PerformanceCounter;
+}
+//-------------------------------------------------------------------------------------------
 bool CNovaEngine::isOk()
 {
     if(noerror == false)
@@ -201,12 +215,20 @@ bool CNovaEngine::isOk()
 //-------------------------------------------------------------------------------------------
 bool CNovaEngine::update()
 {
-    if(!Window->update())
-        noerror = false;
-    if(!Renderer->update())
-        noerror = false;
+    PerformanceCounter->register_frame();
+    if(!isOk())
+    {
+        return false;
+    }
+    else
+    {
+        if(!Window->update())
+            noerror = false;
+        if(!Renderer->update())
+            noerror = false;
 
-    return isOk();
+        return (noerror);
+    }
 }
 //-------------------------------------------------------------------------------------------
 }

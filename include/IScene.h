@@ -18,8 +18,8 @@ class IScene : public Object
 public:
 
     //NodeList
-    virtual void RegisterNode(ISceneNode*  ,bool recall_node_register_function   = true) = 0;
-    virtual void UnRegisterNode(ISceneNode*,bool recall_node_unregister_function = true) = 0;
+    virtual void RegisterNode(ISceneNode*  ,bool allow_callback = true) = 0;
+    virtual void UnRegisterNode(ISceneNode*,bool allow_callback = true) = 0;
 
     virtual ISceneNode** getNodeList()       = 0;
     virtual u32  getNodeCount()              = 0;

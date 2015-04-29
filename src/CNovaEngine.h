@@ -10,6 +10,8 @@
 #include "IFileSystem.h"
 #include "IResourceManager.h"
 
+#include "CPerformanceCounter.h"
+
 namespace novaengine
 {
 
@@ -28,6 +30,8 @@ public:
     scene::ISceneManager*   getSceneManager();
     log::ILogger*           getLogger();
 
+    IPerformanceCounter*    getPerformanceCounter();
+
     bool isOk();
     bool update();
 
@@ -41,6 +45,8 @@ private:
     IResourceManager*       ResourceManager;
     IGeometryManager*       GeometryManager;
     scene::ISceneManager*   SceneManager;
+    //--------------------------
+    CPerformanceCounter*    PerformanceCounter;
     //--------------------------
     bool noerror;
     bool exit;

@@ -65,7 +65,7 @@ COpenGLTexture::COpenGLTexture(IRenderer* OGLRenderer_,IImage* Image,STexturePar
 
     TextureDimension = Image->getImageDimension();
 }
-
+//-------------------------------------------------------------------------------------------
 COpenGLTexture::~COpenGLTexture()
 {
     glDeleteTextures(1,&GLTexture);
@@ -73,13 +73,12 @@ COpenGLTexture::~COpenGLTexture()
     if(TextureImg)
         TextureImg->destroy();
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLTexture::setTextureParameter(u32 Parameter,u32 value)
 {
     OpenGLRenderer->bindTexture(this,0);
     switch(Parameter)
     {
-    //---------------------------------------------------------------------------------------------------------------
     case ETP_MAG_FILTER:
     case ETP_MIN_FILTER:
     {
@@ -118,7 +117,6 @@ void COpenGLTexture::setTextureParameter(u32 Parameter,u32 value)
                                                TextureParameters.Texture_min_filter = value;
     }
     break;
-    //---------------------------------------------------------------------------------------------------------------
     case ETP_WRAP_X:
     case ETP_WRAP_Y:
     {
@@ -134,15 +132,13 @@ void COpenGLTexture::setTextureParameter(u32 Parameter,u32 value)
                                            TextureParameters.Texture_wrap_y = value;
     }
     break;
-        //---------------------------------------------------------------------------------------------------------------
     }
 }
-
+//-------------------------------------------------------------------------------------------
 u32  COpenGLTexture::getTextureParameter(u32 Parameter)
 {
     switch(Parameter)
     {
-    //---------------------------------------------------------------------------------------------------------------
     case ETP_MAG_FILTER:
         return TextureParameters.Texture_mag_filter;
     case ETP_MIN_FILTER:
@@ -153,12 +149,11 @@ u32  COpenGLTexture::getTextureParameter(u32 Parameter)
         return TextureParameters.Texture_wrap_y;
     case ETP_GENERATE_MIPMAPS:
         return TextureParameters.Generate_mipmaps;
-    //---------------------------------------------------------------------------------------------------------------
     default:
         return 0;
     }
 }
-
+//-------------------------------------------------------------------------------------------
 core::dim2u COpenGLTexture::getTextureDimension()
 {
     return TextureDimension;
@@ -181,7 +176,7 @@ IImage* COpenGLTexture::lock()
     delete[] pixels;
     return TextureImg;
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLTexture::unlock()
 {
     if(TextureImg == NULL)
@@ -192,10 +187,11 @@ void COpenGLTexture::unlock()
     TextureImg->destroy();
     TextureImg = NULL;
 }
-
+//-------------------------------------------------------------------------------------------
 GLuint COpenGLTexture::getTexture()
 {
     return GLTexture;
 }
+//-------------------------------------------------------------------------------------------
 }
 }

@@ -54,6 +54,7 @@ class ISceneStaticMesh;
 class ISceneManager : public Object
 {
 public:
+
     virtual ISceneNode*         createEmptyNode(ISceneNode* parent = 0, s32 ID = -1, core::vector3f pos = core::vector3f(0,0,0)) = 0;
     virtual ISceneCamera*       createSceneCamera(ISceneNode* parent = 0,s32 ID = -1,core::vector3f pos = core::vector3f(0,0,0)) = 0;
     virtual ISceneSprite*       createSceneSprite(renderer::ITexture* SpriteTexture,core::rectf Sourse = core::rectf(0,0,1,1),ISceneNode* parent = 0,s32 ID = -1,core::vector3f position = core::vector3f(0,0,0),core::vector3f rotation = core::vector3f(0,0,0),core::vector3f scale = core::vector3f(1,1,1)) = 0;

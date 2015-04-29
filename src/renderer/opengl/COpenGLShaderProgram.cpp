@@ -29,23 +29,24 @@ COpenGLShaderProgram::COpenGLShaderProgram():
     setFragmentShaderSource(Default_FragmentShader_Source);
 
 }
-
+//-------------------------------------------------------------------------------------------
 COpenGLShaderProgram::~COpenGLShaderProgram()
 {
     glDeleteShader(VertexShader);
     glDeleteShader(FragmentShader);
     glDeleteProgram(Program);
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::setVertexShaderSource(const char* source)
 {
     glShaderSource(VertexShader     ,1,&source,NULL);
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::setFragmentShaderSource(const char* source)
 {
     glShaderSource(FragmentShader   ,1,&source,NULL);
 }
-
+//-------------------------------------------------------------------------------------------
 bool COpenGLShaderProgram::compile()
 {
     LastError = 0;
@@ -91,14 +92,17 @@ bool COpenGLShaderProgram::compile()
     //----------------------------------------------------------
     return 1;
 }
+//-------------------------------------------------------------------------------------------
 s32  COpenGLShaderProgram::getUniformLocation(const char* UniformName)
 {
     return glGetUniformLocation(Program,UniformName);
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::bindUniform_TextureUnit(s32 uniform_location,u32 TextureUnit)
 {
     glUniform1i(uniform_location,TextureUnit);
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::bindUniform_s32(s32 uniform_location,u32 data_count,u32 uniform_format,s32* data)
 {
     switch(uniform_format)
@@ -119,6 +123,7 @@ void COpenGLShaderProgram::bindUniform_s32(s32 uniform_location,u32 data_count,u
         LOG_ENGINE_DEBUG("unsupported uniform_format\n");
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::bindUniform_u32(s32 uniform_location,u32 data_count,u32 uniform_format,u32* data)
 {
     switch(uniform_format)
@@ -139,6 +144,7 @@ void COpenGLShaderProgram::bindUniform_u32(s32 uniform_location,u32 data_count,u
         LOG_ENGINE_DEBUG("unsupported uniform_format\n");
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::bindUniform_f32(s32 uniform_location,u32 data_count,u32 uniform_format,f32* data)
 {
    switch(uniform_format)
@@ -165,14 +171,17 @@ void COpenGLShaderProgram::bindUniform_f32(s32 uniform_location,u32 data_count,u
         LOG_ENGINE_DEBUG("unsupported uniform_format\n");
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::bind()
 {
     getRenderer()->bindShaderProgram(this);
 }
+//-------------------------------------------------------------------------------------------
 u32 COpenGLShaderProgram::getLastError()
 {
     return LastError;
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLShaderProgram::shader_log(GLuint source)
 {
     int   LogLen   = 0;
@@ -189,11 +198,11 @@ void COpenGLShaderProgram::shader_log(GLuint source)
         delete[] Log;
     }
 }
-
+//-------------------------------------------------------------------------------------------
 u32 COpenGLShaderProgram::getProgramID()
 {
     return Program;
 }
-
+//-------------------------------------------------------------------------------------------
 }
 }

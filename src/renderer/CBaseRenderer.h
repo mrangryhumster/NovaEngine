@@ -7,11 +7,10 @@
 #include "ERendererEnums.h"
 
 #include "NLogger.h"
-
-#include "renderer\CRendererPerformanceCounter.h"
-#include "renderer\CVertexBuffer.h"
+#include "CPerformanceCounter.h"
 
 #include <map>
+
 namespace novaengine
 {
 namespace renderer
@@ -20,7 +19,7 @@ namespace renderer
 class CBaseRenderer : public IRenderer
 {
 public:
-    CBaseRenderer(window::IWindow* wnd,SEngineConf conf);
+    CBaseRenderer(CPerformanceCounter* PerformanceCounter,window::IWindow* wnd,SEngineConf conf);
     virtual ~CBaseRenderer();
 
     u32 getType();
@@ -36,8 +35,6 @@ public:
     //--------------------------------------------------------------------------
     void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype);
     const core::matrixf getTransform(E_MATRIX_TYPE mtype);
-    //--------------------------------------------------------------------------
-    IRendererPerformanceCounter* getRendererPerformanceCounter();
     //--------------------------------------------------------------------------
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);
@@ -63,13 +60,13 @@ public:
 
 
 protected:
+
     bool ready;
     bool noerror;
     bool exit;
 
-    SEngineConf                 EngConf;
-    window::IWindow*            Window;
-
+    SEngineConf       EngConf;
+    window::IWindow*  Window;
     //------------------------
     const char* versionname;
     const char* vendorname;
@@ -85,8 +82,7 @@ protected:
     core::matrixf ModelMatrix;
     core::matrixf TextureMatrix;
     //------------------------
-    CRendererPerformanceCounter* RendererPerformanceCounter;
-
+    CPerformanceCounter* PerformanceCounter;
     //cache
     ITexture*       ActiveTexture[EMTN_TEXTURE_COUNT];
     IShaderProgram* ActiveProgram;

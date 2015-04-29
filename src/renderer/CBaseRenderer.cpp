@@ -1,11 +1,13 @@
 #include "CBaseRenderer.h"
 
+#include "renderer\CVertexBuffer.h"
+
 namespace novaengine
 {
 namespace renderer
 {
 
-CBaseRenderer::CBaseRenderer(window::IWindow* wnd,SEngineConf conf):
+CBaseRenderer::CBaseRenderer(CPerformanceCounter* pc,window::IWindow* wnd,SEngineConf conf):
     ready(false),
     noerror(true),
     exit(false),
@@ -15,14 +17,13 @@ CBaseRenderer::CBaseRenderer(window::IWindow* wnd,SEngineConf conf):
     vendorname(nullptr),
     renderername(nullptr),
     extensionlist(nullptr),
+    PerformanceCounter(pc),
     ActiveProgram(nullptr),
     ActiveMaterial(nullptr)
 {
 
     for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
         ActiveTexture[i] = nullptr;
-
-    RendererPerformanceCounter = new CRendererPerformanceCounter();
 }
 
 CBaseRenderer::~CBaseRenderer()
@@ -34,7 +35,6 @@ CBaseRenderer::~CBaseRenderer()
     if(ActiveMaterial)
         ActiveMaterial->release();
 
-    delete RendererPerformanceCounter;
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -135,11 +135,6 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
     }
 }
 //--------------------------------------------------------------------------------------------------------
-IRendererPerformanceCounter* CBaseRenderer::getRendererPerformanceCounter()
-{
-    return RendererPerformanceCounter;
-}
-//--------------------------------------------------------------------------------------------------------
 void CBaseRenderer::bindTexture(ITexture* Texture,u32 id)
 {
     if(ActiveTexture[id] != Texture && id < EMTN_TEXTURE_COUNT)
@@ -196,13 +191,11 @@ void CBaseRenderer::begin_frame(bool clear_color_buffer,bool clear_zbuffer,core:
 
     clear(flags,clear_color);
 
-    RendererPerformanceCounter->register_frame_begin();
 }
 //--------------------------------------------------------------------------------------------------------
 void CBaseRenderer::end_frame()
 {
     flush();
-    RendererPerformanceCounter->register_frame_end();
 }
 //-------------------------------a-------------------------------------------------------------------------
 void CBaseRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)

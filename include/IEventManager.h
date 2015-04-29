@@ -14,8 +14,8 @@ class IEventManager : public IEventListener
 {
     public:
 
-        virtual void registerEventHandler(IEventListener* proc)   = 0;
-        virtual void unregisterEventHandler(IEventListener* proc) = 0;
+        virtual void registerEventListener(IEventListener* proc)   = 0;
+        virtual void unregisterEventListener(IEventListener* proc) = 0;
 
         virtual bool               getKeyState(u32 Keycode)          = 0;
         virtual bool               getPointerKeyState(u32 Keycode)   = 0;

@@ -18,7 +18,7 @@ CScene::~CScene()
 }
 
 //NodeList
-void CScene::RegisterNode(ISceneNode* SceneNode,bool recall_node_register_function)
+void CScene::RegisterNode(ISceneNode* SceneNode,bool allow_callback)
 {
     if(!SceneNode)
         return;
@@ -30,12 +30,12 @@ void CScene::RegisterNode(ISceneNode* SceneNode,bool recall_node_register_functi
     //---------------------------------
     getNodeListByType(SceneNode->getNodeType())->push_back(SceneNode);
     //--------------------------------
-    if(recall_node_register_function)
+    if(allow_callback)
         SceneNode->RegisterNode(this,false);
 
     rebuild_SceneNode_List();
 }
-void CScene::UnRegisterNode(ISceneNode* SceneNode,bool recall_node_unregister_function)
+void CScene::UnRegisterNode(ISceneNode* SceneNode,bool allow_callback)
 {
     if(SceneNode == NULL || SceneNode->getScene() != this)
         return;
@@ -49,7 +49,7 @@ void CScene::UnRegisterNode(ISceneNode* SceneNode,bool recall_node_unregister_fu
     {
         if(SceneNode == NodeList->at(i))
         {
-            if(recall_node_unregister_function)
+            if(allow_callback)
                 NodeList->at(i)->UnRegisterNode(false);
 
             NodeList->at(i)->release();

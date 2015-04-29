@@ -35,13 +35,13 @@ bool CEventManager::OnEvent(SEvent event)
 	return 0;
 }
 
-void CEventManager::registerEventHandler(IEventListener* proc)
+void CEventManager::registerEventListener(IEventListener* proc)
 {
     if(proc != NULL)
         EventHandlers.push_back(proc);
 }
 
-void CEventManager::unregisterEventHandler(IEventListener* proc)
+void CEventManager::unregisterEventListener(IEventListener* proc)
 {
     u32 list_size = EventHandlers.size();
     for(u32 i = 0; i < list_size; i++)

@@ -7,8 +7,8 @@ namespace renderer
 
 
 
-COpenGLRenderer::COpenGLRenderer(window::IWindow* Window,SEngineConf EngineConfiguration):
-    CBaseRenderer(Window,EngineConfiguration)
+COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window::IWindow* Window,SEngineConf EngineConfiguration):
+    CBaseRenderer(PerformanceCounter,Window,EngineConfiguration)
 {
     setObjectName("renderer");
     LOG_ENGINE_DEBUG("COpenGLRenderer() begin\n");
@@ -560,7 +560,6 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
     if(ShaderProgram != NULL)
     {
         COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(ShaderProgram);
-
         if(Program->getLastError() == 0)
                 glUseProgram(Program->getProgramID());
     }
@@ -733,7 +732,7 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
             VertexBuffer->bind_buffer();
             //------------------------------------------------------------
             if(IndexCount)
-                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_INT,0);
+                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_SHORT,0);
             else
                 glDrawArrays(GLPrimitiveType,0,VertexCount);
             //------------------------------------------------------------
@@ -752,14 +751,14 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
             glColorPointer      (4  ,   GL_UNSIGNED_BYTE,   sizeof(SVertex) ,   (void*) 32  );
             //------------------------------------------------------------
             if(IndexCount)
-                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_INT,0);
+                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_SHORT,0);
             else
                 glDrawArrays(GLPrimitiveType,0,VertexCount);
             //---------------------------------------------
             VertexBuffer->unbind_buffer();
 
         }
-        RendererPerformanceCounter->register_draw(VertexCount,VertexInPrimitive);
+        PerformanceCounter->register_draw(VertexCount);
     }
 }
 //-------------------------------a-------------------------------------------------------------------------
@@ -804,7 +803,7 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     else if(have_verticles)
         glDrawArrays(GLPrimitiveType,0,VertexCount);
     //----------------------------------------------
-    RendererPerformanceCounter->register_draw(VertexCount,VertexInPrimitive);
+    PerformanceCounter->register_draw(VertexCount);
     //----------------------------------------------
 
 }
@@ -840,7 +839,7 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     else
         glDrawArrays(GLPrimitiveType,0,vertex_count);
     //----------------------------------------------
-    RendererPerformanceCounter->register_draw(vertex_count,VertexInPrimitive);
+    PerformanceCounter->register_draw(vertex_count);
     //----------------------------------------------
 }
 //--------------------------------------------------------------------------------------------------------

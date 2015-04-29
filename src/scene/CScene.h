@@ -21,8 +21,8 @@ public:
     virtual ~CScene();
 
     //NodeList
-    void RegisterNode(ISceneNode*,bool recall_node_register_function = true);
-    void UnRegisterNode(ISceneNode*,bool recall_node_unregister_function = true);
+    void RegisterNode(ISceneNode*,bool allow_callback = true);
+    void UnRegisterNode(ISceneNode*,bool allow_callback = true);
 
     ISceneNode** getNodeList();
     u32  getNodeCount();

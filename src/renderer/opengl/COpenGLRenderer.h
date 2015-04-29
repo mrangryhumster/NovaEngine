@@ -5,9 +5,9 @@
 #include "IRenderer.h"
 #include "SEngineConf.h"
 #include "ERendererEnums.h"
-#include "renderer\CRendererPerformanceCounter.h"
-#include "log\NLogger.h"
 
+#include "NLogger.h"
+#include "NTime.h"
 
 #include "GL\glew.h"
 #include <GL\gl.h>
@@ -22,6 +22,7 @@
 #include <windows.h>
 #include "wglext.h"
 #endif // NE_WINDOW_WIN32
+
 
 namespace novaengine
 {
@@ -42,7 +43,7 @@ enum R_CLIENT_STATES_LIST
 class COpenGLRenderer : public CBaseRenderer
 {
 public:
-    COpenGLRenderer(window::IWindow* Window,SEngineConf conf);
+    COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window::IWindow* Window,SEngineConf conf);
     virtual ~COpenGLRenderer();
 
     u32 getType();
@@ -92,6 +93,8 @@ public:
 
 protected:
 private:
+
+
     inline void to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive);
     inline u32  to_opengl_blendmodes(E_BLENDING_MODE engine_mode);
     inline void enable_client_states(bool vert,bool tex,bool norm,bool color);

@@ -28,7 +28,6 @@ bool CStaticMeshLoader_OBJ::isSupported(io::IFile* file)
 {
     return false;//!< Too hard to detect file with this method
 }
-
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(const char* path)
 {
     io::IFile* mesh_file = FileSystem->open_file(path);
@@ -52,7 +51,6 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(io::IFile* file,con
     file->seek(FileStart);
     return mesh;
 }
-
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 {
     bool have_texcoords = false;
@@ -279,7 +277,6 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
     return Mesh;
 }
-
 void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,SObjMtl>& materials,const char* mtl_file)
 {
     io::IFile* mtl = FileSystem->open_file(mtl_file);

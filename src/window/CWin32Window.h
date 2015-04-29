@@ -58,6 +58,7 @@ public:
 protected:
 private:
 
+
     //------------------
     HDC   hDC;
     HWND  hWnd;

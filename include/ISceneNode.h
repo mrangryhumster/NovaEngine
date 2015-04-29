@@ -110,9 +110,7 @@ public:
             return getAbsoluteTransformation()*getRelativeTransformation();
         return getRelativeTransformation();
     }
-
     //----------------------------------Rel
-
     virtual void setParent(ISceneNode* newParent)
     {
         if(newParent == Parent)
@@ -234,7 +232,7 @@ public:
 
     }
 
-    virtual void RegisterNode(IScene* newScene = 0,bool recall_scene_register_function = true)
+    virtual void RegisterNode(IScene* newScene = 0,bool allow_callback = true)
     {
 
         if(newScene == NULL)
@@ -246,7 +244,7 @@ public:
 
         if(Scene)
             UnRegisterNode();
-        if(newScene && recall_scene_register_function)
+        if(newScene && allow_callback)
             newScene->RegisterNode(this,false);
 
         Scene = newScene;
@@ -256,14 +254,14 @@ public:
         OnRegisterNode();
     }
 
-    virtual void UnRegisterNode(bool recall_scene_unregister_function = true)
+    virtual void UnRegisterNode(bool allow_callback = true)
     {
         if(Scene)
         {
             if(Parent)
                 Parent->removeChild(this);
 
-            if(recall_scene_unregister_function)
+            if(allow_callback)
                 Scene->UnRegisterNode(this,false);
 
             UnRegisterChilds();
@@ -319,7 +317,6 @@ protected:
     bool update_transform;
 
 private:
-
 
     void RegisterChilds(IScene* newScene)
     {

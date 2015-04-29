@@ -2,7 +2,6 @@
 #define IRENDERER_H
 
 #include "Object.h"
-#include "IRendererPerformanceCounter.h"
 #include "NTypes.h"
 #include "ERendererEnums.h"
 #include "SVertex.h"
@@ -70,8 +69,6 @@ public:
     virtual void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype) = 0;
     virtual const core::matrixf getTransform(E_MATRIX_TYPE mtype) = 0;
     virtual void resetTransform(E_MATRIX_TYPE mtype) = 0;
-    //--------------------------------------------------------------------------
-    virtual IRendererPerformanceCounter* getRendererPerformanceCounter() = 0;
     //--------------------------------------------------------------------------
     virtual IShaderProgram* GenShaderProgram() = 0;
     //--------------------------------------------------------------------------

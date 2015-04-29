@@ -19,8 +19,8 @@ public:
 
     bool OnEvent(SEvent event);
 
-    void registerEventHandler(IEventListener* proc);
-    void unregisterEventHandler(IEventListener* proc);
+    void registerEventListener(IEventListener* proc);
+    void unregisterEventListener(IEventListener* proc);
 
     bool               getKeyState(u32 Keycode);
     bool               getPointerKeyState(u32 Keycode);

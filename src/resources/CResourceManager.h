@@ -1,8 +1,6 @@
 #ifndef CRESOURCEMANAGER_H
 #define CRESOURCEMANAGER_H
 
-#include <vector>
-
 #include "NTime.h"
 #include "Log/NLogger.h"
 

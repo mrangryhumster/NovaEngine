@@ -14,12 +14,12 @@ COpenGLVertexBuffer::COpenGLVertexBuffer():
 {
 
 }
-
+//-------------------------------------------------------------------------------------------
 COpenGLVertexBuffer::~COpenGLVertexBuffer()
 {
 
 }
-
+//-------------------------------------------------------------------------------------------
 u32 COpenGLVertexBuffer::getVertexCount()
 {
     if(OpenGL_VBO_Status == EVBT_VBO_STREAM or OpenGL_VBO_Status == EVBT_VBO_STATIC)
@@ -27,7 +27,7 @@ u32 COpenGLVertexBuffer::getVertexCount()
     else
         return CVertexBuffer::getVertexCount();
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::lock()
 {
 
@@ -98,12 +98,12 @@ void COpenGLVertexBuffer::lock()
     }
 
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::unlock()
 {
     Update();
 }
-
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::bind_buffer()
 {
     //!< bind VAO, if VAO not supported we bind VBO vertex and VBO indices
@@ -118,6 +118,7 @@ void COpenGLVertexBuffer::bind_buffer()
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,OpenGL_VBO_indices_ID);
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::unbind_buffer()
 {
     //!< unbind VAO(or VBO)
@@ -132,6 +133,7 @@ void COpenGLVertexBuffer::unbind_buffer()
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
     }
 }
+//-------------------------------------------------------------------------------------------
 bool COpenGLVertexBuffer::Update()
 {
     if(OpenGL_VBO_Status == BufferType || (OpenGL_VBO_Status == EVBT_UNDEFINDED && BufferType == EVBT_RAWDATA))
@@ -167,10 +169,12 @@ bool COpenGLVertexBuffer::Update()
     UpdateRequired = false;
     return true;
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::render()
 {
     getRenderer()->drawVertexBuffer(this);
 }
+//-------------------------------------------------------------------------------------------
 bool COpenGLVertexBuffer::is_vbo_suported()
 {
     if(GLEW_ARB_vertex_array_object or GLEW_ARB_vertex_buffer_object)
@@ -178,6 +182,7 @@ bool COpenGLVertexBuffer::is_vbo_suported()
     else
         return false;
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::init_vbo()
 {
     u32 IndexCount    = Indices.size();
@@ -212,11 +217,12 @@ void COpenGLVertexBuffer::init_vbo()
     if(BufferType == EVBT_VBO_STATIC)
     {
 //        Vertices.clear();
-        if(Indices.size())
-            Indices.clear();
+//        if(Indices.size())
+  //          Indices.clear();
         UpdateRequired = false;
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::deinit_vbo()
 {
     if(OpenGL_VAO_ID)
@@ -230,6 +236,7 @@ void COpenGLVertexBuffer::deinit_vbo()
             glDeleteBuffers(1,&OpenGL_VBO_indices_ID);
     }
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::build_vbo()
 {
     u32 IndexCount    = Indices.size();
@@ -285,6 +292,7 @@ void COpenGLVertexBuffer::build_vbo()
     }
 
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLVertexBuffer::update_vao()
 {
     u32 IndexCount    = Indices.size();
@@ -345,17 +353,21 @@ void COpenGLVertexBuffer::update_vao()
     //!< Unbind VAO
     glBindVertexArray(0);
 }
+//-------------------------------------------------------------------------------------------
 u32 COpenGLVertexBuffer::getVBO_VERTICLES_ID()
 {
     return OpenGL_VBO_verticles_ID;
 }
+//-------------------------------------------------------------------------------------------
 u32 COpenGLVertexBuffer::getVBO_INDICES_ID()
 {
     return OpenGL_VBO_indices_ID;
 }
+//-------------------------------------------------------------------------------------------
 u32 COpenGLVertexBuffer::getVAO_ID()
 {
     return OpenGL_VAO_ID;
 }
+//-------------------------------------------------------------------------------------------
 }
 }
