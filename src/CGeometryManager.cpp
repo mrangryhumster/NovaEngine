@@ -168,13 +168,14 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     indices[35]  = 20;
 
     renderer::IVertexBuffer* VertexBuffer = renderer::getRenderer()->GenVertexBuffer();
-    VertexBuffer->addPositions(Positions,24);
-    VertexBuffer->addUVs(TexCoords,24);
-    VertexBuffer->addNormals(Normals,24);
-    VertexBuffer->addIndices(indices,36);
-    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
-    VertexBuffer->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
-    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+//REPAIR
+//    VertexBuffer->addPositions(Positions,24);
+//    VertexBuffer->addUVs(TexCoords,24);
+//    VertexBuffer->addNormals(Normals,24);
+//    VertexBuffer->addIndices(indices,36);
+//    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
+//    VertexBuffer->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL);
+ //   VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
 
 
     //----------------
@@ -230,10 +231,10 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
             ip+=6;
         }
     }
-
-    VertexBuffer->setIndices(indices,ip);
-    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-    VertexBuffer->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD | renderer::EVF_NORMAL);
+//REPAIR
+//    VertexBuffer->setIndices(indices,ip);
+//    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+//    VertexBuffer->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL);
 
     //Mesh->moveVertices(core::vector3<f32>(-(CellSize.width*CellCount.width)/2,-(CellSize.height*CellCount.height)/2,0));
 
@@ -302,16 +303,17 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
 
     renderer::IVertexBuffer* va = renderer::getRenderer()->GenVertexBuffer();
 
+//REPAIR
     //va->addVertices(vertex,VCount);
-    va->setPositions(Positions  ,VCount);
-    va->setUVs      (UVs        ,VCount);
-    va->setNormals  (Normals    ,VCount);
+    //va->setPositions(Positions  ,VCount);
+    //va->setUVs      (UVs        ,VCount);
+    //va->setNormals  (Normals    ,VCount);
 
-    va->setIndices(Indices,ICount);
+    //va->setIndices(Indices,ICount);
 
-    va->setBufferType(renderer::EVBT_RAWDATA);
-    va->setVertexFormat(renderer::EVF_VERTEX | renderer::EVF_TEXCOORD  | renderer::EVF_NORMAL);
-    va->setPrimitiveType(renderer::EPT_TRIANGLE);
+    //va->setBufferType(renderer::EVBT_RAWDATA);
+    //va->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD  | renderer::EVA_NORMAL);
+    //va->setPrimitiveType(renderer::EPT_TRIANGLE);
 
     delete[] Positions;
     delete[] UVs;

@@ -2,17 +2,19 @@
 
 #include "CompileConfig.h"
 
-#include "loaders\\CImagePNGLoader.h"
+#include "loaders\\CImageLoader_PNG.h"
 
 #include "loaders\\CStaticMeshLoader_OBJ.h"
 
+#include "loaders\\CFontLoader_FNT.h"
+
+#include "CImage.h"
+#include "CStaticMesh.h"
+#include "CAnimatedMesh.h"
+#include "CMaterial.h"
+
 #include "NovaEngine.h"
 
-#include "renderer\\CImage.h"
-#include "renderer\\CStaticMesh.h"
-#include "renderer\\CAnimatedMesh.h"
-
-#include "renderer\\CMaterial.h"
 
 namespace novaengine
 {
@@ -22,12 +24,18 @@ CResourceManager::CResourceManager(io::IFileSystem* FileSys)
     FileSystem = FileSys;
 
 #ifdef NE_INCLUDE_LIBPNG
-    registerImageLoader(new CImagePNGLoader(FileSystem));
-
+    registerImageLoader(new CImageLoader_PNG(FileSystem));
 #endif // INCLUDE_LIBPNG
-    registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
-}
 
+#ifdef NE_INCLUDE_STATICMESH_LOADER_OBJ
+    registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
+#endif // NE_INCLUDE_STATICMESH_LOADER_OBJ
+
+#ifdef NE_INCLUDE_FONT_LOADER_FNT
+    registerFontLoader(new CFontLoader_FNT(FileSystem,this));
+#endif // NE_INCLUDE_FONT_LOADER_FNT
+}
+//-------------------------------------------------------------------------------------------
 CResourceManager::~CResourceManager()
 {
 
@@ -52,8 +60,14 @@ CResourceManager::~CResourceManager()
             AnimatedMeshLoaders[i]->release();
     }
 
+    ListSize = FontLoaders.size();
+    for(u32 i = 0; i < ListSize; i++)
+    {
+        if(FontLoaders[i])
+            FontLoaders[i]->release();
+    }
 }
-
+//-------------------------------------------------------------------------------------------
 renderer::IImage* CResourceManager::loadImage(const char* ImagePath)
 {
     const char* FileExtension = getFileExtension(ImagePath);
@@ -77,6 +91,7 @@ renderer::IImage* CResourceManager::loadImage(const char* ImagePath)
     LOG_ERROR("Unknow format of image \"%s\"[%s]\n",ImagePath,FileExtension);
     return NULL;
 }
+//-------------------------------------------------------------------------------------------
 renderer::ITexture* CResourceManager::loadTexture(const char* TexturePath)
 {
     renderer::IImage* Image = loadImage(TexturePath);
@@ -86,11 +101,13 @@ renderer::ITexture* CResourceManager::loadTexture(const char* TexturePath)
     Image->release();
     return Texture;
 }
+//-------------------------------------------------------------------------------------------
 void CResourceManager::registerImageLoader(IImageLoader* newLoader)
 {
     if(newLoader)
         ImageLoaders.push_back(newLoader);
 }
+//-------------------------------------------------------------------------------------------
 renderer::IStaticMesh*  CResourceManager::loadStaticMesh(const char* MeshPath)
 {
     const char* FileExtension = getFileExtension(MeshPath);
@@ -111,15 +128,16 @@ renderer::IStaticMesh*  CResourceManager::loadStaticMesh(const char* MeshPath)
             return NULL;
         }
     }
-    LOG_ERROR("Unknow format of static mesh \"%s\"[%s]\n",MeshPath,FileExtension);
+    LOG_ERROR("Unknow format of static mesh \"%s\" [%s]\n",MeshPath,FileExtension);
     return NULL;
 }
-
+//-------------------------------------------------------------------------------------------
 void CResourceManager::registerStaticMeshLoader(IStaticMeshLoader* newLoader)
 {
     if(newLoader)
         StaticMeshLoaders.push_back(newLoader);
 }
+//-------------------------------------------------------------------------------------------
 renderer::IAnimatedMesh* CResourceManager::loadAnimatedMesh(const char* MeshPath)
 {
     const char* FileExtension = getFileExtension(MeshPath);
@@ -140,13 +158,51 @@ renderer::IAnimatedMesh* CResourceManager::loadAnimatedMesh(const char* MeshPath
             return NULL;
         }
     }
-    LOG_ERROR("Unknow format of animated mesh \"%s\"[%s]\n",MeshPath,FileExtension);
+    LOG_ERROR("Unknow format of animated mesh \"%s\" [%s]\n",MeshPath,FileExtension);
     return NULL;
 }
+//-------------------------------------------------------------------------------------------
+void CResourceManager::registerAnimatedMeshLoader(IAnimatedMeshLoader* newLoader)
+{
+    if(newLoader)
+        AnimatedMeshLoaders.push_back(newLoader);
+}
+//-------------------------------------------------------------------------------------------
+gui::IFont* CResourceManager::loadFont(const char* FontPath)
+{
+    const char* FileExtension = getFileExtension(FontPath);
+
+    for(u32 irl = 0; irl < FontLoaders.size(); irl++)
+    {
+        if(FontLoaders[irl]->isSupported(FileExtension))
+        {
+            u32 time = time::getRealTime();
+            gui::IFont* font = FontLoaders[irl]->LoadFont(FontPath);
+            if(font)
+            {
+                LOG_INFO("Font loaded : \"%s\" [%d ms]\n",FontPath,time::getRealTime() - time);
+                font->setResourceName(FontPath);
+                return font;
+            }
+            LOG_ERROR("Font \"%s\" not loaded\n",FontPath);
+            return NULL;
+        }
+    }
+    LOG_ERROR("Unknow format of font \"%s\" [%s]\n",FontPath,FileExtension);
+    return NULL;
+}
+//-------------------------------------------------------------------------------------------
+void CResourceManager::registerFontLoader(IFontLoader* newLoader)
+{
+    if(newLoader)
+        FontLoaders.push_back(newLoader);
+}
+//-------------------------------------------------------------------------------------------
 renderer::IImage*        CResourceManager::createImage  (core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat,u8* pixels)
 {
     return new renderer::CImage(pixelformat,resolution,pixels);
 }
+//-------------------------------------------------------------------------------------------
 renderer::ITexture*      CResourceManager::createTexture(core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat,u8* pixels)
 {
     renderer::IImage* image = createImage(resolution,pixelformat,pixels);
@@ -154,27 +210,27 @@ renderer::ITexture*      CResourceManager::createTexture(core::dim2u resolution,
     image->release();
     return texture;
 }
+//-------------------------------------------------------------------------------------------
 renderer::IVertexBuffer* CResourceManager::createVertexBuffer()
 {
     return renderer::getRenderer()->GenVertexBuffer();;
 }
+//-------------------------------------------------------------------------------------------
 renderer::IMaterial*     CResourceManager::createMaterial()
 {
     return new renderer::CMaterial();
 }
+//-------------------------------------------------------------------------------------------
 renderer::IStaticMesh*   CResourceManager::createStaticMesh()
 {
     return new renderer::CStaticMesh();
 }
+//-------------------------------------------------------------------------------------------
 renderer::IAnimatedMesh* CResourceManager::createAnimatedMesh()
 {
     return new renderer::CAnimatedMesh();
 }
-void CResourceManager::registerAnimatedMeshLoader(IAnimatedMeshLoader* newLoader)
-{
-    if(newLoader)
-        AnimatedMeshLoaders.push_back(newLoader);
-}
+//-------------------------------------------------------------------------------------------
 const char* CResourceManager::getFileExtension(const char* FilePath)
 {
     u32 FilePath_len = strlen(FilePath);

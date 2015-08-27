@@ -111,6 +111,7 @@ public:
     }
 
 protected:
+    Object(Object&){};
     mutable bool ObjectFreeze;
     mutable int  ReferenceCount;
     char*  ObjectName;

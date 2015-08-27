@@ -17,14 +17,14 @@ struct SEngineConf
   SEngineConf() :
     Renderer(renderer::ERT_OPENGL),
     WindowSize(640,480),
-    Bits(16),
+    Bits(32),
     FullScreen(false),
     DoubleBuf(true),
     VSync(false),
     AntiAlias(0),
-    ZBits(16),
+    ZBits(32),
     IgnoreWindowEvents(false),
-    ExternalWindowID(0),
+    ExternalWindowPointer(nullptr),
     StartWindowHidden(false),
     LogLevel(log::ELL_INFO)
   {
@@ -43,7 +43,7 @@ struct SEngineConf
 
   u32                   ZBits;
   bool                  IgnoreWindowEvents;
-  windowid_t_           ExternalWindowID;
+  void*                 ExternalWindowPointer;
   bool                  StartWindowHidden;
   u32                   LogLevel;
 };

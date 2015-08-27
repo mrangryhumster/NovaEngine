@@ -13,6 +13,11 @@ enum E_FILE_POINTER_TYPE
     EFPT_VIRTUAL,
     EFPT_NATIVE
 };
+enum E_FILE_SOURCE_TYPE
+{
+    EFST_NATIVE,
+    EFST_STREAM
+};
 class IFile : public Object
 {
 public:
@@ -25,6 +30,7 @@ public:
     virtual int read_string(char* out_string,size_t size) = 0;
     virtual int read_string(size_t pos,char* out_string,size_t size) = 0;
 
+    virtual int getSourceType() = 0;
     virtual int getFilePointerType() = 0;
 
     virtual size_t getSize() = 0;
@@ -33,8 +39,12 @@ public:
     /// \return Return in file position before last read/write/seek calls...
     virtual size_t getLastPos() = 0;
 
+    virtual const char* getName() = 0;
+    virtual const char* getDir()  = 0;
+
+
+
     virtual void* getNativePointer() = 0;
-    virtual char* getName() = 0;
 
 protected:
 private:

@@ -280,13 +280,11 @@ public:
 
     inline bool operator == (const vector3 &other ) const
     {
-
         return x == other.x && y == other.y && z == other.z;
     }
 
     inline bool operator !=  (const vector3 &other ) const
     {
-
         return x != other.x && y != other.y && z != other.z;
     }
     //------------------------------------------------------
@@ -305,15 +303,16 @@ public:
         return (*this) /= length();
     }
 
+    inline T dot_product(const vector3<T>& other) const
+    {
+        return x*other.x + y*other.y + z*other.z;
+    }
+
     inline vector3<T> cross_product(const vector3<T>& vec) const
     {
         return vector3<T>(y * vec.z - z * vec.y, z * vec.x - x * vec.z, x * vec.y - y * vec.x);
     }
 
-    inline T dot_product(const vector3<T>& other) const
-    {
-        return x*other.x + y*other.y + z*other.z;
-    }
 
     inline f64 distance_to (const vector3 &other)
     {
@@ -337,7 +336,7 @@ public:
         return tmp_vec;
     }
     //test
-    void _t_ext_decard_to_sphere_coords()
+    void _EXT_decard_to_sphere_coords()
     {
         T tmp_x = 0,tmp_y = 0,tmp_z = 0;
 
@@ -348,7 +347,7 @@ public:
         set(tmp_x,tmp_y,tmp_z);
     }
 
-    void _t_ext_sphere_to_decard_coords()
+    void _EXT_sphere_to_decard_coords()
     {
         T tmp_x = 0,tmp_y = 0,tmp_z = 0;
 
@@ -359,7 +358,7 @@ public:
         set(tmp_x,tmp_y,tmp_z);
     }
 
-    void _t_ext_normalize_rotation_rad()
+    void _EXT_normalize_rotation_rad()
     {
         while(x >= math::PI || x <= -math::PI)
             if(x >= math::PI)
@@ -380,7 +379,7 @@ public:
                 z += 2*math::PI;
     }
 
-    void _t_ext_normalize_rotation_deg()
+    void _EXT_normalize_rotation_deg()
     {
         while(x >= 180.f || x <= -180.f)
             if(x >= 180.f)

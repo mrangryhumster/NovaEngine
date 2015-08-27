@@ -251,7 +251,15 @@ void CBaseRenderer::drawScreenQuad(ITexture* Texture,core::color4f color)
         core::vector2f(0,1)
     };
 
-    drawArrays(0,4,NULL,ScreenQuad_verticles,ScreenQuad_texcoord,NULL,NULL,EPT_TRIANGLE_STRIP);
+    core::color4f ScreenQuad_color[4] =
+    {
+        color,
+        color,
+        color,
+        color
+    };
+
+    drawArrays(0,4,NULL,ScreenQuad_verticles,ScreenQuad_texcoord,NULL,ScreenQuad_color,EPT_TRIANGLE_STRIP);
 }
 //--------------------------------------------------------------------------------------------------------
 bool CBaseRenderer::isOk()

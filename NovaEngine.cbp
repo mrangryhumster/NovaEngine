@@ -5,7 +5,7 @@
 		<Option title="NovaEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="include\;include\S\;src\;debug\;include\S\;include\types\;include\I\;src\window\;include\E\;src\KeyMap\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\other\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;include\I\scene\;src\scene\nodes\;include\I\scene\nodes\;include\C\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\renderer\opengles1\;" />
+		<Option virtualFolders="include\;include\S\;src\;debug\;include\S\;include\types\;include\I\;src\window\;include\E\;src\KeyMap\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\other\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;include\I\scene\;src\scene\nodes\;include\I\scene\nodes\;include\C\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\renderer\opengles1\;src\resources\loaders\font\;src\gui\;" />
 		<Build>
 			<Target title="Debug Win32 App">
 				<Option output="bin/DebugApp/NovaEngine" prefix_auto="1" extension_auto="1" />
@@ -20,6 +20,9 @@
 					<Add option="-DNE_DEBUG" />
 					<Add directory="src/scene/nodes" />
 					<Add directory="include" />
+					<Add directory="src" />
+					<Add directory="src/resources/loaders" />
+					<Add directory="src/gui" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
@@ -45,6 +48,9 @@
 					<Add option="-DNE_DEBUG" />
 					<Add directory="src/scene/nodes" />
 					<Add directory="include" />
+					<Add directory="src" />
+					<Add directory="src/resources/loaders" />
+					<Add directory="src/gui" />
 				</Compiler>
 				<Linker>
 					<Add library="mingw32" />
@@ -53,7 +59,6 @@
 					<Add library="winmm" />
 					<Add library="opengl32" />
 					<Add library="glu32" />
-					<Add library="src\libs\assimp\lib\libassimp.dll.a" />
 				</Linker>
 			</Target>
 			<Target title="Dynamic Win32 Release">
@@ -69,6 +74,9 @@
 					<Add option="-DNE_OPENGL_RENDERER" />
 					<Add directory="src/scene/nodes" />
 					<Add directory="include" />
+					<Add directory="src" />
+					<Add directory="src/resources/loaders" />
+					<Add directory="src/gui" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -78,7 +86,32 @@
 					<Add library="winmm" />
 					<Add library="opengl32" />
 					<Add library="glu32" />
-					<Add library="src\libs\assimp\lib\libassimp.dll.a" />
+				</Linker>
+			</Target>
+			<Target title=" RDebug Win32 App">
+				<Option output="bin/DebugApp/R/NovaEngine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/DebugApp/R/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_OPENGL_RENDERER" />
+					<Add option="-DNE_DEBUG" />
+					<Add directory="src/scene/nodes" />
+					<Add directory="include" />
+					<Add directory="src" />
+					<Add directory="src/resources/loaders" />
+					<Add directory="src/gui" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mingw32" />
+					<Add library="gdi32" />
+					<Add library="user32" />
+					<Add library="winmm" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
 				</Linker>
 			</Target>
 		</Build>
@@ -88,6 +121,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DGLEW_STATIC" />
+			<Add option="-D__NO_INLINE__" />
 			<Add directory="include" />
 			<Add directory="src" />
 			<Add directory="src/log" />
@@ -95,6 +129,7 @@
 			<Add directory="src/window" />
 			<Add directory="src/renderer" />
 			<Add directory="src/scene" />
+			<Add directory="src/gui" />
 			<Add directory="src/libs" />
 			<Add directory="src/libs/glew/include" />
 			<Add directory="src/libs/libpng" />
@@ -105,7 +140,6 @@
 			<Add directory="src/filesystem" />
 		</Compiler>
 		<Linker>
-			<Add library="src\libs\assimp\lib\libassimp.dll.a" />
 			<Add directory="src/glew/lib" />
 		</Linker>
 		<Unit filename="include/EKeycodes.h">
@@ -129,16 +163,22 @@
 		<Unit filename="include/IFileSystem.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
+		<Unit filename="include/IFont.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="include/IFontLoader.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
 		<Unit filename="include/IGeometryManager.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/IImage.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
-		<Unit filename="include/IImageImporter.h">
+		<Unit filename="include/IImageLoader.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
-		<Unit filename="include/ILog.h">
+		<Unit filename="include/ILogger.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/IMaterial.h">
@@ -147,13 +187,10 @@
 		<Unit filename="include/INovaEngine.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
-		<Unit filename="include/IRenderContext.h">
+		<Unit filename="include/IPerformanceCounter.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/IRenderer.h">
-			<Option virtualFolder="include/I/" />
-		</Unit>
-		<Unit filename="include/IRendererPerformanceCounter.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/IResourceManager.h">
@@ -261,6 +298,7 @@
 		<Unit filename="main.cpp">
 			<Option virtualFolder="debug/" />
 			<Option target="Debug Win32 App" />
+			<Option target=" RDebug Win32 App" />
 		</Unit>
 		<Unit filename="src/CEventManager.cpp">
 			<Option virtualFolder="src/" />
@@ -283,6 +321,12 @@
 		<Unit filename="src/CNovaEngine.h">
 			<Option virtualFolder="src/" />
 		</Unit>
+		<Unit filename="src/CPerformanceCounter.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/CPerformanceCounter.h">
+			<Option virtualFolder="src/" />
+		</Unit>
 		<Unit filename="src/CompileConfig.h">
 			<Option compile="1" />
 			<Option weight="0" />
@@ -302,6 +346,9 @@
 		</Unit>
 		<Unit filename="src/filesystem/CVirtualFile.h">
 			<Option virtualFolder="src/FileSystem/" />
+		</Unit>
+		<Unit filename="src/gui/CFont.h">
+			<Option virtualFolder="src/gui/" />
 		</Unit>
 		<Unit filename="src/libs/glew/include/GL/glew.h">
 			<Option virtualFolder="src/libs/glew/" />
@@ -484,10 +531,10 @@
 		<Unit filename="src/libs/zlib/zutil.h">
 			<Option virtualFolder="src/libs/zlib/" />
 		</Unit>
-		<Unit filename="src/log/NLog.cpp">
+		<Unit filename="src/log/NLogger.cpp">
 			<Option virtualFolder="src/Log/" />
 		</Unit>
-		<Unit filename="src/log/NLog.h">
+		<Unit filename="src/log/NLogger.h">
 			<Option virtualFolder="src/Log/" />
 		</Unit>
 		<Unit filename="src/renderer/CAnimatedMesh.cpp">
@@ -509,12 +556,6 @@
 			<Option virtualFolder="src/renderer/" />
 		</Unit>
 		<Unit filename="src/renderer/CMaterial.h">
-			<Option virtualFolder="src/renderer/" />
-		</Unit>
-		<Unit filename="src/renderer/CRendererPerformanceCounter.cpp">
-			<Option virtualFolder="src/renderer/" />
-		</Unit>
-		<Unit filename="src/renderer/CRendererPerformanceCounter.h">
 			<Option virtualFolder="src/renderer/" />
 		</Unit>
 		<Unit filename="src/renderer/CStaticMesh.cpp">
@@ -568,16 +609,16 @@
 		<Unit filename="src/resources/CResourceManager.h">
 			<Option virtualFolder="src/resources/" />
 		</Unit>
-		<Unit filename="src/resources/loaders/CAssimpMeshLoader.cpp">
-			<Option virtualFolder="src/resources/loaders/mesh/" />
+		<Unit filename="src/resources/loaders/CFontLoader_FNT.cpp">
+			<Option virtualFolder="src/resources/loaders/font/" />
 		</Unit>
-		<Unit filename="src/resources/loaders/CAssimpMeshLoader.h">
-			<Option virtualFolder="src/resources/loaders/mesh/" />
+		<Unit filename="src/resources/loaders/CFontLoader_FNT.h">
+			<Option virtualFolder="src/resources/loaders/font/" />
 		</Unit>
-		<Unit filename="src/resources/loaders/CImagePNGLoader.cpp">
+		<Unit filename="src/resources/loaders/CImageLoader_PNG.cpp">
 			<Option virtualFolder="src/resources/loaders/image/" />
 		</Unit>
-		<Unit filename="src/resources/loaders/CImagePNGLoader.h">
+		<Unit filename="src/resources/loaders/CImageLoader_PNG.h">
 			<Option virtualFolder="src/resources/loaders/image/" />
 		</Unit>
 		<Unit filename="src/resources/loaders/CStaticMeshLoader_OBJ.cpp">
@@ -626,7 +667,7 @@
 			<Option virtualFolder="src/window/win32/" />
 		</Unit>
 		<Unit filename="version.h">
-			<Option virtualFolder="debug/" />
+			<Option virtualFolder="include/" />
 		</Unit>
 		<Extensions>
 			<code_completion />
@@ -640,7 +681,7 @@
 				<Code header_guard="VERSION_H" namespace="novaengine" prefix="NOVAENGINE" />
 			</AutoVersioning>
 			<DoxyBlocks>
-				<comment_style block="0" line="1" />
+				<comment_style block="1" line="1" />
 				<doxyfile_project />
 				<doxyfile_build />
 				<doxyfile_warnings />

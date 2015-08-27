@@ -6,6 +6,7 @@
 #include "ISceneNode.h"
 #include "ISceneCamera.h"
 
+#include "NLogger.h"
 #include <vector>
 #include <list>
 
