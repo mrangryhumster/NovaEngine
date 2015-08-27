@@ -60,7 +60,6 @@ private:
 
 
     //------------------
-    HDC   hDC;
     HWND  hWnd;
     HINSTANCE hInstance;
     wchar_t* title;

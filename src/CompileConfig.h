@@ -18,11 +18,17 @@
 
 #endif
 
-#define NE_INCLUDE_LIBPNG
+
 
 #ifdef NE_INCLUDE_GLEW
     #define GLEW_STATIC
 #endif // INCLUDE_GLEW
+
+
+#define NE_INCLUDE_LIBPNG
+#define NE_INCLUDE_STATICMESH_LOADER_OBJ
+#define NE_INCLUDE_FONT_LOADER_FNT
+
 
 
 

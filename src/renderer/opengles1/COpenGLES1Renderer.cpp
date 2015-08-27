@@ -499,10 +499,10 @@ void COpenGLES1Renderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCoun
         return;
 
     //------------------------------------------------------------
-    bool have_verticles = (VertexFormat & EVF_VERTEX);
-    bool have_texcoords = (VertexFormat & EVF_TEXCOORD);
-    bool have_normals   = (VertexFormat & EVF_NORMAL);
-    bool have_colors    = (VertexFormat & EVF_VERTEX_COLOR);
+    bool have_verticles = (VertexFormat & EVA_POSITION);
+    bool have_texcoords = (VertexFormat & EVA_TEXCOORD);
+    bool have_normals   = (VertexFormat & EVA_NORMAL);
+    bool have_colors    = (VertexFormat & EVA_POSITION_COLOR);
     //!Enable/disable client states for drawing
     enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
 

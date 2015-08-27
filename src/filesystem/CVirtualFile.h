@@ -19,18 +19,35 @@ class CVirtualFile : public IFile
 {
 public:
 
-    CVirtualFile(size_t size,size_t pos,u8* data,const char* name = NULL)
+    CVirtualFile(size_t size,size_t pos,u8* data,int source_type,const char* name = NULL,const char* dir = NULL)
     {
         FileSize    = size;
         FilePos     = pos;
         LastFilePos = pos;
         FileData    = data;
 
+        SourceType = source_type;
+
         if(name)
         {
             int len = strlen(name)+1;
             FileName = new char[len];
             memcpy(FileName,name,sizeof(char)*len);
+        }
+        else
+        {
+            FileName = NULL;
+        }
+
+        if(dir)
+        {
+            int len = strlen(dir)+1;
+            FileDir = new char[len];
+            memcpy(FileDir,dir,sizeof(char)*len);
+        }
+        else
+        {
+            FileDir = NULL;
         }
     }
     virtual ~CVirtualFile()
@@ -39,6 +56,8 @@ public:
             delete[] FileData;
         if(FileName)
             delete[] FileName;
+        if(FileDir)
+            delete[] FileDir;
     }
 
     int read(void* ptr,size_t Len)
@@ -108,10 +127,10 @@ public:
             out_string[file_string_len] = FileData[FilePos];
             if(out_string[file_string_len] == '\n' || file_string_len >= size)
             {
-               out_string[file_string_len] = '\0';
-               FilePos++;
-               file_string_len++;
-               break;
+                out_string[file_string_len] = '\0';
+                FilePos++;
+                file_string_len++;
+                break;
             }
             FilePos++;
             file_string_len++;
@@ -131,10 +150,10 @@ public:
             out_string[file_string_len] = FileData[TmpFilePos];
             if(out_string[file_string_len] == '\n' || file_string_len >= size)
             {
-               out_string[file_string_len] = '\0';
-               TmpFilePos++;
-               file_string_len++;
-               break;
+                out_string[file_string_len] = '\0';
+                TmpFilePos++;
+                file_string_len++;
+                break;
             }
             TmpFilePos++;
             file_string_len++;
@@ -149,7 +168,10 @@ public:
         LastFilePos = FilePos;
         FilePos = pos;
     }
-
+    int getSourceType()
+    {
+        return SourceType;
+    }
     int getFilePointerType()
     {
         return EFPT_VIRTUAL;
@@ -171,9 +193,14 @@ public:
         return FileData;
     }
 
-    char* getName()
+    const char* getName()
     {
         return FileName;
+    }
+
+    const char* getDir()
+    {
+        return FileDir;
     }
 
 protected:
@@ -182,9 +209,13 @@ private:
     size_t FileSize;
     size_t FilePos;
     size_t LastFilePos;
-    u8* FileData;
-    char* FileName;
 
+    u8* FileData;
+
+    int   SourceType;
+
+    char* FileName;
+    char* FileDir;
 };
 
 }

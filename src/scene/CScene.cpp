@@ -70,6 +70,7 @@ u32  CScene::getNodeCount()
 }
 void CScene::eraseScene()
 {
+    LOG_DEBUG("Erasing scene\n");
     setActiveCamera(NULL);
 
     for(u32 Type = 0; Type < ENT_COUNT; Type++)
@@ -84,6 +85,7 @@ void CScene::eraseScene()
             SceneNode_Types_list[Type][i] = NULL;
             if(Node == NULL)
                 break;
+
             Node->UnRegisterNode(false);
             Node->release();
         }

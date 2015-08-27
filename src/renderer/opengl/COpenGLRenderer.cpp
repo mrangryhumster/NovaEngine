@@ -14,10 +14,9 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
     LOG_ENGINE_DEBUG("COpenGLRenderer() begin\n");
     //---------------------------------------------------------------
     //preparing opengl context
-
 #ifdef NE_WINDOW_WIN32
     LOG_ENGINE_DEBUG("Initializing opengl context for Win32Window\n");
-    if(EngineConfiguration.ExternalWindowID == 0)
+    if(EngineConfiguration.ExternalWindowPointer == nullptr)
     {
         PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB = NULL;
         PIXELFORMATDESCRIPTOR pfd;
@@ -126,6 +125,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         {
             LOG_FATAL_ERROR("Unable to set PixelFormat.\n");
             noerror = false;
+            return;
         }
 
         //! create and enable opengl context
@@ -134,10 +134,16 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         {
             LOG_FATAL_ERROR("Cannot create render context [err:%d]\n",GetLastError());
             noerror = false;
+            return;
         }
 
         wglMakeCurrent(hDC,hRC);
         setVSync(EngineConfiguration.VSync);
+    }
+    else
+    {
+        noerror = false;
+        return;
     }
 #endif // NE_WINDOW_WIN32
 //---------------------------------------------------------------
@@ -150,6 +156,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         {
             LOG_FATAL_ERROR("Cannot init GLEW %s\n",glewGetErrorString(err));
             noerror = false;
+            return;
         }
         else
         {
@@ -194,8 +201,8 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         glFogfv(GL_FOG_COLOR, fogColor);    // Set Fog Color
         glFogf(GL_FOG_DENSITY, 0.35f);      // How Dense Will The Fog Be
         glHint(GL_FOG_HINT, GL_DONT_CARE);  // Fog Hint Value
-        glFogf(GL_FOG_START, 1.0f);         // Fog Start Depth
-        glFogf(GL_FOG_END, 144.0f);         // Fog End Depth
+        glFogf(GL_FOG_START, 50.0f);         // Fog Start Depth
+        glFogf(GL_FOG_END, 200.0f);         // Fog End Depth
         glEnable(GL_FOG);                   // Enables GL_FOG
 
         setRenderState(ERS_LINE_WIDTH,1);
@@ -233,7 +240,7 @@ u32 COpenGLRenderer::getType()
 //--------------------------------------------------------------------------------------------------------
 void COpenGLRenderer::setVSync(bool flag)
 {
-    #ifdef NE_WINDOW_WIN32
+#ifdef NE_WINDOW_WIN32
     typedef BOOL (APIENTRY * WGLSWAPINTERVALEXTFUNC)(int);
     WGLSWAPINTERVALEXTFUNC wglSwapIntervalEXT = WGLSWAPINTERVALEXTFUNC(wglGetProcAddress("wglSwapIntervalEXT"));
 
@@ -246,7 +253,7 @@ void COpenGLRenderer::setVSync(bool flag)
     {
         LOG_ERROR("VSync not supported? it's something new....\n");
     }
-    #endif // NE_WINDOW_WIN32
+#endif // NE_WINDOW_WIN32
 }
 //--------------------------------------------------------------------------------------------------------
 void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
@@ -493,7 +500,7 @@ IShaderProgram* COpenGLRenderer::GenShaderProgram()
 //--------------------------------------------------------------------------------------------------------
 IVertexBuffer* COpenGLRenderer::GenVertexBuffer()
 {
-    return new COpenGLVertexBuffer();
+    return new CVertexBuffer();//new COpenGLVertexBuffer();
 }
 //--------------------------------------------------------------------------------------------------------
 ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
@@ -561,7 +568,7 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
     {
         COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(ShaderProgram);
         if(Program->getLastError() == 0)
-                glUseProgram(Program->getProgramID());
+            glUseProgram(Program->getProgramID());
     }
     else
     {
@@ -697,68 +704,48 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
 
     if(VertexBuffer->getBufferType() == EVBT_RAWDATA)
     {
-        drawArrays(
-            VertexBuffer->getIndicesCount(),
-            VertexBuffer->getPositionsCount(),
-            VertexBuffer->getIndices(),
-            VertexBuffer->getPositions(),
-            VertexBuffer->getUVs(),
-            VertexBuffer->getNormals(),
-            VertexBuffer->getColors(),
-            (E_PRIMITIVE_TYPE)VertexBuffer->getPrimitiveType()
-        );
+        glBindBuffer(GL_ARRAY_BUFFER,0);
+
+        const SVertexFormat& Format = VertexBuffer->getVertexFormat();
+        //------------------------------------------------------------
+        bool have_verticles = (Format.getFlags() & EVA_POSITION);
+        bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD);
+        bool have_normals   = (Format.getFlags() & EVA_NORMAL);
+        bool have_colors    = (Format.getFlags() & EVA_COLOR);
+
+        //!If no positions in vertexbuffer then nothing to render
+        if(have_verticles == false)
+            return;
+
+        //!Enable/disable client states for drawing
+        enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
+        //!Send verticles to vram
+        if(have_verticles)
+            glVertexPointer(    3,  GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_POSITION));
+        if(have_texcoords)
+            glTexCoordPointer(  2,  GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_TEXCOORD));
+        if(have_normals)
+            glNormalPointer(        GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_NORMAL));
+        if(have_colors)
+            glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  VertexBuffer->getBufferData(EVA_COLOR));
+        //------------------------------------------------------------
+
+        GLenum GLPrimitiveType   = 0;
+        u32    VertexInPrimitive = 0;
+        //!Convert E_PRIMITIVE_TYPE to GLenum
+        to_opengl_primitive((E_PRIMITIVE_TYPE)VertexBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
+        //----------------------------------------------
+        //LOG_DEBUG("%d\n",t);
+        if(VertexBuffer->getIndicesBufferSize())
+            glDrawElements(GLPrimitiveType,VertexBuffer->getIndicesBufferSize(),GL_UNSIGNED_SHORT,VertexBuffer->getIndicesBufferData());
+        else
+            glDrawArrays(GLPrimitiveType,0,VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+        //----------------------------------------------
+        PerformanceCounter->register_draw(VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+        //----------------------------------------------
     }
     else if(VertexBuffer->getBufferType() == EVBT_VBO_STREAM || VertexBuffer->getBufferType() == EVBT_VBO_STATIC)
     {
-
-        GLenum  GLPrimitiveType     = 0;
-        u32     VertexInPrimitive   = 0;
-        u32     VertexCount         = VertexBuffer->getVertexCount();
-        u32     IndexCount          = VertexBuffer->getIndicesCount();
-        u32     PrimitiveType       = VertexBuffer->getPrimitiveType();
-        u32     VertexFormat        = VertexBuffer->getVertexFormat();
-
-        bool have_verticles = (VertexFormat & EVF_VERTEX);
-        bool have_texcoords = (VertexFormat & EVF_TEXCOORD);
-        bool have_normals   = (VertexFormat & EVF_NORMAL);
-        bool have_colors    = (VertexFormat & EVF_VERTEX_COLOR);
-
-        //!Convert E_PRIMITIVE_TYPE to GLenum
-        to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType,GLPrimitiveType,VertexInPrimitive);
-
-        if(GLEW_ARB_vertex_array_object)
-        {
-
-            VertexBuffer->bind_buffer();
-            //------------------------------------------------------------
-            if(IndexCount)
-                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_SHORT,0);
-            else
-                glDrawArrays(GLPrimitiveType,0,VertexCount);
-            //------------------------------------------------------------
-            VertexBuffer->unbind_buffer();
-
-        }
-        else if(GLEW_ARB_vertex_buffer_object)
-        {
-            VertexBuffer->bind_buffer();
-            //------------------------------------------------------------
-            enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
-            //------------------------------------------------------------
-            glVertexPointer     (3  ,   GL_FLOAT        ,   sizeof(SVertex) ,   (void*)  0  );
-            glTexCoordPointer   (2  ,   GL_FLOAT        ,   sizeof(SVertex) ,   (void*) 12  );
-            glNormalPointer     (       GL_FLOAT        ,   sizeof(SVertex) ,   (void*) 20  );
-            glColorPointer      (4  ,   GL_UNSIGNED_BYTE,   sizeof(SVertex) ,   (void*) 32  );
-            //------------------------------------------------------------
-            if(IndexCount)
-                glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_SHORT,0);
-            else
-                glDrawArrays(GLPrimitiveType,0,VertexCount);
-            //---------------------------------------------
-            VertexBuffer->unbind_buffer();
-
-        }
-        PerformanceCounter->register_draw(VertexCount);
     }
 }
 //-------------------------------a-------------------------------------------------------------------------
@@ -776,10 +763,15 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
         return;
 
     //------------------------------------------------------------
-    bool have_verticles = (VertexFormat & EVF_VERTEX);
-    bool have_texcoords = (VertexFormat & EVF_TEXCOORD);
-    bool have_normals   = (VertexFormat & EVF_NORMAL);
-    bool have_colors    = (VertexFormat & EVF_VERTEX_COLOR);
+    bool have_verticles = (VertexFormat & EVA_POSITION);
+    bool have_texcoords = (VertexFormat & EVA_TEXCOORD);
+    bool have_normals   = (VertexFormat & EVA_NORMAL);
+    bool have_colors    = (VertexFormat & EVA_COLOR);
+
+    //!If no positions in vertexbuffer then nothing to render
+        if(have_verticles == false)
+            return;
+
     //!Enable/disable client states for drawing
     enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
 
@@ -798,17 +790,16 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     //!Convert E_PRIMITIVE_TYPE to GLenum
     to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType,GLPrimitiveType,VertexInPrimitive);
     //----------------------------------------------
-    if(have_verticles && (Index != NULL || IndexCount != 0))
+    if(Index || IndexCount)
         glDrawElements(GLPrimitiveType,IndexCount,GL_UNSIGNED_SHORT,Index);
-    else if(have_verticles)
+    else
         glDrawArrays(GLPrimitiveType,0,VertexCount);
     //----------------------------------------------
     PerformanceCounter->register_draw(VertexCount);
     //----------------------------------------------
-
 }
 //--------------------------------------------------------------------------------------------------------
-void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4u* colors,E_PRIMITIVE_TYPE PrimitiveType)
+void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE PrimitiveType)
 {
     glBindBuffer(GL_ARRAY_BUFFER,0);
     //------------------------------------------------------------
@@ -817,17 +808,22 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     bool have_normals   = (normals  !=NULL);
     bool have_colors    = (colors   !=NULL);
 
+    //!If no positions in vertexbuffer then nothing to render
+        if(have_verticles == false)
+            return;
+
     //!Enable/disable client states for drawing
     enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
+
     //!Send verticles to vram
     if(have_verticles)
-        glVertexPointer(    3,  GL_FLOAT,           0,  verticles);
+        glVertexPointer(    3,  GL_FLOAT, 0,  verticles);
     if(have_texcoords)
-        glTexCoordPointer(  2,  GL_FLOAT,           0,  texverts);
+        glTexCoordPointer(  2,  GL_FLOAT, 0,  texverts);
     if(have_normals)
-        glNormalPointer(        GL_FLOAT,           0,  normals);
+        glNormalPointer(        GL_FLOAT, 0,  normals);
     if(have_colors)
-        glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  colors);
+        glColorPointer(     4,  GL_FLOAT, 0,  colors);
     //------------------------------------------------------------
     GLenum GLPrimitiveType   = 0;
     u32    VertexInPrimitive = 0;
@@ -879,11 +875,10 @@ bool COpenGLRenderer::update()
             LOG_ENGINE_DEBUG("OpenGL error - GL_INVALID_FRAMEBUFFER_OPERATION\n");
             break;
         }
-        #ifdef NE_DEBUG
+#ifdef NE_DEBUG
         throw;
-        #endif // NE_DEBUG
+#endif // NE_DEBUG
     }
-
 
     return isOk();
 }

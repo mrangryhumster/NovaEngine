@@ -101,12 +101,13 @@ enum E_MATRIX_TYPE
     EMT_TEXTURE    = 0x3,
 };
 //------------------------------------------
-enum E_VERTEX_FORMAT
+enum E_ATTRIB_TYPE
 {
-    EVF_VERTEX        = 0x1,
-    EVF_TEXCOORD      = 0x2,
-    EVF_NORMAL        = 0x4,
-    EVF_VERTEX_COLOR  = 0x8,
+    EAT_VERTEX   = 0,
+    EAT_TEXCOORD    ,
+    EAT_COLOR       ,
+    EAT_NORMAL      ,
+    EAT_SHIT            //Why not ?
 };
 //------------------------------------------
 enum E_RENDER_TARGET_TYPE

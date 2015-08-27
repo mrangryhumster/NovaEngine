@@ -21,6 +21,7 @@ public:
     renderer::ITexture*         loadTexture(const char* TexturePath);   //!< Textures
     renderer::IStaticMesh*      loadStaticMesh(const char* MeshPath);   //!< StaticMeshes
     renderer::IAnimatedMesh*    loadAnimatedMesh(const char* MeshPath); //!< AnimatedMesh
+    gui::IFont*                 loadFont(const char* ImagePath);        //!< Font
 
     renderer::IImage*        createImage  (core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL);
     renderer::ITexture*      createTexture(core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL);
@@ -32,7 +33,7 @@ public:
     void registerImageLoader(IImageLoader* newLoader);
     void registerStaticMeshLoader(IStaticMeshLoader* newLoader);
     void registerAnimatedMeshLoader(IAnimatedMeshLoader* newLoader);
-
+    void registerFontLoader(IFontLoader* newLoader);
     //------
 
 protected:
@@ -44,6 +45,7 @@ private:
     std::vector<IImageLoader*>            ImageLoaders;
     std::vector<IStaticMeshLoader*>       StaticMeshLoaders;
     std::vector<IAnimatedMeshLoader*>     AnimatedMeshLoaders;
+    std::vector<IFontLoader*>             FontLoaders;
 
 };
 

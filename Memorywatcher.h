@@ -57,7 +57,7 @@ public:
                 }
                 else
                 {
-                    printf("warning using wrong combination of new/delete([])\n");
+                    printf("warning using wrong combination of new/delete(new_array:%d del_array:%d)\n",MemoryAllocated[i].array,array);
                 }
                 break;
             }

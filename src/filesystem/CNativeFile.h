@@ -18,18 +18,35 @@ class CNativeFile : public IFile
 {
 public:
 
-    CNativeFile(void* file_pointer,size_t file_size,size_t file_pos,const char* name = NULL)
+    CNativeFile(void* file_pointer,size_t file_size,size_t file_pos,int source_type,const char* name = NULL,const char* dir = NULL)
     {
         FileSize    = file_size;
         FilePos     = file_pos;
         LastFilePos = file_pos;
         FilePointer = (FILE*)file_pointer;
 
+        SourceType = source_type;
+
         if(name)
         {
             int len = strlen(name);
             FileName = new char[len];
             memcpy(FileName,name,sizeof(char)*len);
+        }
+        else
+        {
+            FileName = NULL;
+        }
+
+        if(dir)
+        {
+            int len = strlen(dir);
+            FileDir = new char[len];
+            memcpy(FileDir,dir,sizeof(char)*len);
+        }
+        else
+        {
+            FileDir = NULL;
         }
     }
     virtual ~CNativeFile()
@@ -38,6 +55,8 @@ public:
             fclose(FilePointer);
         if(FileName)
             delete[] FileName;
+        if(FileDir)
+            delete[] FileDir;
     }
 
     int read(void* ptr,size_t Len)
@@ -96,10 +115,10 @@ public:
             out_string[file_string_len] = fgetc(FilePointer);
             if(out_string[file_string_len] == '\n'  || file_string_len >= size)
             {
-               out_string[file_string_len] = '\0';
-               FilePos++;
-               file_string_len++;
-               break;
+                out_string[file_string_len] = '\0';
+                FilePos++;
+                file_string_len++;
+                break;
             }
             FilePos++;
             file_string_len++;
@@ -122,10 +141,10 @@ public:
             out_string[file_string_len] = fgetc(FilePointer);
             if(out_string[file_string_len] == '\n'  || file_string_len >= size)
             {
-               out_string[file_string_len] = '\0';
-               TmpFilePos++;
-               file_string_len++;
-               break;
+                out_string[file_string_len] = '\0';
+                TmpFilePos++;
+                file_string_len++;
+                break;
             }
             TmpFilePos++;
             file_string_len++;
@@ -142,7 +161,10 @@ public:
         FilePos = pos;
         fseek(FilePointer,pos,SEEK_SET);
     }
-
+    int getSourceType()
+    {
+        return SourceType;
+    }
     int getFilePointerType()
     {
         return EFPT_NATIVE;
@@ -164,9 +186,14 @@ public:
         return FilePointer;
     }
 
-    char* getName()
+    const char* getName()
     {
         return FileName;
+    }
+
+    const char* getDir()
+    {
+        return FileDir;
     }
 
 protected:
@@ -182,9 +209,13 @@ private:
     size_t FileSize;
     size_t FilePos;
     size_t LastFilePos;
-    FILE* FilePointer;
-    char* FileName;
 
+    FILE* FilePointer;
+
+    int   SourceType;
+
+    char* FileName;
+    char* FileDir;
 };
 
 }

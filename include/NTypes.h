@@ -1,20 +1,9 @@
 #ifndef NETYPES_H
 #define NETYPES_H
 
-//Need for SEngineConf.ExternalWindowID
-#if     defined(NE_WINDOW_WIN32)
-#include <windows.h>
-typedef HWND         windowid_t_;
-#elif   defined(NE_WINDOW_ANDROID)
-#include <android_native_app_glue.h>
-typedef android_app* windowid_t_;
-#else
-typedef int          windowid_t_;
-#endif // defined
-
 #include <cstddef>
 
-enum NE_TYPES
+enum NE_TYPE
 {
     NTYPE_s8 = 0,
     NTYPE_u8,

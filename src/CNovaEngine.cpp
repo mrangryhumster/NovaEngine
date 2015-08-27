@@ -80,15 +80,16 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 #else
     LOG_FATAL_ERROR("Ops.. No window system selected.\n");
 #endif
-    if(!noerror and (not Window or not Window->isOk()))
+    if(Window == nullptr or !Window->isOk())
     {
         LOG_FATAL_ERROR("Cannot create window class\n");
         noerror = false;
+        return;
     }
+
 
     switch(engine_conf.Renderer)
     {
-
     case renderer::ERT_OPENGL:
 #if   defined(NE_OPENGL_RENDERER)
         Renderer = new renderer::COpenGLRenderer(PerformanceCounter,Window,engine_conf);
@@ -101,19 +102,17 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     default:
         LOG_FATAL_ERROR("Unknown renderer selected\n");
     }
-    if(!noerror and (not Renderer or not Renderer->isOk()))
+    if(Renderer == nullptr or !Renderer->isOk())
     {
         LOG_FATAL_ERROR("Cannot create renderer class\n");
         noerror = false;
+        return;
     }
 
-    if(noerror)
-    {
-        FileSystem      = new io::CFileSystem();
-        ResourceManager = new CResourceManager(FileSystem);
-        GeometryManager = new CGeometryManager(ResourceManager);
-        SceneManager    = new scene::CSceneManager(Renderer,EventManager);
-    }
+    FileSystem      = new io::CFileSystem();
+    ResourceManager = new CResourceManager(FileSystem);
+    GeometryManager = new CGeometryManager(ResourceManager);
+    SceneManager    = new scene::CSceneManager(Renderer,EventManager);
 }
 //-------------------------------------------------------------------------------------------
 CNovaEngine::~CNovaEngine()

@@ -11,8 +11,8 @@ namespace window
 //! Special functions and classes for win32window
 namespace win32
 {
-//! Helpfull class to map HWND -> CWin32Window*
-//! I think using only std::map, instead class that have private std::map, better idea.
+//! Helpfull class to map HWND -> CWin32Window* (designed for multiwindow)
+//! I think using only std::map, instead class with private std::map, better idea.
 class Win32WindowMap
 {
 public:
@@ -171,10 +171,9 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
 //------------------------------------------------
 
 CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
-    hDC(NULL),
-    hWnd(NULL),
-    hInstance(NULL),
-    title(NULL),
+    hWnd(nullptr),
+    hInstance(nullptr),
+    title(nullptr),
     noerror(true),
     exit(false),
     EventHandler(event_proc)
@@ -183,9 +182,9 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
     LOG_ENGINE_DEBUG("CWin32Window() begin\n");
     hInstance = GetModuleHandle(0);
 
-    //!If ExternalWindowID == 0 than we create own windowclass and window
+    //!If ExternalWindowPointer == nullptr than we create own windowclass and window
     //!else connecting to another window
-    if(conf.ExternalWindowID == 0)
+    if(conf.ExternalWindowPointer == nullptr)
     {
         if(win32::WindowMap.getMappedWindowCount() == 0)
         {
@@ -200,8 +199,8 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
             wcex.cbClsExtra     = 0;
             wcex.cbWndExtra     = 0;
             wcex.hInstance      = hInstance;
-            wcex.hIcon          = LoadIcon(NULL, IDI_APPLICATION);
-            wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);
+            wcex.hIcon          = LoadIcon(nullptr, IDI_APPLICATION);
+            wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
             wcex.hbrBackground  = (HBRUSH)GetStockObject(BLACK_BRUSH);
             wcex.lpszMenuName   = nullptr;
             wcex.lpszClassName  = "novaengine";
@@ -213,57 +212,56 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
                 u32 i = GetLastError();
                 LOG_FATAL_ERROR("Cant register window class [err:%d]\n",i);
                 noerror = false;
+                return;
             }
         }
         //! If no error we continue init and create window
-        if(noerror)
+
+        DWORD style = WS_POPUP;
+
+        //!default window style(no fullscreen)
+        if(!conf.FullScreen)
+            style = WS_SYSMENU      |
+                    WS_BORDER       |
+                    WS_CAPTION      |
+                    WS_CLIPCHILDREN |
+                    WS_CLIPSIBLINGS ;
+
+        //!Create window
+        hWnd = CreateWindowEx(0,
+                              "novaengine",
+                              "window",
+                              style,
+                              CW_USEDEFAULT,
+                              CW_USEDEFAULT,
+                              conf.WindowSize.width,
+                              conf.WindowSize.height,
+                              NULL,
+                              NULL,
+                              hInstance,
+                              NULL);
+
+        //!show error if fail
+        if(!hWnd)
         {
-            DWORD style = WS_POPUP;
-
-            //!default window style(no fullscreen)
-            if(!conf.FullScreen)
-                style = WS_SYSMENU      |
-                        WS_BORDER       |
-                        WS_CAPTION      |
-                        WS_CLIPCHILDREN |
-                        WS_CLIPSIBLINGS ;
-
-            //!Create window
-            hWnd = CreateWindowEx(0,
-                                  "novaengine",
-                                  "window",
-                                  style,
-                                  CW_USEDEFAULT,
-                                  CW_USEDEFAULT,
-                                  conf.WindowSize.width,
-                                  conf.WindowSize.height,
-                                  NULL,
-                                  NULL,
-                                  hInstance,
-                                  NULL);
-
-            //!show error if fail
-            if(!hWnd)
-            {
-                u32 i = GetLastError();
-                LOG_FATAL_ERROR("Cant create window [err:%d]\n",i);
-                noerror = false;
-            }
-
-            if(noerror)
-            {
-                //!register window in wndmap...
-                win32::WindowMap.addWindow(hWnd,this);
-
-                setVisible(!conf.StartWindowHidden);
-                /*
-                            if(IsFullscreenWindow)
-                                setFullscreenMode(true);
-                */
-                UpdateWindow(hWnd);
-            }
+            u32 i = GetLastError();
+            LOG_FATAL_ERROR("Cant create window [err:%d]\n",i);
+            noerror = false;
+            return;
         }
+
+        //!register window in wndmap...
+        win32::WindowMap.addWindow(hWnd,this);
+
+        setVisible(!conf.StartWindowHidden);
+        /*
+                    if(IsFullscreenWindow)
+                        setFullscreenMode(true);
+        */
+        UpdateWindow(hWnd);
+
     }
+
 
     IsFullscreenWindow = conf.FullScreen;
     loadKeyMap();
@@ -549,8 +547,6 @@ void* CWin32Window::getWindowInternalVariable(const char* name)
 {
     if(strcmp(name,"HWND") == 0)
         return &hWnd;
-    if(strcmp(name,"HDC")  == 0)
-        return &hDC;
     if(strcmp(name,"HINSTANCE") == 0)
         return &hInstance;
 
