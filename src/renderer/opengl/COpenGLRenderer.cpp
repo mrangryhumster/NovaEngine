@@ -699,10 +699,10 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
 {
     COpenGLVertexBuffer* VertexBuffer = reinterpret_cast<COpenGLVertexBuffer*>(array);
 
-    if(VertexBuffer->isUpdateRequired())
-        VertexBuffer->Update();
+    if(VertexBuffer->getUpdateRequest())
+        VertexBuffer->update();
 
-    if(VertexBuffer->getBufferType() == EVBT_RAWDATA)
+    if(VertexBuffer->getMappingHint() == EVBMH_DEFAULT)
     {
         glBindBuffer(GL_ARRAY_BUFFER,0);
 
@@ -735,17 +735,19 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
         //!Convert E_PRIMITIVE_TYPE to GLenum
         to_opengl_primitive((E_PRIMITIVE_TYPE)VertexBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
         //----------------------------------------------
-        //LOG_DEBUG("%d\n",t);
+        bool wide_index_range = (VertexBuffer->getIndicesBufferType() == NTYPE_u32)?true:false;
+        //----------------------------------------------
         if(VertexBuffer->getIndicesBufferSize())
-            glDrawElements(GLPrimitiveType,VertexBuffer->getIndicesBufferSize(),GL_UNSIGNED_SHORT,VertexBuffer->getIndicesBufferData());
+            glDrawElements(GLPrimitiveType,VertexBuffer->getIndicesBufferSize() / ((wide_index_range)?4:2),((wide_index_range)?GL_UNSIGNED_INT:GL_UNSIGNED_SHORT),VertexBuffer->getIndicesBufferData());
         else
             glDrawArrays(GLPrimitiveType,0,VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
         //----------------------------------------------
         PerformanceCounter->register_draw(VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
         //----------------------------------------------
     }
-    else if(VertexBuffer->getBufferType() == EVBT_VBO_STREAM || VertexBuffer->getBufferType() == EVBT_VBO_STATIC)
+    else
     {
+        throw "shit";
     }
 }
 //-------------------------------a-------------------------------------------------------------------------

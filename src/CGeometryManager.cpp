@@ -21,7 +21,7 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     core::vector3f Positions[24];
     core::vector2f TexCoords[24];
     core::vector3f Normals[24];
-    u16 indices[36] = {0};
+    u16 Indices[36] = {0};
 
     //front
     Positions[0].set(-1,-1, 1);
@@ -40,12 +40,12 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[3] =
                     core::vector3f(0,0,1);
 
-    indices[0] = 0;
-    indices[1] = 1;
-    indices[2] = 2;
-    indices[3] = 2;
-    indices[4] = 3;
-    indices[5] = 0;
+    Indices[0] = 0;
+    Indices[1] = 1;
+    Indices[2] = 2;
+    Indices[3] = 2;
+    Indices[4] = 3;
+    Indices[5] = 0;
 
     //back
     Positions[4].set( 1,-1,-1);
@@ -64,12 +64,12 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[7] =
                     core::vector3f(0,0,-1);
 
-    indices[6]  = 4;
-    indices[7]  = 5;
-    indices[8]  = 6;
-    indices[9]  = 6;
-    indices[10] = 7;
-    indices[11] = 4;
+    Indices[6]  = 4;
+    Indices[7]  = 5;
+    Indices[8]  = 6;
+    Indices[9]  = 6;
+    Indices[10] = 7;
+    Indices[11] = 4;
 
     //top
     Positions[8].set (-1, 1, 1);
@@ -88,12 +88,12 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[11] =
                     core::vector3f(0,1,0);
 
-    indices[12] = 8;
-    indices[13] = 9;
-    indices[14] = 10;
-    indices[15] = 10;
-    indices[16] = 11;
-    indices[17] = 8;
+    Indices[12] = 8;
+    Indices[13] = 9;
+    Indices[14] = 10;
+    Indices[15] = 10;
+    Indices[16] = 11;
+    Indices[17] = 8;
 
     //bottom
     Positions[12].set( 1,-1, 1);
@@ -112,12 +112,12 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[15] =
                     core::vector3f(0,-1,0);
 
-    indices[18]  = 12;
-    indices[19]  = 13;
-    indices[20]  = 14;
-    indices[21]  = 14;
-    indices[22]  = 15;
-    indices[23]  = 12;
+    Indices[18]  = 12;
+    Indices[19]  = 13;
+    Indices[20]  = 14;
+    Indices[21]  = 14;
+    Indices[22]  = 15;
+    Indices[23]  = 12;
 
     //left
     Positions[16].set(-1,-1,-1);
@@ -136,12 +136,12 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[19] =
                     core::vector3f(-1,0,0);
 
-    indices[24] = 16;
-    indices[25] = 17;
-    indices[26] = 18;
-    indices[27] = 18;
-    indices[28] = 19;
-    indices[29] = 16;
+    Indices[24] = 16;
+    Indices[25] = 17;
+    Indices[26] = 18;
+    Indices[27] = 18;
+    Indices[28] = 19;
+    Indices[29] = 16;
 
     //right
     Positions[20].set( 1,-1, 1);
@@ -160,30 +160,30 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
                 Normals[23] =
                     core::vector3f(1,0,0);
 
-    indices[30]  = 20;
-    indices[31]  = 21;
-    indices[32]  = 22;
-    indices[33]  = 22;
-    indices[34]  = 23;
-    indices[35]  = 20;
+    Indices[30]  = 20;
+    Indices[31]  = 21;
+    Indices[32]  = 22;
+    Indices[33]  = 22;
+    Indices[34]  = 23;
+    Indices[35]  = 20;
 
     renderer::IVertexBuffer* VertexBuffer = renderer::getRenderer()->GenVertexBuffer();
-//REPAIR
-//    VertexBuffer->addPositions(Positions,24);
-//    VertexBuffer->addUVs(TexCoords,24);
-//    VertexBuffer->addNormals(Normals,24);
-//    VertexBuffer->addIndices(indices,36);
-//    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
-//    VertexBuffer->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL);
- //   VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
 
+    VertexBuffer->addBufferData(renderer::EVA_POSITION,Positions,24 * sizeof(core::vector3f));
+    VertexBuffer->addBufferData(renderer::EVA_TEXCOORD,Positions,24 * sizeof(core::vector2f));
+    VertexBuffer->addBufferData(renderer::EVA_NORMAL  ,Positions,24 * sizeof(core::vector3f));
+    VertexBuffer->setIndicesBufferData(Indices,36 * sizeof(u32));
+    VertexBuffer->setIndicesBufferType(NTYPE_u32);
+
+    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+    VertexBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL));
 
     //----------------
     renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
     Mesh->addMeshUnit(VertexBuffer,0);
     VertexBuffer->release();
     //----------------
-
+    printf("[GEOMETRY MANAGER] shape:cube\n");
     return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
@@ -194,60 +194,60 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
     if(VertexBuffer == NULL)
         return NULL;
     //----------------------------
-    //VertexBuffer->getVerticesArray()->reserve(CellCount.width * CellCount.height * 4);
 
+    u32* Indices = new u32[CellCount.width * CellCount.height * 6];
 
-    u16* indices = new u16[CellCount.width * CellCount.height * 6];
+    u32 VCount = 0;
+    u32 ICount = 0;
 
-    u32 vp = 0;
-    u32 ip = 0;
+    core::vector3f Shift(-(((f32)CellCount.width/2) * CellSize.width),-(((f32)CellCount.width/2) * CellSize.width),0);
 
     for(u32 y_tile = 0; y_tile < CellCount.height; y_tile++)
     {
         for(u32 x_tile = 0; x_tile < CellCount.width; x_tile++)
         {
-            renderer::SVertex Quad[4];
+            core::vector3f Positions[4];
+            core::vector2f TexCoords[4];
 
-            Quad[0].Position.set((x_tile * CellSize.width),(y_tile * CellSize.height)+CellSize.height,0);
-            Quad[1].Position.set((x_tile * CellSize.width),(y_tile * CellSize.height),0);
-            Quad[2].Position.set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height),0);
-            Quad[3].Position.set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height)+CellSize.height,0);
+            Positions[0].set((x_tile * CellSize.width),(y_tile * CellSize.height)+CellSize.height,0).add(Shift);
+            Positions[1].set((x_tile * CellSize.width),(y_tile * CellSize.height),0).add(Shift);
+            Positions[2].set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height),0).add(Shift);
+            Positions[3].set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height)+CellSize.height,0).add(Shift);
 
-            Quad[0].TexCoord.set(0,0);
-            Quad[1].TexCoord.set(0,1);
-            Quad[2].TexCoord.set(1,1);
-            Quad[3].TexCoord.set(1,0);
+            TexCoords[0].set(0,0);
+            TexCoords[1].set(0,1);
+            TexCoords[2].set(1,1);
+            TexCoords[3].set(1,0);
 
-            Quad[0].Normal = Quad[1].Normal = Quad[2].Normal = Quad[3].Normal = core::vector3f(0,0,1);
+            Indices[ICount + 0] = VCount + 0;
+            Indices[ICount + 1] = VCount + 1;
+            Indices[ICount + 2] = VCount + 2;
+            Indices[ICount + 3] = VCount + 2;
+            Indices[ICount + 4] = VCount + 3;
+            Indices[ICount + 5] = VCount + 0;
 
-            indices[ip + 0] = vp + 0;
-            indices[ip + 1] = vp + 1;
-            indices[ip + 2] = vp + 2;
-            indices[ip + 3] = vp + 2;
-            indices[ip + 4] = vp + 3;
-            indices[ip + 5] = vp + 0;
+            VCount+=4;
+            ICount+=6;
 
-            vp+=4;
-            ip+=6;
+            VertexBuffer->addBufferData(renderer::EVA_POSITION,Positions,4 * sizeof(core::vector3f));
+            VertexBuffer->addBufferData(renderer::EVA_TEXCOORD,TexCoords,4 * sizeof(core::vector2f));
         }
     }
-//REPAIR
-//    VertexBuffer->setIndices(indices,ip);
-//    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-//    VertexBuffer->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL);
 
-    //Mesh->moveVertices(core::vector3<f32>(-(CellSize.width*CellCount.width)/2,-(CellSize.height*CellCount.height)/2,0));
+    VertexBuffer->setIndicesBufferData(Indices,ICount * sizeof(u32));
+    VertexBuffer->setIndicesBufferType(NTYPE_u32);
 
-    VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
+    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+    VertexBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD));
 
-    delete[] indices;
+    delete[] Indices;
 
     //----------------
     renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
     Mesh->addMeshUnit(VertexBuffer,0);
     VertexBuffer->release();
     //----------------
-
+    printf("[GEOMETRY MANAGER] shape:grid vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
@@ -260,10 +260,10 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
     u32 ICount = (Resolution*Resolution) * 6;
 
     core::vector3f* Positions    = new core::vector3f[VCount];
-    core::vector2f* UVs          = new core::vector2f[VCount];
+    core::vector2f* TexCoords    = new core::vector2f[VCount];
     core::vector3f* Normals      = new core::vector3f[VCount];
 
-    u16* Indices              = new u16[ICount];
+    u32* Indices                 = new u32[ICount];
 
     //(x, y, z) = (sin(Pi * m/M) cos(2Pi * n/N), sin(Pi * m/M) sin(2Pi * n/N), cos(Pi * m/M))
     u32 v = 0;
@@ -278,7 +278,7 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
 
             core::vector3<f32> result_vertex(sinf(AngleY) * cosf(AngleX) * Radius, cosf(AngleY)* Radius, sinf(AngleX) * sinf(AngleY)* Radius);
             Positions[v].set(result_vertex);
-            UVs[v].set(float(x) / Resolution,float(y) / Resolution);
+            TexCoords[v].set(float(x) / Resolution,float(y) / Resolution);
             Normals[v] = result_vertex.normalize();
             v++;
         }
@@ -301,32 +301,31 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
         }
     }
 
-    renderer::IVertexBuffer* va = renderer::getRenderer()->GenVertexBuffer();
+    renderer::IVertexBuffer* VertexBuffer = renderer::getRenderer()->GenVertexBuffer();
 
-//REPAIR
-    //va->addVertices(vertex,VCount);
-    //va->setPositions(Positions  ,VCount);
-    //va->setUVs      (UVs        ,VCount);
-    //va->setNormals  (Normals    ,VCount);
+    VertexBuffer->setBufferData(renderer::EVA_POSITION,Positions,VCount * sizeof(core::vector3f));
+    VertexBuffer->setBufferData(renderer::EVA_TEXCOORD,TexCoords,VCount * sizeof(core::vector2f));
 
-    //va->setIndices(Indices,ICount);
+    VertexBuffer->setIndicesBufferData(Indices,ICount * sizeof(u32));
+    VertexBuffer->setIndicesBufferType(NTYPE_u32);
 
-    //va->setBufferType(renderer::EVBT_RAWDATA);
-    //va->setVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD  | renderer::EVA_NORMAL);
-    //va->setPrimitiveType(renderer::EPT_TRIANGLE);
+    VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+    VertexBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD));
 
     delete[] Positions;
-    delete[] UVs;
+    delete[] TexCoords;
     delete[] Normals;
 
     delete[] Indices;
 
     //----------------
     renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
-    Mesh->addMeshUnit(va,0);
-    va->release();
+    Mesh->addMeshUnit(VertexBuffer,0);
+    VertexBuffer->release();
     //----------------
 
+
+    printf("[GEOMETRY MANAGER] shape:sphere vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------

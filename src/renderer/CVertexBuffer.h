@@ -12,124 +12,44 @@ namespace renderer
 class CVertexBuffer : public IVertexBuffer
 {
 public:
-    CVertexBuffer():
-        VertexFormat(EVA_POSITION),
-        PrimitiveType(EPT_TRIANGLE),
-        BufferType(EVBT_RAWDATA),
-        UpdateRequired(true)
-    {
-    }
+    CVertexBuffer();
     //---------------------------------------------------------------------------
-    void  setBufferData(u32 buffer,const void* data,u32 size)
-    {
-        std::vector<u8>* BufferData = getBuffer(buffer);
-        if(BufferData == nullptr) return;
+    void   setBufferData(u32 buffer,const void* data,size_t size);
+    void   addBufferData(u32 buffer,const void* data,size_t size);
+    void*  getBufferData(u32 buffer);
+    size_t getBufferSize(u32 buffer);
 
-        BufferData->clear();
-        if(data && size)
-            BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
-    }
-    void  addBufferData(u32 buffer,const void* data,u32 size)
-    {
-        std::vector<u8>* BufferData = getBuffer(buffer);
-        if(BufferData == nullptr) return;
+    void  setBufferElement(u32 buffer,u32 index,const void* value,size_t size);
+    void  addBufferElement(u32 buffer,const void* value,size_t size);
+    void* getBufferElement(u32 buffer,u32 index);
+    u32   getBufferElementCount(u32 buffer);
 
-        if(data && size)
-            BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
-    }
-    void* getBufferData(u32 buffer)
-    {
-        std::vector<u8>* BufferData = getBuffer(buffer);
-        if(BufferData == nullptr) return nullptr;
-        return BufferData->data();
-    }
-    u32   getBufferSize(u32 buffer)
-    {
-        std::vector<u8>* BufferData = getBuffer(buffer);
-        if(BufferData == nullptr) return 0;
+    size_t getIndicesBufferSize();
+    void   setIndicesBufferData(const void* data,size_t size);
+    void   addIndicesBufferData(const void* data,size_t size);
+    void*  getIndicesBufferData();
 
-        return BufferData->size();
-    }
-
-    void  setBufferElement(u32 buffer,u32 index,const void* value,u32 size) {}
-    void  addBufferElement(u32 buffer,const void* value,u32 size) {}
-    void* getBufferElement(u32 buffer,u32 index) {}
-    u32   getBufferElementCount(u32 buffer) {}
-
-    u16  getIndicesBufferSize()
-    {
-        return Indices.size();
-    }
-    void setIndicesBufferData(const u16* data,u16 size)
-    {
-        Indices.clear();
-        addIndicesBufferData(data,size);
-    }
-    void addIndicesBufferData(const u16* data,u16 size)
-    {
-        if(data == nullptr) return;
-        if(data && size)
-            Indices.insert(Indices.end(),data,(data+size));
-    }
-    u16* getIndicesBufferData()
-    {
-        return Indices.data();
-    }
+    void   setIndicesBufferType(u32 type);
+    u32    getIndicesBufferType();
     //---------------------------------------------------------------------------
-    void          setVertexFormat(SVertexFormat newFormat)
-    {
-        VertexFormat = newFormat;
-    }
-    SVertexFormat getVertexFormat()
-    {
-        return VertexFormat;
-    }
+    void          setVertexFormat(SVertexFormat newFormat);
+    SVertexFormat getVertexFormat();
 
+    u32 getPrimitiveType();
+    void setPrimitiveType(E_PRIMITIVE_TYPE pt);
 
-    u32 getPrimitiveType()
-    {
-        return PrimitiveType;
-    }
-    void setPrimitiveType(E_PRIMITIVE_TYPE pt)
-    {
-        PrimitiveType = pt;
-    }
+    void setUpdateRequest(bool up);
+    bool getUpdateRequest();
+    void update();
 
-    virtual void setBufferType(E_VERTEX_BUFFER_TYPE type)
-    {
-        BufferType = type;
-    }
-    virtual u32  getBufferType()
-    {
-        return BufferType;
-    }
+    void lock();
+    void unlock();
+    void render();
 
-    void setUpdateRequired(bool up)
-    {
-        UpdateRequired = up;
-    }
-    bool isUpdateRequired()
-    {
-        return UpdateRequired;
-    }
-    bool Update()
-    {
-        UpdateRequired = false;
-        return true;
-    }
+    bool isValid();
 
-    void lock()
-    {
-        Positions.clear();
-        TexCoords.clear();
-    }
-    void unlock()   {}
-    void render()  {}
-
-    bool isValid()
-    {
-        return false;
-    }
+    void setMappingHint(u32);
+    u32  getMappingHint();
 
 protected:
     inline std::vector<u8>* getBuffer(u32& buffer)
@@ -164,12 +84,13 @@ protected:
     std::vector<u8>    TexCoords;
     std::vector<u8>    CustomVerticles;
 
-    std::vector<u16>   Indices;
+    std::vector<u8>    Indices;
+    u32                IndicesType;
 
-    u32                     PrimitiveType;
+    u32                PrimitiveType;
 
-    u32                     BufferType;
-    bool                    UpdateRequired;
+    u32    MappingHint;
+    bool   UpdateRequired;
 };
 
 }

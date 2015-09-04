@@ -88,32 +88,6 @@
 					<Add library="glu32" />
 				</Linker>
 			</Target>
-			<Target title=" RDebug Win32 App">
-				<Option output="bin/DebugApp/R/NovaEngine" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/DebugApp/R/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O3" />
-					<Add option="-DNE_WINDOW_WIN32" />
-					<Add option="-DNE_OPENGL_RENDERER" />
-					<Add option="-DNE_DEBUG" />
-					<Add directory="src/scene/nodes" />
-					<Add directory="include" />
-					<Add directory="src" />
-					<Add directory="src/resources/loaders" />
-					<Add directory="src/gui" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-					<Add library="mingw32" />
-					<Add library="gdi32" />
-					<Add library="user32" />
-					<Add library="winmm" />
-					<Add library="opengl32" />
-					<Add library="glu32" />
-				</Linker>
-			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
@@ -298,7 +272,6 @@
 		<Unit filename="main.cpp">
 			<Option virtualFolder="debug/" />
 			<Option target="Debug Win32 App" />
-			<Option target=" RDebug Win32 App" />
 		</Unit>
 		<Unit filename="src/CEventManager.cpp">
 			<Option virtualFolder="src/" />
@@ -563,6 +536,9 @@
 		</Unit>
 		<Unit filename="src/renderer/CStaticMesh.h">
 			<Option virtualFolder="src/renderer/mesh/static/" />
+		</Unit>
+		<Unit filename="src/renderer/CVertexBuffer.cpp">
+			<Option virtualFolder="src/renderer/" />
 		</Unit>
 		<Unit filename="src/renderer/CVertexBuffer.h">
 			<Option virtualFolder="src/renderer/" />
