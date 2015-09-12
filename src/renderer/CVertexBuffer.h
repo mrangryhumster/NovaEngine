@@ -38,12 +38,13 @@ public:
     u32 getPrimitiveType();
     void setPrimitiveType(E_PRIMITIVE_TYPE pt);
 
-    void setUpdateRequest(bool up);
+    void setUpdateRequest(bool);
     bool getUpdateRequest();
     void update();
 
     void lock();
     void unlock();
+
     void render();
 
     bool isValid();

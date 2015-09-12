@@ -25,14 +25,6 @@ enum MOUSE_KEY_CODE
 
 enum E_KEY_CODE
 {
-
-    /*
-    KEY_LBUTTON		     = 0x01
-    KEY_RBUTTON		     = 0x02
-    KEY_CANCEL		     = 0x03
-    KEY_MBUTTON		     = 0x04
-    */
-
     KEY_BACKSPACE        = 0x08,
     KEY_TAB              = 0x09,
     KEY_RETURN           = 0x0D,
@@ -147,12 +139,9 @@ enum E_KEY_CODE
 
 
 
-
     KEY_UNKNOW           = 0x00,
     KEY_COUNT            = 0xFF,
     KEY_NO_KEY           = 0xFF,
-
-
 };
 
 
