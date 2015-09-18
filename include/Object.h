@@ -12,6 +12,7 @@ namespace novaengine
 class Object
 {
 public:
+
     /// \brief Default constructor
     /// Set ReferenceCounter in 1,ObjectName in "NotDefined"
     Object() :

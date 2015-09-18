@@ -10,7 +10,7 @@ namespace renderer
 COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window::IWindow* Window,SEngineConf EngineConfiguration):
     CBaseRenderer(PerformanceCounter,Window,EngineConfiguration)
 {
-    setObjectName("renderer");
+    setObjectName("COpenGLRenderer");
     LOG_ENGINE_DEBUG("COpenGLRenderer() begin\n");
     //---------------------------------------------------------------
     //preparing opengl context

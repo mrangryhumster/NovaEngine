@@ -9,7 +9,6 @@
 
 #include "SEngineConf.h"
 #include "SEvent.h"
-#include "CKeyMap.h"
 
 #include "EKeycodes.h"
 
@@ -23,23 +22,20 @@ namespace window
 class CWin32Window : public IWindow
 {
 public:
-    CWin32Window(SEngineConf conf,IEventListener* event_proc);
+    CWin32Window(SEngineConf conf,IEventManager* EventManager);
     virtual ~CWin32Window();
 
-    void             setResolution(core::dim2<u32>) ;
-    core::dim2<u32>  getResolution()                ;
+    void             setResolution(core::dim2<u32>);
+    core::dim2<u32>  getResolution();
 
-    void setFullscreenMode(bool fullscreen) ;
-    bool isFullscreenMode()                 ;
+    void setFullscreenMode(bool fullscreen);
+    bool isFullscreenMode();
 
-    void setVisible(bool visible)   ;
-    bool isVisible()                ;
+    void        setTittle(const char*);
+    const char* getTittle();
 
-    void            setCaption(const wchar_t* caption) ;
-    const wchar_t*  getCaption()                       ;
-
-    s32  getWindowType()    ;
-    int  getWindowID()      ;
+    void setVisible(bool visible);
+    bool isVisible();
 
     bool update();
     bool isOk();
@@ -60,9 +56,10 @@ private:
 
 
     //------------------
-    HWND  hWnd;
+    HWND      hWnd;
     HINSTANCE hInstance;
-    wchar_t* title;
+    char*     window_title;
+
     //! Here we store window style if we change mode to full screen
     //! (if we return to windowed mode again we will take our style back)
     DWORD NoFullScreenWindowStyle;
@@ -75,7 +72,7 @@ private:
     bool noerror;
     bool exit;
     //------------------
-    IEventListener* EventHandler;
+    IEventManager* EventManager;
 
     class CCursorControl : public ICursorControl
     {

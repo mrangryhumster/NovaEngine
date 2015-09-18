@@ -11,53 +11,19 @@ namespace window
 //! Special functions and classes for win32window
 namespace win32
 {
-//! Helpfull class to map HWND -> CWin32Window* (designed for multiwindow)
-//! I think using only std::map, instead class with private std::map, better idea.
-class Win32WindowMap
-{
-public:
-    Win32WindowMap()
-    {
-        WindowMap.clear();
-    }
-    CWin32Window* getWindow(HWND hwnd)
-    {
-        return (WindowMap.find(hwnd)==WindowMap.end())?NULL:WindowMap.find(hwnd)->second;
-    }
-    void addWindow(HWND hwnd,CWin32Window* cwin32window)
-    {
-        WindowMap[hwnd] = cwin32window;
-    }
-    void removeWindow(HWND hwnd)
-    {
-        WindowMap.erase(hwnd);
-    }
-    u32 getMappedWindowCount()
-    {
-        return WindowMap.size();
-    }
-
-private:
-    std::map<HWND,CWin32Window*> WindowMap;
-};
-//! Because we get all events from all windows attached to one WndClass
-//! and we can have more than one active window(in future)
-//! in Win32_WndProc and have only HWND of event sender.
-//! we must redirect event from A Window to class that control A Window.
-//! we used Win32WindowMap for mapping HWND -> CWin32Window*
-static Win32WindowMap WindowMap;
+//!Store here window class
+static CWin32Window* WindowClass = nullptr;
 //!This array need to avoid to auto clicks from keyboard
 //! example: if you hold key "a" on keyboard wndproc will receive more than one click
 //! this will be repeating while you hold "a"
 static bool KeyPressed[256];
 //!win32::KeyMap store map from Win32 keycodes to NovaEngine keycodes
-static CKeyMap<int,E_KEY_CODE> KeyMap;
+static std::map<int,E_KEY_CODE> KeyMap;
 //!Standart Win32 event processing...
 LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lParam)
 {
     //------------------------------------------------------
-    CWin32Window* window = win32::WindowMap.getWindow(hWnd);
-    if(window == NULL)
+    if(WindowClass == nullptr)
         return DefWindowProc(hWnd, Msg, wParam, lParam);
     //------------------------------------------------------
     SEvent event;
@@ -129,7 +95,7 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
             event.pointer.keycode = KEY_MOUSE_MIDDLE;
 
 
-        window->pushEvent(event);
+        WindowClass->pushEvent(event);
     }
     break;
 
@@ -143,7 +109,7 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
             KeyPressed[wParam] = (Msg == WM_KEYDOWN || Msg == WM_SYSKEYDOWN);
 
             event.event_type = EET_KEYBOARD_EVENT;
-            event.keyboard.keycode          = KeyMap.get(wParam);
+            event.keyboard.keycode          = KeyMap[wParam];
             event.keyboard.native_keycode   = wParam;
             event.keyboard.key_state        = (Msg == WM_KEYDOWN || Msg == WM_SYSKEYDOWN)?EKS_DOWN:EKS_UP;
 
@@ -155,7 +121,7 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
             // TODO (Gosha#1#): Add unicode from keydown conversion...
             event.keyboard.unicode = L'?';
 
-            window->pushEvent(event);
+            WindowClass->pushEvent(event);
         }
     }
     break;
@@ -170,55 +136,53 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
 }
 //------------------------------------------------
 
-CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
+CWin32Window::CWin32Window(SEngineConf conf,IEventManager* EventManager):
     hWnd(nullptr),
     hInstance(nullptr),
-    title(nullptr),
+    window_title(nullptr),
     noerror(true),
     exit(false),
-    EventHandler(event_proc)
+    EventManager(EventManager)
 {
     setObjectName("CWin32Window");
     LOG_ENGINE_DEBUG("CWin32Window() begin\n");
     hInstance = GetModuleHandle(0);
 
-    //!If ExternalWindowPointer == nullptr than we create own windowclass and window
-    //!else connecting to another window
+
+
     if(conf.ExternalWindowPointer == nullptr)
     {
-        if(win32::WindowMap.getMappedWindowCount() == 0)
+        IsExternalWindow = false;
+
+        //! Window class
+        WNDCLASSEX wcex;
+
+        wcex.cbSize         = sizeof(WNDCLASSEX);
+        wcex.style          = CS_OWNDC;
+        wcex.lpfnWndProc    = win32::Win32_WndProc;
+        wcex.cbClsExtra     = 0;
+        wcex.cbWndExtra     = 0;
+        wcex.hInstance      = hInstance;
+        wcex.hIcon          = LoadIcon(nullptr, IDI_APPLICATION);
+        wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
+        wcex.hbrBackground  = (HBRUSH)GetStockObject(BLACK_BRUSH);
+        wcex.lpszMenuName   = nullptr;
+        wcex.lpszClassName  = "novaengine";
+        wcex.hIconSm        = LoadIcon(nullptr, IDI_APPLICATION);
+
+
+        //!Try Register wndclass
+        if(!RegisterClassEx(&wcex))
         {
-            IsExternalWindow = false;
-
-            //! Window class
-            WNDCLASSEX wcex;
-
-            wcex.cbSize         = sizeof(WNDCLASSEX);
-            wcex.style          = CS_OWNDC;
-            wcex.lpfnWndProc    = win32::Win32_WndProc;
-            wcex.cbClsExtra     = 0;
-            wcex.cbWndExtra     = 0;
-            wcex.hInstance      = hInstance;
-            wcex.hIcon          = LoadIcon(nullptr, IDI_APPLICATION);
-            wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-            wcex.hbrBackground  = (HBRUSH)GetStockObject(BLACK_BRUSH);
-            wcex.lpszMenuName   = nullptr;
-            wcex.lpszClassName  = "novaengine";
-            wcex.hIconSm        = LoadIcon(nullptr, IDI_APPLICATION);
-
-            //!Try Register wndclass
-            if(!RegisterClassEx(&wcex))
-            {
-                u32 i = GetLastError();
-                LOG_FATAL_ERROR("Cant register window class [err:%d]\n",i);
-                noerror = false;
-                return;
-            }
+            u32 i = GetLastError();
+            LOG_FATAL_ERROR("Cant register window class [err:%d]\n",i);
+            noerror = false;
+            return;
         }
+
+
         //! If no error we continue init and create window
-
         DWORD style = WS_POPUP;
-
         //!default window style(no fullscreen)
         if(!conf.FullScreen)
             style = WS_SYSMENU      |
@@ -226,6 +190,7 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
                     WS_CAPTION      |
                     WS_CLIPCHILDREN |
                     WS_CLIPSIBLINGS ;
+
 
         //!Create window
         hWnd = CreateWindowEx(0,
@@ -241,6 +206,7 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
                               hInstance,
                               NULL);
 
+
         //!show error if fail
         if(!hWnd)
         {
@@ -250,8 +216,10 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
             return;
         }
 
+
         //!register window in wndmap...
-        win32::WindowMap.addWindow(hWnd,this);
+        win32::WindowClass = this;
+
 
         setVisible(!conf.StartWindowHidden);
         /*
@@ -260,42 +228,37 @@ CWin32Window::CWin32Window(SEngineConf conf,IEventListener* event_proc):
         */
         UpdateWindow(hWnd);
 
+        loadKeyMap();
     }
 
-
     IsFullscreenWindow = conf.FullScreen;
-    loadKeyMap();
     CursorControl.hWnd = hWnd;
+
     //-----------------------------------
     LOG_ENGINE_DEBUG("CWin32Window() end\n");
 }
 //-------------------------------------------------------------------------------------------
 CWin32Window::~CWin32Window()
 {
-    if(title)
-        delete[] title;
+    if(window_title)
+        delete[] window_title;
 
     if(not IsExternalWindow)
     {
+        win32::WindowClass = nullptr;
         DestroyWindow(hWnd);
-        win32::WindowMap.removeWindow(hWnd);
 
-        if(win32::WindowMap.getMappedWindowCount() > 0)
+        if(!UnregisterClass("novaengine",hInstance))
         {
-            LOG_FATAL_ERROR("Cant release window class...(%d atached window still alive)\n",win32::WindowMap.getMappedWindowCount());
+            LOG_FATAL_ERROR("Cannot release window class\n");
         }
         else
         {
-            if(!UnregisterClass("novaengine",hInstance))
-            {
-                LOG_FATAL_ERROR("Cannot release window class\n");
-            }
-            else
-            {
-                win32::KeyMap.clear();
-                LOG_ENGINE_DEBUG("Window class goodbye 0/~\n");
-            }
+            LOG_ENGINE_DEBUG("Window class bye-bye 0/~\n");
         }
+
+        //Clear keymap
+        win32::KeyMap.erase(win32::KeyMap.begin(),win32::KeyMap.end());
     }
 }
 //-------------------------------------------------------------------------------------------
@@ -359,6 +322,21 @@ bool CWin32Window::isFullscreenMode()
     return IsFullscreenWindow;
 }
 //-------------------------------------------------------------------------------------------
+void CWin32Window::setTittle(const char* new_tittle)
+{
+    SetWindowText(hWnd,new_tittle);
+}
+//-------------------------------------------------------------------------------------------
+const char* CWin32Window::getTittle()
+{
+    if(window_title)
+        delete[] window_title;
+
+    window_title = new char[GetWindowTextLength(hWnd)];
+    GetWindowText(hWnd,window_title,GetWindowTextLength(hWnd));
+    return window_title;
+}
+//-------------------------------------------------------------------------------------------
 void CWin32Window::setVisible(bool visible)
 {
     if(visible)
@@ -371,34 +349,6 @@ void CWin32Window::setVisible(bool visible)
 bool CWin32Window::isVisible()
 {
     return IsVisible;
-}
-//-------------------------------------------------------------------------------------------
-void CWin32Window::setCaption(const wchar_t* caption)
-{
-    SetWindowTextW(hWnd,caption);
-}
-//-------------------------------------------------------------------------------------------
-const wchar_t*  CWin32Window::getCaption()
-{
-//! Hate windows... >.<
-//! I mean you must delete returned pointer if you done work with it...
-    // TODO (Gosha#1#): Fix this trash
-    if(title)
-        delete[] title;
-
-    title = new wchar_t[GetWindowTextLengthW(hWnd)];
-    GetWindowTextW(hWnd,title,GetWindowTextLengthW(hWnd));
-    return title;
-}
-//-------------------------------------------------------------------------------------------
-s32  CWin32Window::getWindowType()
-{
-    return 0;
-}
-//-------------------------------------------------------------------------------------------
-int  CWin32Window::getWindowID()
-{
-    return (int)hWnd;
 }
 //-------------------------------------------------------------------------------------------
 bool CWin32Window::update()
@@ -426,14 +376,13 @@ void CWin32Window::pullEvents()
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-
     }
 }
 //-------------------------------------------------------------------------------------------
 void CWin32Window::pushEvent(SEvent event)
 {
-    if(EventHandler)
-        EventHandler->OnEvent(event);
+    if(EventManager)
+        EventManager->pushEvent(event);
 
     if(event.event_type == EET_POINTER_EVENT && event.pointer.event_type == EPET_MOVE)
         CursorControl.LastPosition.set(event.pointer.x,event.pointer.y);
@@ -441,106 +390,108 @@ void CWin32Window::pushEvent(SEvent event)
 //-------------------------------------------------------------------------------------------
 void CWin32Window::loadKeyMap()
 {
-    win32::KeyMap.add(0,novaengine::KEY_UNKNOW);
+    //----------------------------------------------
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0,novaengine::KEY_UNKNOW));
     //---------------------------------------
-    win32::KeyMap.add(VK_UP,novaengine::KEY_UP);
-    win32::KeyMap.add(VK_DOWN,novaengine::KEY_DOWN);
-    win32::KeyMap.add(VK_LEFT,novaengine::KEY_LEFT);
-    win32::KeyMap.add(VK_RIGHT,novaengine::KEY_RIGHT);
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_UP,novaengine::KEY_UP));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_DOWN,novaengine::KEY_DOWN));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_LEFT,novaengine::KEY_LEFT));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_RIGHT,novaengine::KEY_RIGHT));
     //---------------------------------------
-    win32::KeyMap.add(VK_SHIFT,novaengine::KEY_SHIFT);
-    win32::KeyMap.add(VK_CONTROL,novaengine::KEY_CTRL);
-    win32::KeyMap.add(VK_MENU,novaengine::KEY_ALT);
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_SHIFT,novaengine::KEY_SHIFT));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_CONTROL,novaengine::KEY_CTRL));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_MENU,novaengine::KEY_ALT));
 
-    win32::KeyMap.add(0x30,novaengine::KEY_KEY_0);
-    win32::KeyMap.add(0x31,novaengine::KEY_KEY_1);
-    win32::KeyMap.add(0x32,novaengine::KEY_KEY_2);
-    win32::KeyMap.add(0x33,novaengine::KEY_KEY_3);
-    win32::KeyMap.add(0x34,novaengine::KEY_KEY_4);
-    win32::KeyMap.add(0x35,novaengine::KEY_KEY_5);
-    win32::KeyMap.add(0x36,novaengine::KEY_KEY_6);
-    win32::KeyMap.add(0x37,novaengine::KEY_KEY_7);
-    win32::KeyMap.add(0x38,novaengine::KEY_KEY_8);
-    win32::KeyMap.add(0x39,novaengine::KEY_KEY_9);
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x30,novaengine::KEY_KEY_0));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x31,novaengine::KEY_KEY_1));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x32,novaengine::KEY_KEY_2));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x33,novaengine::KEY_KEY_3));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x34,novaengine::KEY_KEY_4));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x35,novaengine::KEY_KEY_5));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x36,novaengine::KEY_KEY_6));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x37,novaengine::KEY_KEY_7));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x38,novaengine::KEY_KEY_8));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x39,novaengine::KEY_KEY_9));
     //--------------------------------------
-    win32::KeyMap.add(0x41,novaengine::KEY_KEY_A);
-    win32::KeyMap.add(0x42,novaengine::KEY_KEY_B);
-    win32::KeyMap.add(0x43,novaengine::KEY_KEY_C);
-    win32::KeyMap.add(0x44,novaengine::KEY_KEY_D);
-    win32::KeyMap.add(0x45,novaengine::KEY_KEY_E);
-    win32::KeyMap.add(0x46,novaengine::KEY_KEY_F);
-    win32::KeyMap.add(0x47,novaengine::KEY_KEY_G);
-    win32::KeyMap.add(0x48,novaengine::KEY_KEY_H);
-    win32::KeyMap.add(0x49,novaengine::KEY_KEY_I);
-    win32::KeyMap.add(0x4a,novaengine::KEY_KEY_J);
-    win32::KeyMap.add(0x4b,novaengine::KEY_KEY_K);
-    win32::KeyMap.add(0x4c,novaengine::KEY_KEY_L);
-    win32::KeyMap.add(0x4d,novaengine::KEY_KEY_M);
-    win32::KeyMap.add(0x4e,novaengine::KEY_KEY_N);
-    win32::KeyMap.add(0x4f,novaengine::KEY_KEY_O);
-    win32::KeyMap.add(0x50,novaengine::KEY_KEY_P);
-    win32::KeyMap.add(0x51,novaengine::KEY_KEY_Q);
-    win32::KeyMap.add(0x52,novaengine::KEY_KEY_R);
-    win32::KeyMap.add(0x53,novaengine::KEY_KEY_S);
-    win32::KeyMap.add(0x54,novaengine::KEY_KEY_T);
-    win32::KeyMap.add(0x55,novaengine::KEY_KEY_U);
-    win32::KeyMap.add(0x56,novaengine::KEY_KEY_V);
-    win32::KeyMap.add(0x57,novaengine::KEY_KEY_W);
-    win32::KeyMap.add(0x58,novaengine::KEY_KEY_X);
-    win32::KeyMap.add(0x59,novaengine::KEY_KEY_Y);
-    win32::KeyMap.add(0x5a,novaengine::KEY_KEY_Z);
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x41,novaengine::KEY_KEY_A));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x42,novaengine::KEY_KEY_B));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x43,novaengine::KEY_KEY_C));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x44,novaengine::KEY_KEY_D));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x45,novaengine::KEY_KEY_E));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x46,novaengine::KEY_KEY_F));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x47,novaengine::KEY_KEY_G));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x48,novaengine::KEY_KEY_H));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x49,novaengine::KEY_KEY_I));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4a,novaengine::KEY_KEY_J));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4b,novaengine::KEY_KEY_K));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4c,novaengine::KEY_KEY_L));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4d,novaengine::KEY_KEY_M));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4e,novaengine::KEY_KEY_N));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x4f,novaengine::KEY_KEY_O));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x50,novaengine::KEY_KEY_P));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x51,novaengine::KEY_KEY_Q));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x52,novaengine::KEY_KEY_R));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x53,novaengine::KEY_KEY_S));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x54,novaengine::KEY_KEY_T));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x55,novaengine::KEY_KEY_U));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x56,novaengine::KEY_KEY_V));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x57,novaengine::KEY_KEY_W));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x58,novaengine::KEY_KEY_X));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x59,novaengine::KEY_KEY_Y));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(0x5a,novaengine::KEY_KEY_Z));
     //--------------------------------------
-    win32::KeyMap.add(VK_BACK      ,novaengine::KEY_BACKSPACE  );
-    win32::KeyMap.add(VK_TAB       ,novaengine::KEY_TAB        );
-    win32::KeyMap.add(VK_RETURN    ,novaengine::KEY_RETURN     );
-    win32::KeyMap.add(VK_CAPITAL   ,novaengine::KEY_CAPSLOCK   );
-    win32::KeyMap.add(VK_ESCAPE    ,novaengine::KEY_ESCAPE     );
-    win32::KeyMap.add(VK_SPACE     ,novaengine::KEY_SPACE      );
-    win32::KeyMap.add(VK_PRIOR     ,novaengine::KEY_PAGEUP     );
-    win32::KeyMap.add(VK_NEXT      ,novaengine::KEY_PAGEDOWN   );
-    win32::KeyMap.add(VK_END       ,novaengine::KEY_END        );
-    win32::KeyMap.add(VK_HOME      ,novaengine::KEY_HOME       );
-    win32::KeyMap.add(VK_PRINT     ,novaengine::KEY_PRINTSCREEN);
-    win32::KeyMap.add(VK_INSERT    ,novaengine::KEY_INSERT     );
-    win32::KeyMap.add(VK_DELETE    ,novaengine::KEY_DELETE     );
-    win32::KeyMap.add(VK_LSHIFT    ,novaengine::KEY_LSHIFT     );
-    win32::KeyMap.add(VK_RSHIFT    ,novaengine::KEY_RSHIFT     );
-    win32::KeyMap.add(VK_LCONTROL  ,novaengine::KEY_LCTRL      );
-    win32::KeyMap.add(VK_RCONTROL  ,novaengine::KEY_RCTRL      );
-    win32::KeyMap.add(VK_SNAPSHOT  ,novaengine::KEY_PRINTSCREEN);
-    win32::KeyMap.add(VK_PAUSE     ,novaengine::KEY_PAUSE      );
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_BACK      ,novaengine::KEY_BACKSPACE  ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_TAB       ,novaengine::KEY_TAB        ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_RETURN    ,novaengine::KEY_RETURN     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_CAPITAL   ,novaengine::KEY_CAPSLOCK   ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_ESCAPE    ,novaengine::KEY_ESCAPE     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_SPACE     ,novaengine::KEY_SPACE      ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_PRIOR     ,novaengine::KEY_PAGEUP     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NEXT      ,novaengine::KEY_PAGEDOWN   ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_END       ,novaengine::KEY_END        ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_HOME      ,novaengine::KEY_HOME       ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_PRINT     ,novaengine::KEY_PRINTSCREEN));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_INSERT    ,novaengine::KEY_INSERT     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_DELETE    ,novaengine::KEY_DELETE     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_LSHIFT    ,novaengine::KEY_LSHIFT     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_RSHIFT    ,novaengine::KEY_RSHIFT     ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_LCONTROL  ,novaengine::KEY_LCTRL      ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_RCONTROL  ,novaengine::KEY_RCTRL      ));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_SNAPSHOT  ,novaengine::KEY_PRINTSCREEN));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_PAUSE     ,novaengine::KEY_PAUSE      ));
 
-    win32::KeyMap.add(VK_F1,novaengine::KEY_F1);
-    win32::KeyMap.add(VK_F2,novaengine::KEY_F2);
-    win32::KeyMap.add(VK_F3,novaengine::KEY_F3);
-    win32::KeyMap.add(VK_F4,novaengine::KEY_F4);
-    win32::KeyMap.add(VK_F5,novaengine::KEY_F5);
-    win32::KeyMap.add(VK_F6,novaengine::KEY_F6);
-    win32::KeyMap.add(VK_F7,novaengine::KEY_F7);
-    win32::KeyMap.add(VK_F8,novaengine::KEY_F8);
-    win32::KeyMap.add(VK_F9,novaengine::KEY_F9);
-    win32::KeyMap.add(VK_F10,novaengine::KEY_F10);
-    win32::KeyMap.add(VK_F11,novaengine::KEY_F11);
-    win32::KeyMap.add(VK_F12,novaengine::KEY_F12);
-    win32::KeyMap.add(VK_F13,novaengine::KEY_F13);
-    win32::KeyMap.add(VK_F14,novaengine::KEY_F14);
-    win32::KeyMap.add(VK_F15,novaengine::KEY_F15);
-    win32::KeyMap.add(VK_NUMLOCK,novaengine::KEY_NUMLOCK);
-    win32::KeyMap.add(VK_NUMPAD0,novaengine::KEY_NUM_0);
-    win32::KeyMap.add(VK_NUMPAD1,novaengine::KEY_NUM_1);
-    win32::KeyMap.add(VK_NUMPAD2,novaengine::KEY_NUM_2);
-    win32::KeyMap.add(VK_NUMPAD3,novaengine::KEY_NUM_3);
-    win32::KeyMap.add(VK_NUMPAD4,novaengine::KEY_NUM_4);
-    win32::KeyMap.add(VK_NUMPAD5,novaengine::KEY_NUM_5);
-    win32::KeyMap.add(VK_NUMPAD6,novaengine::KEY_NUM_6);
-    win32::KeyMap.add(VK_NUMPAD7,novaengine::KEY_NUM_7);
-    win32::KeyMap.add(VK_NUMPAD8,novaengine::KEY_NUM_8);
-    win32::KeyMap.add(VK_NUMPAD9,novaengine::KEY_NUM_9);
-    win32::KeyMap.add(VK_MULTIPLY,novaengine::KEY_MULTIPLY);
-    win32::KeyMap.add(VK_ADD,novaengine::KEY_PLUS);
-    win32::KeyMap.add(VK_SUBTRACT,novaengine::KEY_MINUS);
-    win32::KeyMap.add(VK_DECIMAL,novaengine::KEY_DECIMAL);
-    win32::KeyMap.add(VK_DIVIDE,novaengine::KEY_DIVIDE);
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F1,novaengine::KEY_F1));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F2,novaengine::KEY_F2));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F3,novaengine::KEY_F3));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F4,novaengine::KEY_F4));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F5,novaengine::KEY_F5));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F6,novaengine::KEY_F6));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F7,novaengine::KEY_F7));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F8,novaengine::KEY_F8));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F9,novaengine::KEY_F9));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F10,novaengine::KEY_F10));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F11,novaengine::KEY_F11));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F12,novaengine::KEY_F12));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F13,novaengine::KEY_F13));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F14,novaengine::KEY_F14));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_F15,novaengine::KEY_F15));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMLOCK,novaengine::KEY_NUMLOCK));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD0,novaengine::KEY_NUM_0));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD1,novaengine::KEY_NUM_1));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD2,novaengine::KEY_NUM_2));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD3,novaengine::KEY_NUM_3));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD4,novaengine::KEY_NUM_4));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD5,novaengine::KEY_NUM_5));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD6,novaengine::KEY_NUM_6));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD7,novaengine::KEY_NUM_7));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD8,novaengine::KEY_NUM_8));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_NUMPAD9,novaengine::KEY_NUM_9));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_MULTIPLY,novaengine::KEY_MULTIPLY));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_ADD,novaengine::KEY_PLUS));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_SUBTRACT,novaengine::KEY_MINUS));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_DECIMAL,novaengine::KEY_DECIMAL));
+    win32::KeyMap.insert(std::pair<int,E_KEY_CODE>(VK_DIVIDE,novaengine::KEY_DIVIDE));
+    //----------------------------------------------
 }
 //-------------------------------------------------------------------------------------------
 void* CWin32Window::getWindowInternalVariable(const char* name)

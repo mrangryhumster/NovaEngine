@@ -49,34 +49,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 #if defined(NE_WINDOW_WIN32)
     Window = new window::CWin32Window(engine_conf,EventManager);
 #elif defined(NE_WINDOW_ANDROID)
-    Window = new window::CAndroidWindow(engine_conf,EventManager);
-
-    //WARNING: SOME SHIT
-    //because we cant create gl context before get APP_CMD_INIT_WINDOW
-    //we must wait to it(and wait 3s)
-    //--------------------------------------------------------------------------------
-    LOG_ENGINE_DEBUG("Waiting APP_CMD_INIT_WINDOW event...");
-    bool* WindowReady = (bool*)Window->getWindowInternalVariable("ready");
-    u32  ReadyCheckStart = time::getRealTime();
-    while(!(*WindowReady))
-    {
-        WindowReady = (bool*)Window->getWindowInternalVariable("ready");
-        if((time::getRealTime() - ReadyCheckStart) < 3000)
-            Window->update();
-        else
-            break;
-    }
-    LOG_ENGINE_DEBUG("Waiting end...");
-    if((*WindowReady))
-    {
-        LOG_INFO("Window init. done in %d ms.\n",(time::getRealTime() - ReadyCheckStart));
-    }
-    else
-    {
-        LOG_FATAL_ERROR("Window init. timout expires...");
-        noerror = false;
-    }
-    //--------------------------------------------------------------------------------
+    Window = nullptr; //!< Android support removed temporary due rewrites of window class(again)
 #else
     LOG_FATAL_ERROR("Ops.. No window system selected.\n");
 #endif

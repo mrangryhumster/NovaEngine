@@ -10,9 +10,11 @@
 
 namespace novaengine
 {
-class IEventManager : public IEventListener
+class IEventManager : public Object
 {
     public:
+
+        virtual bool pushEvent(SEvent incoming_event) = 0;
 
         virtual void registerEventListener(IEventListener* proc)   = 0;
         virtual void unregisterEventListener(IEventListener* proc) = 0;

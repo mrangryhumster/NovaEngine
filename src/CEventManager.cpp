@@ -15,7 +15,7 @@ CEventManager::~CEventManager()
     //dtor
 }
 
-bool CEventManager::OnEvent(SEvent event)
+bool CEventManager::pushEvent(SEvent event)
 {
     if(event.event_type == EET_KEYBOARD_EVENT)
         KeyStates[event.keyboard.keycode] = event.keyboard.key_state;
