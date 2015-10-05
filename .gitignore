@@ -218,9 +218,9 @@ pip-log.txt
 *.mtl
 *.obj
 *.png
-*.layout
-*.depend
-*.out
+*.layout1
+*.depend1
+*.out1
 *.gch
 
 res/
