@@ -1,15 +1,15 @@
-#include "COpenGLVertexBuffer.h"
+#include "COpenGLMeshBuffer.h"
 
 namespace novaengine
 {
 namespace renderer
 {
-COpenGLVertexBuffer::COpenGLVertexBuffer()
+COpenGLMeshBuffer::COpenGLMeshBuffer()
 {
 
 }
 //-------------------------------------------------------------------------------------------
-COpenGLVertexBuffer::~COpenGLVertexBuffer()
+COpenGLMeshBuffer::~COpenGLMeshBuffer()
 {
 
 }

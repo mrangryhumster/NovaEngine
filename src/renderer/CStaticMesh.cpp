@@ -10,118 +10,54 @@ CStaticMesh::CStaticMesh()
 {
 
 }
-
+//--------------------------------------------------------------------------------------------------------
 CStaticMesh::~CStaticMesh()
 {
-    if(MeshUnits.size() > 0)
+    if(MeshBuffers.size() > 0)
     {
-        u32 UnitsCount = MeshUnits.size();
-        for(u32 i = 0; i < UnitsCount; i++)
-        {
-            MeshUnits[i].VertexBuffer->release();
-            if(MeshUnits[i].Material)
-                MeshUnits[i].Material->release();
-        }
-        MeshUnits.clear();
+        u32 BuffersCount = MeshBuffers.size();
+        for(u32 i = 0; i < BuffersCount; i++)
+            MeshBuffers[i]->release();
+        MeshBuffers.clear();
     }
 }
-
-void CStaticMesh::addMeshUnit(SMeshUnit new_unit)
+//--------------------------------------------------------------------------------------------------------
+void CStaticMesh::addMeshBuffer(IMeshBuffer* new_meshbuffer)
 {
-    if(new_unit.VertexBuffer != NULL)
-        new_unit.VertexBuffer->capture();
-    else
+    if(new_meshbuffer)
+        new_meshbuffer->capture();
+    MeshBuffers.push_back(new_meshbuffer);
+}
+//--------------------------------------------------------------------------------------------------------
+void CStaticMesh::removeMeshBuffer(u32 id)
+{
+    if(id >= MeshBuffers.size())
         return;
-
-    if(new_unit.Material)
-        new_unit.Material->capture();
-
-    MeshUnits.push_back(new_unit);
+    MeshBuffers[id]->release();
+    MeshBuffers.erase(MeshBuffers.begin() + id);
 }
-
-void CStaticMesh::addMeshUnit(IVertexBuffer* new_vertexbuffer,IMaterial* new_material)
+//--------------------------------------------------------------------------------------------------------
+IMeshBuffer* CStaticMesh::getMeshBuffer(u32 id)
 {
-    SMeshUnit new_unit;
-    new_unit.VertexBuffer = new_vertexbuffer;
-    new_unit.Material     = new_material;
-
-    addMeshUnit(new_unit);
-}
-
-void CStaticMesh::removeMeshUnit(u32 id)
-{
-    if(id >= MeshUnits.size())
-        return;
-
-    MeshUnits[id].VertexBuffer->release();
-    if(MeshUnits[id].Material)
-        MeshUnits[id].Material->release();
-
-    MeshUnits.erase(MeshUnits.begin()+id);
-}
-
-u32  CStaticMesh::getMeshUnitsCount()
-{
-    return MeshUnits.size();
-}
-
-const SMeshUnit* CStaticMesh::getMeshUnit(u32 id)
-{
-    if(id >= MeshUnits.size())
+    if(id >= MeshBuffers.size())
         return NULL;
-    return &MeshUnits[id];
+    return MeshBuffers[id];
 }
-
-IVertexBuffer* CStaticMesh::getVertexBuffer(u32 id)
+//--------------------------------------------------------------------------------------------------------
+u32  CStaticMesh::getMeshBuffersCount()
 {
-    if(id >= MeshUnits.size())
-        return NULL;
-    return MeshUnits[id].VertexBuffer;
+    return MeshBuffers.size();
 }
-
-IMaterial* CStaticMesh::getMaterial(u32 id)
+//--------------------------------------------------------------------------------------------------------
+std::vector<IMeshBuffer*> CStaticMesh::getMeshBuffers()
 {
-    if(id >= MeshUnits.size())
-        return NULL;
-    return MeshUnits[id].Material;
+    return MeshBuffers;
 }
-void CStaticMesh::setVertexBuffer(u32 id,IVertexBuffer* new_vertexbuffer)
-{
-    if(id >= MeshUnits.size())
-        return;
-    SMeshUnit* MeshUnit = &MeshUnits[id];
-
-    if(MeshUnit == NULL)
-        return;
-
-    if(new_vertexbuffer == NULL)
-    {
-        removeMeshUnit(id);
-    }
-    else
-    {
-        new_vertexbuffer->capture();
-        MeshUnit->VertexBuffer->release();
-        MeshUnit->VertexBuffer = new_vertexbuffer;
-    }
-}
-void CStaticMesh::setMaterial(u32 id,IMaterial* new_material)
-{
-    if(id >= MeshUnits.size())
-        return;
-    SMeshUnit* MeshUnit = &MeshUnits[id];
-
-    if(MeshUnit->Material)
-        MeshUnit->Material->release();
-    if(new_material)
-        new_material->capture();
-    MeshUnit->Material = new_material;
-
-}
+//--------------------------------------------------------------------------------------------------------
 IStaticMesh* CStaticMesh::getCopy()
 {
     return NULL;
 }
-
+//--------------------------------------------------------------------------------------------------------
 }
 }

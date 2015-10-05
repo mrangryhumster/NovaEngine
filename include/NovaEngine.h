@@ -28,7 +28,7 @@
 #include "IImage.h"
 #include "ITexture.h"
 #include "IMaterial.h"
-#include "IVertexBuffer.h"
+#include "IMeshBuffer.h"
 #include "IShaderProgram.h"
 #include "IRenderer.h"
 

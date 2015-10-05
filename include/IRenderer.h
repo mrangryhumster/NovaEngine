@@ -5,7 +5,7 @@
 #include "NTypes.h"
 #include "ERendererEnums.h"
 #include "SVertex.h"
-#include "IVertexBuffer.h"
+#include "IMeshBuffer.h"
 #include "IShaderProgram.h"
 
 #include "IImage.h"
@@ -72,7 +72,7 @@ public:
     //--------------------------------------------------------------------------
     virtual IShaderProgram* GenShaderProgram() = 0;
     //--------------------------------------------------------------------------
-    virtual IVertexBuffer* GenVertexBuffer() = 0;
+    virtual IMeshBuffer* GenMeshBuffer() = 0;
     //--------------------------------------------------------------------------
     virtual ITexture* GenTexture(IImage*,STextureParameters = STextureParameters()) = 0;
     virtual IImage*   GenImage(ITexture*) = 0;
@@ -90,7 +90,7 @@ public:
     virtual void clear(u32 flag,core::color4f clear_color = core::color4f(0,0,0,1)) = 0;
     virtual void flush() = 0;
     //--------------------------------------------------------------------------
-    virtual void drawVertexBuffer(IVertexBuffer*) = 0;
+    virtual void drawMeshBuffer(IMeshBuffer*) = 0;
 
     virtual void drawPrimitiveList       (const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat) = 0;
     virtual void drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat) = 0;

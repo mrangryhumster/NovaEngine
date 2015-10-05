@@ -2,7 +2,7 @@
 #define CSTATICMESH_H
 
 #include "IStaticMesh.h"
-#include "IVertexBuffer.h"
+#include "IMeshBuffer.h"
 #include "IMaterial.h"
 #include <vector>
 
@@ -18,25 +18,21 @@ public:
     CStaticMesh();
     virtual ~CStaticMesh();
 
-        void addMeshUnit(SMeshUnit);
-        void addMeshUnit(IVertexBuffer*,IMaterial*);
+    void addMeshBuffer(IMeshBuffer*);
+    void removeMeshBuffer(u32);
+    IMeshBuffer* getMeshBuffer(u32 );
 
-        void removeMeshUnit(u32 id);
-        u32  getMeshUnitsCount();
+    u32 getMeshBuffersCount();
 
-        const SMeshUnit* getMeshUnit(u32 id);
+    IStaticMesh* getCopy();
 
-        IVertexBuffer*  getVertexBuffer(u32 id);
-        IMaterial*      getMaterial(u32 id);
-
-        void setVertexBuffer(u32 id,IVertexBuffer*);
-        void setMaterial(u32 id,IMaterial*);
-
-        IStaticMesh* getCopy();
+    std::vector<IMeshBuffer*> getMeshBuffers(); //?
 
 protected:
 private:
-    std::vector<SMeshUnit>  MeshUnits;
+
+    std::vector<IMeshBuffer*> MeshBuffers;
+
 };
 
 }

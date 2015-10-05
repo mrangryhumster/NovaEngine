@@ -26,7 +26,7 @@ public:
 
 
         for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
-            MaterialTextureList[i] = NULL;
+            MaterialTextureList[i] = nullptr;
 
 
     }

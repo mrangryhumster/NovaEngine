@@ -1,6 +1,6 @@
 #include "CBaseRenderer.h"
 
-#include "renderer\CVertexBuffer.h"
+#include "renderer\CMeshBuffer.h"
 
 namespace novaengine
 {

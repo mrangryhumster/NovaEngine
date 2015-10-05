@@ -71,7 +71,10 @@ LRESULT CALLBACK Win32_WndProc(HWND hWnd, UINT Msg , WPARAM wParam, LPARAM lPara
         case WM_MOUSEWHEEL:
             event.pointer.event_type = EPET_WHELL;
             event.pointer.keycode = KEY_MOUSE_WHELL;
-            //! get whell spin direction
+            //! get wheel spin direction
+            //You spin me right round, baby
+            //Right round like a record, baby
+            //Right round, round, round
             short whell_dir = (short)HIWORD(wParam);
             event.pointer.key_state = (whell_dir > 0) ? EKS_DOWN : EKS_UP;
 

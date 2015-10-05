@@ -22,6 +22,11 @@ public:
     ~CMemoryWatcher()
     {
         printf("\n\nUnreleased memory : %u\n",BytesUsed);
+
+        unsigned int size = MemoryAllocated.size();
+        for(unsigned int i = 0; i < size; i++)
+            printf("unreleased block : %x size : %d isArray : %d\n",MemoryAllocated[i].pointer,MemoryAllocated[i].size,MemoryAllocated[i].array);
+
     }
 
     void register_block(void* ptr,unsigned int size,bool array)

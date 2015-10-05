@@ -91,137 +91,6 @@ private:
     s32 last_y;
 };
 
-
-//--------------------------------------------------------------------------
-class Chunk
-{
-public:
-    Chunk()
-    {
-        memset(data,0,sizeof(int) * 16 * 16 * 16);
-    }
-    int getVoxel(u32 x,u32 y,u32 z)
-    {
-        if(x >= 16) return 0;
-        if(y >= 16) return 0;
-        if(z >= 16) return 0;
-        return data[x][y][z];
-    }
-    void setVoxel(u32 x,u32 y,u32 z,int _data)
-    {
-        data[x][y][z] = _data;
-    }
-private:
-    int data[16][16][16];
-};
-
-class Mesher
-{
-public:
-    renderer::IVertexBuffer* Generate(Chunk* c)
-    {
-        INovaEngine* Engine = getNovaEngine();
-
-        renderer::IVertexBuffer* VB = Engine->getResourceManager()->createVertexBuffer();
-        VB->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION));
-        //---------------------------------
-        VB->setPrimitiveType(renderer::EPT_TRIANGLE);
-
-        int r = c->getVoxel(0,0,0);
-        int r1 = c->getVoxel(1,0,0);
-
-        for(u32 x = 0; x < 16; x++)
-            for(u32 y = 0; y < 16; y++)
-                for(u32 z = 0; z < 16; z++)
-                {
-                    int cv = c->getVoxel(x,y,z);
-
-                    if(cv)
-                    {
-                        if(!c->getVoxel(x-1,y,z))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x,y,z);
-                            p[1].set(x,y,z+1);
-                            p[2].set(x,y+1,z+1);
-                            p[3] = p[2];
-                            p[4].set(x,y+1,z);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-
-                        }
-                        if(!c->getVoxel(x+1,y,z))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x+1,y,z+1);
-                            p[1].set(x+1,y,z);
-                            p[2].set(x+1,y+1,z);
-                            p[3] = p[2];
-                            p[4].set(x+1,y+1,z+1);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-
-                        }
-                        if(!c->getVoxel(x,y-1,z))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x,y,z);
-                            p[1].set(x+1,y,z);
-                            p[2].set(x+1,y,z+1);
-                            p[3] = p[2];
-                            p[4].set(x,y,z+1);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-
-                        }
-                        if(!c->getVoxel(x,y+1,z))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x,y+1,z);
-                            p[1].set(x,y+1,z+1);
-                            p[2].set(x+1,y+1,z+1);
-                            p[3] = p[2];
-                            p[4].set(x+1,y+1,z);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-
-                        }
-                        if(!c->getVoxel(x,y,z-1))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x+1,y,z);
-                            p[1].set(x,y,z);
-                            p[2].set(x,y+1,z);
-                            p[3] = p[2];
-                            p[4].set(x+1,y+1,z);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-
-                        }
-                        if(!c->getVoxel(x,y,z+1))
-                        {
-                            core::vector3f p[6];
-                            p[0].set(x,y,z+1);
-                            p[1].set(x+1,y,z+1);
-                            p[2].set(x+1,y+1,z+1);
-                            p[3] = p[2];
-                            p[4].set(x,y+1,z+1);
-                            p[5] = p[0];
-                            VB->addBufferData(renderer::EVA_POSITION,p,72);
-                        }
-                    }
-                    else
-                    {
-
-                    }
-                }
-
-        //---------------------------------
-        return VB;
-    }
-};
-//--------------------------------------------------------------------------
-
 int run()
 {
 
@@ -247,42 +116,32 @@ int run()
     animator->setActive(true);
     animator->scene::ISceneNodeAnimator::release();
 
-    renderer::IVertexBuffer* VertexBuffer = nullptr;
-
-    Chunk chunk;
-    chunk.setVoxel(0,0,0,1);
-    chunk.setVoxel(0,1,0,1);
-    chunk.setVoxel(0,2,0,1);
-    chunk.setVoxel(1,0,0,1);
-
-    Mesher mesher;
-
-    VertexBuffer = mesher.Generate(&chunk);
-
-    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->createStaticMesh();
-    Mesh->addMeshUnit(VertexBuffer,NULL);
-
-    scene::ISceneStaticMesh* Node = Engine->getSceneManager()->createSceneStaticMesh(Mesh);
-    Node->RegisterNode();
-    Node->release();
-
-    Mesh->release();
-
-
+    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("res//ship.obj");
 
     u32 FPS = 0;
 
-    Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
+    //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
+    //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_CULL_FACE,false);
 
     novaengine::IPerformanceCounter * EPC = Engine->getPerformanceCounter();
     while(Engine->update())
     {
+        //printf("%d %d %f\n",EPC->getVerticesPerFrame(),EPC->getDrawCallsPerFrame(),EPC->getFramesPerSecond());
+
         Engine->getRenderer()->begin_frame(1,1,core::color4f(0.1,0.1,0.4,1));
         Engine->getSceneManager()->animateActiveScene(EPC->getMilisecondsPerFrame());
-        Engine->getSceneManager()->renderActiveScene();
-       Engine->getRenderer()->end_frame();
-    }
+        Camera->render();
 
+        for(u32 i = 0; i < Mesh->getMeshBuffersCount();i++)
+        {
+            if(Mesh->getMeshBuffer(i)->getMaterial())
+            Engine->getRenderer()->bindMaterial(Mesh->getMeshBuffer(i)->getMaterial());
+            Engine->getRenderer()->drawMeshBuffer(Mesh->getMeshBuffer(i));
+        }
+
+        Engine->getRenderer()->end_frame();
+    }
+    Mesh->release();
     closeEngine();
     return 0;
 }

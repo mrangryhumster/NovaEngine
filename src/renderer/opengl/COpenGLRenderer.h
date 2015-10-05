@@ -16,7 +16,7 @@
 #include "CBaseRenderer.h"
 #include "opengl/COpenGLShaderProgram.h"
 #include "opengl/COpenGLTexture.h"
-#include "opengl/COpenGLVertexBuffer.h"
+#include "opengl/COpenGLMeshBuffer.h"
 
 #ifdef NE_WINDOW_WIN32
 #include <windows.h>
@@ -64,7 +64,7 @@ public:
     //--------------------------------------------------------------------------
     IShaderProgram* GenShaderProgram();
     //--------------------------------------------------------------------------
-    IVertexBuffer* GenVertexBuffer();
+    IMeshBuffer* GenMeshBuffer();
     //--------------------------------------------------------------------------
     ITexture* GenTexture(IImage*,STextureParameters);
     IImage*   GenImage(ITexture*);
@@ -81,7 +81,7 @@ public:
 
 
     ///Render   HL
-    void drawVertexBuffer(IVertexBuffer*);
+    void drawMeshBuffer(IMeshBuffer*);
 
     void drawPrimitiveList(const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat);
     void drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat);

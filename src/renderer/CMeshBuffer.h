@@ -1,18 +1,22 @@
-#ifndef CVertexBuffer_H
-#define CVertexBuffer_H
+#ifndef CMeshBuffer_H
+#define CMeshBuffer_H
 
 #include <stdio.h>
 #include <vector>
-#include "IVertexBuffer.h"
+#include "IMeshBuffer.h"
 
 namespace novaengine
 {
 namespace renderer
 {
-class CVertexBuffer : public IVertexBuffer
+class CMeshBuffer : public IMeshBuffer
 {
 public:
-    CVertexBuffer();
+    CMeshBuffer();
+    virtual ~CMeshBuffer();
+    //---------------------------------------------------------------------------
+    void                 setMaterial(renderer::IMaterial*);
+    renderer::IMaterial* getMaterial();
     //---------------------------------------------------------------------------
     void   setBufferData(u32 buffer,const void* data,size_t size);
     void   addBufferData(u32 buffer,const void* data,size_t size);
@@ -76,6 +80,8 @@ protected:
         }
     }
 
+    renderer::IMaterial* Material;
+
     SVertexFormat      VertexFormat;
     std::vector<u8>    Positions;
     std::vector<u8>    Normals;
@@ -96,4 +102,4 @@ protected:
 
 }
 }
-#endif // CVertexBuffer_H
+#endif // CMeshBuffer_H

@@ -1,5 +1,5 @@
-#ifndef IVERTEXARRAY_H
-#define IVERTEXARRAY_H
+#ifndef IMESHBUFFER_H
+#define IMESHBUFFER_H
 
 
 
@@ -11,6 +11,8 @@
 #include "SPrimitive.h"
 #include "ERendererEnums.h"
 
+#include "IMaterial.h"
+
 namespace novaengine
 {
 namespace renderer
@@ -18,24 +20,27 @@ namespace renderer
 
 enum E_VERTEX_BUFFER_TYPE
 {
-    EVBT_UNDEFINDED = 0x0, //!< Not Defined. Vertices maybe exist, maybe not...
-    EVBT_RAWDATA    = 0x1, //!< Common VertexBuffer. Store data in ram only
-    EVBT_VBO_STREAM = 0x2, //!< VertexBufferObject (VBO) Store data both in vbo and ram
-    EVBT_VBO_STATIC = 0x3  //!< VertexBufferObject (VBO) Store data only in vbo, to change any vertex you must call lock() (of course, unlock() if you done..)
+    EMBT_UNDEFINDED = 0x0, //!< Not Defined. Vertices maybe exist, maybe not...
+    EMBT_RAWDATA    = 0x1, //!< Common MeshBuffer. Store data in ram only
+    EMBT_VBO_STREAM = 0x2, //!< MeshBufferObject (VBO) Store data both in vbo and ram
+    EMBT_VBO_STATIC = 0x3  //!< MeshBufferObject (VBO) Store data only in vbo, to change any vertex you must call lock() (of course, unlock() if you done..)
 };
 
 enum E_VERTEX_BUFFER_MAPPING_HINT
 {
-    EVBMH_DEFAULT         = 0,
-    EVBMH_VBO_STREAM      = 1,
-    EVBMH_VBO_STATIC      = 2,
-    EVBMH_VBO_STREAM_COPY = 3,
-    EVBMH_VBO_STATIC_COPY = 4
+    EMBMH_DEFAULT         = 0,
+    EMBMH_VBO_STREAM      = 1,
+    EMBMH_VBO_STATIC      = 2,
+    EMBMH_VBO_STREAM_COPY = 3,
+    EMBMH_VBO_STATIC_COPY = 4
 };
 
-class IVertexBuffer : public Resource
+class IMeshBuffer : public Resource
 {
 public:
+
+    virtual void setMaterial(renderer::IMaterial*) = 0;
+    virtual renderer::IMaterial* getMaterial()     = 0;
 
     virtual void   setBufferData(u32 buffer,const void* data,size_t size) = 0;
     virtual void   addBufferData(u32 buffer,const void* data,size_t size) = 0;
@@ -78,4 +83,4 @@ public:
 
 }
 }
-#endif // IVertexBuffer_H
+#endif // IMeshBuffer_H

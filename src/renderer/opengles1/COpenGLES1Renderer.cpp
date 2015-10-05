@@ -362,9 +362,9 @@ IShaderProgram* COpenGLES1Renderer::GenShaderProgram()
     return NULL;
 }
 //--------------------------------------------------------------------------------------------------------
-IVertexBuffer* COpenGLES1Renderer::GenVertexBuffer()
+IMeshBuffer* COpenGLES1Renderer::GenMeshBuffer()
 {
-    return new COpenGLES1VertexBuffer();
+    return new COpenGLES1MeshBuffer();
 }
 //--------------------------------------------------------------------------------------------------------
 ITexture* COpenGLES1Renderer::GenTexture(IImage* img,STextureParameters params)
@@ -471,17 +471,17 @@ void COpenGLES1Renderer::flush()
     eglSwapBuffers(Display, Surface);
 }
 //--------------------------------------------------------------------------------------------------------
-void COpenGLES1Renderer::drawVertexBuffer(IVertexBuffer* VertexBuffer)
+void COpenGLES1Renderer::drawMeshBuffer(IMeshBuffer* MeshBuffer)
 {
           drawArrays(
-            VertexBuffer->getIndicesCount(),
-            VertexBuffer->getPositionsCount(),
-            VertexBuffer->getIndices(),
-            VertexBuffer->getPositions(),
-            VertexBuffer->getUVs(),
-            VertexBuffer->getNormals(),
-            VertexBuffer->getColors(),
-            (E_PRIMITIVE_TYPE)VertexBuffer->getPrimitiveType()
+            MeshBuffer->getIndicesCount(),
+            MeshBuffer->getPositionsCount(),
+            MeshBuffer->getIndices(),
+            MeshBuffer->getPositions(),
+            MeshBuffer->getUVs(),
+            MeshBuffer->getNormals(),
+            MeshBuffer->getColors(),
+            (E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType()
         );
 }
 //-------------------------------a-------------------------------------------------------------------------
@@ -707,7 +707,7 @@ u32 COpenGLES1Renderer::to_opengl_blendmodes(E_BLENDING_MODE engine_mode)
 //--------------------------------------------------------------------------------------------------------
 void COpenGLES1Renderer::enable_client_states(bool vert,bool tex,bool norm,bool color)
 {
-    //---------------------------------------------------------VertexBuffer
+    //---------------------------------------------------------MeshBuffer
     if(vert)
     {
         if(RendererClientStatesList[RCSL_VERTEX_ARRAY] == false)

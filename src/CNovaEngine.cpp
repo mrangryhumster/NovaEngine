@@ -50,6 +50,9 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     Window = new window::CWin32Window(engine_conf,EventManager);
 #elif defined(NE_WINDOW_ANDROID)
     Window = nullptr; //!< Android support removed temporary due rewrites of window class(again)
+    //Over and over
+    //Over and over
+    //I rewrite this piece of shiiiit...
 #else
     LOG_FATAL_ERROR("Ops.. No window system selected.\n");
 #endif

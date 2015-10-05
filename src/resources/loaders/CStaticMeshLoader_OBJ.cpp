@@ -1,11 +1,12 @@
 
 #include "CompileConfig.h"
+#define NE_INCLUDE_STATICMESH_LOADER_OBJ
 #ifdef NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #include "CStaticMeshLoader_OBJ.h"
 
 #include "CStaticMesh.h"
-#include "CVertexBuffer.h"
+#include "CMeshBuffer.h"
 
 #include <stdio.h>
 
@@ -33,7 +34,8 @@ bool CStaticMeshLoader_OBJ::isSupported(const char* file_extension)
 //--------------------------------------------------------------------------------------------------------
 bool CStaticMeshLoader_OBJ::isSupported(io::IFile* file)
 {
-    return false;//!< Too hard to detect file with this method
+    //! I'm too lazy to write this...
+    return false;
 }
 //--------------------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(const char* path)
@@ -63,7 +65,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(io::IFile* file,con
 //--------------------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 {
-    //REPAIR
+    //CHECK_CODE
 
     bool have_texcoords = false;
     bool have_normals   = false;
@@ -72,20 +74,16 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
     std::vector<core::vector2f> TexCoords;
     std::vector<core::vector3f> Normals;
 
-    std::map<std::string,SObjMtl> ObjMaterials;
+    //! All meshes in this loader grouping by material
+    std::map<std::string,renderer::IMeshBuffer*> OBJ_MaterialGroups;
 
-    renderer::IStaticMesh*   Mesh         = ResourceManager->createStaticMesh();
-    renderer::IVertexBuffer* VertexBuffer = ResourceManager->createVertexBuffer();
-    renderer::IMaterial*     Material     = ResourceManager->createMaterial();
+    renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
 
-    //VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-    //VertexBuffer->setVertexFormat((renderer::EVA_POSITION) | ((have_texcoords)?renderer::EVA_TEXCOORD:0) | ((have_normals)?renderer::EVA_NORMAL:0));
-    //VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
-
-    SObjMtl DefaultMtl;
-    DefaultMtl.VertexBuffer = VertexBuffer;
-    DefaultMtl.Material     = Material;
-    ObjMaterials["default"] = DefaultMtl;
+    renderer::IMeshBuffer* MeshBuffer = nullptr;
+    //-------------------------------
+    //! default object/material
+    OBJ_MaterialGroups["default"] = MeshBuffer = ResourceManager->createMeshBuffer();
+    //-------------------------------
 
     char string[256];
     while((file->read_string(string,256)) != 0)
@@ -100,7 +98,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
             char mtl_file_name[256];
             sscanf(string,"mtllib %255s",mtl_file_name);
             //load .mtl file
-            read_mtl_file(ObjMaterials,mtl_file_name);
+            read_mtl_file(OBJ_MaterialGroups,mtl_file_name);
             //read_mtl_file(&Materials,mtl_file_name);
 
             break;
@@ -110,22 +108,13 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
             char mtl_name[256];
             sscanf(string,"usemtl %255s",mtl_name);
 
-            std::map<std::string,SObjMtl>::iterator it;
-
-            if((it = ObjMaterials.find(std::string(mtl_name))) != ObjMaterials.end())
-            {
-                //VertexBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-                //VertexBuffer->setVertexFormat((renderer::EVA_POSITION) | ((have_texcoords)?renderer::EVA_TEXCOORD:0) | ((have_normals)?renderer::EVA_NORMAL:0));
-                //VertexBuffer->setBufferType(renderer::EVBT_RAWDATA);
-
-                VertexBuffer = (*it).second.VertexBuffer;
-                Material     = (*it).second.Material;
-
-            }
+            std::map<std::string,renderer::IMeshBuffer*>::iterator it;
+            if((it = OBJ_MaterialGroups.find(std::string(mtl_name))) != OBJ_MaterialGroups.end())
+                MeshBuffer = (*it).second;
             else
-            {
+                MeshBuffer = OBJ_MaterialGroups["default"];
 
-            }
+
             have_texcoords = false;
             have_normals   = false;
             break;
@@ -158,7 +147,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
             char* tok = strtok(string + 1," \n");
 
-            //identify index format
+            //!identify index format
             int index_format = 0;
             for(u32 i = 0; i < strlen(tok); i++)
             {
@@ -170,7 +159,11 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
                 else if(tok[i] == '/')
                     index_format++;
             }
-
+            //! Possible 4 formats
+            //! 1 : POSITION
+            //! 2 : POSITION/TEXCOORD
+            //! 3 : POSITION/TEXCOORD/NORMAL
+            //! 4 : POSITION//NORMAL  (no texcoord)
             while(tok != NULL)
             {
                 core::vector3s tmp_Index;
@@ -223,11 +216,11 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
                 tok = strtok(NULL," \n");
             }
 
+            //! Triangulate faces
             if(Face.size() > 3)
             {
-                //!< If Face = Quad we use predefined vertex positions (it's little faster)
-                //!< Else we split big polygon(more than 4 vertex) on triangles
-
+                //! If Face = Quad we use predefined vertex positions (it's little faster)
+                //! Else we split polygon(more than 4 vertex) on triangles
                 if(Face.size() == 4)
                 {
                     Face.push_back(0);
@@ -236,7 +229,6 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
                     Face[3] = Face[2];
                     Face[5] = Face[0];
                 }
-
                 else
                 {
                     std::vector<core::vector3s> TriangulatedFaces;
@@ -252,88 +244,119 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
                 }
 
             }
-            //Save to vertexbuffer
+
+            //!Save to MeshBuffer
             u32 IndicesSize = Face.size();
             for(u32 i = 0; i < IndicesSize; i++)
             {
                 renderer::SVertex Vertex;
 
-//                VertexBuffer->addPosition(Verticles[Face[i].x]);
+                MeshBuffer->addBufferData(renderer::EVA_POSITION,&Verticles[Face[i].x],sizeof(core::vector3f));
 
-//                if(have_texcoords)
-//                    VertexBuffer->addUV(TexCoords[Face[i].y]);
-//                if(have_normals)
-//                    VertexBuffer->addNormal(Normals[Face[i].z]);
+                if(have_texcoords)
+                    MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,&TexCoords[Face[i].y],sizeof(core::vector2f));
+
+                if(have_normals)
+                    MeshBuffer->addBufferData(renderer::EVA_NORMAL,&Normals[Face[i].z],sizeof(core::vector3f));
+
             }
             break;
         }
 
         }
     }
-    /*
 
-
-        Mesh->addMeshUnit(VertexBuffer,NULL);
-        VertexBuffer->release();
-    */
-    for(auto it = ObjMaterials.begin(); it != ObjMaterials.end(); it++)
+    for(auto it = OBJ_MaterialGroups.begin(); it != OBJ_MaterialGroups.end(); it++)
     {
-        Mesh->addMeshUnit((*it).second.VertexBuffer,(*it).second.Material);
-        (*it).second.VertexBuffer->release();
+        renderer::IMeshBuffer* MeshBuffer = (*it).second;
+        if(MeshBuffer->getBufferSize(renderer::EVA_POSITION) > 0)
+        {
+            MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+
+            MeshBuffer->setVertexFormat(
+                renderer::SVertexFormat(
+                    (renderer::EVA_POSITION) |
+                    ((MeshBuffer->getBufferSize(renderer::EVA_TEXCOORD) > 0)?renderer::EVA_TEXCOORD:0) |
+                    ((MeshBuffer->getBufferSize(renderer::EVA_NORMAL) > 0)?renderer::EVA_NORMAL:0)
+                )
+            );
+
+            Mesh->addMeshBuffer(MeshBuffer);
+        }
+        MeshBuffer->release();
     }
 
     LOG_ENGINE_DEBUG("MESH LOADED\n");
-    LOG_ENGINE_DEBUG("MESH_UNITS  : %d\n",Mesh->getMeshUnitsCount());
-    LOG_ENGINE_DEBUG("MATERIALS   : %d\n",ObjMaterials.size());
-    LOG_ENGINE_DEBUG("LOADED OBJECTS\n");
+    LOG_ENGINE_DEBUG("MESHBUFFERS COUNT  : %d\n",Mesh->getMeshBuffersCount());
 
     return Mesh;
 }
 //--------------------------------------------------------------------------------------------------------
-void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,SObjMtl>& materials,const char* mtl_file)
+void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBuffer*>& obj_materialgroups,const char* mtl_file)
 {
+
     io::IFile* mtl = FileSystem->open_file(mtl_file);
     if(mtl == NULL)
         return;
-    renderer::IMaterial*     Material     = NULL;
+    renderer::IMaterial* Material = nullptr;
+
     //parse mtl file
     char string[256];
     while((mtl->read_string(string,256)) != 0)
     {
         //---------
-        switch(string[0])
+        u32 i = 0;
+        while(string[i] == ' ' || string[i] == '\t')
+            i++;
+        switch(string[i])
         {
-        case 'n':
+        case 'n': //newmtl
         {
             char mtl_name[256];
-            sscanf(string,"newmtl %255s",mtl_name);
+            sscanf(&string[i],"newmtl %255s",mtl_name);
 
-            SObjMtl newMtl;
-            newMtl.VertexBuffer = ResourceManager->createVertexBuffer();
-            Material     = newMtl.Material     = ResourceManager->createMaterial();
+            if(strcmp(mtl_name,"default") == 0)
+            {
+                LOG_ENGINE_DEBUG("warning: default mtl redefined\n");
 
-            newMtl.VertexBuffer->setResourceName(mtl_name);
+                Material = ResourceManager->createMaterial();
+                obj_materialgroups["default"]->setMaterial(Material);
+                Material->release();
+            }
+            else
+            {
+                LOG_ENGINE_DEBUG("new mtl loaded : %s\n",mtl_name);
 
-            LOG_ENGINE_DEBUG("new mtl loaded : %s\n",mtl_name);
-            materials[std::string(mtl_name)] = newMtl;
+                Material = ResourceManager->createMaterial();
+                Material->setObjectName(mtl_name);
+                renderer::IMeshBuffer* MeshBuffer = ResourceManager->createMeshBuffer();
+                MeshBuffer->setMaterial(Material);
+                Material->release();
+
+                obj_materialgroups[std::string(mtl_name)] = MeshBuffer;
+            }
         }
         break;
-        case 'K':
-            if(string[1] == 'd')
+        case 'K': //Ka/Kd/Ks
+            if(string[i+1] == 'd')
             {
                 core::color4f color(0,0,0,1);
-                sscanf(string + 2,"%f %f %f",&color.r,&color.g,&color.b);
+                sscanf(&string[i+2],"%f %f %f",&color.r,&color.g,&color.b);
                 Material->setDiffuseColor(color);
             }
             break;
-        case 'N':
+        case 'N': //Ns/Ni
             break;
 
-        case 'm':
+        case 'm': //map_Kd
             char texture_name[256];
-            sscanf(string,"map_Kd %255s",texture_name);
-            renderer::ITexture* texture = ResourceManager->loadTexture(texture_name);
-            Material->setTexture(texture,0);
+            sscanf(&string[i],"map_Kd %255s",texture_name);
+            renderer::ITexture* Texture = ResourceManager->loadTexture(texture_name);
+            if(Texture)
+            {
+                Material->setTexture(Texture,0);
+                Texture->release();
+            }
             break;
 
         }

@@ -1,12 +1,12 @@
 #ifdef NE_OPENGLES1_RENDERER
 
-#ifndef COpenGLES1VertexBuffer_H
-#define COpenGLES1VertexBuffer_H
+#ifndef COpenGLES1MeshBuffer_H
+#define COpenGLES1MeshBuffer_H
 
 #include "NovaEngine.h"
 
 #include "IRenderer.h"
-#include "CVertexBuffer.h"
+#include "CMeshBuffer.h"
 
 #include "log/NLogger.h"
 
@@ -18,11 +18,11 @@ namespace novaengine
 namespace renderer
 {
 
-class COpenGLES1VertexBuffer : public CVertexBuffer
+class COpenGLES1MeshBuffer : public CMeshBuffer
 {
 public:
-    COpenGLES1VertexBuffer();
-    virtual ~COpenGLES1VertexBuffer();
+    COpenGLES1MeshBuffer();
+    virtual ~COpenGLES1MeshBuffer();
 
     u32 getVertexCount();
 
@@ -60,7 +60,7 @@ private:
 
 }
 }
-#endif // COpenGLES1VertexBuffer_H
+#endif // COpenGLES1MeshBuffer_H
 
 #endif // NE_OPENGLES1_RENDERER
 

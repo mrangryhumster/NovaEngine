@@ -158,6 +158,9 @@
 		<Unit filename="include/IMaterial.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
+		<Unit filename="include/IMeshBuffer.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
 		<Unit filename="include/INovaEngine.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
@@ -201,9 +204,6 @@
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/ITexture.h">
-			<Option virtualFolder="include/I/" />
-		</Unit>
-		<Unit filename="include/IVertexBuffer.h">
 			<Option virtualFolder="include/I/" />
 		</Unit>
 		<Unit filename="include/IWindow.h">
@@ -531,17 +531,23 @@
 		<Unit filename="src/renderer/CMaterial.h">
 			<Option virtualFolder="src/renderer/" />
 		</Unit>
+		<Unit filename="src/renderer/CMeshBuffer.cpp">
+			<Option virtualFolder="src/renderer/mesh/" />
+		</Unit>
+		<Unit filename="src/renderer/CMeshBuffer.h">
+			<Option virtualFolder="src/renderer/mesh/" />
+		</Unit>
 		<Unit filename="src/renderer/CStaticMesh.cpp">
 			<Option virtualFolder="src/renderer/mesh/static/" />
 		</Unit>
 		<Unit filename="src/renderer/CStaticMesh.h">
 			<Option virtualFolder="src/renderer/mesh/static/" />
 		</Unit>
-		<Unit filename="src/renderer/CVertexBuffer.cpp">
-			<Option virtualFolder="src/renderer/" />
+		<Unit filename="src/renderer/opengl/COpenGLMeshBuffer.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
-		<Unit filename="src/renderer/CVertexBuffer.h">
-			<Option virtualFolder="src/renderer/" />
+		<Unit filename="src/renderer/opengl/COpenGLMeshBuffer.h">
+			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="src/renderer/opengl/COpenGLRenderer.cpp">
 			<Option virtualFolder="src/renderer/opengl/" />
@@ -559,12 +565,6 @@
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="src/renderer/opengl/COpenGLTexture.h">
-			<Option virtualFolder="src/renderer/opengl/" />
-		</Unit>
-		<Unit filename="src/renderer/opengl/COpenGLVertexBuffer.cpp">
-			<Option virtualFolder="src/renderer/opengl/" />
-		</Unit>
-		<Unit filename="src/renderer/opengl/COpenGLVertexBuffer.h">
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="src/renderer/opengles1/COpenGLES1Renderer.cpp">

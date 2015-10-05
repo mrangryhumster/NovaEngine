@@ -218,4 +218,9 @@ pip-log.txt
 *.mtl
 *.obj
 *.png
-gmon.out
+*.layout
+*.depend
+*.out
+*.gch
+
+res/

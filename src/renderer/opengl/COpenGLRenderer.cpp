@@ -498,9 +498,9 @@ IShaderProgram* COpenGLRenderer::GenShaderProgram()
     return new COpenGLShaderProgram();
 }
 //--------------------------------------------------------------------------------------------------------
-IVertexBuffer* COpenGLRenderer::GenVertexBuffer()
+IMeshBuffer* COpenGLRenderer::GenMeshBuffer()
 {
-    return new CVertexBuffer();//new COpenGLVertexBuffer();
+    return new CMeshBuffer();//new COpenGLMeshBuffer();
 }
 //--------------------------------------------------------------------------------------------------------
 ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
@@ -695,25 +695,25 @@ void COpenGLRenderer::flush()
 #endif // NE_WINDOW_WIN32
 }
 //--------------------------------------------------------------------------------------------------------
-void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
+void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
 {
-    COpenGLVertexBuffer* VertexBuffer = reinterpret_cast<COpenGLVertexBuffer*>(array);
+    COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(array);
 
-    if(VertexBuffer->getUpdateRequest())
-        VertexBuffer->update();
+    if(MeshBuffer->getUpdateRequest())
+        MeshBuffer->update();
 
-    if(VertexBuffer->getMappingHint() == EVBMH_DEFAULT)
+    if(MeshBuffer->getMappingHint() == EMBMH_DEFAULT)
     {
         glBindBuffer(GL_ARRAY_BUFFER,0);
 
-        const SVertexFormat& Format = VertexBuffer->getVertexFormat();
+        const SVertexFormat& Format = MeshBuffer->getVertexFormat();
         //------------------------------------------------------------
         bool have_verticles = (Format.getFlags() & EVA_POSITION);
         bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD);
         bool have_normals   = (Format.getFlags() & EVA_NORMAL);
         bool have_colors    = (Format.getFlags() & EVA_COLOR);
 
-        //!If no positions in vertexbuffer then nothing to render
+        //!If no positions in MeshBuffer then nothing to render
         if(have_verticles == false)
             return;
 
@@ -721,28 +721,28 @@ void COpenGLRenderer::drawVertexBuffer(IVertexBuffer* array)
         enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
         //!Send verticles to vram
         if(have_verticles)
-            glVertexPointer(    3,  GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_POSITION));
+            glVertexPointer(    3,  GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_POSITION));
         if(have_texcoords)
-            glTexCoordPointer(  2,  GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_TEXCOORD));
+            glTexCoordPointer(  2,  GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_TEXCOORD));
         if(have_normals)
-            glNormalPointer(        GL_FLOAT,           0,  VertexBuffer->getBufferData(EVA_NORMAL));
+            glNormalPointer(        GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_NORMAL));
         if(have_colors)
-            glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  VertexBuffer->getBufferData(EVA_COLOR));
+            glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  MeshBuffer->getBufferData(EVA_COLOR));
         //------------------------------------------------------------
 
         GLenum GLPrimitiveType   = 0;
         u32    VertexInPrimitive = 0;
         //!Convert E_PRIMITIVE_TYPE to GLenum
-        to_opengl_primitive((E_PRIMITIVE_TYPE)VertexBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
+        to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
         //----------------------------------------------
-        bool wide_index_range = (VertexBuffer->getIndicesBufferType() == NTYPE_u32)?true:false;
+        bool wide_index_range = (MeshBuffer->getIndicesBufferType() == NTYPE_u32)?true:false;
         //----------------------------------------------
-        if(VertexBuffer->getIndicesBufferSize())
-            glDrawElements(GLPrimitiveType,VertexBuffer->getIndicesBufferSize() / ((wide_index_range)?4:2),((wide_index_range)?GL_UNSIGNED_INT:GL_UNSIGNED_SHORT),VertexBuffer->getIndicesBufferData());
+        if(MeshBuffer->getIndicesBufferSize())
+            glDrawElements(GLPrimitiveType,MeshBuffer->getIndicesBufferSize() / ((wide_index_range)?4:2),((wide_index_range)?GL_UNSIGNED_INT:GL_UNSIGNED_SHORT),MeshBuffer->getIndicesBufferData());
         else
-            glDrawArrays(GLPrimitiveType,0,VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+            glDrawArrays(GLPrimitiveType,0,MeshBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
         //----------------------------------------------
-        PerformanceCounter->register_draw(VertexBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+        PerformanceCounter->register_draw(MeshBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
         //----------------------------------------------
     }
     else
@@ -770,7 +770,7 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     bool have_normals   = (VertexFormat & EVA_NORMAL);
     bool have_colors    = (VertexFormat & EVA_COLOR);
 
-    //!If no positions in vertexbuffer then nothing to render
+    //!If no positions in MeshBuffer then nothing to render
         if(have_verticles == false)
             return;
 
@@ -810,7 +810,7 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     bool have_normals   = (normals  !=NULL);
     bool have_colors    = (colors   !=NULL);
 
-    //!If no positions in vertexbuffer then nothing to render
+    //!If no positions in MeshBuffer then nothing to render
         if(have_verticles == false)
             return;
 
@@ -964,7 +964,7 @@ u32 COpenGLRenderer::to_opengl_blendmodes(E_BLENDING_MODE engine_mode)
 //--------------------------------------------------------------------------------------------------------
 void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool color)
 {
-    //---------------------------------------------------------VertexBuffer
+    //---------------------------------------------------------MeshBuffer
     if(vert)
     {
         if(RendererClientStatesList[RCSL_VERTEX_ARRAY] == false)

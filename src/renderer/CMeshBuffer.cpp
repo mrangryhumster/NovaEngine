@@ -1,19 +1,40 @@
-#include "CVertexBuffer.h"
+#include "CMeshBuffer.h"
 
 namespace novaengine
 {
 namespace renderer
 {
-CVertexBuffer::CVertexBuffer():
+CMeshBuffer::CMeshBuffer():
+    Material(nullptr),
     VertexFormat(EVA_POSITION),
     IndicesType(NTYPE_u16),
     PrimitiveType(EPT_TRIANGLE),
-    MappingHint(EVBMH_DEFAULT),
+    MappingHint(EMBMH_DEFAULT),
     UpdateRequired(true)
 {
 }
 //---------------------------------------------------------------------------
-void  CVertexBuffer::setBufferData(u32 buffer,const void* data,size_t size)
+CMeshBuffer::~CMeshBuffer()
+{
+    if(Material)
+        Material->release();
+}
+//---------------------------------------------------------------------------
+void CMeshBuffer::setMaterial(renderer::IMaterial* newMaterial)
+{
+    if(newMaterial)
+        newMaterial->capture();
+    if(Material)
+        Material->release();
+    Material = newMaterial;
+}
+//---------------------------------------------------------------------------
+renderer::IMaterial* CMeshBuffer::getMaterial()
+{
+    return Material;
+}
+//---------------------------------------------------------------------------
+void  CMeshBuffer::setBufferData(u32 buffer,const void* data,size_t size)
 {
     std::vector<u8>* BufferData = getBuffer(buffer);
     if(BufferData == nullptr) return;
@@ -23,7 +44,7 @@ void  CVertexBuffer::setBufferData(u32 buffer,const void* data,size_t size)
         BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
-void  CVertexBuffer::addBufferData(u32 buffer,const void* data,size_t size)
+void  CMeshBuffer::addBufferData(u32 buffer,const void* data,size_t size)
 {
     std::vector<u8>* BufferData = getBuffer(buffer);
     if(BufferData == nullptr) return;
@@ -32,14 +53,14 @@ void  CVertexBuffer::addBufferData(u32 buffer,const void* data,size_t size)
         BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
-void* CVertexBuffer::getBufferData(u32 buffer)
+void* CMeshBuffer::getBufferData(u32 buffer)
 {
     std::vector<u8>* BufferData = getBuffer(buffer);
     if(BufferData == nullptr) return nullptr;
     return BufferData->data();
 }
 //---------------------------------------------------------------------------
-size_t CVertexBuffer::getBufferSize(u32 buffer)
+size_t CMeshBuffer::getBufferSize(u32 buffer)
 {
     std::vector<u8>* BufferData = getBuffer(buffer);
     if(BufferData == nullptr) return 0;
@@ -47,38 +68,38 @@ size_t CVertexBuffer::getBufferSize(u32 buffer)
     return BufferData->size();
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setBufferElement(u32 buffer,u32 index,const void* value,size_t size) {}
+void CMeshBuffer::setBufferElement(u32 buffer,u32 index,const void* value,size_t size) {}
 //---------------------------------------------------------------------------
-void CVertexBuffer::addBufferElement(u32 buffer,const void* value,size_t size) {}
+void CMeshBuffer::addBufferElement(u32 buffer,const void* value,size_t size) {}
 //---------------------------------------------------------------------------
-void* CVertexBuffer::getBufferElement(u32 buffer,u32 index) {}
+void* CMeshBuffer::getBufferElement(u32 buffer,u32 index) {}
 //---------------------------------------------------------------------------
-u32 CVertexBuffer::getBufferElementCount(u32 buffer) {}
+u32 CMeshBuffer::getBufferElementCount(u32 buffer) {}
 //---------------------------------------------------------------------------
-size_t CVertexBuffer::getIndicesBufferSize()
+size_t CMeshBuffer::getIndicesBufferSize()
 {
     return Indices.size();
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setIndicesBufferData(const void* data,size_t size)
+void CMeshBuffer::setIndicesBufferData(const void* data,size_t size)
 {
     Indices.clear();
     addIndicesBufferData(data,size);
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::addIndicesBufferData(const void* data,size_t size)
+void CMeshBuffer::addIndicesBufferData(const void* data,size_t size)
 {
     if(data == nullptr) return;
     if(data && size)
         Indices.insert(Indices.end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
-void* CVertexBuffer::getIndicesBufferData()
+void* CMeshBuffer::getIndicesBufferData()
 {
     return Indices.data();
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setIndicesBufferType(u32 type)
+void CMeshBuffer::setIndicesBufferType(u32 type)
 {
     if(type == NTYPE_u16 || type == NTYPE_u32)
         IndicesType = type;
@@ -86,69 +107,69 @@ void CVertexBuffer::setIndicesBufferType(u32 type)
         IndicesType = NTYPE_u16;
 }
 //---------------------------------------------------------------------------
-u32 CVertexBuffer::getIndicesBufferType()
+u32 CMeshBuffer::getIndicesBufferType()
 {
     return IndicesType;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setVertexFormat(SVertexFormat newFormat)
+void CMeshBuffer::setVertexFormat(SVertexFormat newFormat)
 {
     VertexFormat = newFormat;
 }
 //---------------------------------------------------------------------------
-SVertexFormat CVertexBuffer::getVertexFormat()
+SVertexFormat CMeshBuffer::getVertexFormat()
 {
     return VertexFormat;
 }
 //---------------------------------------------------------------------------
-u32 CVertexBuffer::getPrimitiveType()
+u32 CMeshBuffer::getPrimitiveType()
 {
     return PrimitiveType;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setPrimitiveType(E_PRIMITIVE_TYPE pt)
+void CMeshBuffer::setPrimitiveType(E_PRIMITIVE_TYPE pt)
 {
     PrimitiveType = pt;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setUpdateRequest(bool up)
+void CMeshBuffer::setUpdateRequest(bool up)
 {
     UpdateRequired = up;
 }
 //---------------------------------------------------------------------------
-bool CVertexBuffer::getUpdateRequest()
+bool CMeshBuffer::getUpdateRequest()
 {
     return UpdateRequired;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::update()
+void CMeshBuffer::update()
 {
     UpdateRequired = false;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::lock()
+void CMeshBuffer::lock()
 {
     Positions.clear();
     TexCoords.clear();
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::unlock()
+void CMeshBuffer::unlock()
 {}
 //---------------------------------------------------------------------------
-void CVertexBuffer::render()
+void CMeshBuffer::render()
 {}
 //---------------------------------------------------------------------------
-bool CVertexBuffer::isValid()
+bool CMeshBuffer::isValid()
 {
     return false;
 }
 //---------------------------------------------------------------------------
-void CVertexBuffer::setMappingHint(u32 Hint)
+void CMeshBuffer::setMappingHint(u32 Hint)
 {
     MappingHint = Hint;
 }
 //---------------------------------------------------------------------------
-u32  CVertexBuffer::getMappingHint()
+u32  CMeshBuffer::getMappingHint()
 {
     return MappingHint;
 }

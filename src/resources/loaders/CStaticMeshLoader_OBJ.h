@@ -33,14 +33,9 @@ public:
 
 protected:
 private:
-    struct SObjMtl
-    {
-        renderer::IMaterial* Material;
-        renderer::IVertexBuffer* VertexBuffer;
-    };
 
 
-    void read_mtl_file(std::map<std::string,SObjMtl>& materials,const char* mtl_file);
+    void read_mtl_file(std::map<std::string,renderer::IMeshBuffer*>&,const char*);
 
 
     io::IFileSystem* FileSystem;

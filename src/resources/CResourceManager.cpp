@@ -211,9 +211,9 @@ renderer::ITexture*      CResourceManager::createTexture(core::dim2u resolution,
     return texture;
 }
 //-------------------------------------------------------------------------------------------
-renderer::IVertexBuffer* CResourceManager::createVertexBuffer()
+renderer::IMeshBuffer* CResourceManager::createMeshBuffer()
 {
-    return renderer::getRenderer()->GenVertexBuffer();;
+    return renderer::getRenderer()->GenMeshBuffer();;
 }
 //-------------------------------------------------------------------------------------------
 renderer::IMaterial*     CResourceManager::createMaterial()
@@ -228,7 +228,8 @@ renderer::IStaticMesh*   CResourceManager::createStaticMesh()
 //-------------------------------------------------------------------------------------------
 renderer::IAnimatedMesh* CResourceManager::createAnimatedMesh()
 {
-    return new renderer::CAnimatedMesh();
+    //REPAIR
+    return NULL;//new renderer::CAnimatedMesh();
 }
 //-------------------------------------------------------------------------------------------
 const char* CResourceManager::getFileExtension(const char* FilePath)

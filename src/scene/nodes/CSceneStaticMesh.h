@@ -52,19 +52,19 @@ public:
 
         if(!isVisible())
             return;
-        if(!StaticMesh or StaticMesh->getMeshUnitsCount() == 0)
+        if(!StaticMesh or StaticMesh->getMeshBuffersCount() == 0)
             return;
 
         Renderer->setTransform(getAbsoluteTransformation(),renderer::EMT_MODEL);
         //------------------------------------------------------
-        u32 MeshUnitsCount = StaticMesh->getMeshUnitsCount();
+        u32 MeshUnitsCount = StaticMesh->getMeshBuffersCount();
         for(u32 i = 0; i < MeshUnitsCount; i++)
         {
-            if(StaticMesh->getMaterial(i))
+            if(StaticMesh->getMeshBuffer(i)->getMaterial())
             {
-                Renderer->bindMaterial(StaticMesh->getMaterial(i));
+                Renderer->bindMaterial(StaticMesh->getMeshBuffer(i)->getMaterial());
             }
-            Renderer->drawVertexBuffer(StaticMesh->getVertexBuffer(i));
+            Renderer->drawMeshBuffer(StaticMesh->getMeshBuffer(i));
         }
         //------------------------------------------------------
     }
