@@ -3,7 +3,7 @@
 
 #include <chrono>
 #include <time.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 
 #include "NTypes.h"
 
@@ -16,10 +16,12 @@ namespace time
 
 static inline u64 getRealTime()
 {
+	/*
     timeval tv;
     gettimeofday(&tv,0);
     return (u64) (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-
+	*/
+	return clock();
 }
 
 static inline u64 Clock_Seconds()

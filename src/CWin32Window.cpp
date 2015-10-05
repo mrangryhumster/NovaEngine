@@ -246,7 +246,7 @@ CWin32Window::~CWin32Window()
     if(window_title)
         delete[] window_title;
 
-    if(not IsExternalWindow)
+    if(!IsExternalWindow)
     {
         win32::WindowClass = nullptr;
         DestroyWindow(hWnd);

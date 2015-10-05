@@ -1,5 +1,8 @@
-#include <stdio.h>
+#include <vld.h>
 #include <stdlib.h>
+
+
+#include <stdio.h>
 #include <cstdio>
 #include <wchar.h>
 #include <iostream>
@@ -7,7 +10,6 @@
 #include <time.h>
 #include <windows.h>
 
-#include "Memorywatcher.h"
 #include "NovaEngine.h"
 
 #include "NTime.h"
@@ -65,6 +67,7 @@ public:
                     angle_x = -89;
             }
         }
+		return true;
     }
 
     void animate(scene::ISceneNode* AnimatedNode,f32 DeltaTime)
@@ -102,7 +105,7 @@ int run()
     novaengine::INovaEngine* Engine = novaengine::createEngineEx(conf);
 
     scene::ISceneCamera* Camera = Engine->getSceneManager()->createSceneCamera();
-    Camera->setPerspectiveProjectionMatrix(90,1920. / 1080.,0.1,3000);
+    Camera->setPerspectiveProjectionMatrix(90.f,1920.f / 1080.f,0.1f,3000);
     Camera->RegisterNode();
     Camera->setActive();
     Camera->setPosition(core::vector3f(0,0,4));
@@ -116,11 +119,11 @@ int run()
     animator->setActive(true);
     animator->scene::ISceneNodeAnimator::release();
 
-    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("res//ship.obj");
+    renderer::IStaticMesh* Mesh = Engine->getGeometryManager()->createSphereMesh(4,32);//Engine->getResourceManager()->loadStaticMesh("res//ship.obj");
 
     u32 FPS = 0;
 
-    //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
+    Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
     //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_CULL_FACE,false);
 
     novaengine::IPerformanceCounter * EPC = Engine->getPerformanceCounter();
@@ -128,7 +131,7 @@ int run()
     {
         //printf("%d %d %f\n",EPC->getVerticesPerFrame(),EPC->getDrawCallsPerFrame(),EPC->getFramesPerSecond());
 
-        Engine->getRenderer()->begin_frame(1,1,core::color4f(0.1,0.1,0.4,1));
+        Engine->getRenderer()->begin_frame(1,1,core::color4f(0.1f,0.1f,0.4f,1.f));
         Engine->getSceneManager()->animateActiveScene(EPC->getMilisecondsPerFrame());
         Camera->render();
 
@@ -143,11 +146,13 @@ int run()
     }
     Mesh->release();
     closeEngine();
+	
     return 0;
 }
 
 
 int main()
 {
-    return run();
+	run();
+    return 0; 
 }

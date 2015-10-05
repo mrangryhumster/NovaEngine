@@ -40,7 +40,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 #ifdef NE_DEBUG
     log::CLogger::get()->set_log_level(log::ELL_ENGINE_DEBUG);
 #else
-    log::CLog::get()->set_log_level(engine_conf.LogLevel);
+    log::CLogger::get()->set_log_level(engine_conf.LogLevel);
 #endif // NE_DEBUG
 //------------------------------------------
     EventManager       = new CEventManager();

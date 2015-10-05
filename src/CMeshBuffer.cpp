@@ -72,9 +72,9 @@ void CMeshBuffer::setBufferElement(u32 buffer,u32 index,const void* value,size_t
 //---------------------------------------------------------------------------
 void CMeshBuffer::addBufferElement(u32 buffer,const void* value,size_t size) {}
 //---------------------------------------------------------------------------
-void* CMeshBuffer::getBufferElement(u32 buffer,u32 index) {}
+void* CMeshBuffer::getBufferElement(u32 buffer,u32 index) {return nullptr;}
 //---------------------------------------------------------------------------
-u32 CMeshBuffer::getBufferElementCount(u32 buffer) {}
+u32 CMeshBuffer::getBufferElementCount(u32 buffer) {return 0;}
 //---------------------------------------------------------------------------
 size_t CMeshBuffer::getIndicesBufferSize()
 {

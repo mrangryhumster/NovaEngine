@@ -23,12 +23,12 @@ public:
     //----------------------------------Position
     virtual void set2dPosition(core::vector2s v_position)
     {
-        Position = core::vector3f(v_position.x,v_position.y,0);
+        Position = core::vector3f((f32)v_position.x,(f32)v_position.y,0);
         update_transform = true;
     }
     virtual core::vector2s get2dPosition()
     {
-        return core::vector2s(Position.x,Position.y);
+        return core::vector2s((s32)Position.x,(s32)Position.y);
     }
 
     virtual core::vector2s get2dAbsolutePosition()
@@ -36,7 +36,7 @@ public:
         if(Parent)
         {
             core::vector3f parent_absolute_pos = Parent->getAbsolutePosition();
-            return (get2dPosition() + core::vector2s(parent_absolute_pos.x,parent_absolute_pos.y));
+            return (get2dPosition() + core::vector2s((s32)parent_absolute_pos.x,(s32)parent_absolute_pos.y));
         }
         return get2dPosition();
     }

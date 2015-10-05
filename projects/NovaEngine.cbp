@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="NovaEngine" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="include\S\;src\;debug\;include\S\;include\types\;include\I\;src\window\;include\E\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;include\I\scene\;src\scene\nodes\;include\I\scene\nodes\;include\C\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\resources\loaders\font\;src\gui\;include\;" />
+		<Build>
+			<Target title="Debug Win32 App">
+				<Option output="bin/DebugApp/NovaEngine" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="bin/obj/DebugApp/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_OPENGL_RENDERER" />
+					<Add option="-DNE_DEBUG" />
+					<Add directory="../src/scene/nodes" />
+					<Add directory="../include" />
+					<Add directory="../src" />
+					<Add directory="../src/resources/loaders" />
+					<Add directory="../src/gui" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg -lgmon" />
+					<Add library="mingw32" />
+					<Add library="gdi32" />
+					<Add library="user32" />
+					<Add library="winmm" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+			<Target title="Dynamic Win32 Debug">
+				<Option output="bin/Win32Debug/NovaEngine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../novaengine" />
+				<Option object_output="bin/obj/Win32Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_OPENGL_RENDERER" />
+					<Add option="-DNE_DEBUG" />
+					<Add directory="../src/scene/nodes" />
+					<Add directory="../include" />
+					<Add directory="../src" />
+					<Add directory="../src/resources/loaders" />
+					<Add directory="../src/gui" />
+				</Compiler>
+				<Linker>
+					<Add library="mingw32" />
+					<Add library="gdi32" />
+					<Add library="user32" />
+					<Add library="winmm" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+			<Target title="Dynamic Win32 Release">
+				<Option output="bin/Win32Release/NovaEngine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="bin/obj/Win32Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_OPENGL_RENDERER" />
+					<Add directory="../src/scene/nodes" />
+					<Add directory="../include" />
+					<Add directory="../src" />
+					<Add directory="../src/resources/loaders" />
+					<Add directory="../src/gui" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="mingw32" />
+					<Add library="gdi32" />
+					<Add library="user32" />
+					<Add library="winmm" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-DGLEW_STATIC" />
+			<Add option="-D__NO_INLINE__" />
+			<Add directory="../include" />
+			<Add directory="../src" />
+			<Add directory="../src/log" />
+			<Add directory="../src/time" />
+			<Add directory="../src/window" />
+			<Add directory="../src/renderer" />
+			<Add directory="../src/scene" />
+			<Add directory="../src/gui" />
+			<Add directory="../src/libs" />
+			<Add directory="../src/libs/glew/include" />
+			<Add directory="../src/libs/libpng" />
+			<Add directory="../src/libs/zlib" />
+			<Add directory="../src/libs/assimp/code" />
+			<Add directory="../src/resources" />
+			<Add directory="../src/resources/loaders" />
+			<Add directory="../src/filesystem" />
+		</Compiler>
+		<Linker>
+			<Add directory="../src/glew/lib" />
+		</Linker>
+		<Unit filename="../include/EKeycodes.h">
+			<Option virtualFolder="include/E/" />
+		</Unit>
+		<Unit filename="../include/ERendererEnums.h">
+			<Option virtualFolder="include/E/" />
+		</Unit>
+		<Unit filename="../include/IAnimatedMesh.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IEventListener.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IEventManager.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IFile.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IFileSystem.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IFont.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IFontLoader.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IGeometryManager.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IImage.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IImageLoader.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/ILogger.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IMaterial.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IMeshBuffer.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/INovaEngine.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IPerformanceCounter.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IRenderer.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IResourceManager.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IScene.h">
+			<Option virtualFolder="include/I/scene/" />
+		</Unit>
+		<Unit filename="../include/IScene2DNode.h">
+			<Option virtualFolder="include/I/scene/nodes/" />
+		</Unit>
+		<Unit filename="../include/ISceneCamera.h">
+			<Option virtualFolder="include/I/scene/nodes/" />
+		</Unit>
+		<Unit filename="../include/ISceneManager.h">
+			<Option virtualFolder="include/I/scene/" />
+		</Unit>
+		<Unit filename="../include/ISceneNode.h">
+			<Option virtualFolder="include/I/scene/nodes/" />
+		</Unit>
+		<Unit filename="../include/ISceneNodeAnimator.h">
+			<Option virtualFolder="include/I/scene/" />
+		</Unit>
+		<Unit filename="../include/ISceneSprite.h">
+			<Option virtualFolder="include/I/scene/nodes/" />
+		</Unit>
+		<Unit filename="../include/ISceneStaticMesh.h">
+			<Option virtualFolder="include/I/scene/nodes/" />
+		</Unit>
+		<Unit filename="../include/IShaderProgram.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IStaticMesh.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/ITexture.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/IWindow.h">
+			<Option virtualFolder="include/I/" />
+		</Unit>
+		<Unit filename="../include/NExTypes.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/NMath.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../include/NTypes.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/NovaEngine.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../include/Object.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../include/Resource.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../include/SEngineConf.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/SEvent.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/SPixelFormat.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/SPrimitive.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/STextureParameters.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/SVertex.h">
+			<Option virtualFolder="include/S/" />
+		</Unit>
+		<Unit filename="../include/color3.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/color4.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/dim2.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/matrix.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/quaternion.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/rect.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/vector2.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/vector3.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/version.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../src/CAndroidWindow.cpp">
+			<Option virtualFolder="src/window/android/" />
+		</Unit>
+		<Unit filename="../src/CAndroidWindow.h">
+			<Option virtualFolder="src/window/android/" />
+		</Unit>
+		<Unit filename="../src/CAnimatedMesh.cpp">
+			<Option virtualFolder="src/renderer/mesh/animated/" />
+		</Unit>
+		<Unit filename="../src/CAnimatedMesh.h">
+			<Option virtualFolder="src/renderer/mesh/animated/" />
+		</Unit>
+		<Unit filename="../src/CBaseRenderer.cpp">
+			<Option virtualFolder="src/renderer/" />
+		</Unit>
+		<Unit filename="../src/CBaseRenderer.h">
+			<Option virtualFolder="src/renderer/" />
+		</Unit>
+		<Unit filename="../src/CEventManager.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CEventManager.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CFileSystem.cpp">
+			<Option virtualFolder="src/FileSystem/" />
+		</Unit>
+		<Unit filename="../src/CFileSystem.h">
+			<Option virtualFolder="src/FileSystem/" />
+		</Unit>
+		<Unit filename="../src/CFont.h">
+			<Option virtualFolder="src/gui/" />
+		</Unit>
+		<Unit filename="../src/CFontLoader_FNT.cpp">
+			<Option virtualFolder="src/resources/loaders/font/" />
+		</Unit>
+		<Unit filename="../src/CFontLoader_FNT.h">
+			<Option virtualFolder="src/resources/loaders/font/" />
+		</Unit>
+		<Unit filename="../src/CGeometryManager.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CGeometryManager.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CImage.cpp">
+			<Option virtualFolder="src/renderer/" />
+		</Unit>
+		<Unit filename="../src/CImage.h">
+			<Option virtualFolder="src/renderer/" />
+		</Unit>
+		<Unit filename="../src/CImageLoader_PNG.cpp">
+			<Option virtualFolder="src/resources/loaders/image/" />
+		</Unit>
+		<Unit filename="../src/CImageLoader_PNG.h">
+			<Option virtualFolder="src/resources/loaders/image/" />
+		</Unit>
+		<Unit filename="../src/CMaterial.h">
+			<Option virtualFolder="src/renderer/" />
+		</Unit>
+		<Unit filename="../src/CMeshBuffer.cpp">
+			<Option virtualFolder="src/renderer/mesh/" />
+		</Unit>
+		<Unit filename="../src/CMeshBuffer.h">
+			<Option virtualFolder="src/renderer/mesh/" />
+		</Unit>
+		<Unit filename="../src/CNativeFile.h">
+			<Option virtualFolder="src/FileSystem/" />
+		</Unit>
+		<Unit filename="../src/CNovaEngine.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CNovaEngine.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/COpenGLMeshBuffer.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLMeshBuffer.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLRenderer.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLRenderer.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLShaderProgram.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLShaderProgram.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLTexture.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLTexture.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/CPerformanceCounter.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CPerformanceCounter.h">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/CResourceManager.cpp">
+			<Option virtualFolder="src/resources/" />
+		</Unit>
+		<Unit filename="../src/CResourceManager.h">
+			<Option virtualFolder="src/resources/" />
+		</Unit>
+		<Unit filename="../src/CScene.cpp">
+			<Option virtualFolder="src/scene/" />
+		</Unit>
+		<Unit filename="../src/CScene.h">
+			<Option virtualFolder="src/scene/" />
+		</Unit>
+		<Unit filename="../src/CSceneCamera.h">
+			<Option virtualFolder="src/scene/nodes/" />
+		</Unit>
+		<Unit filename="../src/CSceneEmptyNode.h">
+			<Option virtualFolder="src/scene/nodes/" />
+		</Unit>
+		<Unit filename="../src/CSceneManager.cpp">
+			<Option virtualFolder="src/scene/" />
+		</Unit>
+		<Unit filename="../src/CSceneManager.h">
+			<Option virtualFolder="src/scene/" />
+		</Unit>
+		<Unit filename="../src/CSceneSprite.h">
+			<Option virtualFolder="src/scene/nodes/" />
+		</Unit>
+		<Unit filename="../src/CSceneStaticMesh.h">
+			<Option virtualFolder="src/scene/nodes/" />
+		</Unit>
+		<Unit filename="../src/CStaticMesh.cpp">
+			<Option virtualFolder="src/renderer/mesh/static/" />
+		</Unit>
+		<Unit filename="../src/CStaticMesh.h">
+			<Option virtualFolder="src/renderer/mesh/static/" />
+		</Unit>
+		<Unit filename="../src/CStaticMeshLoader_OBJ.cpp">
+			<Option virtualFolder="src/resources/loaders/mesh/" />
+		</Unit>
+		<Unit filename="../src/CStaticMeshLoader_OBJ.h">
+			<Option virtualFolder="src/resources/loaders/mesh/" />
+		</Unit>
+		<Unit filename="../src/CVirtualFile.h">
+			<Option virtualFolder="src/FileSystem/" />
+		</Unit>
+		<Unit filename="../src/CWin32Window.cpp">
+			<Option virtualFolder="src/window/win32/" />
+		</Unit>
+		<Unit filename="../src/CWin32Window.h">
+			<Option virtualFolder="src/window/win32/" />
+		</Unit>
+		<Unit filename="../src/CompileConfig.h">
+			<Option compile="1" />
+			<Option weight="0" />
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/NLogger.cpp">
+			<Option virtualFolder="src/Log/" />
+		</Unit>
+		<Unit filename="../src/NLogger.h">
+			<Option virtualFolder="src/Log/" />
+		</Unit>
+		<Unit filename="../src/NTime.h">
+			<Option virtualFolder="src/time/" />
+		</Unit>
+		<Unit filename="../src/NovaEngine.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="../src/libs/glew/include/GL/glew.h">
+			<Option virtualFolder="src/libs/glew/" />
+		</Unit>
+		<Unit filename="../src/libs/glew/src/glew.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/glew/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/png.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/png.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngconf.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngdebug.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngerror.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngget.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pnginfo.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pnglibconf.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngmem.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngpread.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngpriv.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngread.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngrio.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngrtran.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngrutil.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngset.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngstruct.h">
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngtrans.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngwio.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngwrite.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngwtran.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/libpng/pngwutil.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/libpng/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/adler32.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/compress.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/crc32.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/crc32.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/deflate.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/deflate.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/gzclose.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/gzguts.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/gzlib.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/gzread.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/gzwrite.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/infback.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inffast.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inffast.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inffixed.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inflate.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inflate.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inftrees.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/inftrees.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/trees.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/trees.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/uncompr.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/zconf.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/zlib.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/zutil.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/libs/zlib/zutil.h">
+			<Option virtualFolder="src/libs/zlib/" />
+		</Unit>
+		<Unit filename="../src/wglext.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../test/main.cpp">
+			<Option virtualFolder="debug/" />
+			<Option target="Debug Win32 App" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="1000" rev_max="0" rev_rand_max="1" build_times_to_increment_minor="1000" />
+				<Settings autoincrement="1" date_declarations="1" use_define="0" update_manifest="0" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="novaengine" prefix="NOVAENGINE" />
+			</AutoVersioning>
+			<DoxyBlocks>
+				<comment_style block="1" line="1" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

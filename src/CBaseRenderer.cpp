@@ -223,7 +223,7 @@ void CBaseRenderer::drawTriangle(core::vector3f Pos1,core::vector3f Pos2,core::v
 void CBaseRenderer::drawQuad(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3,core::vector3f Pos4)
 {
     core::vector3f Quad[4] = {Pos1,Pos2,Pos3,Pos4};
-    core::vector2f QuadTx[4] = {{0,1},{0,0},{1,0},{1,1}};
+    core::vector2f QuadTx[4] = {core::vector2f(0,1),core::vector2f(0,0),core::vector2f(1,0),core::vector2f(1,1)};
     drawArrays(0,4,NULL,Quad,QuadTx,NULL,NULL,renderer::EPT_QUAD);
 }
 //--------------------------------------------------------------------------------------------------------

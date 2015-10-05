@@ -41,17 +41,17 @@ public:
 
     T width()
     {
-        return std::abs((double)(X2 - X1));
+        return (T)std::abs((double)(X2 - X1));
     }
 
     T height()
     {
-        return std::abs((double)Y2 - Y1);
+        return (T)std::abs((double)Y2 - Y1);
     }
 
     T area()
     {
-        return std::abs((double)(X2 - X1) * (Y2 - Y1));
+        return (T)std::abs((double)(X2 - X1) * (Y2 - Y1));
     }
 
     dim2<T> dimension()

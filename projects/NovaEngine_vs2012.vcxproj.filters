@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="debug">
+      <UniqueIdentifier>{52c7c722-9868-43d4-a0c9-39858ec7d815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{10838a05-a1c2-4779-87ea-a521e3cc7c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{c0d1195f-d1a0-4812-bc9d-465ab8e2458a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs">
+      <UniqueIdentifier>{20d8390d-8531-4804-be1c-685a042b8f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs\glew">
+      <UniqueIdentifier>{3aed0d66-59ac-4815-8508-8452d67119bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs\zlib">
+      <UniqueIdentifier>{a7764cbf-7b31-4599-b5a7-84ac0e810a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs\libpng">
+      <UniqueIdentifier>{e0a4f2c3-6625-4893-9f65-d2afca4f37aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\filesystem">
+      <UniqueIdentifier>{6545bc10-2d00-49b5-9be1-37d7994f0d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gui">
+      <UniqueIdentifier>{26723db6-e64f-4243-a9f3-bbc46fd75f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log">
+      <UniqueIdentifier>{b74204e3-9c46-4fe1-a92f-016fb9d62c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\renderer">
+      <UniqueIdentifier>{cececc68-4a61-4606-a8f5-cc6390d994f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resources">
+      <UniqueIdentifier>{a67b902f-2c2c-4137-be81-b61b9a37613c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{4a338191-73da-4cbc-9fff-79d7f79fdfb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\time">
+      <UniqueIdentifier>{ff6994a8-e03d-4709-87c6-004b6d2b58df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\window">
+      <UniqueIdentifier>{d18bf512-ced5-4432-b2c2-c5de67b97469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\window\win32">
+      <UniqueIdentifier>{d64c09d0-c69d-40a2-9bdc-55d5ff1a7880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\window\android">
+      <UniqueIdentifier>{acf65880-f3d6-4c7f-91db-f5f1b115ecff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene\nodes">
+      <UniqueIdentifier>{c46f9fc8-317e-4e6b-8a4e-3f5b889676cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resources\loaders">
+      <UniqueIdentifier>{2ff0a199-57b1-455a-8500-9f79cc1f2e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resources\loaders\mesh">
+      <UniqueIdentifier>{712929e3-82db-4d41-ac50-f034eed63bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resources\loaders\font">
+      <UniqueIdentifier>{69f9ad59-8055-4f60-a69c-9792f89b9d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\resources\loaders\image">
+      <UniqueIdentifier>{4a19bcd4-672c-41a9-a8f7-4be9efaf9096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\renderer\mesh">
+      <UniqueIdentifier>{f208480c-0f82-4e0f-99ac-b139fbe3c4ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\renderer\opengl">
+      <UniqueIdentifier>{24215df6-f01b-4e86-88de-b504de1aa69b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\renderer\mesh\static">
+      <UniqueIdentifier>{a9d9731d-5ed4-41c4-8bbe-2c60a8bec932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\renderer\mesh\animated">
+      <UniqueIdentifier>{15388f7e-cdfc-42ab-bcba-55add904687f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\color3.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\color4.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\dim2.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EKeycodes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ERendererEnums.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IAnimatedMesh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IAnimatedMeshLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IEventListener.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IEventManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IFile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IFileSystem.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IFont.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IFontLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IGeometryManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IImage.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IImageLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ILogger.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IMaterial.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IMeshBuffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\INodeAnimator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\INovaEngine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IPerformanceCounter.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IRenderer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IResourceManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IScene.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IScene2DNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneCamera.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneCamera_bu.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneNode.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneNodeAnimator.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneSprite.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ISceneStaticMesh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IShaderProgram.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IStaticMesh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IStaticMesh_old.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IStaticMeshLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ITexture.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ITimer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IWindow.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\matrix.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\NExTypes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\NMath.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\NovaEngine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\NTypes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Object.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\quaternion.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\rect.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SEngineConf.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SEvent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SPixelFormat.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SPrimitive.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\STextureParameters.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SVertex.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vector2.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\vector3.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\version.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CEventManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CGeometryManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CNovaEngine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CompileConfig.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CPerformanceCounter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\glew\include\GL\glew.h">
+      <Filter>src\libs\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\png.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pngconf.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pngdebug.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pnginfo.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pnglibconf.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pngpriv.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\libpng\pngstruct.h">
+      <Filter>src\libs\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\crc32.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\deflate.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\gzguts.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\inffast.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\inffixed.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\inflate.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\inftrees.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\trees.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\zconf.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\zlib.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\libs\zlib\zutil.h">
+      <Filter>src\libs\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CFileSystem.h">
+      <Filter>src\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CVirtualFile.h">
+      <Filter>src\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CNativeFile.h">
+      <Filter>src\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NLogger.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CAndroidWindow.h">
+      <Filter>src\window\android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CWin32Window.h">
+      <Filter>src\window\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\NTime.h">
+      <Filter>src\time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CScene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CSceneManager.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CSceneSprite.h">
+      <Filter>src\scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CSceneStaticMesh.h">
+      <Filter>src\scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CSceneEmptyNode.h">
+      <Filter>src\scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CSceneCamera.h">
+      <Filter>src\scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CResourceManager.h">
+      <Filter>src\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CFontLoader_FNT.h">
+      <Filter>src\resources\loaders\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CImageLoader_PNG.h">
+      <Filter>src\resources\loaders\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CStaticMeshLoader_OBJ.h">
+      <Filter>src\resources\loaders\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CBaseRenderer.h">
+      <Filter>src\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLMeshBuffer.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLRenderer.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLShaderProgram.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLTexture.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CMeshBuffer.h">
+      <Filter>src\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CMaterial.h">
+      <Filter>src\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CImage.h">
+      <Filter>src\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CAnimatedMesh.h">
+      <Filter>src\renderer\mesh\animated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CStaticMesh.h">
+      <Filter>src\renderer\mesh\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\wglext.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CFont.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\test\main.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CEventManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CGeometryManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CNovaEngine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CPerformanceCounter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NovaEngine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\glew\src\glew.c">
+      <Filter>src\libs\glew</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\png.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngerror.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngget.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngmem.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngpread.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngread.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngrio.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngrtran.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngrutil.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngset.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngtrans.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngwio.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngwrite.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngwtran.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\libpng\pngwutil.c">
+      <Filter>src\libs\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\adler32.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\compress.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\crc32.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\deflate.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\gzclose.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\gzlib.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\gzread.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\gzwrite.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\infback.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\inffast.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\inflate.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\inftrees.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\trees.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\uncompr.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libs\zlib\zutil.c">
+      <Filter>src\libs\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CFileSystem.cpp">
+      <Filter>src\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\NLogger.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CAndroidWindow.cpp">
+      <Filter>src\window\android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CWin32Window.cpp">
+      <Filter>src\window\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CSceneManager.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CResourceManager.cpp">
+      <Filter>src\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CFontLoader_FNT.cpp">
+      <Filter>src\resources\loaders\font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CImageLoader_PNG.cpp">
+      <Filter>src\resources\loaders\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CStaticMeshLoader_OBJ.cpp">
+      <Filter>src\resources\loaders\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CBaseRenderer.cpp">
+      <Filter>src\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLMeshBuffer.cpp">
+      <Filter>src\renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLRenderer.cpp">
+      <Filter>src\renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLShaderProgram.cpp">
+      <Filter>src\renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLTexture.cpp">
+      <Filter>src\renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CMeshBuffer.cpp">
+      <Filter>src\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CImage.cpp">
+      <Filter>src\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CAnimatedMesh.cpp">
+      <Filter>src\renderer\mesh\animated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CStaticMesh.cpp">
+      <Filter>src\renderer\mesh\static</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

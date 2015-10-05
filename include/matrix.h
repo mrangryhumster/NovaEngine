@@ -249,8 +249,8 @@ public:
     inline matrix<T>& buildPerspectiveProjectionMatrix(f32 fov,f32 aspect,f32 znear,f32 zfar)
     {
         makeIndetify();
-        float right,left,top,bottom;
-        float temp, temp2, temp3, temp4;
+        double right,left,top,bottom;
+        double temp, temp2, temp3, temp4;
 
         top = znear * tanf(fov * math::PI / 360.0);
         bottom = -top;
@@ -265,14 +265,14 @@ public:
 
 
 
-        native_matrix[0] = temp / temp2;
-        native_matrix[5] = temp / temp3;
-        native_matrix[8] = (right + left) / temp2;
-        native_matrix[9] = (top + bottom) / temp3;
-        native_matrix[10] = (-zfar - znear) / temp4;
-        native_matrix[11] = -1.0;
-        native_matrix[14] = (-temp * zfar) / temp4;
-        native_matrix[15] = 0.0;
+        native_matrix[0]  = (T)(temp / temp2);
+        native_matrix[5]  = (T)(temp / temp3);
+        native_matrix[8]  = (T)((right + left) / temp2);
+        native_matrix[9]  = (T)((top + bottom) / temp3);
+        native_matrix[10] = (T)((-zfar - znear) / temp4);
+        native_matrix[11] = (T)(-1.0);
+        native_matrix[14] = (T)((-temp * zfar) / temp4);
+        native_matrix[15] = (T)(0.0);
 
         return *this;
     }

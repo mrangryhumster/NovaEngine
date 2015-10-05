@@ -41,7 +41,7 @@ public:
         mb.array = array;
         BytesUsed+=size;
         MemoryAllocated.push_back(mb);
-        DontWatch=false;
+		DontWatch=false;
     }
 
     void unregister_block(void* ptr,bool array)
