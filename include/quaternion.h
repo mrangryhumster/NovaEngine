@@ -1,7 +1,7 @@
 #ifndef QUATERNION_H
 #define QUATERNION_H
 
-#include "../NTypes.h"
+#include "NTypes.h"
 #include "matrix.h"
 //#include "log/NLogger.h"
 

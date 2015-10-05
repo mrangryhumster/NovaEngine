@@ -6,8 +6,8 @@
 #include "NExTypes.h"
 
 
-#include "types/dim2.h"
-#include "types/vector2.h"
+#include "dim2.h"
+#include "vector2.h"
 
 #include "IEventListener.h"
 

@@ -2,7 +2,7 @@
 #define CRESOURCEMANAGER_H
 
 #include "NTime.h"
-#include "Log/NLogger.h"
+#include "NLogger.h"
 
 #include "IFileSystem.h"
 #include "IResourceManager.h"

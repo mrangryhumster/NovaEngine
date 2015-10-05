@@ -6,7 +6,7 @@
 #include "IRenderer.h"
 #include "CMeshBuffer.h"
 
-#include "log/NLogger.h"
+#include "NLogger.h"
 
 #include "GL/glew.h"
 

@@ -1,15 +1,15 @@
 #include "CNovaEngine.h"
 //------------------------------------------------------
 #if     defined(NE_WINDOW_WIN32)
-#include "window\CWin32Window.h"
+#include "CWin32Window.h"
 #elif   defined(NE_WINDOW_ANDROID)
-#include "window\CAndroidWindow.h"
+#include "CAndroidWindow.h"
 #endif // NE_WINDOW_WIN32
 
 #if   defined(NE_OPENGL_RENDERER)
-#include "opengl\COpenGLRenderer.h"
+#include "COpenGLRenderer.h"
 #elif defined(NE_OPENGLES1_RENDERER)
-#include "opengles1/COpenGLES1Renderer.h"
+#include "COpenGLES1Renderer.h"
 #endif // NE_OPENGL_RENDERER
 //------------------------------------------------------
 
@@ -56,7 +56,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
 #else
     LOG_FATAL_ERROR("Ops.. No window system selected.\n");
 #endif
-    if(Window == nullptr or !Window->isOk())
+    if(Window == nullptr || !Window->isOk())
     {
         LOG_FATAL_ERROR("Cannot create window class\n");
         noerror = false;
@@ -78,7 +78,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     default:
         LOG_FATAL_ERROR("Unknown renderer selected\n");
     }
-    if(Renderer == nullptr or !Renderer->isOk())
+    if(Renderer == nullptr || !Renderer->isOk())
     {
         LOG_FATAL_ERROR("Cannot create renderer class\n");
         noerror = false;

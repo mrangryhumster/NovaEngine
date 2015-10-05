@@ -1,9 +1,9 @@
 #include "CSceneManager.h"
 
-#include "nodes\CSceneEmptyNode.h"
-#include "nodes\CSceneCamera.h"
-#include "nodes\CSceneSprite.h"
-#include "nodes\CSceneStaticMesh.h"
+#include "CSceneEmptyNode.h"
+#include "CSceneCamera.h"
+#include "CSceneSprite.h"
+#include "CSceneStaticMesh.h"
 
 namespace novaengine
 {

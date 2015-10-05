@@ -14,9 +14,9 @@
 #include <map>
 
 #include "CBaseRenderer.h"
-#include "opengl/COpenGLShaderProgram.h"
-#include "opengl/COpenGLTexture.h"
-#include "opengl/COpenGLMeshBuffer.h"
+#include "COpenGLShaderProgram.h"
+#include "COpenGLTexture.h"
+#include "COpenGLMeshBuffer.h"
 
 #ifdef NE_WINDOW_WIN32
 #include <windows.h>

@@ -3,14 +3,14 @@
 
 #include "NTypes.h"
 
-#include "types/matrix.h"
-#include "types/vector2.h"
-#include "types/vector3.h"
-#include "types/quaternion.h"
-#include "types/dim2.h"
-#include "types/rect.h"
-#include "types/color3.h"
-#include "types/color4.h"
+#include "matrix.h"
+#include "vector2.h"
+#include "vector3.h"
+#include "quaternion.h"
+#include "dim2.h"
+#include "rect.h"
+#include "color3.h"
+#include "color4.h"
 
 #include <string>
 #include <vector>

@@ -1,7 +1,7 @@
 #ifndef COLOR3_H
 #define COLOR3_H
 
-#include "../NTypes.h"
+#include "NTypes.h"
 
 namespace novaengine
 {

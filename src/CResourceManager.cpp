@@ -2,11 +2,11 @@
 
 #include "CompileConfig.h"
 
-#include "loaders\\CImageLoader_PNG.h"
+#include "CImageLoader_PNG.h"
 
-#include "loaders\\CStaticMeshLoader_OBJ.h"
+#include "CStaticMeshLoader_OBJ.h"
 
-#include "loaders\\CFontLoader_FNT.h"
+#include "CFontLoader_FNT.h"
 
 #include "CImage.h"
 #include "CStaticMesh.h"

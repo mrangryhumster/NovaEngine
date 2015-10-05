@@ -1,8 +1,8 @@
 #ifndef VECTOR3_H
 #define VECTOR3_H
 
-#include "../NTypes.h"
-#include "../NMath.h"
+#include "NTypes.h"
+#include "NMath.h"
 
 namespace novaengine
 {

@@ -8,7 +8,7 @@
 #include "IStaticMeshLoader.h"
 #include "IResourceManager.h"
 
-#include "log/NLogger.h"
+#include "NLogger.h"
 
 #include <vector>
 #include <map>

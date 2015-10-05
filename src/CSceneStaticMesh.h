@@ -2,7 +2,7 @@
 #define CSCENESTATICMESH_H
 
 #include "ISceneStaticMesh.h"
-#include "log/NLogger.h"
+#include "NLogger.h"
 
 namespace novaengine
 {
@@ -52,7 +52,7 @@ public:
 
         if(!isVisible())
             return;
-        if(!StaticMesh or StaticMesh->getMeshBuffersCount() == 0)
+        if(!StaticMesh || StaticMesh->getMeshBuffersCount() == 0)
             return;
 
         Renderer->setTransform(getAbsoluteTransformation(),renderer::EMT_MODEL);

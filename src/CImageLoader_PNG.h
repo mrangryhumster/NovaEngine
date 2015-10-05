@@ -7,7 +7,7 @@
 #include "IImageLoader.h"
 #include "IFileSystem.h"
 #include "IFile.h"
-#include "log/NLogger.h"
+#include "NLogger.h"
 
 #include <cstring>
 

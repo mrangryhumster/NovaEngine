@@ -1,6 +1,6 @@
 #include "CGeometryManager.h"
 
-#include "renderer\CMeshBuffer.h"
+#include "CMeshBuffer.h"
 
 namespace novaengine
 {

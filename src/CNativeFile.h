@@ -1,13 +1,12 @@
-#ifndef CVIRTUALFILE_H
-#define CVIRTUALFILE_H
+#ifndef CNATIVEFILE_H
+#define CNATIVEFILE_H
+
+
 
 #include "IFile.h"
 
-#include <malloc.h>
-#include <cstring>
-#include <memory.h>
-
-#include "Log\NLogger.h"
+#include <stdio.h>
+#include "NLogger.h"
 
 namespace novaengine
 {
@@ -15,22 +14,22 @@ namespace io
 {
 
 
-class CVirtualFile : public IFile
+class CNativeFile : public IFile
 {
 public:
 
-    CVirtualFile(size_t size,size_t pos,u8* data,int source_type,const char* name = NULL,const char* dir = NULL)
+    CNativeFile(void* file_pointer,size_t file_size,size_t file_pos,int source_type,const char* name = NULL,const char* dir = NULL)
     {
-        FileSize    = size;
-        FilePos     = pos;
-        LastFilePos = pos;
-        FileData    = data;
+        FileSize    = file_size;
+        FilePos     = file_pos;
+        LastFilePos = file_pos;
+        FilePointer = (FILE*)file_pointer;
 
         SourceType = source_type;
 
         if(name)
         {
-            int len = strlen(name)+1;
+            int len = strlen(name);
             FileName = new char[len];
             memcpy(FileName,name,sizeof(char)*len);
         }
@@ -41,7 +40,7 @@ public:
 
         if(dir)
         {
-            int len = strlen(dir)+1;
+            int len = strlen(dir);
             FileDir = new char[len];
             memcpy(FileDir,dir,sizeof(char)*len);
         }
@@ -50,10 +49,10 @@ public:
             FileDir = NULL;
         }
     }
-    virtual ~CVirtualFile()
+    virtual ~CNativeFile()
     {
-        if(FileData)
-            delete[] FileData;
+        if(FilePointer)
+            fclose(FilePointer);
         if(FileName)
             delete[] FileName;
         if(FileDir)
@@ -65,57 +64,46 @@ public:
         if(Len+FilePos > FileSize)
             return 0;
 
-        memcpy(ptr,FileData + FilePos,Len);
+        size_t Readed = fread(ptr,Len,1,FilePointer);
         LastFilePos = FilePos;
         FilePos+=Len;
 
-        return Len;
+        return Readed;
     }
+
     int read(void* ptr,size_t pos,size_t Len)
     {
         if(pos >= FileSize || (Len+pos) > FileSize)
             return 0;
 
-        memcpy(ptr,FileData + pos,Len);
+        fseek(FilePointer,pos,SEEK_SET);
+        size_t Readed = fread(ptr,Len,1,FilePointer);
+        fseek(FilePointer,FilePos,SEEK_SET);
 
-        return Len;
+        return Readed;
     }
     int write(const void* ptr,size_t Len)
     {
 
-        if(FilePos > FileSize)
-            return 0;
-        if(FilePos+Len > FileSize)
-        {
-            size_t newFileLenght = FilePos+Len;
-            u8* new_stream = new u8[newFileLenght];
-            memcpy(new_stream,FileData,FileSize);
-            delete[] FileData;
-            FileData = new_stream;
-            FileSize = newFileLenght;
-        }
-        memcpy(FileData + FilePos,ptr,Len);
+        size_t Writed = fwrite(ptr,Len,1,FilePointer);
+
+        update_size();
         LastFilePos = FilePos;
         FilePos+=Len;
-        return Len;
+
+        return Writed;
     }
 
     int write(const void* ptr,size_t pos,size_t Len)
     {
 
-        if(pos > FileSize)
-            return 0;
-        if(pos+Len > FileSize)
-        {
-            size_t newFileLenght = pos+Len;
-            u8* new_stream = new u8[newFileLenght];
-            memcpy(new_stream,FileData,FileSize);
-            delete[] FileData;
-            FileData = new_stream;
-            FileSize = newFileLenght;
-        }
-        memcpy(FileData + pos,ptr,Len);
-        return Len;
+        fseek(FilePointer,pos,SEEK_SET);
+        size_t Writed = fwrite(ptr,Len,1,FilePointer);
+        fseek(FilePointer,FilePos,SEEK_SET);
+
+        update_size();
+
+        return Writed;
     }
 
     int read_string(char* out_string,size_t size)
@@ -124,8 +112,8 @@ public:
         size_t file_string_len = 0;
         while(FilePos < FileSize)
         {
-            out_string[file_string_len] = FileData[FilePos];
-            if(out_string[file_string_len] == '\n' || file_string_len >= size)
+            out_string[file_string_len] = fgetc(FilePointer);
+            if(out_string[file_string_len] == '\n'  || file_string_len >= size)
             {
                 out_string[file_string_len] = '\0';
                 FilePos++;
@@ -135,6 +123,7 @@ public:
             FilePos++;
             file_string_len++;
         }
+        seek(FilePos);
         return file_string_len;
     }
 
@@ -145,10 +134,12 @@ public:
 
         size_t TmpFilePos = pos;
         size_t file_string_len = 0;
+
+        seek(pos);
         while(TmpFilePos < FileSize)
         {
-            out_string[file_string_len] = FileData[TmpFilePos];
-            if(out_string[file_string_len] == '\n' || file_string_len >= size)
+            out_string[file_string_len] = fgetc(FilePointer);
+            if(out_string[file_string_len] == '\n'  || file_string_len >= size)
             {
                 out_string[file_string_len] = '\0';
                 TmpFilePos++;
@@ -158,6 +149,7 @@ public:
             TmpFilePos++;
             file_string_len++;
         }
+        seek(FilePos);
         return file_string_len;
     }
 
@@ -167,6 +159,7 @@ public:
             return;
         LastFilePos = FilePos;
         FilePos = pos;
+        fseek(FilePointer,pos,SEEK_SET);
     }
     int getSourceType()
     {
@@ -174,7 +167,7 @@ public:
     }
     int getFilePointerType()
     {
-        return EFPT_VIRTUAL;
+        return EFPT_NATIVE;
     }
     size_t getSize()
     {
@@ -190,7 +183,7 @@ public:
     }
     void* getNativePointer()
     {
-        return FileData;
+        return FilePointer;
     }
 
     const char* getName()
@@ -206,11 +199,18 @@ public:
 protected:
 private:
 
+    void update_size()
+    {
+        fseek (FilePointer, 0, SEEK_END);
+        FileSize = ftell(FilePointer);
+        fseek (FilePointer, FilePos, SEEK_SET);
+    }
+
     size_t FileSize;
     size_t FilePos;
     size_t LastFilePos;
 
-    u8* FileData;
+    FILE* FilePointer;
 
     int   SourceType;
 
@@ -222,4 +222,4 @@ private:
 }
 
 
-#endif // CFILE_H
+#endif // CNATIVEFILE_H

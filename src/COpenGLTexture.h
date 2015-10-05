@@ -8,8 +8,8 @@
 #include "ITexture.h"
 #include "STextureParameters.h"
 
-#include "renderer/opengl/COpenGLRenderer.h"
-#include "renderer/CImage.h"
+#include "COpenGLRenderer.h"
+#include "CImage.h"
 
 #include <GL/gl.h>
 

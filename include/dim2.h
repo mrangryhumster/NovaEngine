@@ -1,7 +1,7 @@
 #ifndef DIMENSION2D_T_H
 #define DIMENSION2D_T_H
 
-#include "../NMath.h"
+#include "NMath.h"
 
 namespace novaengine
 {

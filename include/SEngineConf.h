@@ -2,7 +2,7 @@
 #define SENGINECONF_H
 
 #include "NTypes.h"
-#include "types/dim2.h"
+#include "dim2.h"
 #include "ERendererEnums.h"
 #include "ILogger.h"
 

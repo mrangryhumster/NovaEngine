@@ -7,14 +7,14 @@
 #include "NMath.h"
 #include "NExTypes.h"
 
-#include "types/matrix.h"
-#include "types/quaternion.h"
-#include "types/vector2.h"
-#include "types/vector3.h"
-#include "types/color3.h"
-#include "types/color4.h"
-#include "types/dim2.h"
-#include "types/rect.h"
+#include "matrix.h"
+#include "quaternion.h"
+#include "vector2.h"
+#include "vector3.h"
+#include "color3.h"
+#include "color4.h"
+#include "dim2.h"
+#include "rect.h"
 
 #include "NMath.h"
 

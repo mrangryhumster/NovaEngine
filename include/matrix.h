@@ -2,8 +2,8 @@
 #define matrix_H
 
 
-#include "../NTypes.h"
-#include "../NMath.h"
+#include "NTypes.h"
+#include "NMath.h"
 
 #include "vector2.h"
 #include "vector3.h"
@@ -22,7 +22,7 @@ public:
 
     matrix(bool skip_indetify = false)
     {
-        if(not skip_indetify)
+        if(!skip_indetify)
             makeIndetify();
     }
     matrix(const matrix<T>& other)
