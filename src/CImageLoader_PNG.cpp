@@ -19,19 +19,19 @@ CImageLoader_PNG::CImageLoader_PNG(io::IFileSystem* fs)
 {
     FileSystem = fs;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 CImageLoader_PNG::~CImageLoader_PNG()
 {
     //dtor
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CImageLoader_PNG::isSupported(const char* file_extension)
 {
     if(strcmp(file_extension,"png") == 0)
         return 1;
     return 0;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CImageLoader_PNG::isSupported(io::IFile* file)
 {
     png_byte header[8];
@@ -41,15 +41,15 @@ bool CImageLoader_PNG::isSupported(io::IFile* file)
         return false;
     return true;
 }
-//--------------------------------------------------------------------------------------------------------
-renderer::IImage* CImageLoader_PNG::LoadImage(const char* path)
+//-----------------------------------------------------------------------------------------------
+renderer::IImage* CImageLoader_PNG::loadImage(const char* path)
 {
     io::IFile* png_file = FileSystem->open_file(path);
 
     if(!png_file)
         return NULL;
 
-    renderer::IImage* image = LoadImage(png_file);
+    renderer::IImage* image = loadImage(png_file);
 
     png_file->release();
 
@@ -58,8 +58,8 @@ renderer::IImage* CImageLoader_PNG::LoadImage(const char* path)
 
     return image;
 }
-//--------------------------------------------------------------------------------------------------------
-renderer::IImage* CImageLoader_PNG::LoadImage(io::IFile* file)
+//-----------------------------------------------------------------------------------------------
+renderer::IImage* CImageLoader_PNG::loadImage(io::IFile* file)
 {
     u32 FileStart = file->getPos();
 
@@ -69,7 +69,7 @@ renderer::IImage* CImageLoader_PNG::LoadImage(io::IFile* file)
 
     return png;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 renderer::IImage* CImageLoader_PNG::LoadPNG(io::IFile* file)
 {
 
@@ -187,7 +187,7 @@ renderer::IImage* CImageLoader_PNG::LoadPNG(io::IFile* file)
     delete[] data;
     return img;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 }
 
 #endif // INCLUDE_LIBPNG

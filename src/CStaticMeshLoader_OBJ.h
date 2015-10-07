@@ -26,8 +26,8 @@ public:
     bool isSupported(const char* file_extension);
     bool isSupported(io::IFile* file);
 
-    renderer::IStaticMesh* LoadStaticMesh(const char* path);
-    renderer::IStaticMesh* LoadStaticMesh(io::IFile* file,const char* hint);
+    renderer::IStaticMesh* loadStaticMesh(const char* path);
+    renderer::IStaticMesh* loadStaticMesh(io::IFile* file,const char* hint);
 
     renderer::IStaticMesh* LoadOBJ(io::IFile* file);
 

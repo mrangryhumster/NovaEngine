@@ -1,4 +1,4 @@
-#include <vld.h>
+//#include <vld.h>
 #include <stdlib.h>
 
 
@@ -11,6 +11,7 @@
 #include <windows.h>
 
 #include "NovaEngine.h"
+#include "MemoryWatcher.h"
 
 #include "NTime.h"
 
@@ -96,7 +97,13 @@ private:
 
 int run()
 {
-
+    /*
+    char buf[256];
+    //int r = GetFullPathName("../res/ship.obj",255,buf,nullptr);
+    GetLongPathName("../res/ship.obj",buf,255);
+    std::cout << buf << std::endl;
+    return 0;
+*/
     SEngineConf conf;
     conf.WindowSize = core::dim2u(1920,1080);
     conf.VSync = false;
@@ -119,11 +126,11 @@ int run()
     animator->setActive(true);
     animator->scene::ISceneNodeAnimator::release();
 
-    renderer::IStaticMesh* Mesh = Engine->getGeometryManager()->createSphereMesh(4,32);//Engine->getResourceManager()->loadStaticMesh("res//ship.obj");
+    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\res\\ship.obj");
 
     u32 FPS = 0;
 
-    Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
+    //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
     //Engine->getRenderer()->setRenderState(renderer::ERS_ENABLE_CULL_FACE,false);
 
     novaengine::IPerformanceCounter * EPC = Engine->getPerformanceCounter();
@@ -146,7 +153,7 @@ int run()
     }
     Mesh->release();
     closeEngine();
-	
+
     return 0;
 }
 
@@ -154,5 +161,5 @@ int run()
 int main()
 {
 	run();
-    return 0; 
+    return 0;
 }

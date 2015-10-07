@@ -23,8 +23,8 @@ public:
     bool isSupported(const char* file_extension);
     bool isSupported(io::IFile* file);
 
-    renderer::IImage* LoadImage(const char* path);
-    renderer::IImage* LoadImage(io::IFile* file);
+    renderer::IImage* loadImage(const char* path);
+    renderer::IImage* loadImage(io::IFile* file);
 
     renderer::IImage* LoadPNG(io::IFile* file);
 

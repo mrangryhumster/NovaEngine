@@ -37,46 +37,46 @@ CBaseRenderer::~CBaseRenderer()
 
 }
 
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 u32 CBaseRenderer::getType()
 {
     return ERT_NULL;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setVSync(bool flag)
 {
     VSync = flag;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CBaseRenderer::getVSync()
 {
     return VSync;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setRenderState(u32 flag,URenderStateValue value)
 {
     if(flag < ERS_LAST_STATE)
         RenderStates[flag] = value;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 URenderStateValue CBaseRenderer::getRenderState(u32 flag)
 {
     if(flag < ERS_LAST_STATE)
         return RenderStates[flag];
     return 0;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setViewport(core::rectu nvp)
 {
     ViewportRect = nvp;
     ViewportSize = core::dim2u(nvp.X2 - nvp.X1,nvp.Y2 - nvp.Y1);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 core::rectu CBaseRenderer::getViewport()
 {
     return ViewportRect;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
 {
 
@@ -116,7 +116,7 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
         break;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
 {
     switch(mtype)
@@ -134,7 +134,7 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
         return core::matrixf();
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::bindTexture(ITexture* Texture,u32 id)
 {
     if(ActiveTexture[id] != Texture && id < EMTN_TEXTURE_COUNT)
@@ -148,12 +148,12 @@ void CBaseRenderer::bindTexture(ITexture* Texture,u32 id)
         ActiveTexture[id] = Texture;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::bindShaderProgram(IShaderProgram*)
 {
 
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::bindMaterial(IMaterial* Material)
 {
     if(ActiveMaterial != Material)
@@ -180,7 +180,7 @@ void CBaseRenderer::bindMaterial(IMaterial* Material)
 
     ActiveMaterial = Material;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::begin_frame(bool clear_color_buffer,bool clear_zbuffer,core::color4f clear_color)
 {
     u32 flags = 0;
@@ -192,7 +192,7 @@ void CBaseRenderer::begin_frame(bool clear_color_buffer,bool clear_zbuffer,core:
     clear(flags,clear_color);
 
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::end_frame()
 {
     flush();
@@ -202,31 +202,31 @@ void CBaseRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E
 {
     drawIndexedPrimitiveList(NULL,0,verticles,VertexCount,PrimitiveType,VertexFormat);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawPoint(core::vector3f Position)
 {
     drawArrays(0,1,NULL,&Position,NULL,NULL,NULL,renderer::EPT_POINT);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawLine(core::vector3f Start,core::vector3f End)
 {
     core::vector3f Line[2] = {Start,End};
     drawArrays(0,2,NULL,Line,NULL,NULL,NULL,renderer::EPT_LINE);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawTriangle(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3)
 {
     core::vector3f Triangle[3] = {Pos1,Pos2,Pos3};
     drawArrays(0,3,NULL,Triangle,NULL,NULL,NULL,renderer::EPT_TRIANGLE);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawQuad(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3,core::vector3f Pos4)
 {
     core::vector3f Quad[4] = {Pos1,Pos2,Pos3,Pos4};
     core::vector2f QuadTx[4] = {core::vector2f(0,1),core::vector2f(0,0),core::vector2f(1,0),core::vector2f(1,1)};
     drawArrays(0,4,NULL,Quad,QuadTx,NULL,NULL,renderer::EPT_QUAD);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawScreenQuad(ITexture* Texture,core::color4f color)
 {
     bindTexture(Texture,0);
@@ -261,12 +261,12 @@ void CBaseRenderer::drawScreenQuad(ITexture* Texture,core::color4f color)
 
     drawArrays(0,4,NULL,ScreenQuad_verticles,ScreenQuad_texcoord,NULL,ScreenQuad_color,EPT_TRIANGLE_STRIP);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CBaseRenderer::isOk()
 {
     return !(!noerror || exit);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 }
 }
 

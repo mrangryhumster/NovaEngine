@@ -10,12 +10,12 @@ CGeometryManager::CGeometryManager(IResourceManager* ResourceManager_param):
 {
 
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 CGeometryManager::~CGeometryManager()
 {
     //dtor
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CGeometryManager::createCubeMesh()
 {
     core::vector3f Positions[24];
@@ -183,10 +183,10 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     Mesh->addMeshBuffer(MeshBuffer);
     MeshBuffer->release();
     //----------------
-    printf("[GEOMETRY MANAGER] shape:cube\n");
+    LOG_ENGINE_DEBUG("geometry generated shape:cube\n");
     return Mesh;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,core::dim2u CellCount)
 {
     //----------------------------
@@ -247,10 +247,10 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
     Mesh->addMeshBuffer(MeshBuffer);
     MeshBuffer->release();
     //----------------
-    printf("[GEOMETRY MANAGER] shape:grid vcount:%d icount:%d\n",VCount,ICount);
+    LOG_ENGINE_DEBUG("geometry generated shape:grid vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned int Resolution)
 {
     if(Resolution < 4)
@@ -325,8 +325,8 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
     //----------------
 
 
-    printf("[GEOMETRY MANAGER] shape:sphere vcount:%d icount:%d\n",VCount,ICount);
+    LOG_ENGINE_DEBUG("geometry generated shape:sphere vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 }

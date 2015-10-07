@@ -8,7 +8,14 @@
 
 #include "NLogger.h"
 
+
+
 #include <stdio.h>
+#include <cstdlib>
+
+#define MAX_PATH   260
+#define MAX_DRIVE  3
+#define MAX_DIR    256
 
 namespace novaengine
 {
@@ -29,6 +36,9 @@ class CFileSystem : public IFileSystem
 
     protected:
     private:
+
+		//os specific
+		void getAbsolutePath(std::string& RelativePath,std::string& AbsolutePath,std::string& AbsoluteDirectoryPath);
 };
 
 }

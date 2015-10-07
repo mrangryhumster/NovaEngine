@@ -75,9 +75,9 @@ renderer::IImage* CResourceManager::loadImage(const char* ImagePath)
     for(u32 irl = 0; irl < ImageLoaders.size(); irl++)
     {
         if(ImageLoaders[irl]->isSupported(FileExtension))
-        {
+		{
             u32 time = time::getRealTime();
-            renderer::IImage* img = ImageLoaders[irl]->LoadImage(ImagePath);
+            renderer::IImage* img = ImageLoaders[irl]->loadImage(ImagePath);
             if(img)
             {
                 LOG_INFO("Image loaded : \"%s\" [%d ms]\n",ImagePath,time::getRealTime() - time);
@@ -117,7 +117,7 @@ renderer::IStaticMesh*  CResourceManager::loadStaticMesh(const char* MeshPath)
         if(StaticMeshLoaders[irl]->isSupported(FileExtension))
         {
             u32 time = time::getRealTime();
-            renderer::IStaticMesh* mesh = StaticMeshLoaders[irl]->LoadStaticMesh(MeshPath);
+            renderer::IStaticMesh* mesh = StaticMeshLoaders[irl]->loadStaticMesh(MeshPath);
             if(mesh)
             {
                 LOG_INFO("Static mesh loaded : \"%s\" [%d ms]\n",MeshPath,time::getRealTime() - time);
@@ -147,7 +147,7 @@ renderer::IAnimatedMesh* CResourceManager::loadAnimatedMesh(const char* MeshPath
         if(AnimatedMeshLoaders[irl]->isSupported(FileExtension))
         {
             u32 time = time::getRealTime();
-            renderer::IAnimatedMesh* mesh = AnimatedMeshLoaders[irl]->LoadAnimatedMesh(MeshPath);
+            renderer::IAnimatedMesh* mesh = AnimatedMeshLoaders[irl]->loadAnimatedMesh(MeshPath);
             if(mesh)
             {
                 LOG_INFO("Animated mesh loaded : \"%s\" [%d ms]\n",MeshPath,time::getRealTime() - time);
@@ -177,7 +177,7 @@ gui::IFont* CResourceManager::loadFont(const char* FontPath)
         if(FontLoaders[irl]->isSupported(FileExtension))
         {
             u32 time = time::getRealTime();
-            gui::IFont* font = FontLoaders[irl]->LoadFont(FontPath);
+            gui::IFont* font = FontLoaders[irl]->loadFont(FontPath);
             if(font)
             {
                 LOG_INFO("Font loaded : \"%s\" [%d ms]\n",FontPath,time::getRealTime() - time);

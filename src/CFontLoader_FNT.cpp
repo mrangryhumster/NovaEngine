@@ -17,19 +17,19 @@ CFontLoader_FNT::CFontLoader_FNT(io::IFileSystem* fs,IResourceManager* rm)
     FileSystem = fs;
     ResourceManager = rm;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 CFontLoader_FNT::~CFontLoader_FNT()
 {
     //dtor
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CFontLoader_FNT::isSupported(const char* file_extension)
 {
     if(strcmp(file_extension,"fnt") == 0)
         return 1;
     return 0;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CFontLoader_FNT::isSupported(io::IFile* file)
 {
     char buf[9];
@@ -42,8 +42,8 @@ bool CFontLoader_FNT::isSupported(io::IFile* file)
         return 1;
     return 0;
 }
-//--------------------------------------------------------------------------------------------------------
-gui::IFont* CFontLoader_FNT::LoadFont(const char* path)
+//-----------------------------------------------------------------------------------------------
+gui::IFont* CFontLoader_FNT::loadFont(const char* path)
 {
     io::IFile* font_file = FileSystem->open_file(path);
 
@@ -59,15 +59,15 @@ gui::IFont* CFontLoader_FNT::LoadFont(const char* path)
 
     return font;
 }
-//--------------------------------------------------------------------------------------------------------
-gui::IFont* CFontLoader_FNT::LoadFont(io::IFile* file)
+//-----------------------------------------------------------------------------------------------
+gui::IFont* CFontLoader_FNT::loadFont(io::IFile* file)
 {
     u32 FileStart = file->getPos();
     gui::IFont* font = LoadFNT(file);
     file->seek(FileStart);
     return font;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 gui::IFont* CFontLoader_FNT::LoadFNT(io::IFile* file)
 {
 
@@ -194,7 +194,7 @@ gui::IFont* CFontLoader_FNT::LoadFNT(io::IFile* file)
     LOG_DEBUG("Loaded %d glyphs.\n",charsCount);
     return Font;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CFontLoader_FNT::release_tmp_data(renderer::ITexture** TexturePages,u32 TexturePages_count,gui::SGlyph* Glyphs,u32 Glyphs_count)
 {
     if(TexturePages != NULL)

@@ -27,8 +27,8 @@ public:
     bool isSupported(const char* file_extension);
     bool isSupported(io::IFile* file);
 
-    gui::IFont* LoadFont(const char* path);
-    gui::IFont* LoadFont(io::IFile* file);
+    gui::IFont* loadFont(const char* path);
+    gui::IFont* loadFont(io::IFile* file);
 
     gui::IFont* LoadFNT(io::IFile* file);
 

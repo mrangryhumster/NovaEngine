@@ -19,26 +19,26 @@ CStaticMeshLoader_OBJ::CStaticMeshLoader_OBJ(io::IFileSystem* fs,IResourceManage
     FileSystem      = fs;
     ResourceManager = rm;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 CStaticMeshLoader_OBJ::~CStaticMeshLoader_OBJ()
 {
 
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CStaticMeshLoader_OBJ::isSupported(const char* file_extension)
 {
     if(strcmp(file_extension,"obj") == 0)
         return 1;
     return 0;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool CStaticMeshLoader_OBJ::isSupported(io::IFile* file)
 {
     //! I'm too lazy to write this...
     return false;
 }
-//--------------------------------------------------------------------------------------------------------
-renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(const char* path)
+//-----------------------------------------------------------------------------------------------
+renderer::IStaticMesh* CStaticMeshLoader_OBJ::loadStaticMesh(const char* path)
 {
     io::IFile* mesh_file = FileSystem->open_file(path);
 
@@ -54,15 +54,15 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(const char* path)
 
     return mesh;
 }
-//--------------------------------------------------------------------------------------------------------
-renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadStaticMesh(io::IFile* file,const char* hint)
+//-----------------------------------------------------------------------------------------------
+renderer::IStaticMesh* CStaticMeshLoader_OBJ::loadStaticMesh(io::IFile* file,const char* hint)
 {
     u32 FileStart = file->getPos();
     renderer::IStaticMesh* mesh = LoadOBJ(file);
     file->seek(FileStart);
     return mesh;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 {
     //CHECK_CODE
@@ -94,13 +94,20 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
         case 'm': //mtllib
         {
-            //extract mtl file name
-            char mtl_file_name[256];
-            sscanf(string,"mtllib %255s",mtl_file_name);
-            //load .mtl file
-            read_mtl_file(OBJ_MaterialGroups,mtl_file_name);
-            //read_mtl_file(&Materials,mtl_file_name);
+			//If file opened from hdd then we try to connect mtl file
+            if(file->getSourceType() == io::EFST_NATIVE)
+            {
+                //extract mtl file name
+                char mtl_file_name[256];
+                sscanf(string,"mtllib %255s",mtl_file_name);
 
+				std::string full_mtl_path = "";
+				full_mtl_path += file->getDir();
+				full_mtl_path += mtl_file_name;
+
+                //load .mtl file
+				read_mtl_file(OBJ_MaterialGroups,full_mtl_path.c_str());
+            }
             break;
         }
         case 'u': //usemtl
@@ -117,6 +124,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
             have_texcoords = false;
             have_normals   = false;
+			LOG_ENGINE_DEBUG("mesh mtl switch\n");
             break;
         }
         case 'v': //v/vt/vn
@@ -291,7 +299,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
     return Mesh;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBuffer*>& obj_materialgroups,const char* mtl_file)
 {
 
@@ -351,7 +359,12 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
         case 'm': //map_Kd
             char texture_name[256];
             sscanf(&string[i],"map_Kd %255s",texture_name);
-            renderer::ITexture* Texture = ResourceManager->loadTexture(texture_name);
+
+			std::string full_texture_path = "";
+			full_texture_path += mtl->getDir();
+			full_texture_path += texture_name;
+
+			renderer::ITexture* Texture = ResourceManager->loadTexture(full_texture_path.c_str());
             if(Texture)
             {
                 Material->setTexture(Texture,0);

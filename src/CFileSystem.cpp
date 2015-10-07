@@ -1,4 +1,5 @@
 #include "CFileSystem.h"
+#include "CompileConfig.h"
 
 namespace novaengine
 {
@@ -7,20 +8,19 @@ namespace io
 CFileSystem::CFileSystem()
 {
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 CFileSystem::~CFileSystem()
 {
     //dtor
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IFile* CFileSystem::open_file(const char* filename,bool NativeFile)
 {
-    std::string FilePath(filename);
+    std::string FilePath_relative(filename);
+    std::string FilePath;
     std::string Directory;
 
-    u32 idx = FilePath.find_last_of('\\');
-    if(idx != std::string::npos)
-        Directory = FilePath.substr(0,idx+1);
+    getAbsolutePath(FilePath_relative,FilePath,Directory);
 
 
     FILE* stream = fopen(FilePath.c_str(),"rb");
@@ -57,7 +57,7 @@ IFile* CFileSystem::open_file(const char* filename,bool NativeFile)
         return  new CVirtualFile(FileLenght,FilePosition,FileData,EFST_NATIVE,FilePath.c_str(),Directory.c_str());
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IFile* CFileSystem::open_stream(const char* filename, u8* filedata, u32 datasize)
 {
     u32  FileLenght   = datasize;
@@ -65,7 +65,7 @@ IFile* CFileSystem::open_stream(const char* filename, u8* filedata, u32 datasize
 
     return new CVirtualFile(FileLenght,FilePosition,filedata,EFST_STREAM,filename);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IFile* CFileSystem::create(const char* filename,bool NativeFile)
 {
     FILE* stream = fopen(filename,"wb");
@@ -86,7 +86,7 @@ IFile* CFileSystem::create(const char* filename,bool NativeFile)
         return  new CVirtualFile(0,0,0,EFST_NATIVE,filename);
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void   CFileSystem::save(const char* filename,IFile* File)
 {
     if(File->getFilePointerType() == EFPT_VIRTUAL)
@@ -105,6 +105,44 @@ void   CFileSystem::save(const char* filename,IFile* File)
         return;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
+void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& AbsolutePath,std::string& AbsoluteDirectoryPath)
+{
+//If engine compiled under window then we use winapi to get absolute path
+//else we (just for now) throw preproc error
+#if defined(_WIN32)
+
+    char* buffer = new char[MAX_PATH];
+
+    //get absolute path from relative
+    DWORD Result = GetFullPathNameA(RelativePath.c_str(),MAX_PATH,buffer,nullptr);
+    if(Result == 0)
+    {
+        LOG_DEBUG("Cannot extract absolute path from \"%s\"",RelativePath.c_str());
+        AbsolutePath = RelativePath;
+        return;
+    }
+    else if(Result >= MAX_PATH)
+    {
+        delete[] buffer;
+        buffer = new char[Result];
+        Result = GetFullPathNameA(RelativePath.c_str(),MAX_PATH,buffer,nullptr);
+        if(Result == 0)
+        {
+            LOG_DEBUG("Cannot extract absolute path from \"%s\"",RelativePath.c_str());
+            AbsolutePath = RelativePath;
+            return;
+        }
+    }
+
+    AbsolutePath = buffer;
+    AbsoluteDirectoryPath = AbsolutePath.substr(0,AbsolutePath.find_last_of('\\')+1);
+#else
+    //TODO write something
+#error "Missing code"
+#endif
+
+}
+//-----------------------------------------------------------------------------------------------
 }
 }
