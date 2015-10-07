@@ -2,16 +2,18 @@
 #define COMPILECONFIG_H
 
 //------------Windows
-#if defined(__WIN32)
+#if defined(_WIN32)
 
-#if defined(__WIN64)
+#include <windows.h>
+
+#if defined(_WIN64)
 #endif // __WIN64
 
 //------------Apple
 #elif defined(__APPLE__)
 
 //------------Linux
-#elif defined(__lunux)
+#elif defined(__linux__)
 
 //------------Android(wow ^_^)
 #elif defined(__ANDROID__)
