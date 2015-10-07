@@ -34,9 +34,9 @@ public:
     virtual int getFilePointerType() = 0;
 
     virtual size_t getSize() = 0;
-    /// \return Return in file position
+    /// \return Return i/o position
     virtual size_t getPos()     = 0;
-    /// \return Return in file position before last read/write/seek calls...
+    /// \return Return i/o position before last read/write/seek calls...
     virtual size_t getLastPos() = 0;
 
     virtual const char* getName() = 0;

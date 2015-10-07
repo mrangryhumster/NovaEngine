@@ -54,7 +54,6 @@ class Resource : public Object
 
     protected:
     private:
-        Resource(Resource&){};
         volatile bool ResourceLoaded;
         volatile bool ResourceLocked;
         char*         ResourceName;

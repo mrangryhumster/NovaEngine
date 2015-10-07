@@ -170,7 +170,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         renderername  =  reinterpret_cast<const char*>(glGetString(GL_RENDERER));
         extensionlist =  reinterpret_cast<const char*>(glGetString(GL_FEATURE));
         //-------------------------------------------------------------------------
-        LOG_INFO("Renderer type   : OpenGLRenderer (indev)\n");
+        LOG_INFO("Renderer type   : OpenGLRenderer\n");
         LOG_INFO("Renderer version: %s\n",versionname);
         LOG_INFO("Renderer name   : %s\n",renderername);
         LOG_INFO("Renderer vendor : %s\n",vendorname);
@@ -221,7 +221,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
     }
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 COpenGLRenderer::~COpenGLRenderer()
 {
 #ifdef NE_WINDOW_WIN32
@@ -232,12 +232,12 @@ COpenGLRenderer::~COpenGLRenderer()
         LOG_FATAL_ERROR("Cant Release DC[err:unknown]\n");
 #endif // NE_WINDOW_WIN32
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 u32 COpenGLRenderer::getType()
 {
     return ERT_OPENGL;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setVSync(bool flag)
 {
 #ifdef NE_WINDOW_WIN32
@@ -255,7 +255,7 @@ void COpenGLRenderer::setVSync(bool flag)
     }
 #endif // NE_WINDOW_WIN32
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
 {
     CBaseRenderer::getRenderState(flag);
@@ -365,12 +365,12 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
     }
 
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 URenderStateValue COpenGLRenderer::getRenderState(u32 flag)
 {
     return CBaseRenderer::getRenderState(flag);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 s32  COpenGLRenderer::QueryRendererFeature(E_RENDERER_FEATURE feature)
 {
     switch(feature)
@@ -390,19 +390,19 @@ s32  COpenGLRenderer::QueryRendererFeature(E_RENDERER_FEATURE feature)
     }
     return false;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setViewport(core::rectu nvp)
 {
     glViewport(nvp.X1,nvp.Y1,nvp.X2,nvp.Y2);
     ViewportRect = nvp;
     ViewportSize = core::dim2u(nvp.X2 - nvp.X1,nvp.Y2 - nvp.Y1);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 core::rectu COpenGLRenderer::getViewport()
 {
     return ViewportRect;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
 {
 
@@ -451,7 +451,7 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
         break;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 const core::matrixf COpenGLRenderer::getTransform(E_MATRIX_TYPE mtype)
 {
     switch(mtype)
@@ -468,7 +468,7 @@ const core::matrixf COpenGLRenderer::getTransform(E_MATRIX_TYPE mtype)
         return core::matrixf();
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::resetTransform(E_MATRIX_TYPE mtype)
 {
     switch(mtype)
@@ -492,17 +492,17 @@ void COpenGLRenderer::resetTransform(E_MATRIX_TYPE mtype)
         break;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IShaderProgram* COpenGLRenderer::GenShaderProgram()
 {
     return new COpenGLShaderProgram();
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IMeshBuffer* COpenGLRenderer::GenMeshBuffer()
 {
     return new CMeshBuffer();//new COpenGLMeshBuffer();
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
 {
     if(!img)
@@ -513,7 +513,7 @@ ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
     LOG_INFO("Texture generated : tx_id:%d [%d ms]\n",OpenGLTexture->getTexture(),time::getRealTime() - time);
     return OpenGLTexture;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 IImage*   COpenGLRenderer::GenImage(ITexture* tx)
 {
     tx->lock();
@@ -521,7 +521,7 @@ IImage*   COpenGLRenderer::GenImage(ITexture* tx)
 
     return NULL;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 {
     CBaseRenderer::bindTexture(Texture,id);
@@ -575,7 +575,7 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
         glUseProgram(0);
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindMaterial(IMaterial* Material)
 {
     if(ActiveMaterial != Material)
@@ -600,7 +600,7 @@ void COpenGLRenderer::bindMaterial(IMaterial* Material)
     glColor4fv((float*)&DiffuseColor);
     ActiveMaterial = Material;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
 {
     if(GLEW_ARB_framebuffer_object)
@@ -674,7 +674,7 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
         }
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::clear(u32 flags,core::color4f clear_color)
 {
     glClearColor(clear_color.r,clear_color.g,clear_color.b,clear_color.a);
@@ -687,14 +687,14 @@ void COpenGLRenderer::clear(u32 flags,core::color4f clear_color)
 
     glClear(GL_FLAGS);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::flush()
 {
 #ifdef NE_WINDOW_WIN32
     SwapBuffers(hDC);
 #endif // NE_WINDOW_WIN32
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
 {
     COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(array);
@@ -755,7 +755,7 @@ void COpenGLRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount
 {
     drawIndexedPrimitiveList(NULL,0,verticles,VertexCount,PrimitiveType,VertexFormat);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)
 {
 
@@ -800,7 +800,7 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     PerformanceCounter->register_draw(VertexCount);
     //----------------------------------------------
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE PrimitiveType)
 {
     glBindBuffer(GL_ARRAY_BUFFER,0);
@@ -840,12 +840,12 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     PerformanceCounter->register_draw(vertex_count);
     //----------------------------------------------
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::isOk()
 {
     return !(!noerror || exit);
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::update()
 {
     //return isOk();
@@ -884,7 +884,7 @@ bool COpenGLRenderer::update()
 
     return isOk();
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive)
 {
     switch(engine_primitive)
@@ -923,7 +923,7 @@ void COpenGLRenderer::to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32&
         break;
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 u32 COpenGLRenderer::to_opengl_blendmodes(E_BLENDING_MODE engine_mode)
 {
     switch(engine_mode)
@@ -961,7 +961,7 @@ u32 COpenGLRenderer::to_opengl_blendmodes(E_BLENDING_MODE engine_mode)
     }
     return GL_ONE;
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool color)
 {
     //---------------------------------------------------------MeshBuffer
@@ -1033,6 +1033,6 @@ void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool col
         }
     }
 }
-//--------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 }
 }
