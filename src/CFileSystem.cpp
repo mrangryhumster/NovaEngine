@@ -120,6 +120,7 @@ void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& Absolut
     {
         LOG_DEBUG("Cannot extract absolute path from \"%s\"",RelativePath.c_str());
         AbsolutePath = RelativePath;
+        delete[] buffer;
         return;
     }
     else if(Result >= MAX_PATH)
@@ -131,12 +132,15 @@ void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& Absolut
         {
             LOG_DEBUG("Cannot extract absolute path from \"%s\"",RelativePath.c_str());
             AbsolutePath = RelativePath;
+            delete[] buffer;
             return;
         }
     }
 
     AbsolutePath = buffer;
     AbsoluteDirectoryPath = AbsolutePath.substr(0,AbsolutePath.find_last_of('\\')+1);
+
+    delete[] buffer;
 #else
     //TODO write something
 #error "Missing code"
