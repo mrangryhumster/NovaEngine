@@ -21,8 +21,9 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     core::vector3f Positions[24];
     core::vector2f TexCoords[24];
     core::vector3f Normals[24];
-    u16 Indices[36] = {0};
+    u32 Indices[36];
 
+	
     //front
     Positions[0].set(-1,-1, 1);
     Positions[1].set( 1,-1, 1);
@@ -166,24 +167,25 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     Indices[33]  = 22;
     Indices[34]  = 23;
     Indices[35]  = 20;
-
+	
     renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->GenMeshBuffer();
 
     MeshBuffer->addBufferData(renderer::EVA_POSITION,Positions,24 * sizeof(core::vector3f));
-    MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,Positions,24 * sizeof(core::vector2f));
-    MeshBuffer->addBufferData(renderer::EVA_NORMAL  ,Positions,24 * sizeof(core::vector3f));
-    MeshBuffer->setIndicesBufferData(Indices,36 * sizeof(u32));
+	MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,TexCoords,24 * sizeof(core::vector2f));
+	MeshBuffer->addBufferData(renderer::EVA_NORMAL  ,Normals  ,24 * sizeof(core::vector3f));
+
+	MeshBuffer->setIndicesBufferData(Indices,36 * sizeof(u32));
     MeshBuffer->setIndicesBufferType(NTYPE_u32);
 
     MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
     MeshBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL));
-
+	
     //----------------
     renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
     Mesh->addMeshBuffer(MeshBuffer);
     MeshBuffer->release();
     //----------------
-    LOG_ENGINE_DEBUG("geometry generated shape:cube\n");
+    LOG_ENGINE_DEBUG("geometry:generated shape:cube\n");
     return Mesh;
 }
 //-----------------------------------------------------------------------------------------------
@@ -191,8 +193,6 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
 {
     //----------------------------
     renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->GenMeshBuffer();
-    if(MeshBuffer == NULL)
-        return NULL;
     //----------------------------
 
     u32* Indices = new u32[CellCount.width * CellCount.height * 6];
@@ -247,7 +247,7 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
     Mesh->addMeshBuffer(MeshBuffer);
     MeshBuffer->release();
     //----------------
-    LOG_ENGINE_DEBUG("geometry generated shape:grid vcount:%d icount:%d\n",VCount,ICount);
+    LOG_ENGINE_DEBUG("geometry:generated shape:grid vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
 //-----------------------------------------------------------------------------------------------
@@ -325,7 +325,7 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
     //----------------
 
 
-    LOG_ENGINE_DEBUG("geometry generated shape:sphere vcount:%d icount:%d\n",VCount,ICount);
+    LOG_ENGINE_DEBUG("geometry:generated shape:sphere vcount:%d icount:%d\n",VCount,ICount);
     return Mesh;
 }
 //-----------------------------------------------------------------------------------------------

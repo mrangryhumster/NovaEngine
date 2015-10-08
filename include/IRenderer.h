@@ -102,7 +102,7 @@ public:
     virtual void drawTriangle(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3) = 0;
     virtual void drawQuad(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3,core::vector3f Pos4) = 0;
 
-    virtual void drawScreenQuad(renderer::ITexture* Texture = NULL,core::color4f color = core::color4f(1,1,1,0)) = 0;
+    virtual void drawScreenQuad(renderer::ITexture* Texture = NULL,core::color4f color = core::color4f(1.f,1.f,1.f,1.f)) = 0;
 };
 }
 }

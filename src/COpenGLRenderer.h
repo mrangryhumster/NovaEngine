@@ -104,8 +104,7 @@ private:
 
     //------------------------RTT
     u32 active_framebuffer_object;
-    u32 active_renderbuffer_object;
-    //---------------------------
+	//---------------------------
 
     #ifdef NE_WINDOW_WIN32
     HWND  hWnd;

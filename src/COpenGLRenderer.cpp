@@ -216,7 +216,9 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setViewport(core::rectu(0,0,FrameSize.width,FrameSize.height));
 
         memset(RendererClientStatesList,0,RCSL_STATES_COUNT);
-//---------------------------------------------------------------
+        //---------------------------------------------------------------
+        active_framebuffer_object = 0;
+        //---------------------------------------------------------------
         ready = true;
     }
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
@@ -596,8 +598,7 @@ void COpenGLRenderer::bindMaterial(IMaterial* Material)
     }
     }
 
-    core::color4f DiffuseColor = Material->getDiffuseColor();
-    glColor4fv((float*)&DiffuseColor);
+    glColor4fv((float*)&Material->getDiffuseColor());
     ActiveMaterial = Material;
 }
 //-----------------------------------------------------------------------------------------------
@@ -615,38 +616,65 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
         }
         else
         {
-            GLuint         gl_texture = 0;
-            core::dim2u    gl_texture_size = ViewportSize;
+            glBindFramebuffer(GL_FRAMEBUFFER,active_framebuffer_object);
 
+
+            GLuint gl_texture = 0;
             if(target != NULL)
             {
-                gl_texture      = reinterpret_cast<COpenGLTexture*>(target)->getTexture();
-                gl_texture_size = target->getTextureDimension();
+                gl_texture = reinterpret_cast<COpenGLTexture*>(target)->getTexture();
+
             }
-            setViewport(core::rectu(0,0,gl_texture_size.width,gl_texture_size.height));
-            glBindFramebuffer(GL_FRAMEBUFFER,active_framebuffer_object);
+
 
             switch(target_type)
             {
+            case ERTT_COLOR_BUFFER_0:
             case ERTT_COLOR_BUFFER_1:
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, gl_texture, 0);
-                break;
             case ERTT_COLOR_BUFFER_2:
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, gl_texture, 0);
-                break;
             case ERTT_COLOR_BUFFER_3:
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, gl_texture, 0);
-                break;
             case ERTT_COLOR_BUFFER_4:
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, gl_texture, 0);
+            case ERTT_COLOR_BUFFER_5:
+            case ERTT_COLOR_BUFFER_6:
+            case ERTT_COLOR_BUFFER_7:
+            case ERTT_COLOR_BUFFER_8:
+            case ERTT_COLOR_BUFFER_9:
+            case ERTT_COLOR_BUFFER_10:
+            case ERTT_COLOR_BUFFER_11:
+            case ERTT_COLOR_BUFFER_12:
+            case ERTT_COLOR_BUFFER_13:
+            case ERTT_COLOR_BUFFER_14:
+            case ERTT_COLOR_BUFFER_15:
+
+				if(RTT_color_buffers[target_type - 1])
+                    RTT_color_buffers[target_type - 1]->release();
+                if(target)
+                    target->capture();
+                RTT_color_buffers[target_type - 1] = target;
+
+                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1), gl_texture, 0);
                 break;
+
 
             case ERTT_DEPTH_BUFFER:
                 glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_texture, 0);
                 break;
             case ERTT_STENCIL_BUFFER:
+                //not implemented yet
                 break;
             }
+
+
+
+            std::vector<GLenum> RenderBuffers;
+            for(u32 i = 0; i < 16; i++)
+                if(RTT_color_buffers[i])
+                    RenderBuffers.push_back(GL_COLOR_ATTACHMENT0 + i);
+
+            glDrawBuffers(RenderBuffers.size(),RenderBuffers.data());
+
+            //----------------------------------------------------------------------
+            //FBO error check block
             GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
             if(err != GL_FRAMEBUFFER_COMPLETE)
             {
@@ -668,9 +696,9 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
                 default:
                     LOG_ENGINE_DEBUG("Unknow error.\n");
                 }
-
                 return;
             }
+            //----------------------------------------------------------------------
         }
     }
 }
@@ -701,6 +729,9 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
 
     if(MeshBuffer->getUpdateRequest())
         MeshBuffer->update();
+
+    if(MeshBuffer->getMaterial())
+        bindMaterial(MeshBuffer->getMaterial());
 
     if(MeshBuffer->getMappingHint() == EMBMH_DEFAULT)
     {
@@ -771,8 +802,8 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     bool have_colors    = (VertexFormat & EVA_COLOR);
 
     //!If no positions in MeshBuffer then nothing to render
-        if(have_verticles == false)
-            return;
+    if(have_verticles == false)
+        return;
 
     //!Enable/disable client states for drawing
     enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
@@ -811,8 +842,8 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     bool have_colors    = (colors   !=NULL);
 
     //!If no positions in MeshBuffer then nothing to render
-        if(have_verticles == false)
-            return;
+    if(have_verticles == false)
+        return;
 
     //!Enable/disable client states for drawing
     enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);

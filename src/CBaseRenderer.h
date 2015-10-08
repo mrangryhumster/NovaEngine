@@ -87,6 +87,10 @@ protected:
     ITexture*       ActiveTexture[EMTN_TEXTURE_COUNT];
     IShaderProgram* ActiveProgram;
     IMaterial*      ActiveMaterial;
+	//-RTT
+	ITexture* RTT_color_buffers[16];
+    ITexture* RTT_depth_buffer;
+	ITexture* RTT_stencil_buffer;
     //Render States
     std::map<int,URenderStateValue> RenderStates;
     //VSync(RLY?0_0)
