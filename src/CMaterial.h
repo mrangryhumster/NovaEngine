@@ -7,8 +7,6 @@
 #include "IMaterial.h"
 #include "ITexture.h"
 
-#include <map>
-
 namespace novaengine
 {
 namespace renderer

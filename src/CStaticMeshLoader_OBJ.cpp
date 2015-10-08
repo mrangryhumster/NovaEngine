@@ -124,7 +124,6 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
             have_texcoords = false;
             have_normals   = false;
-			LOG_ENGINE_DEBUG("mesh mtl switch\n");
             break;
         }
         case 'v': //v/vt/vn
