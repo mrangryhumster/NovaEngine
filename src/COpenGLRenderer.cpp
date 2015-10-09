@@ -77,7 +77,6 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
             wglMakeCurrent(temp_dc,temp_rc);
             wglChoosePixelFormatARB = (PFNWGLCHOOSEPIXELFORMATARBPROC)wglGetProcAddress("wglChoosePixelFormatARB");
         }
-
         if (!wglChoosePixelFormatARB)
         {
             LOG_ERROR("Can't get wglChoosePixelFormatARB...\n");
@@ -103,7 +102,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
                 WGL_SAMPLES_ARB,(int)EngineConfiguration.AntiAlias,
                 0,0
             };
-            valid = wglChoosePixelFormatARB(temp_dc,iAttributes,fAttributes,1,&pFormat,&numFormats);
+            valid = wglChoosePixelFormatARB(temp_dc,iAttributes,fAttributes,1,&pFormat,&numFormats) != 0;
             if ( !(valid && numFormats >= 1) )
             {
                 pFormat = ChoosePixelFormat(hDC,&pfd);
@@ -356,11 +355,11 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
         break;
     //!-------------------------------LINE_WIDTH
     case ERS_LINE_WIDTH:
-        glLineWidth(value.int_value);
+        glLineWidth(value.float_value);
         break;
     //!-------------------------------POINT_SIZE
     case ERS_POINT_SIZE:
-        glPointSize(value.int_value);
+        glPointSize(value.float_value);
         break;
     default:
         break;
@@ -597,8 +596,8 @@ void COpenGLRenderer::bindMaterial(IMaterial* Material)
         bindTexture(Material->getTexture(0),0);
     }
     }
-
-    glColor4fv((float*)&Material->getDiffuseColor());
+    core::color4f color = Material->getDiffuseColor();
+    glColor4fv((float*)&color);
     ActiveMaterial = Material;
 }
 //-----------------------------------------------------------------------------------------------
@@ -623,55 +622,34 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
             if(target != NULL)
             {
                 gl_texture = reinterpret_cast<COpenGLTexture*>(target)->getTexture();
-
             }
 
-
-            switch(target_type)
+            if (target_type >= ERTT_COLOR_BUFFER_0 && target_type <= ERTT_COLOR_BUFFER_15)
             {
-            case ERTT_COLOR_BUFFER_0:
-            case ERTT_COLOR_BUFFER_1:
-            case ERTT_COLOR_BUFFER_2:
-            case ERTT_COLOR_BUFFER_3:
-            case ERTT_COLOR_BUFFER_4:
-            case ERTT_COLOR_BUFFER_5:
-            case ERTT_COLOR_BUFFER_6:
-            case ERTT_COLOR_BUFFER_7:
-            case ERTT_COLOR_BUFFER_8:
-            case ERTT_COLOR_BUFFER_9:
-            case ERTT_COLOR_BUFFER_10:
-            case ERTT_COLOR_BUFFER_11:
-            case ERTT_COLOR_BUFFER_12:
-            case ERTT_COLOR_BUFFER_13:
-            case ERTT_COLOR_BUFFER_14:
-            case ERTT_COLOR_BUFFER_15:
+				if (RTT_color_buffers[target_type - 1])
+					RTT_color_buffers[target_type - 1]->release();
+				if (target)
+					target->capture();
+				RTT_color_buffers[target_type - 1] = target;
 
-				if(RTT_color_buffers[target_type - 1])
-                    RTT_color_buffers[target_type - 1]->release();
-                if(target)
-                    target->capture();
-                RTT_color_buffers[target_type - 1] = target;
+				glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1), gl_texture, 0);
 
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1), gl_texture, 0);
-                break;
+				std::vector<GLenum> RenderBuffers;
+				for (u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
+					if (RTT_color_buffers[i])
+						RenderBuffers.push_back(GL_COLOR_ATTACHMENT0 + i);
 
-
-            case ERTT_DEPTH_BUFFER:
-                glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_texture, 0);
-                break;
-            case ERTT_STENCIL_BUFFER:
-                //not implemented yet
-                break;
+				glDrawBuffers(RenderBuffers.size(), RenderBuffers.data());
+            }
+            else if (target_type == ERTT_DEPTH_BUFFER)
+            {
+				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_texture, 0);
+            }
+            else if (target_type == ERTT_STENCIL_BUFFER)
+            {
+				//not implemented yet
             }
 
-
-
-            std::vector<GLenum> RenderBuffers;
-            for(u32 i = 0; i < 16; i++)
-                if(RTT_color_buffers[i])
-                    RenderBuffers.push_back(GL_COLOR_ATTACHMENT0 + i);
-
-            glDrawBuffers(RenderBuffers.size(),RenderBuffers.data());
 
             //----------------------------------------------------------------------
             //FBO error check block
@@ -739,10 +717,10 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
 
         const SVertexFormat& Format = MeshBuffer->getVertexFormat();
         //------------------------------------------------------------
-        bool have_verticles = (Format.getFlags() & EVA_POSITION);
-        bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD);
-        bool have_normals   = (Format.getFlags() & EVA_NORMAL);
-        bool have_colors    = (Format.getFlags() & EVA_COLOR);
+        bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
+        bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD) != 0;
+        bool have_normals   = (Format.getFlags() & EVA_NORMAL)   != 0;
+        bool have_colors    = (Format.getFlags() & EVA_COLOR)    != 0;
 
         //!If no positions in MeshBuffer then nothing to render
         if(have_verticles == false)
@@ -796,10 +774,10 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
         return;
 
     //------------------------------------------------------------
-    bool have_verticles = (VertexFormat & EVA_POSITION);
-    bool have_texcoords = (VertexFormat & EVA_TEXCOORD);
-    bool have_normals   = (VertexFormat & EVA_NORMAL);
-    bool have_colors    = (VertexFormat & EVA_COLOR);
+    bool have_verticles = (VertexFormat & EVA_POSITION) != 0;
+    bool have_texcoords = (VertexFormat & EVA_TEXCOORD) != 0;
+    bool have_normals   = (VertexFormat & EVA_NORMAL)   != 0;
+    bool have_colors    = (VertexFormat & EVA_COLOR)    != 0;
 
     //!If no positions in MeshBuffer then nothing to render
     if(have_verticles == false)

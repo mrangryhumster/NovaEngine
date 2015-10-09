@@ -88,7 +88,7 @@ protected:
     IShaderProgram* ActiveProgram;
     IMaterial*      ActiveMaterial;
 	//-RTT
-	ITexture* RTT_color_buffers[16];
+	ITexture* RTT_color_buffers[ERTT_COLOR_BUFFERS_COUNT];
     ITexture* RTT_depth_buffer;
 	ITexture* RTT_stencil_buffer;
     //Render States

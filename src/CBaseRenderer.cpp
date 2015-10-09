@@ -25,7 +25,7 @@ CBaseRenderer::CBaseRenderer(CPerformanceCounter* pc,window::IWindow* wnd,SEngin
     for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
         ActiveTexture[i] = nullptr;
 
-    for(u32 i = 0; i < 16; i++)
+    for(u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
         RTT_color_buffers[i] = nullptr;
     RTT_depth_buffer   = nullptr;
     RTT_stencil_buffer = nullptr;
@@ -42,7 +42,7 @@ CBaseRenderer::~CBaseRenderer()
         ActiveMaterial->release();
 
     //Release all RTT buffers
-    for(u32 i = 0; i < 16; i++)
+    for(u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
         if(RTT_color_buffers[i])
             RTT_color_buffers[i]->release();
     if(RTT_depth_buffer)
