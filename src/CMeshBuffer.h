@@ -36,8 +36,8 @@ public:
     void   setIndicesBufferType(u32 type);
     u32    getIndicesBufferType();
     //---------------------------------------------------------------------------
-    void          setVertexFormat(SVertexFormat newFormat);
-    SVertexFormat getVertexFormat();
+    void                  setVertexFormat(SVertexFormat newFormat);
+	const SVertexFormat&  getVertexFormat();
 
     u32 getPrimitiveType();
     void setPrimitiveType(E_PRIMITIVE_TYPE pt);

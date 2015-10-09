@@ -117,7 +117,7 @@ void CMeshBuffer::setVertexFormat(SVertexFormat newFormat)
     VertexFormat = newFormat;
 }
 //---------------------------------------------------------------------------
-SVertexFormat CMeshBuffer::getVertexFormat()
+const SVertexFormat& CMeshBuffer::getVertexFormat()
 {
     return VertexFormat;
 }
