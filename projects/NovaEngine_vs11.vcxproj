@@ -37,8 +37,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)bin_vs2012\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin_vs2012\obj\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin_vs11\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin_vs11\obj\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
