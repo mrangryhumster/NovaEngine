@@ -132,7 +132,9 @@ public:
             if(index < CustomAttribute.size())
                 return &CustomAttribute[index];
             return nullptr;
-        }
+		default:
+			return nullptr;
+		}
     }
 
     u32 getVertexFormatType()

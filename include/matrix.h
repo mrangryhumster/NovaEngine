@@ -252,7 +252,7 @@ public:
         double right,left,top,bottom;
         double temp, temp2, temp3, temp4;
 
-        top = znear * tanf(fov * math::PI / 360.0);
+        top = znear * tan(fov * math::PI / 360.0);
         bottom = -top;
         right = top * aspect;
         left = -right;
