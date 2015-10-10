@@ -1,5 +1,5 @@
 #include "CompileConfig.h"
-#ifdef NE_INCLUDE_LIBPNG
+#ifdef _NE_INCLUDE_LIBPNG
 
 #include "CImageLoader_PNG.h"
 #include "CImage.h"

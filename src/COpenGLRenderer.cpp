@@ -429,7 +429,6 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
             ViewMatrix  = mat;
         }
         else
-
         {
             if(ModelMatrix == mat)
                 return;

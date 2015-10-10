@@ -18,14 +18,6 @@ namespace novaengine
 namespace renderer
 {
 
-enum E_VERTEX_BUFFER_TYPE
-{
-    EMBT_UNDEFINDED = 0x0, //!< Not Defined. Vertices maybe exist, maybe not...
-    EMBT_RAWDATA    = 0x1, //!< Common MeshBuffer. Store data in ram only
-    EMBT_VBO_STREAM = 0x2, //!< MeshBufferObject (VBO) Store data both in vbo and ram
-    EMBT_VBO_STATIC = 0x3  //!< MeshBufferObject (VBO) Store data only in vbo, to change any vertex you must call lock() (of course, unlock() if you done..)
-};
-
 enum E_VERTEX_BUFFER_MAPPING_HINT
 {
     EMBMH_DEFAULT         = 0,

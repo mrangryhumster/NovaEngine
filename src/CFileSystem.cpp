@@ -1,6 +1,11 @@
 #include "CFileSystem.h"
 #include "CompileConfig.h"
 
+#if defined(_NE_WIN32_PLATFORM)
+#include <windows.h>
+#endif  
+
+
 namespace novaengine
 {
 namespace io
@@ -110,7 +115,7 @@ void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& Absolut
 {
 //If engine compiled under window then we use winapi to get absolute path
 //else we (just for now) throw preproc error
-#if defined(_WIN32)
+#if defined(_NE_WIN32_PLATFORM)
 
     char* buffer = new char[MAX_PATH];
 

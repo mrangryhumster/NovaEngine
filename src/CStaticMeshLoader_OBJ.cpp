@@ -1,7 +1,7 @@
 
 #include "CompileConfig.h"
-#define NE_INCLUDE_STATICMESH_LOADER_OBJ
-#ifdef NE_INCLUDE_STATICMESH_LOADER_OBJ
+#define _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #include "CStaticMeshLoader_OBJ.h"
 
@@ -379,4 +379,4 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
 
 }
 
-#endif // NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ

@@ -23,17 +23,17 @@ CResourceManager::CResourceManager(io::IFileSystem* FileSys)
 {
     FileSystem = FileSys;
 
-#ifdef NE_INCLUDE_LIBPNG
+#ifdef _NE_INCLUDE_LIBPNG
     registerImageLoader(new CImageLoader_PNG(FileSystem));
 #endif // INCLUDE_LIBPNG
 
-#ifdef NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
     registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
-#endif // NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
-#ifdef NE_INCLUDE_FONT_LOADER_FNT
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
     registerFontLoader(new CFontLoader_FNT(FileSystem,this));
-#endif // NE_INCLUDE_FONT_LOADER_FNT
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 }
 //-------------------------------------------------------------------------------------------
 CResourceManager::~CResourceManager()

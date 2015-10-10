@@ -2,7 +2,7 @@
 #define CFONTLOADER_FNT_H
 
 #include "CompileConfig.h"
-#ifdef NE_INCLUDE_FONT_LOADER_FNT
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #include "IFontLoader.h"
 #include "IResourceManager.h"
@@ -41,5 +41,5 @@ private:
 };
 
 }
-#endif // NE_INCLUDE_FONT_LOADER_FNT
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 #endif // CFONTLOADER_FNT_H

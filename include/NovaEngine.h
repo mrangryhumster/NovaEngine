@@ -1,8 +1,8 @@
 #ifndef NOVAENGINE_H
 #define NOVAENGINE_H
 
+#include "CompileConfig.h"
 
-//Types
 #include "NTypes.h"
 #include "NMath.h"
 #include "NExTypes.h"
@@ -63,9 +63,9 @@
 
 namespace novaengine
 {
-INovaEngine* createEngine();
-INovaEngine* createEngineEx(SEngineConf);
-void         closeEngine();
+	_NOVAENGINE_API INovaEngine* createEngine();
+	_NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf);
+	_NOVAENGINE_API void         closeEngine();
 
 
 INovaEngine*            getNovaEngine();

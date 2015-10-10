@@ -3,7 +3,7 @@
 
 #include "CompileConfig.h"
 
-#ifdef NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
 #include "IFileSystem.h"
 #include "IStaticMeshLoader.h"
 #include "IResourceManager.h"
@@ -44,5 +44,5 @@ private:
 };
 
 }
-#endif // NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 #endif // CSTATICMESHLOADER_OBJ_H

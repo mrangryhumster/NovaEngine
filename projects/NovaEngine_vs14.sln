@@ -3,16 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NovaEngine_vs14", "NovaEngine_vs14.vcxproj", "{1F775AC9-C74E-4B82-AAF8-C082CE913390}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NovaEngine", "NovaEngine_vs14.vcxproj", "{1F775AC9-C74E-4B82-AAF8-C082CE913390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugApp|Win32 = DebugApp|Win32
+		DLL_Debug|Win32 = DLL_Debug|Win32
+		DLL_Release|Win32 = DLL_Release|Win32
 		ReleaseApp|Win32 = ReleaseApp|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp|Win32.ActiveCfg = Debug|Win32
 		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp|Win32.Build.0 = Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Debug|Win32.ActiveCfg = DLL Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Debug|Win32.Build.0 = DLL Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Release|Win32.ActiveCfg = DLL Release|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Release|Win32.Build.0 = DLL Release|Win32
 		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.ReleaseApp|Win32.ActiveCfg = Release|Win32
 		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.ReleaseApp|Win32.Build.0 = Release|Win32
 	EndGlobalSection

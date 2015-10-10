@@ -3,7 +3,7 @@
 
 #include "CompileConfig.h"
 
-#ifdef NE_INCLUDE_LIBPNG
+#ifdef _NE_INCLUDE_LIBPNG
 #include "IImageLoader.h"
 #include "IFileSystem.h"
 #include "IFile.h"

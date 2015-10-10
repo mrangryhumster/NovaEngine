@@ -54,7 +54,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     //Over and over
     //I rewrite this piece of shiiiit...
 #else
-    LOG_FATAL_ERROR("Ops.. No window system selected.\n");
+#error "No window system selected"
 #endif
     if(Window == nullptr || !Window->isOk())
     {

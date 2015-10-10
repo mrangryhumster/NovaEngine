@@ -224,3 +224,6 @@ pip-log.txt
 *.gch
 
 res/
+*.dll
+*.exp
+*.lib

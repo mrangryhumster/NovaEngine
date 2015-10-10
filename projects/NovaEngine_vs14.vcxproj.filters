@@ -261,9 +261,6 @@
     <ClInclude Include="..\src\CNovaEngine.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\CompileConfig.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\CPerformanceCounter.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -410,6 +407,9 @@
     </ClInclude>
     <ClInclude Include="..\src\CFont.h">
       <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CompileConfig.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

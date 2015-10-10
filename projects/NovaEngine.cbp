@@ -119,6 +119,9 @@
 		<Linker>
 			<Add directory="../src/glew/lib" />
 		</Linker>
+		<Unit filename="../include/CompileConfig.h">
+			<Option virtualFolder="include/" />
+		</Unit>
 		<Unit filename="../include/EKeycodes.h">
 			<Option virtualFolder="include/E/" />
 		</Unit>
@@ -430,11 +433,6 @@
 		</Unit>
 		<Unit filename="../src/CWin32Window.h">
 			<Option virtualFolder="src/window/win32/" />
-		</Unit>
-		<Unit filename="../src/CompileConfig.h">
-			<Option compile="1" />
-			<Option weight="0" />
-			<Option virtualFolder="src/" />
 		</Unit>
 		<Unit filename="../src/NLogger.cpp">
 			<Option virtualFolder="src/Log/" />

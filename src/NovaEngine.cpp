@@ -15,13 +15,13 @@ static window::IWindow*   NovaEngineWindow      = NULL;
 static renderer::IRenderer* NovaEngineRenderer  = NULL;
 }
 
-INovaEngine* createEngine()
+_NOVAENGINE_API INovaEngine* createEngine()
 {
     SEngineConf engine_conf;
     return createEngineEx(engine_conf);
 }
 
-INovaEngine* createEngineEx(SEngineConf engine_conf)
+_NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf engine_conf)
 {
     if(NovaEngine)
     {
@@ -43,7 +43,7 @@ INovaEngine* createEngineEx(SEngineConf engine_conf)
     return NULL;
 }
 
-void closeEngine()
+_NOVAENGINE_API void closeEngine()
 {
     if(NovaEngine)
     {
