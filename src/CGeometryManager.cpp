@@ -200,7 +200,7 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
     u32 VCount = 0;
     u32 ICount = 0;
 
-    core::vector3f Shift(-(((f32)CellCount.width/2) * CellSize.width),-(((f32)CellCount.width/2) * CellSize.width),0);
+    core::vector3f Shift(-(((f32)CellCount.width/2) * CellSize.width),0,-(((f32)CellCount.width/2) * CellSize.width));
 
     for(u32 y_tile = 0; y_tile < CellCount.height; y_tile++)
     {
@@ -209,10 +209,10 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
             core::vector3f Positions[4];
             core::vector2f TexCoords[4];
 
-            Positions[0].set((x_tile * CellSize.width),(y_tile * CellSize.height)+CellSize.height,0).add(Shift);
-            Positions[1].set((x_tile * CellSize.width),(y_tile * CellSize.height),0).add(Shift);
-            Positions[2].set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height),0).add(Shift);
-            Positions[3].set((x_tile * CellSize.width)+CellSize.width,(y_tile * CellSize.height)+CellSize.height,0).add(Shift);
+            Positions[0].set((x_tile * CellSize.width),0,(y_tile * CellSize.height)+CellSize.height).add(Shift);
+            Positions[1].set((x_tile * CellSize.width),0,(y_tile * CellSize.height)).add(Shift);
+            Positions[2].set((x_tile * CellSize.width)+CellSize.width,0,(y_tile * CellSize.height)).add(Shift);
+            Positions[3].set((x_tile * CellSize.width)+CellSize.width,0,(y_tile * CellSize.height)+CellSize.height).add(Shift);
 
             TexCoords[0].set(0,0);
             TexCoords[1].set(0,1);
@@ -220,10 +220,10 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
             TexCoords[3].set(1,0);
 
             Indices[ICount + 0] = VCount + 0;
-            Indices[ICount + 1] = VCount + 1;
+            Indices[ICount + 1] = VCount + 3;
             Indices[ICount + 2] = VCount + 2;
             Indices[ICount + 3] = VCount + 2;
-            Indices[ICount + 4] = VCount + 3;
+            Indices[ICount + 4] = VCount + 1;
             Indices[ICount + 5] = VCount + 0;
 
             VCount+=4;
