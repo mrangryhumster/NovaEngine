@@ -1,6 +1,3 @@
-#ifndef COMPILECONFIG_H
-#define COMPILECONFIG_H
-
 #if defined(_WIN32)
 #define _NE_WIN32_PLATFORM
 #endif // _WIN32
@@ -24,7 +21,7 @@
 //StaticMesh
 #define _NE_INCLUDE_STATICMESH_LOADER_OBJ
 //Font
-#define _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#define _NE_INCLUDE_FONT_LOADER_FNT
 //-----------------------
 
 //Internal stuff
@@ -32,6 +29,3 @@
 #define	_NOVAENGINE_API __declspec(dllexport)
 #endif // _WIN32
 //----------------------
-
-
-#endif // COMPILECONFIG_H

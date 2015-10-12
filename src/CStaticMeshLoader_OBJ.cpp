@@ -1,9 +1,6 @@
-
-#include "CompileConfig.h"
-#define _NE_INCLUDE_STATICMESH_LOADER_OBJ
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
-
 #include "CStaticMeshLoader_OBJ.h"
+
+#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #include "CStaticMesh.h"
 #include "CMeshBuffer.h"

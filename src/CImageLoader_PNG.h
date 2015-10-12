@@ -34,5 +34,5 @@ private:
 };
 
 }
-#endif // INCLUDE_LIBPNG
+#endif // _NE_INCLUDE_LIBPNG
 #endif // CIMAGEIMPORTER_PNG_H

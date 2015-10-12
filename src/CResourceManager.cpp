@@ -31,9 +31,9 @@ CResourceManager::CResourceManager(io::IFileSystem* FileSys)
     registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
 #endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_FONT_LOADER_FNT
     registerFontLoader(new CFontLoader_FNT(FileSystem,this));
-#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_FONT_LOADER_FNT
 }
 //-------------------------------------------------------------------------------------------
 CResourceManager::~CResourceManager()

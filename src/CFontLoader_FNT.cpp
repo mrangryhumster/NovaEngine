@@ -1,8 +1,7 @@
-#include "CompileConfig.h"
-#define _NE_INCLUDE_STATICMESH_LOADER_OBJ
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #include "CFontLoader_FNT.h"
+
+#ifdef _NE_INCLUDE_FONT_LOADER_FNT
 #include "CFont.h"
 
 //FIX
@@ -212,4 +211,4 @@ void CFontLoader_FNT::release_tmp_data(renderer::ITexture** TexturePages,u32 Tex
 }
 
 }
-#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_FONT_LOADER_FNT
