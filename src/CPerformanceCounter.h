@@ -41,6 +41,7 @@ private:
     //sup
     u32 VerticesCount;
     u32 DrawCallCount;
+    f64 PrecisionTime;
 };
 
 }

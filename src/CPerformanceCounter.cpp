@@ -1,5 +1,6 @@
 #include "CPerformanceCounter.h"
 
+#include "NMath.h"
 namespace novaengine
 {
 
@@ -8,13 +9,14 @@ CPerformanceCounter::CPerformanceCounter():
     MilisecondsPerFrame(16.6),
     FramesCount(0),
     DeltaUpdate(time::getRealTime()),
-    CounterUpdate(1000),
+    CounterUpdate(250),
     VerticesPerFrame(0),
     DrawCallPerFrame(0),
     VerticesCount(0),
     DrawCallCount(0)
 {
-    //ctor
+    //Start PerfTimer
+    time::getPerfTime();
 }
 //-------------------------------------------------------------------------------------------
 CPerformanceCounter::~CPerformanceCounter()
@@ -34,15 +36,14 @@ void CPerformanceCounter::register_frame()
     {
         FramesPerSecond = (FramesCount/(f32)Time)*1000;
 
-        if(FramesCount == 0)
-            MilisecondsPerFrame = 0;
-        else
-            MilisecondsPerFrame = 1000 / (f32)FramesPerSecond;
 
         FramesCount=0;
         DeltaUpdate = RealTime;
         //---------------------
     }
+
+    MilisecondsPerFrame = time::getPerfTime() - PrecisionTime;
+    PrecisionTime = time::getPerfTime();
 
     //Reset Vertices/DrawCall counters
     VerticesPerFrame   = VerticesCount;
