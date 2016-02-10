@@ -34,6 +34,9 @@ public:
     virtual void setMaterial(renderer::IMaterial*) = 0;
     virtual renderer::IMaterial* getMaterial()     = 0;
 
+	virtual u32   getVertexCount() = 0;
+	virtual u32   getIndicesCount() = 0;
+
     virtual void   setBufferData(u32 buffer,const void* data,size_t size) = 0;
     virtual void   addBufferData(u32 buffer,const void* data,size_t size) = 0;
     virtual void*  getBufferData(u32 buffer)                           = 0;

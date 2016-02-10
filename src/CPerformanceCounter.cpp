@@ -13,10 +13,12 @@ CPerformanceCounter::CPerformanceCounter():
     VerticesPerFrame(0),
     DrawCallPerFrame(0),
     VerticesCount(0),
-    DrawCallCount(0)
+    DrawCallCount(0),
+    PrecisionTime(0)
 {
     //Start PerfTimer
-    time::getPerfTime();
+    PrecisionTime = time::getPerfTime();
+
 }
 //-------------------------------------------------------------------------------------------
 CPerformanceCounter::~CPerformanceCounter()
@@ -35,7 +37,6 @@ void CPerformanceCounter::register_frame()
     if(Time >= CounterUpdate)
     {
         FramesPerSecond = (FramesCount/(f32)Time)*1000;
-
 
         FramesCount=0;
         DeltaUpdate = RealTime;

@@ -68,20 +68,19 @@ namespace novaengine
 	_NOVAENGINE_API void         closeEngine();
 
 
-INovaEngine*            getNovaEngine();
-
+_NOVAENGINE_API  INovaEngine*    getNovaEngine();
 
 namespace window
 {
-IWindow*        getWindow();
+_NOVAENGINE_API  IWindow*        getWindow();
 }
 namespace renderer
 {
-IRenderer*      getRenderer();
+_NOVAENGINE_API  IRenderer*      getRenderer();
 }
 namespace log
 {
-ILogger*           getLogger();
+_NOVAENGINE_API  ILogger*        getLogger();
 }
 
 

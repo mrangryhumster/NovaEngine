@@ -47,6 +47,7 @@ enum E_RENDER_STATE
     ERS_FOG_START_DISTANCE         ,
     ERS_FOG_END_DISTANCE           ,
     ERS_FOG_DENSITY                ,
+    ERS_FOG_COLOR                  ,
     ERS_LINE_WIDTH                 ,
     ERS_POINT_SIZE                 ,
     ERS_LAST_STATE                 ,

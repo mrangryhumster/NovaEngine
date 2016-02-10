@@ -34,6 +34,16 @@ renderer::IMaterial* CMeshBuffer::getMaterial()
     return Material;
 }
 //---------------------------------------------------------------------------
+u32 CMeshBuffer::getVertexCount()
+{
+	return Positions.size() / (VertexFormat.getAttributeFormat(EVA_POSITION)->size * ne_sizeof((NE_TYPE)VertexFormat.getAttributeFormat(EVA_POSITION)->type));
+}
+//---------------------------------------------------------------------------
+u32 CMeshBuffer::getIndicesCount()
+{
+	return Indices.size() / ne_sizeof((NE_TYPE)IndicesType);
+}
+//---------------------------------------------------------------------------
 void  CMeshBuffer::setBufferData(u32 buffer,const void* data,size_t size)
 {
     std::vector<u8>* BufferData = getBuffer(buffer);
@@ -166,6 +176,7 @@ bool CMeshBuffer::isValid()
 //---------------------------------------------------------------------------
 void CMeshBuffer::setMappingHint(u32 Hint)
 {
+	UpdateRequired = true;
     MappingHint = Hint;
 }
 //---------------------------------------------------------------------------

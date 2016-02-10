@@ -12,6 +12,7 @@
 #include "ITexture.h"
 #include "IMaterial.h"
 
+
 namespace novaengine
 {
 namespace renderer
@@ -37,12 +38,19 @@ union URenderStateValue
         short_value[0] = value_1;
         short_value[1] = value_2;
     }
-
+    URenderStateValue(core::color4f value)
+    {
+        color4f[0] = value.r;
+        color4f[1] = value.g;
+        color4f[2] = value.b;
+        color4f[3] = value.a;
+    }
 
     f32  float_value;
     int  int_value;
     int  bool_value;
     u16  short_value[2];
+    f32  color4f[4];
     u32  flags;
 };
 

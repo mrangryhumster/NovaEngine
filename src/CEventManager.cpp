@@ -29,9 +29,8 @@ bool CEventManager::pushEvent(SEvent event)
     }
     u32 list_size = EventHandlers.size();
     for(u32 i = 0; i < list_size; i++)
-    {
         EventHandlers[i]->OnEvent(event);
-    }
+    
 	return 0;
 }
 
@@ -43,12 +42,14 @@ void CEventManager::registerEventListener(IEventListener* proc)
 
 void CEventManager::unregisterEventListener(IEventListener* proc)
 {
-    u32 list_size = EventHandlers.size();
+	//  new algorithm
+	EventHandlers.erase(std::remove(EventHandlers.begin(), EventHandlers.end(), proc), EventHandlers.end());
+	/*  old algorithm
+	u32 list_size = EventHandlers.size();
     for(u32 i = 0; i < list_size; i++)
-    {
         if(EventHandlers[i] == proc)
             EventHandlers.erase(EventHandlers.begin() + i);
-    }
+	*/
 }
 bool CEventManager::getPointerKeyState(u32 Keycode)
 {

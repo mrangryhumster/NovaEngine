@@ -17,6 +17,9 @@ public:
     //---------------------------------------------------------------------------
     void                 setMaterial(renderer::IMaterial*);
     renderer::IMaterial* getMaterial();
+	//---------------------------------------------------------------------------
+	u32 getVertexCount();
+	u32 getIndicesCount();
     //---------------------------------------------------------------------------
     void   setBufferData(u32 buffer,const void* data,size_t size);
     void   addBufferData(u32 buffer,const void* data,size_t size);
@@ -39,7 +42,7 @@ public:
     void                  setVertexFormat(SVertexFormat newFormat);
 	const SVertexFormat&  getVertexFormat();
 
-    u32 getPrimitiveType();
+    u32  getPrimitiveType();
     void setPrimitiveType(E_PRIMITIVE_TYPE pt);
 
     void setUpdateRequest(bool);

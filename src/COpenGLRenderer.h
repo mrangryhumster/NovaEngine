@@ -96,6 +96,7 @@ private:
 
 
     inline void to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive);
+    inline u32  to_opengl_type(u32 type);
     inline u32  to_opengl_blendmodes(E_BLENDING_MODE engine_mode);
     inline void enable_client_states(bool vert,bool tex,bool norm,bool color);
 

@@ -6,6 +6,7 @@
 
 #include "NLogger.h"
 
+#include <algorithm>
 #include <vector>
 
 namespace novaengine

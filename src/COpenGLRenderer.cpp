@@ -343,6 +343,9 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
             glDisable(GL_FOG);
         break;
     case ERS_FOG_MODE:
+        if(value.int_value == 0) glFogi(GL_FOG_MODE,GL_LINEAR);
+        if(value.int_value == 1) glFogi(GL_FOG_MODE,GL_EXP);
+        if(value.int_value == 2) glFogi(GL_FOG_MODE,GL_EXP2);
         break;
     case ERS_FOG_START_DISTANCE:
         glFogf(GL_FOG_START, value.float_value);
@@ -352,6 +355,9 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
         break;
     case ERS_FOG_DENSITY:
         glFogf(GL_FOG_DENSITY, value.float_value);
+        break;
+    case ERS_FOG_COLOR:
+        glFogfv(GL_FOG_COLOR, value.color4f);
         break;
     //!-------------------------------LINE_WIDTH
     case ERS_LINE_WIDTH:
@@ -500,7 +506,7 @@ IShaderProgram* COpenGLRenderer::GenShaderProgram()
 //-----------------------------------------------------------------------------------------------
 IMeshBuffer* COpenGLRenderer::GenMeshBuffer()
 {
-    return new CMeshBuffer();//new COpenGLMeshBuffer();
+    return new COpenGLMeshBuffer();
 }
 //-----------------------------------------------------------------------------------------------
 ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
@@ -700,9 +706,9 @@ void COpenGLRenderer::flush()
 #endif // NE_WINDOW_WIN32
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
+void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 {
-    COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(array);
+    COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(Buffer);
 
     if(MeshBuffer->getUpdateRequest())
         MeshBuffer->update();
@@ -712,8 +718,6 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
 
     if(MeshBuffer->getMappingHint() == EMBMH_DEFAULT)
     {
-        glBindBuffer(GL_ARRAY_BUFFER,0);
-
         const SVertexFormat& Format = MeshBuffer->getVertexFormat();
         //------------------------------------------------------------
         bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
@@ -729,13 +733,13 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
         enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
         //!Send verticles to vram
         if(have_verticles)
-            glVertexPointer(    3,  GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_POSITION));
+            glVertexPointer(    3,  to_opengl_type(Format.getAttributeFormat(EVA_POSITION)->type),   0,  MeshBuffer->getBufferData(EVA_POSITION));
         if(have_texcoords)
-            glTexCoordPointer(  2,  GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_TEXCOORD));
+            glTexCoordPointer(  2,  to_opengl_type(Format.getAttributeFormat(EVA_TEXCOORD)->type),   0,  MeshBuffer->getBufferData(EVA_TEXCOORD));
         if(have_normals)
-            glNormalPointer(        GL_FLOAT,           0,  MeshBuffer->getBufferData(EVA_NORMAL));
+            glNormalPointer(        to_opengl_type(Format.getAttributeFormat(EVA_NORMAL)->type),     0,  MeshBuffer->getBufferData(EVA_NORMAL));
         if(have_colors)
-            glColorPointer(     4,  GL_UNSIGNED_BYTE,   0,  MeshBuffer->getBufferData(EVA_COLOR));
+            glColorPointer(     4,  to_opengl_type(Format.getAttributeFormat(EVA_COLOR)->type),      0,  MeshBuffer->getBufferData(EVA_COLOR));
         //------------------------------------------------------------
 
         GLenum GLPrimitiveType   = 0;
@@ -743,22 +747,110 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* array)
         //!Convert E_PRIMITIVE_TYPE to GLenum
         to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
         //----------------------------------------------
-        bool wide_index_range = (MeshBuffer->getIndicesBufferType() == NTYPE_u32)?true:false;
-        //----------------------------------------------
         if(MeshBuffer->getIndicesBufferSize())
-            glDrawElements(GLPrimitiveType,MeshBuffer->getIndicesBufferSize() / ((wide_index_range)?4:2),((wide_index_range)?GL_UNSIGNED_INT:GL_UNSIGNED_SHORT),MeshBuffer->getIndicesBufferData());
+            glDrawElements(
+				GLPrimitiveType,
+				MeshBuffer->getIndicesCount(),
+				to_opengl_type(MeshBuffer->getIndicesBufferType()),
+				MeshBuffer->getIndicesBufferData());
         else
-            glDrawArrays(GLPrimitiveType,0,MeshBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+            glDrawArrays(
+				GLPrimitiveType,
+				0,
+				MeshBuffer->getVertexCount());
         //----------------------------------------------
-        PerformanceCounter->register_draw(MeshBuffer->getBufferSize(EVA_POSITION) / (4 * Format.getAttributeFormat(EVA_POSITION)->size));
+        PerformanceCounter->register_draw(MeshBuffer->getVertexCount());
         //----------------------------------------------
     }
     else
     {
-        throw "shit";
+		if (GLEW_ARB_vertex_array_object)
+		{
+			MeshBuffer->bind_buffer();
+
+			GLenum GLPrimitiveType = 0;
+			u32    VertexInPrimitive = 0;
+			//----------------------------------------------
+			to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(), GLPrimitiveType, VertexInPrimitive);
+
+			if (MeshBuffer->getBufferedIndicesCount())
+				glDrawElements(
+					GLPrimitiveType,
+					MeshBuffer->getBufferedIndicesCount(),
+					to_opengl_type(MeshBuffer->getIndicesBufferType()),
+					0);
+			else
+				glDrawArrays(
+					GLPrimitiveType,
+					0,
+					MeshBuffer->getBufferedVertexCount());
+
+			MeshBuffer->unbind_buffer();
+			//----------------------------------------------
+			PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
+			//----------------------------------------------
+		}
+		else if (GLEW_ARB_vertex_buffer_object)
+		{
+			MeshBuffer->bind_buffer();
+
+			const SVertexFormat& Format = MeshBuffer->getVertexFormat();
+			//------------------------------------------------------------
+			bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
+			bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD) != 0;
+			bool have_normals   = (Format.getFlags() & EVA_NORMAL) != 0;
+			bool have_colors    = (Format.getFlags() & EVA_COLOR) != 0;
+
+			if (have_verticles == false)
+				return;
+
+			u32 BufferShift = 0;
+			if (have_verticles)
+			{
+				glVertexPointer(3, to_opengl_type(Format.getAttributeFormat(EVA_POSITION)->type), 0, (void*)BufferShift);
+				BufferShift += MeshBuffer->getBufferSize(EVA_POSITION);
+			}
+			if (have_normals)
+			{
+				glNormalPointer(to_opengl_type(Format.getAttributeFormat(EVA_NORMAL)->type), 0, (void*)BufferShift);
+				BufferShift += MeshBuffer->getBufferSize(EVA_NORMAL);
+			}
+			if (have_colors)
+			{
+				glColorPointer(4, to_opengl_type(Format.getAttributeFormat(EVA_COLOR)->type), 0, (void*)BufferShift);
+				BufferShift += MeshBuffer->getBufferSize(EVA_COLOR);
+			}
+			if (have_texcoords)
+			{
+				glTexCoordPointer(3, to_opengl_type(Format.getAttributeFormat(EVA_TEXCOORD)->type), 0, (void*)BufferShift);
+				BufferShift += MeshBuffer->getBufferSize(EVA_TEXCOORD);
+			}
+			//----------------------------------------------
+			GLenum GLPrimitiveType = 0;
+			u32    VertexInPrimitive = 0;
+
+			to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(), GLPrimitiveType, VertexInPrimitive);
+
+			if (MeshBuffer->getBufferedIndicesCount())
+				glDrawElements(
+					GLPrimitiveType,
+					MeshBuffer->getBufferedIndicesCount(),
+					to_opengl_type(MeshBuffer->getIndicesBufferType()),
+					0);
+			else
+				glDrawArrays(
+					GLPrimitiveType,
+					0,
+					MeshBuffer->getBufferedVertexCount());
+
+			MeshBuffer->unbind_buffer();
+			//----------------------------------------------
+			PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
+			//----------------------------------------------
+		}
     }
 }
-//-------------------------------a-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)
 {
     drawIndexedPrimitiveList(NULL,0,verticles,VertexCount,PrimitiveType,VertexFormat);
@@ -811,7 +903,7 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE PrimitiveType)
 {
-    glBindBuffer(GL_ARRAY_BUFFER,0);
+
     //------------------------------------------------------------
     bool have_verticles = (verticles!=NULL);
     bool have_texcoords = (texverts !=NULL);
@@ -840,7 +932,7 @@ void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* i
     //!Convert E_PRIMITIVE_TYPE to GLenum
     to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType,GLPrimitiveType,VertexInPrimitive);
     //----------------------------------------------
-    if(indices != NULL || indices_count != 0)
+    if(indices != NULL && indices_count != 0)
         glDrawElements(GLPrimitiveType,indices_count,GL_UNSIGNED_SHORT,indices);
     else
         glDrawArrays(GLPrimitiveType,0,vertex_count);
@@ -930,6 +1022,30 @@ void COpenGLRenderer::to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32&
         vertexperprimitive = 3;
         break;
     }
+}
+//-----------------------------------------------------------------------------------------------
+u32 COpenGLRenderer::to_opengl_type(u32 type)
+{
+    switch(type)
+    {
+    case NTYPE_s8:
+        return GL_BYTE;
+    case NTYPE_s16:
+        return GL_SHORT;
+    case NTYPE_s32:
+        return GL_INT;
+    case NTYPE_u8:
+        return GL_UNSIGNED_BYTE;
+    case NTYPE_u16:
+        return GL_UNSIGNED_SHORT;
+    case NTYPE_u32:
+        return GL_UNSIGNED_INT;
+    case NTYPE_f32:
+        return GL_FLOAT;
+    case NTYPE_f64:
+        return GL_DOUBLE;
+    }
+    return 0;
 }
 //-----------------------------------------------------------------------------------------------
 u32 COpenGLRenderer::to_opengl_blendmodes(E_BLENDING_MODE engine_mode)

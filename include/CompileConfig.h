@@ -27,5 +27,7 @@
 //Internal stuff
 #if defined(_NE_WIN32_PLATFORM)
 #define	_NOVAENGINE_API __declspec(dllexport)
+#else 
+#define _NOVAENGINE_API
 #endif // _WIN32
 //----------------------

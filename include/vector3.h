@@ -285,7 +285,7 @@ public:
 
     inline bool operator !=  (const vector3 &other ) const
     {
-        return x != other.x && y != other.y && z != other.z;
+        return x != other.x || y != other.y || z != other.z;
     }
     //------------------------------------------------------
     inline T length () const
