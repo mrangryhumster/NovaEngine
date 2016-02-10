@@ -1,0 +1,4406 @@
+# depslib dependency file v1.0
+1427922647 source:d:\programming\novaengine\novaengine\src\compileconfig.h
+
+1429568515 source:d:\programming\novaengine\novaengine\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<cstdio>
+	<wchar.h>
+	<iostream>
+	<fstream>
+	<time.h>
+	<windows.h>
+	"Memorywatcher.h"
+	"NovaEngine.h"
+	"NTime.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	"renderer\CMaterial.h"
+
+1420551956 d:\programming\novaengine\novaengine\memorywatcher.h
+	<stdlib.h>
+	<memory>
+	<vector>
+
+1425919717 d:\programming\novaengine\novaengine\include\novaengine.h
+	"NTypes.h"
+	"NMath.h"
+	"NExTypes.h"
+	"types/matrix.h"
+	"types/quaternion.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/color3.h"
+	"types/color4.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"NMath.h"
+	"ILog.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IWindow.h"
+	"ERendererEnums.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNode.h"
+	"IScene2DNode.h"
+	"ISceneCamera.h"
+	"ISceneSprite.h"
+	"ISceneStaticMesh.h"
+	"SEngineConf.h"
+	"SPixelFormat.h"
+	"STextureParameters.h"
+	"SPrimitive.h"
+	"EKeycodes.h"
+	"ERendererEnums.h"
+
+1427936017 d:\programming\novaengine\novaengine\include\ntypes.h
+	<windows.h>
+	<android_native_app_glue.h>
+	<cstddef>
+
+1411665624 d:\programming\novaengine\novaengine\include\nmath.h
+	<cmath>
+	"NTypes.h"
+
+1411983176 d:\programming\novaengine\novaengine\include\nextypes.h
+	"NTypes.h"
+	"types/matrix.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/quaternion.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"types/color3.h"
+	"types/color4.h"
+	<string>
+	<vector>
+
+1427919446 d:\programming\novaengine\novaengine\include\types\matrix.h
+	"../NTypes.h"
+	"../NMath.h"
+	"vector2.h"
+	"vector3.h"
+	<cstring>
+
+1411935097 d:\programming\novaengine\novaengine\include\types\vector2.h
+	"../NTypes.h"
+	<math.h>
+
+1411743811 d:\programming\novaengine\novaengine\include\types\vector3.h
+	"../NTypes.h"
+	"../NMath.h"
+
+1411743828 d:\programming\novaengine\novaengine\include\types\quaternion.h
+	"../NTypes.h"
+	"matrix.h"
+
+1411743838 d:\programming\novaengine\novaengine\include\types\dim2.h
+	"../NMath.h"
+
+1427917924 d:\programming\novaengine\novaengine\include\types\rect.h
+	"../NTypes.h"
+	<cmath>
+
+1411743858 d:\programming\novaengine\novaengine\include\types\color3.h
+	"../NTypes.h"
+
+1427084991 d:\programming\novaengine\novaengine\include\types\color4.h
+
+1427922292 d:\programming\novaengine\novaengine\include\ilog.h
+	"NTypes.h"
+
+1427080823 d:\programming\novaengine\novaengine\include\object.h
+	"NTypes.h"
+	<string.h>
+	<stdexcept>
+
+1419313959 d:\programming\novaengine\novaengine\include\inovaengine.h
+	"Object.h"
+	"IEventManager.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"ILog.h"
+
+1408873410 d:\programming\novaengine\novaengine\include\ieventmanager.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"SEvent.h"
+	"IEventListener.h"
+
+1427938538 d:\programming\novaengine\novaengine\include\sevent.h
+	"NTypes.h"
+
+1408986085 d:\programming\novaengine\novaengine\include\ieventlistener.h
+	"Object.h"
+	"SEvent.h"
+
+1415259554 d:\programming\novaengine\novaengine\include\iwindow.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"types/dim2.h"
+	"types/vector2.h"
+	"IEventListener.h"
+
+1429568730 d:\programming\novaengine\novaengine\include\irenderer.h
+	"Object.h"
+	"IRendererPerformanceCounter.h"
+	"NTypes.h"
+	"ERendererEnums.h"
+	"SVertex.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+
+1412855841 d:\programming\novaengine\novaengine\include\irendercontext.h
+	"Object.h"
+
+1419191763 d:\programming\novaengine\novaengine\include\irendererperformancecounter.h
+	"NTypes.h"
+
+1418236090 d:\programming\novaengine\novaengine\include\erendererenums.h
+
+1413863492 d:\programming\novaengine\novaengine\include\svertex.h
+	"NTypes.h"
+	"NExTypes.h"
+
+1427943440 d:\programming\novaengine\novaengine\include\ivertexbuffer.h
+	"NTypes.h"
+	"Resource.h"
+	"SVertex.h"
+	"SPrimitive.h"
+	"ERendererEnums.h"
+
+1427080823 d:\programming\novaengine\novaengine\include\resource.h
+	"Object.h"
+	"string.h"
+
+1418224257 d:\programming\novaengine\novaengine\include\sprimitive.h
+	"NTypes.h"
+	"NExTypes.h"
+	"SVertex.h"
+
+1424896164 d:\programming\novaengine\novaengine\include\ishaderprogram.h
+	"Object.h"
+	"NExTypes.h"
+
+1395066838 d:\programming\novaengine\novaengine\include\iimage.h
+	"NExTypes.h"
+	"Resource.h"
+	"SPixelFormat.h"
+
+1411595245 d:\programming\novaengine\novaengine\include\spixelformat.h
+	"NTypes.h"
+
+1406542328 d:\programming\novaengine\novaengine\include\itexture.h
+	"NTypes.h"
+	"Resource.h"
+	"IImage.h"
+	"STextureParameters.h"
+
+1425923249 d:\programming\novaengine\novaengine\include\stextureparameters.h
+	"NTypes.h"
+
+1427084300 d:\programming\novaengine\novaengine\include\imaterial.h
+	"Resource.h"
+	"ITexture.h"
+
+1425915781 d:\programming\novaengine\novaengine\include\ifilesystem.h
+	"Object.h"
+	"IFile.h"
+
+1427081085 d:\programming\novaengine\novaengine\include\ifile.h
+	"Object.h"
+	"NTypes.h"
+
+1426439158 d:\programming\novaengine\novaengine\include\iresourcemanager.h
+	"Object.h"
+	"IImage.h"
+	"ITexture.h"
+	"IImageLoader.h"
+	"IStaticMesh.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMesh.h"
+	"IAnimatedMeshLoader.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+
+1394543523 d:\programming\novaengine\novaengine\include\iimageimporter.h
+	"Object.h"
+	"IFile.h"
+	"IImage.h"
+
+1426192815 d:\programming\novaengine\novaengine\include\istaticmesh.h
+	"Object.h"
+	"Resource.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+
+1396208349 d:\programming\novaengine\novaengine\include\istaticmeshimporter.h
+	"IFile.h"
+	"IStaticMesh.h"
+
+1426192859 d:\programming\novaengine\novaengine\include\ianimatedmesh.h
+	"IStaticMesh.h"
+
+1396167110 d:\programming\novaengine\novaengine\include\ianimatedmeshimporter.h
+	"Object.h"
+	"IFile.h"
+	"IAnimatedMesh.h"
+
+1392147783 d:\programming\novaengine\novaengine\include\itexturemanager.h
+	"Object.h"
+	"ITexture.h"
+	"IImage.h"
+
+1426192374 d:\programming\novaengine\novaengine\include\igeometrymanager.h
+	"Object.h"
+	"NTypes.h"
+
+1423087547 d:\programming\novaengine\novaengine\include\iscenemanager.h
+	"Object.h"
+	"NTypes.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"ITexture.h"
+	"IStaticMesh.h"
+	"IScene.h"
+
+1419270483 d:\programming\novaengine\novaengine\include\iscene.h
+	"NTypes.h"
+	"Object.h"
+
+1423082662 d:\programming\novaengine\novaengine\include\iscenenode.h
+	<vector>
+	"Object.h"
+	"NTypes.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNodeAnimator.h"
+
+1408815990 d:\programming\novaengine\novaengine\include\iscene2dnode.h
+	"Object.h"
+	"NTypes.h"
+	"ISceneNode.h"
+
+1423084919 d:\programming\novaengine\novaengine\include\iscenecamera.h
+	"ISceneNode.h"
+	"NTypes.h"
+
+1415255171 d:\programming\novaengine\novaengine\include\iscenefpscamera.h
+	"NTypes.h"
+	"EKeycodes.h"
+	"ISceneCamera.h"
+
+1425651918 d:\programming\novaengine\novaengine\include\ekeycodes.h
+
+1411829804 d:\programming\novaengine\novaengine\include\iscenesprite.h
+	"IScene2DNode.h"
+
+1423087499 d:\programming\novaengine\novaengine\include\iscenestaticmesh.h
+	"ISceneNode.h"
+	"IStaticMesh.h"
+
+1427936018 d:\programming\novaengine\novaengine\include\sengineconf.h
+	"NTypes.h"
+	"types/dim2.h"
+	"ERendererEnums.h"
+	"ILog.h"
+
+1396207493 d:\programming\novaengine\novaengine\include\createstaticmesh.h
+	"IStaticMesh.h"
+
+1395944683 d:\programming\novaengine\novaengine\include\createanimatedmesh.h
+	"IAnimatedMesh.h"
+
+1406546443 d:\programming\novaengine\novaengine\include\creatematerial.h
+	"IMaterial.h"
+
+1422990454 source:d:\programming\novaengine\novaengine\src\cassimpmeshimporter.cpp
+	"CompileConfig.h"
+	"CAssimpMeshImporter.h"
+	"log/NLog.h"
+	"createStaticMesh.h"
+	"createAnimatedMesh.h"
+	"NovaEngine.h"
+	"IVertexBuffer.h"
+	"ERendererEnums.h"
+
+1427922647 d:\programming\novaengine\novaengine\src\compileconfig.h
+
+1411831730 d:\programming\novaengine\novaengine\src\cassimpmeshimporter.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshImporter.h"
+	"IAnimatedMeshImporter.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\importer.hpp
+	"types.h"
+	"config.h"
+
+1403900846 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\types.h
+	<sys/types.h>
+	<memory.h>
+	<math.h>
+	<stddef.h>
+	<cstring>
+	"defs.h"
+	"vector3.h"
+	"vector2.h"
+	"color4.h"
+	"matrix3x3.h"
+	"matrix4x4.h"
+	"quaternion.h"
+	<new>
+	<string>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"vector2.inl"
+	"vector3.inl"
+	"color4.inl"
+	"quaternion.inl"
+	"matrix3x3.inl"
+	"matrix4x4.inl"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\defs.h
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\vector3.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\compiler\pushpack1.h
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\compiler\poppack1.h
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\vector2.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\color4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\matrix3x3.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\matrix4x4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\quaternion.h
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\vector2.inl
+	"vector2.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\vector3.inl
+	"vector3.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\color4.inl
+	"color4.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\quaternion.inl
+	"quaternion.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\matrix3x3.inl
+	"matrix3x3.h"
+	"matrix4x4.h"
+	<algorithm>
+	<limits>
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\matrix4x4.inl
+	"matrix4x4.h"
+	"matrix3x3.h"
+	"quaternion.h"
+	<algorithm>
+	<limits>
+	<math.h>
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\config.h
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\scene.h
+	"types.h"
+	"texture.h"
+	"mesh.h"
+	"light.h"
+	"camera.h"
+	"material.h"
+	"anim.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\texture.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\mesh.h
+	"types.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\light.h
+	"types.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\camera.h
+	"types.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\material.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"material.inl"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\material.inl
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\anim.h
+	"types.h"
+	"quaternion.h"
+
+1396163115 d:\programming\novaengine\novaengine\src\libs\assimp\include\assimp\postprocess.h
+	"types.h"
+
+1427918645 d:\programming\novaengine\novaengine\src\log\nlog.h
+	"NTypes.h"
+	"ILog.h"
+	<cstdarg>
+
+1427940945 source:d:\programming\novaengine\novaengine\src\ceventmanager.cpp
+	"CEventManager.h"
+
+1427940313 d:\programming\novaengine\novaengine\src\ceventmanager.h
+	"IEventManager.h"
+	"EKeycodes.h"
+	"NLog.h"
+	<vector>
+
+1411908025 source:d:\programming\novaengine\novaengine\src\cfilesystem.cpp
+	"CFileSystem.h"
+
+1392135062 d:\programming\novaengine\novaengine\src\cfilesystem.h
+	"IFileSystem.h"
+	"CVirtualFile.h"
+	"CNativeFile.h"
+	"log/NLog.h"
+	<stdio.h>
+
+1415262728 d:\programming\novaengine\novaengine\src\cvirtualfile.h
+	"IFile.h"
+	<malloc.h>
+	<cstring>
+	<memory.h>
+	"Log\NLog.h"
+
+1415262728 d:\programming\novaengine\novaengine\src\cnativefile.h
+	"IFile.h"
+	<stdio.h>
+	"log\NLog.h"
+
+1427943401 source:d:\programming\novaengine\novaengine\src\cgeometrymanager.cpp
+	"CGeometryManager.h"
+	"renderer\CVertexBuffer.h"
+
+1426192374 d:\programming\novaengine\novaengine\src\cgeometrymanager.h
+	"NovaEngine.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IGeometryManager.h"
+
+1427943439 d:\programming\novaengine\novaengine\src\renderer\cvertexbuffer.h
+	<vector>
+	"IVertexBuffer.h"
+
+1419279226 source:d:\programming\novaengine\novaengine\src\cimagepngimporter.cpp
+	"CompileConfig.h"
+	"CImagePNGImporter.h"
+	"renderer/CImage.h"
+	"png.h"
+
+1411831730 d:\programming\novaengine\novaengine\src\cimagepngimporter.h
+	"CompileConfig.h"
+	"IImageImporter.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1390989343 d:\programming\novaengine\novaengine\src\renderer\cimage.h
+	"IImage.h"
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\png.h
+	"pnglibconf.h"
+	"pngconf.h"
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pnglibconf.h
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pngconf.h
+	<limits.h>
+	<stddef.h>
+	<stdio.h>
+	<setjmp.h>
+	<time.h>
+
+1427941069 source:d:\programming\novaengine\novaengine\src\cnovaengine.cpp
+	"CNovaEngine.h"
+	"window\CWin32Window.h"
+	"window\CAndroidWindow.h"
+	"opengl\COpenGLRenderer.h"
+	"opengles1/COpenGLES1Renderer.h"
+	"NLog.h"
+	"CEventManager.h"
+	"CFileSystem.h"
+	"CResourceManager.h"
+	"CGeometryManager.h"
+	"CSceneManager.h"
+
+1419313971 d:\programming\novaengine\novaengine\src\cnovaengine.h
+	"../version.h"
+	"INovaEngine.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+
+1425920560 d:\programming\novaengine\novaengine\version.h
+
+1429524322 d:\programming\novaengine\novaengine\src\window\cwin32window.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"SEngineConf.h"
+	"SEvent.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	<windows.h>
+
+1388399207 d:\programming\novaengine\novaengine\src\ckeymap.h
+	<map>
+
+1429568749 d:\programming\novaengine\novaengine\src\renderer\opengl\copenglrenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLog.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	<map>
+	"CBaseRenderer.h"
+	"opengl/COpenGLShaderProgram.h"
+	"opengl/COpenGLTexture.h"
+	"opengl/COpenGLVertexBuffer.h"
+	<windows.h>
+	"wglext.h"
+
+1419305923 d:\programming\novaengine\novaengine\src\renderer\crendererperformancecounter.h
+	"NTypes.h"
+	"NTime.h"
+	"IRendererPerformanceCounter.h"
+
+1419273869 d:\programming\novaengine\novaengine\include\ntime.h
+	<chrono>
+	<time.h>
+	<sys/time.h>
+	"NTypes.h"
+	"ITimer.h"
+	"NLog.h"
+
+1414673464 d:\programming\novaengine\novaengine\src\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<intNTypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1427913547 d:\programming\novaengine\novaengine\src\renderer\cbaserenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"NLog.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"renderer\CVertexBuffer.h"
+	<map>
+
+1412855841 d:\programming\novaengine\novaengine\src\renderer\opengl\copenglcontext.h
+	<windows.h>
+	"NLog.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderContext.h"
+	"GL\glew.h"
+	"wglext.h"
+
+1389272102 d:\programming\novaengine\novaengine\src\renderer\opengl\wglext.h
+	<windows.h>
+
+1424893874 d:\programming\novaengine\novaengine\src\renderer\opengl\copenglshaderprogram.h
+	"NovaEngine.h"
+	"IShaderProgram.h"
+	"NLog.h"
+	<GL\glew.h>
+
+1419313975 d:\programming\novaengine\novaengine\src\renderer\opengl\copengltexture.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"ITexture.h"
+	"STextureParameters.h"
+	"renderer/opengl/COpenGLRenderer.h"
+	"renderer/CImage.h"
+	<GL/gl.h>
+
+1425919773 d:\programming\novaengine\novaengine\src\renderer\opengl\copenglvertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLog.h"
+	"GL/glew.h"
+
+1395458226 d:\programming\novaengine\novaengine\src\crenderervertexbuffer.h
+	"Object.h"
+	"IVertexBuffer.h"
+
+1425836645 d:\programming\novaengine\novaengine\src\cresourcemanager.h
+	<vector>
+	"NTime.h"
+	"Log/NLog.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	<vector>
+
+1393301028 d:\programming\novaengine\novaengine\src\ctexturemanager.h
+	"NTypes.h"
+	"ITextureManager.h"
+	"SPixelFormat.h"
+	"log\NLog.h"
+	"renderer\CImage.h"
+	"IRenderer.h"
+	"IResourceManager.h"
+
+1423081466 d:\programming\novaengine\novaengine\src\scene\cscenemanager.h
+	"ISceneManager.h"
+	"IRenderer.h"
+	"CScene.h"
+
+1419270483 d:\programming\novaengine\novaengine\src\scene\cscene.h
+	"IScene.h"
+	"ISceneManager.h"
+	"ISceneNode.h"
+	"ISceneCamera.h"
+	<vector>
+	<list>
+
+1395944683 source:d:\programming\novaengine\novaengine\src\createanimatedmesh.cpp
+	"createAnimatedMesh.h"
+	"CAnimatedMesh.h"
+
+1426192965 d:\programming\novaengine\novaengine\src\renderer\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1412861755 source:d:\programming\novaengine\novaengine\src\creatematerial.cpp
+	"createMaterial.h"
+	"CMaterial.h"
+
+1419764728 d:\programming\novaengine\novaengine\src\renderer\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1396207799 source:d:\programming\novaengine\novaengine\src\createstaticmesh.cpp
+	"createStaticMesh.h"
+	"CStaticMesh.h"
+
+1426192815 d:\programming\novaengine\novaengine\src\renderer\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1425915781 source:d:\programming\novaengine\novaengine\src\cresourcemanager.cpp
+	"CResourceManager.h"
+	"CompileConfig.h"
+	"CImagePNGImporter.h"
+	"CAssimpMeshImporter.h"
+	"NovaEngine.h"
+	"renderer\\CImage.h"
+	"renderer\\CStaticMesh.h"
+	"renderer\\CAnimatedMesh.h"
+
+1411907620 source:d:\programming\novaengine\novaengine\src\ctexturemanager.cpp
+	"CTextureManager.h"
+
+1413873353 source:d:\programming\novaengine\novaengine\src\libs\glew\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1374187628 d:\programming\novaengine\novaengine\src\libs\glew\include\gl\wglew.h
+	<windows.h>
+
+1374187628 d:\programming\novaengine\novaengine\src\libs\glew\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1390552469 source:d:\programming\novaengine\novaengine\src\libs\libpng\png.c
+	"pngpriv.h"
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pngpriv.h
+	<stdlib.h>
+	<string.h>
+	<config.h>
+	"pnglibconf.h"
+	"pngprefix.h"
+	"pngusr.h"
+	"png.h"
+	<float.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<windows.h>
+	"pngstruct.h"
+	"pnginfo.h"
+	"pngdebug.h"
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pngstruct.h
+	"zlib.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\zlib.h
+	"zconf.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\zconf.h
+	<windows.h>
+	<limits.h>
+	<sys/types.h>
+	<stddef.h>
+	<unistd.h>
+	<unixio.h>
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pnginfo.h
+
+1390552470 d:\programming\novaengine\novaengine\src\libs\libpng\pngdebug.h
+	<crtdbg.h>
+	<stdio.h>
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngerror.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngget.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngmem.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngpread.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngread.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngrio.c
+	"pngpriv.h"
+
+1413311924 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngrtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngrutil.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngset.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngtrans.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngwio.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngwrite.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngwtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\novaengine\novaengine\src\libs\libpng\pngwutil.c
+	"pngpriv.h"
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\adler32.c
+	"zutil.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\compress.c
+	"zlib.h"
+
+1411907620 source:d:\programming\novaengine\novaengine\src\libs\zlib\crc32.c
+	<stdio.h>
+	"zutil.h"
+	"crc32.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\crc32.h
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\deflate.c
+	"deflate.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\deflate.h
+	"zutil.h"
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\gzclose.c
+	"gzguts.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<stddef.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\gzlib.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\gzread.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\inftrees.h
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\inflate.h
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\inffast.h
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\inffixed.h
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1390552472 d:\programming\novaengine\novaengine\src\libs\zlib\trees.h
+
+1390552472 source:d:\programming\novaengine\novaengine\src\libs\zlib\uncompr.c
+	"zlib.h"
+
+1411908025 source:d:\programming\novaengine\novaengine\src\libs\zlib\zutil.c
+	"zutil.h"
+	"gzguts.h"
+
+1427921520 source:d:\programming\novaengine\novaengine\src\log\nlog.cpp
+	"NLog.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<wchar.h>
+	<android/log.h>
+
+1427925980 source:d:\programming\novaengine\novaengine\src\novaengine.cpp
+	"NovaEngine.h"
+	"CNovaEngine.h"
+	"NLog.h"
+	"CompileConfig.h"
+	"IWindow.h"
+	"IRenderer.h"
+
+1427919489 source:d:\programming\novaengine\novaengine\src\renderer\canimatedmesh.cpp
+	"CAnimatedMesh.h"
+	<assert.h>
+
+1427913525 source:d:\programming\novaengine\novaengine\src\renderer\cbaserenderer.cpp
+	"CBaseRenderer.h"
+
+1427085025 source:d:\programming\novaengine\novaengine\src\renderer\cimage.cpp
+	"CImage.h"
+
+1415303948 source:d:\programming\novaengine\novaengine\src\renderer\crendererperformancecounter.cpp
+	"CRendererPerformanceCounter.h"
+
+1426194040 source:d:\programming\novaengine\novaengine\src\renderer\cstaticmesh.cpp
+	"CStaticMesh.h"
+
+1427832878 source:d:\programming\novaengine\novaengine\src\renderer\opengl\copenglcontext.cpp
+	"COpenGLContext.h"
+
+1429568749 source:d:\programming\novaengine\novaengine\src\renderer\opengl\copenglrenderer.cpp
+	"COpenGLRenderer.h"
+
+1427820815 source:d:\programming\novaengine\novaengine\src\renderer\opengl\copenglshaderprogram.cpp
+	"COpenGLShaderProgram.h"
+
+1422993906 source:d:\programming\novaengine\novaengine\src\renderer\opengl\copengltexture.cpp
+	"COpenGLTexture.h"
+
+1427943615 source:d:\programming\novaengine\novaengine\src\renderer\opengl\copenglvertexbuffer.cpp
+	"COpenGLVertexBuffer.h"
+
+1423087739 source:d:\programming\novaengine\novaengine\src\scene\cscene.cpp
+	"CScene.h"
+
+1423081466 source:d:\programming\novaengine\novaengine\src\scene\cscenemanager.cpp
+	"CSceneManager.h"
+	"nodes\CSceneEmptyNode.h"
+	"nodes\CSceneCamera.h"
+	"nodes\CSceneSprite.h"
+	"nodes\CSceneStaticMesh.h"
+
+1423088636 d:\programming\novaengine\novaengine\src\scene\nodes\cscenecamera.h
+	"NTypes.h"
+	"ISceneCamera.h"
+	"NLog.h"
+
+1419274447 d:\programming\novaengine\novaengine\src\scene\nodes\cscenefpscamera.h
+	"NTypes.h"
+	"ISceneFPSCamera.h"
+	"NLog.h"
+	"NovaEngine.h"
+
+1423082825 d:\programming\novaengine\novaengine\src\scene\nodes\cscenesprite.h
+	"ISceneManager.h"
+	"ISceneSprite.h"
+
+1426193045 d:\programming\novaengine\novaengine\src\scene\nodes\cscenestaticmesh.h
+	"ISceneStaticMesh.h"
+	"log/NLog.h"
+
+1427940995 source:d:\programming\novaengine\novaengine\src\window\cwin32window.cpp
+	"CWin32Window.h"
+	"log\NLog.h"
+	<map>
+
+1419271009 d:\programming\novaengine\novaengine\include\itimer.h
+	"Object.h"
+
+1423082905 d:\programming\novaengine\novaengine\src\scene\nodes\csceneemptynode.h
+	"ISceneNode.h"
+
+1419305132 d:\programming\novaengine\novaengine\include\iscenenodeanimator.h
+	"NTypes.h"
+	"Object.h"
+	"ISceneNode.h"
+
+1419307429 d:\programming\novaengine\novaengine\src\time\ntime.h
+	<chrono>
+	<time.h>
+	<sys/time.h>
+	"NTypes.h"
+	"ITimer.h"
+	"NLog.h"
+
+1419952542 d:\programming\novaengine\novaengine\include\iresourceimporter.h
+	"Object.h"
+	"IFile.h"
+	"Resource.h"
+
+1390989343 d:\programming\novaengine\novaengine\src\renderer\\cimage.h
+	"IImage.h"
+
+1426192815 d:\programming\novaengine\novaengine\src\renderer\\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1426192965 d:\programming\novaengine\novaengine\src\renderer\\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1425919456 d:\programming\novaengine\novaengine\include\iimageloader.h
+	"Object.h"
+	"IFile.h"
+	"IImage.h"
+
+1425919456 d:\programming\novaengine\novaengine\include\istaticmeshloader.h
+	"IFile.h"
+	"IStaticMesh.h"
+
+1425919456 d:\programming\novaengine\novaengine\include\ianimatedmeshloader.h
+	"Object.h"
+	"IFile.h"
+	"IAnimatedMesh.h"
+
+1392135062 d:\programming\novaengine\novaengine\src\filesystem\cfilesystem.h
+	"IFileSystem.h"
+	"CVirtualFile.h"
+	"CNativeFile.h"
+	"log/NLog.h"
+	<stdio.h>
+
+1427081085 d:\programming\novaengine\novaengine\src\filesystem\cvirtualfile.h
+	"IFile.h"
+	<malloc.h>
+	<cstring>
+	<memory.h>
+	"Log\NLog.h"
+
+1427081085 d:\programming\novaengine\novaengine\src\filesystem\cnativefile.h
+	"IFile.h"
+	<stdio.h>
+	"log\NLog.h"
+
+1426439117 d:\programming\novaengine\novaengine\src\resources\cresourcemanager.h
+	<vector>
+	"NTime.h"
+	"Log/NLog.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	<vector>
+
+1427820815 source:d:\programming\novaengine\novaengine\src\filesystem\cfilesystem.cpp
+	"CFileSystem.h"
+
+1427935861 source:d:\programming\novaengine\novaengine\src\resources\cresourcemanager.cpp
+	"CResourceManager.h"
+	"CompileConfig.h"
+	"loaders\\CImagePNGLoader.h"
+	"loaders\\CStaticMeshLoader_OBJ.h"
+	"loaders\\CAssimpMeshLoader.h"
+	"NovaEngine.h"
+	"renderer\\CImage.h"
+	"renderer\\CStaticMesh.h"
+	"renderer\\CAnimatedMesh.h"
+	"renderer\\CMaterial.h"
+
+1425919456 d:\programming\novaengine\novaengine\src\resources\loaders\\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427086990 d:\programming\novaengine\novaengine\src\resources\loaders\\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1426194067 source:d:\programming\novaengine\novaengine\src\resources\loaders\cassimpmeshloader.cpp
+	"CompileConfig.h"
+	"CAssimpMeshLoader.h"
+	"log/NLog.h"
+	"NovaEngine.h"
+	"IVertexBuffer.h"
+	"ERendererEnums.h"
+
+1427086990 d:\programming\novaengine\novaengine\src\resources\loaders\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1427820815 source:d:\programming\novaengine\novaengine\src\resources\loaders\cimagepngloader.cpp
+	"CompileConfig.h"
+	"CImagePNGLoader.h"
+	"renderer/CImage.h"
+	"png.h"
+
+1425919456 d:\programming\novaengine\novaengine\src\resources\loaders\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427101116 d:\programming\novaengine\novaengine\src\resources\loaders\\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1427828685 source:d:\programming\novaengine\novaengine\src\resources\loaders\cstaticmeshloader_obj.cpp
+	"CStaticMeshLoader_OBJ.h"
+	"CStaticMesh.h"
+	"CVertexBuffer.h"
+	<stdio.h>
+
+1427101116 d:\programming\novaengine\novaengine\src\resources\loaders\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1419764728 d:\programming\novaengine\novaengine\src\renderer\\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1426437729 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\compileconfig.h
+
+1427907211 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<cstdio>
+	<wchar.h>
+	<iostream>
+	<fstream>
+	<time.h>
+	<windows.h>
+	"Memorywatcher.h"
+	"NovaEngine.h"
+	"NTime.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	"renderer\CMaterial.h"
+
+1420551956 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\memorywatcher.h
+	<stdlib.h>
+	<memory>
+	<vector>
+
+1425919717 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\novaengine.h
+	"NTypes.h"
+	"NMath.h"
+	"NExTypes.h"
+	"types/matrix.h"
+	"types/quaternion.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/color3.h"
+	"types/color4.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"NMath.h"
+	"ILog.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IWindow.h"
+	"ERendererEnums.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNode.h"
+	"IScene2DNode.h"
+	"ISceneCamera.h"
+	"ISceneSprite.h"
+	"ISceneStaticMesh.h"
+	"SEngineConf.h"
+	"SPixelFormat.h"
+	"STextureParameters.h"
+	"SPrimitive.h"
+	"EKeycodes.h"
+	"ERendererEnums.h"
+
+1427906545 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ntypes.h
+
+1427907760 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\nmath.h
+	<cmath>
+	"NTypes.h"
+
+1411983176 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\nextypes.h
+	"NTypes.h"
+	"types/matrix.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/quaternion.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"types/color3.h"
+	"types/color4.h"
+	<string>
+	<vector>
+
+1425836897 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\matrix.h
+	"../NTypes.h"
+	"../NMath.h"
+	"vector2.h"
+	"vector3.h"
+	<memory.h>
+
+1411935097 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\vector2.h
+	"../NTypes.h"
+	<math.h>
+
+1411743811 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\vector3.h
+	"../NTypes.h"
+	"../NMath.h"
+
+1411743828 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\quaternion.h
+	"../NTypes.h"
+	"matrix.h"
+
+1411743838 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\dim2.h
+	"../NMath.h"
+
+1411743968 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\rect.h
+	"../NTypes.h"
+	<math.h>
+
+1411743858 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\color3.h
+	"../NTypes.h"
+
+1427084991 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\types\color4.h
+
+1418224256 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ilog.h
+	"NTypes.h"
+
+1427080823 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\object.h
+	"NTypes.h"
+	<string.h>
+	<stdexcept>
+
+1419313959 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\inovaengine.h
+	"Object.h"
+	"IEventManager.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"ILog.h"
+
+1408873410 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ieventmanager.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"SEvent.h"
+	"IEventListener.h"
+
+1419191763 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\sevent.h
+	"NTypes.h"
+
+1408986085 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ieventlistener.h
+	"Object.h"
+	"SEvent.h"
+
+1415259554 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iwindow.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"types/dim2.h"
+	"types/vector2.h"
+	"IEventListener.h"
+
+1418230438 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\irenderer.h
+	"Object.h"
+	"IRenderContext.h"
+	"IRendererPerformanceCounter.h"
+	"NTypes.h"
+	"ERendererEnums.h"
+	"SVertex.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+
+1412855841 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\irendercontext.h
+	"Object.h"
+
+1419191763 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\irendererperformancecounter.h
+	"NTypes.h"
+
+1418236090 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\erendererenums.h
+
+1413863492 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\svertex.h
+	"NTypes.h"
+	"NExTypes.h"
+
+1415024521 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ivertexbuffer.h
+	"NTypes.h"
+	"Resource.h"
+	"SVertex.h"
+	"SPrimitive.h"
+	"ERendererEnums.h"
+
+1427080823 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\resource.h
+	"Object.h"
+	"string.h"
+
+1418224257 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\sprimitive.h
+	"NTypes.h"
+	"NExTypes.h"
+	"SVertex.h"
+
+1424896164 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ishaderprogram.h
+	"Object.h"
+	"NExTypes.h"
+
+1395066838 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iimage.h
+	"NExTypes.h"
+	"Resource.h"
+	"SPixelFormat.h"
+
+1411595245 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\spixelformat.h
+	"NTypes.h"
+
+1406542328 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\itexture.h
+	"NTypes.h"
+	"Resource.h"
+	"IImage.h"
+	"STextureParameters.h"
+
+1425923249 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\stextureparameters.h
+	"NTypes.h"
+
+1427084300 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\imaterial.h
+	"Resource.h"
+	"ITexture.h"
+
+1425915781 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ifilesystem.h
+	"Object.h"
+	"IFile.h"
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ifile.h
+	"Object.h"
+	"NTypes.h"
+
+1426439158 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iresourcemanager.h
+	"Object.h"
+	"IImage.h"
+	"ITexture.h"
+	"IImageLoader.h"
+	"IStaticMesh.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMesh.h"
+	"IAnimatedMeshLoader.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iimageloader.h
+	"Object.h"
+	"IFile.h"
+	"IImage.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\istaticmesh.h
+	"Object.h"
+	"Resource.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\istaticmeshloader.h
+	"IFile.h"
+	"IStaticMesh.h"
+
+1426192859 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ianimatedmesh.h
+	"IStaticMesh.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ianimatedmeshloader.h
+	"Object.h"
+	"IFile.h"
+	"IAnimatedMesh.h"
+
+1426192374 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\igeometrymanager.h
+	"Object.h"
+	"NTypes.h"
+
+1423087547 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenemanager.h
+	"Object.h"
+	"NTypes.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"ITexture.h"
+	"IStaticMesh.h"
+	"IScene.h"
+
+1419270483 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscene.h
+	"NTypes.h"
+	"Object.h"
+
+1423082662 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenenode.h
+	<vector>
+	"Object.h"
+	"NTypes.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNodeAnimator.h"
+
+1419305132 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenenodeanimator.h
+	"NTypes.h"
+	"Object.h"
+	"ISceneNode.h"
+
+1408815990 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscene2dnode.h
+	"Object.h"
+	"NTypes.h"
+	"ISceneNode.h"
+
+1423084919 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenecamera.h
+	"ISceneNode.h"
+	"NTypes.h"
+
+1411829804 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenesprite.h
+	"IScene2DNode.h"
+
+1423087499 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\iscenestaticmesh.h
+	"ISceneNode.h"
+	"IStaticMesh.h"
+
+1418281466 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\sengineconf.h
+	"NTypes.h"
+	"types/dim2.h"
+	"ERendererEnums.h"
+	"ILog.h"
+
+1425651918 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\ekeycodes.h
+
+1419307429 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\time\ntime.h
+	<chrono>
+	<time.h>
+	<sys/time.h>
+	"NTypes.h"
+	"ITimer.h"
+	"NLog.h"
+
+1419271009 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\include\itimer.h
+	"Object.h"
+
+1427907552 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\log\nlog.h
+	<cstdarg>
+	"NTypes.h"
+	"ILog.h"
+
+1414673464 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<intNTypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1419764728 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1411599671 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\ceventmanager.cpp
+	"CEventManager.h"
+
+1408873410 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\ceventmanager.h
+	"IEventManager.h"
+	"EKeycodes.h"
+	<vector>
+
+1419279008 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\cgeometrymanager.cpp
+	"CGeometryManager.h"
+	"renderer\CVertexBuffer.h"
+
+1426192374 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\cgeometrymanager.h
+	"NovaEngine.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IGeometryManager.h"
+
+1414677463 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cvertexbuffer.h
+	<vector>
+	"IVertexBuffer.h"
+
+1427832878 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\cnovaengine.cpp
+	"CNovaEngine.h"
+	"window\CWin32Window.h"
+	"opengl\COpenGLRenderer.h"
+	"opengl\COpenGLContext.h"
+	"NLog.h"
+	"CEventManager.h"
+	"CFileSystem.h"
+	"CResourceManager.h"
+	"CGeometryManager.h"
+	"CSceneManager.h"
+
+1419313971 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\cnovaengine.h
+	"../version.h"
+	"INovaEngine.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+
+1425920560 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\version.h
+
+1415261150 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\window\cwin32window.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"SEngineConf.h"
+	"SEvent.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	<windows.h>
+
+1388399207 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\ckeymap.h
+	<map>
+
+1418230538 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglrenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLog.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	<map>
+	"CBaseRenderer.h"
+	"opengl/COpenGLContext.h"
+	"opengl/COpenGLShaderProgram.h"
+	"opengl/COpenGLTexture.h"
+	"opengl/COpenGLVertexBuffer.h"
+
+1419305923 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\crendererperformancecounter.h
+	"NTypes.h"
+	"NTime.h"
+	"IRendererPerformanceCounter.h"
+
+1415263109 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cbaserenderer.h
+	"IWindow.h"
+	"IRenderContext.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"NLog.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"renderer\CVertexBuffer.h"
+	<map>
+
+1412855841 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglcontext.h
+	<windows.h>
+	"NLog.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderContext.h"
+	"GL\glew.h"
+	"wglext.h"
+
+1389272102 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\wglext.h
+	<windows.h>
+
+1424893874 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglshaderprogram.h
+	"NovaEngine.h"
+	"IShaderProgram.h"
+	"NLog.h"
+	<GL\glew.h>
+
+1419313975 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copengltexture.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"ITexture.h"
+	"STextureParameters.h"
+	"renderer/opengl/COpenGLRenderer.h"
+	"renderer/CImage.h"
+	<GL/gl.h>
+
+1390989343 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cimage.h
+	"IImage.h"
+
+1425919773 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglvertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLog.h"
+	"GL/glew.h"
+
+1392135062 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\filesystem\cfilesystem.h
+	"IFileSystem.h"
+	"CVirtualFile.h"
+	"CNativeFile.h"
+	"log/NLog.h"
+	<stdio.h>
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\filesystem\cvirtualfile.h
+	"IFile.h"
+	<malloc.h>
+	<cstring>
+	<memory.h>
+	"Log\NLog.h"
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\filesystem\cnativefile.h
+	"IFile.h"
+	<stdio.h>
+	"log\NLog.h"
+
+1426439117 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\cresourcemanager.h
+	<vector>
+	"NTime.h"
+	"Log/NLog.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	<vector>
+
+1423081466 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\cscenemanager.h
+	"ISceneManager.h"
+	"IRenderer.h"
+	"CScene.h"
+
+1419270483 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\cscene.h
+	"IScene.h"
+	"ISceneManager.h"
+	"ISceneNode.h"
+	"ISceneCamera.h"
+	<vector>
+	<list>
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\filesystem\cfilesystem.cpp
+	"CFileSystem.h"
+
+1413873353 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\glew\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1374187628 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\glew\include\gl\wglew.h
+	<windows.h>
+
+1374187628 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\glew\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1390552469 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\png.c
+	"pngpriv.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngpriv.h
+	<stdlib.h>
+	<string.h>
+	<config.h>
+	"pnglibconf.h"
+	"pngprefix.h"
+	"pngusr.h"
+	"png.h"
+	<float.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<windows.h>
+	"pngstruct.h"
+	"pnginfo.h"
+	"pngdebug.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pnglibconf.h
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\png.h
+	"pnglibconf.h"
+	"pngconf.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngconf.h
+	<limits.h>
+	<stddef.h>
+	<stdio.h>
+	<setjmp.h>
+	<time.h>
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngstruct.h
+	"zlib.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\zlib.h
+	"zconf.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\zconf.h
+	<windows.h>
+	<limits.h>
+	<sys/types.h>
+	<stddef.h>
+	<unistd.h>
+	<unixio.h>
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pnginfo.h
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngdebug.h
+	<crtdbg.h>
+	<stdio.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngerror.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngget.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngmem.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngpread.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngread.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngrio.c
+	"pngpriv.h"
+
+1413311924 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngrtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngrutil.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngset.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngtrans.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngwio.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngwrite.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngwtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\libpng\pngwutil.c
+	"pngpriv.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\adler32.c
+	"zutil.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\compress.c
+	"zlib.h"
+
+1411907620 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\crc32.c
+	<stdio.h>
+	"zutil.h"
+	"crc32.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\crc32.h
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\deflate.c
+	"deflate.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\deflate.h
+	"zutil.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\gzclose.c
+	"gzguts.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<stddef.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\gzlib.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\gzread.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inftrees.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inflate.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inffast.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inffixed.h
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\trees.h
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\uncompr.c
+	"zlib.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\zlib\zutil.c
+	"zutil.h"
+	"gzguts.h"
+
+1427820270 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\log\nlog.cpp
+	"NLog.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<stdarg.h>
+	<wchar.h>
+	<android/log.h>
+
+1427832011 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\novaengine.cpp
+	"NovaEngine.h"
+	"CNovaEngine.h"
+	"NLog.h"
+	"CompileConfig.h"
+	"IWindow.h"
+	"IRenderer.h"
+
+1426437729 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\compileconfig.h
+
+1426192899 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\canimatedmesh.cpp
+	"CAnimatedMesh.h"
+	<assert.h>
+
+1426192965 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1415301443 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cbaserenderer.cpp
+	"CBaseRenderer.h"
+
+1427085025 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cimage.cpp
+	"CImage.h"
+
+1415303948 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\crendererperformancecounter.cpp
+	"CRendererPerformanceCounter.h"
+
+1426194040 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cstaticmesh.cpp
+	"CStaticMesh.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1427832878 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglcontext.cpp
+	"COpenGLContext.h"
+
+1427833860 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglrenderer.cpp
+	"COpenGLRenderer.h"
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglshaderprogram.cpp
+	"COpenGLShaderProgram.h"
+
+1422993906 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copengltexture.cpp
+	"COpenGLTexture.h"
+
+1414785370 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\opengl\copenglvertexbuffer.cpp
+	"COpenGLVertexBuffer.h"
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\cresourcemanager.cpp
+	"CResourceManager.h"
+	"CompileConfig.h"
+	"loaders\\CImagePNGLoader.h"
+	"loaders\\CStaticMeshLoader_OBJ.h"
+	"loaders\\CAssimpMeshLoader.h"
+	"NovaEngine.h"
+	"renderer\\CImage.h"
+	"renderer\\CStaticMesh.h"
+	"renderer\\CAnimatedMesh.h"
+	"renderer\\CMaterial.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427101116 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1427086990 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\importer.hpp
+	"types.h"
+	"config.h"
+
+1403900846 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\types.h
+	<sys/types.h>
+	<memory.h>
+	<math.h>
+	<stddef.h>
+	<cstring>
+	"defs.h"
+	"vector3.h"
+	"vector2.h"
+	"color4.h"
+	"matrix3x3.h"
+	"matrix4x4.h"
+	"quaternion.h"
+	<new>
+	<string>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"vector2.inl"
+	"vector3.inl"
+	"color4.inl"
+	"quaternion.inl"
+	"matrix3x3.inl"
+	"matrix4x4.inl"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\defs.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\vector3.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\compiler\pushpack1.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\compiler\poppack1.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\vector2.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\color4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\matrix3x3.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\matrix4x4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\quaternion.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\vector2.inl
+	"vector2.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\vector3.inl
+	"vector3.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\color4.inl
+	"color4.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\quaternion.inl
+	"quaternion.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\matrix3x3.inl
+	"matrix3x3.h"
+	"matrix4x4.h"
+	<algorithm>
+	<limits>
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\matrix4x4.inl
+	"matrix4x4.h"
+	"matrix3x3.h"
+	"quaternion.h"
+	<algorithm>
+	<limits>
+	<math.h>
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\config.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\scene.h
+	"types.h"
+	"texture.h"
+	"mesh.h"
+	"light.h"
+	"camera.h"
+	"material.h"
+	"anim.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\texture.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\mesh.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\light.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\camera.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\material.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"material.inl"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\material.inl
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\anim.h
+	"types.h"
+	"quaternion.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\libs\assimp\include\assimp\postprocess.h
+	"types.h"
+
+1390989343 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\\cimage.h
+	"IImage.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1426192965 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1419764728 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\renderer\\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1426194067 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cassimpmeshloader.cpp
+	"CompileConfig.h"
+	"CAssimpMeshLoader.h"
+	"log/NLog.h"
+	"NovaEngine.h"
+	"IVertexBuffer.h"
+	"ERendererEnums.h"
+
+1427086990 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cimagepngloader.cpp
+	"CompileConfig.h"
+	"CImagePNGLoader.h"
+	"renderer/CImage.h"
+	"png.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427828685 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cstaticmeshloader_obj.cpp
+	"CStaticMeshLoader_OBJ.h"
+	"CStaticMesh.h"
+	"CVertexBuffer.h"
+	<stdio.h>
+
+1427101116 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\resources\loaders\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1423087739 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\cscene.cpp
+	"CScene.h"
+
+1423081466 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\cscenemanager.cpp
+	"CSceneManager.h"
+	"nodes\CSceneEmptyNode.h"
+	"nodes\CSceneCamera.h"
+	"nodes\CSceneSprite.h"
+	"nodes\CSceneStaticMesh.h"
+
+1423082905 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\nodes\csceneemptynode.h
+	"ISceneNode.h"
+
+1423088636 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\nodes\cscenecamera.h
+	"NTypes.h"
+	"ISceneCamera.h"
+	"NLog.h"
+
+1423082825 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\nodes\cscenesprite.h
+	"ISceneManager.h"
+	"ISceneSprite.h"
+
+1426193045 d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\scene\nodes\cscenestaticmesh.h
+	"ISceneStaticMesh.h"
+	"log/NLog.h"
+
+1427829945 source:d:\programming\android\projects\novaenginetest\jni\novaengine_androidedition\src\window\cwin32window.cpp
+	"CWin32Window.h"
+	"log\NLog.h"
+	<map>
+
+1427922647 source:d:\programming\android\projects\novaenginetest\jni\ne\src\compileconfig.h
+
+1427942954 source:d:\programming\android\projects\novaenginetest\jni\ne\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<cstdio>
+	<wchar.h>
+	<iostream>
+	<fstream>
+	<time.h>
+	<windows.h>
+	"Memorywatcher.h"
+	"NovaEngine.h"
+	"NTime.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	"renderer\CMaterial.h"
+
+1420551956 d:\programming\android\projects\novaenginetest\jni\ne\memorywatcher.h
+	<stdlib.h>
+	<memory>
+	<vector>
+
+1425919717 d:\programming\android\projects\novaenginetest\jni\ne\include\novaengine.h
+	"NTypes.h"
+	"NMath.h"
+	"NExTypes.h"
+	"types/matrix.h"
+	"types/quaternion.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/color3.h"
+	"types/color4.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"NMath.h"
+	"ILog.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IWindow.h"
+	"ERendererEnums.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNode.h"
+	"IScene2DNode.h"
+	"ISceneCamera.h"
+	"ISceneSprite.h"
+	"ISceneStaticMesh.h"
+	"SEngineConf.h"
+	"SPixelFormat.h"
+	"STextureParameters.h"
+	"SPrimitive.h"
+	"EKeycodes.h"
+	"ERendererEnums.h"
+
+1427936017 d:\programming\android\projects\novaenginetest\jni\ne\include\ntypes.h
+	<windows.h>
+	<android_native_app_glue.h>
+	<cstddef>
+
+1411665624 d:\programming\android\projects\novaenginetest\jni\ne\include\nmath.h
+	<cmath>
+	"NTypes.h"
+
+1411983176 d:\programming\android\projects\novaenginetest\jni\ne\include\nextypes.h
+	"NTypes.h"
+	"types/matrix.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/quaternion.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"types/color3.h"
+	"types/color4.h"
+	<string>
+	<vector>
+
+1427919446 d:\programming\android\projects\novaenginetest\jni\ne\include\types\matrix.h
+	"../NTypes.h"
+	"../NMath.h"
+	"vector2.h"
+	"vector3.h"
+	<cstring>
+
+1411935097 d:\programming\android\projects\novaenginetest\jni\ne\include\types\vector2.h
+	"../NTypes.h"
+	<math.h>
+
+1411743811 d:\programming\android\projects\novaenginetest\jni\ne\include\types\vector3.h
+	"../NTypes.h"
+	"../NMath.h"
+
+1411743828 d:\programming\android\projects\novaenginetest\jni\ne\include\types\quaternion.h
+	"../NTypes.h"
+	"matrix.h"
+
+1411743838 d:\programming\android\projects\novaenginetest\jni\ne\include\types\dim2.h
+	"../NMath.h"
+
+1427917924 d:\programming\android\projects\novaenginetest\jni\ne\include\types\rect.h
+	"../NTypes.h"
+	<cmath>
+
+1411743858 d:\programming\android\projects\novaenginetest\jni\ne\include\types\color3.h
+	"../NTypes.h"
+
+1427084991 d:\programming\android\projects\novaenginetest\jni\ne\include\types\color4.h
+
+1427922292 d:\programming\android\projects\novaenginetest\jni\ne\include\ilog.h
+	"NTypes.h"
+
+1427080823 d:\programming\android\projects\novaenginetest\jni\ne\include\object.h
+	"NTypes.h"
+	<string.h>
+	<stdexcept>
+
+1419313959 d:\programming\android\projects\novaenginetest\jni\ne\include\inovaengine.h
+	"Object.h"
+	"IEventManager.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"ILog.h"
+
+1408873410 d:\programming\android\projects\novaenginetest\jni\ne\include\ieventmanager.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"SEvent.h"
+	"IEventListener.h"
+
+1427938538 d:\programming\android\projects\novaenginetest\jni\ne\include\sevent.h
+	"NTypes.h"
+
+1408986085 d:\programming\android\projects\novaenginetest\jni\ne\include\ieventlistener.h
+	"Object.h"
+	"SEvent.h"
+
+1415259554 d:\programming\android\projects\novaenginetest\jni\ne\include\iwindow.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"types/dim2.h"
+	"types/vector2.h"
+	"IEventListener.h"
+
+1427943558 d:\programming\android\projects\novaenginetest\jni\ne\include\irenderer.h
+	"Object.h"
+	"IRendererPerformanceCounter.h"
+	"NTypes.h"
+	"ERendererEnums.h"
+	"SVertex.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+
+1419191763 d:\programming\android\projects\novaenginetest\jni\ne\include\irendererperformancecounter.h
+	"NTypes.h"
+
+1418236090 d:\programming\android\projects\novaenginetest\jni\ne\include\erendererenums.h
+
+1413863492 d:\programming\android\projects\novaenginetest\jni\ne\include\svertex.h
+	"NTypes.h"
+	"NExTypes.h"
+
+1427943440 d:\programming\android\projects\novaenginetest\jni\ne\include\ivertexbuffer.h
+	"NTypes.h"
+	"Resource.h"
+	"SVertex.h"
+	"SPrimitive.h"
+	"ERendererEnums.h"
+
+1427080823 d:\programming\android\projects\novaenginetest\jni\ne\include\resource.h
+	"Object.h"
+	"string.h"
+
+1418224257 d:\programming\android\projects\novaenginetest\jni\ne\include\sprimitive.h
+	"NTypes.h"
+	"NExTypes.h"
+	"SVertex.h"
+
+1424896164 d:\programming\android\projects\novaenginetest\jni\ne\include\ishaderprogram.h
+	"Object.h"
+	"NExTypes.h"
+
+1395066838 d:\programming\android\projects\novaenginetest\jni\ne\include\iimage.h
+	"NExTypes.h"
+	"Resource.h"
+	"SPixelFormat.h"
+
+1411595245 d:\programming\android\projects\novaenginetest\jni\ne\include\spixelformat.h
+	"NTypes.h"
+
+1406542328 d:\programming\android\projects\novaenginetest\jni\ne\include\itexture.h
+	"NTypes.h"
+	"Resource.h"
+	"IImage.h"
+	"STextureParameters.h"
+
+1425923249 d:\programming\android\projects\novaenginetest\jni\ne\include\stextureparameters.h
+	"NTypes.h"
+
+1427084300 d:\programming\android\projects\novaenginetest\jni\ne\include\imaterial.h
+	"Resource.h"
+	"ITexture.h"
+
+1425915781 d:\programming\android\projects\novaenginetest\jni\ne\include\ifilesystem.h
+	"Object.h"
+	"IFile.h"
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\ne\include\ifile.h
+	"Object.h"
+	"NTypes.h"
+
+1426439158 d:\programming\android\projects\novaenginetest\jni\ne\include\iresourcemanager.h
+	"Object.h"
+	"IImage.h"
+	"ITexture.h"
+	"IImageLoader.h"
+	"IStaticMesh.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMesh.h"
+	"IAnimatedMeshLoader.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\ne\include\iimageloader.h
+	"Object.h"
+	"IFile.h"
+	"IImage.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\ne\include\istaticmesh.h
+	"Object.h"
+	"Resource.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\ne\include\istaticmeshloader.h
+	"IFile.h"
+	"IStaticMesh.h"
+
+1426192859 d:\programming\android\projects\novaenginetest\jni\ne\include\ianimatedmesh.h
+	"IStaticMesh.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\ne\include\ianimatedmeshloader.h
+	"Object.h"
+	"IFile.h"
+	"IAnimatedMesh.h"
+
+1426192374 d:\programming\android\projects\novaenginetest\jni\ne\include\igeometrymanager.h
+	"Object.h"
+	"NTypes.h"
+
+1423087547 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenemanager.h
+	"Object.h"
+	"NTypes.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"ITexture.h"
+	"IStaticMesh.h"
+	"IScene.h"
+
+1419270483 d:\programming\android\projects\novaenginetest\jni\ne\include\iscene.h
+	"NTypes.h"
+	"Object.h"
+
+1423082662 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenenode.h
+	<vector>
+	"Object.h"
+	"NTypes.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNodeAnimator.h"
+
+1419305132 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenenodeanimator.h
+	"NTypes.h"
+	"Object.h"
+	"ISceneNode.h"
+
+1408815990 d:\programming\android\projects\novaenginetest\jni\ne\include\iscene2dnode.h
+	"Object.h"
+	"NTypes.h"
+	"ISceneNode.h"
+
+1423084919 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenecamera.h
+	"ISceneNode.h"
+	"NTypes.h"
+
+1411829804 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenesprite.h
+	"IScene2DNode.h"
+
+1423087499 d:\programming\android\projects\novaenginetest\jni\ne\include\iscenestaticmesh.h
+	"ISceneNode.h"
+	"IStaticMesh.h"
+
+1427936018 d:\programming\android\projects\novaenginetest\jni\ne\include\sengineconf.h
+	"NTypes.h"
+	"types/dim2.h"
+	"ERendererEnums.h"
+	"ILog.h"
+
+1425651918 d:\programming\android\projects\novaenginetest\jni\ne\include\ekeycodes.h
+
+1419307429 d:\programming\android\projects\novaenginetest\jni\ne\src\time\ntime.h
+	<chrono>
+	<time.h>
+	<sys/time.h>
+	"NTypes.h"
+	"ITimer.h"
+	"NLog.h"
+
+1419271009 d:\programming\android\projects\novaenginetest\jni\ne\include\itimer.h
+	"Object.h"
+
+1427918645 d:\programming\android\projects\novaenginetest\jni\ne\src\log\nlog.h
+	"NTypes.h"
+	"ILog.h"
+	<cstdarg>
+
+1414673464 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<intNTypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1419764728 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1427940945 source:d:\programming\android\projects\novaenginetest\jni\ne\src\ceventmanager.cpp
+	"CEventManager.h"
+
+1427940313 d:\programming\android\projects\novaenginetest\jni\ne\src\ceventmanager.h
+	"IEventManager.h"
+	"EKeycodes.h"
+	"NLog.h"
+	<vector>
+
+1427943401 source:d:\programming\android\projects\novaenginetest\jni\ne\src\cgeometrymanager.cpp
+	"CGeometryManager.h"
+	"renderer\CVertexBuffer.h"
+
+1426192374 d:\programming\android\projects\novaenginetest\jni\ne\src\cgeometrymanager.h
+	"NovaEngine.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IGeometryManager.h"
+
+1427943439 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cvertexbuffer.h
+	<vector>
+	"IVertexBuffer.h"
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\ne\src\filesystem\cfilesystem.cpp
+	"CFileSystem.h"
+
+1392135062 d:\programming\android\projects\novaenginetest\jni\ne\src\filesystem\cfilesystem.h
+	"IFileSystem.h"
+	"CVirtualFile.h"
+	"CNativeFile.h"
+	"log/NLog.h"
+	<stdio.h>
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\ne\src\filesystem\cvirtualfile.h
+	"IFile.h"
+	<malloc.h>
+	<cstring>
+	<memory.h>
+	"Log\NLog.h"
+
+1427081085 d:\programming\android\projects\novaenginetest\jni\ne\src\filesystem\cnativefile.h
+	"IFile.h"
+	<stdio.h>
+	"log\NLog.h"
+
+1413873353 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\glew\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1374187628 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\glew\include\gl\wglew.h
+	<windows.h>
+
+1374187628 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\glew\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1390552469 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\png.c
+	"pngpriv.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngpriv.h
+	<stdlib.h>
+	<string.h>
+	<config.h>
+	"pnglibconf.h"
+	"pngprefix.h"
+	"pngusr.h"
+	"png.h"
+	<float.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<windows.h>
+	"pngstruct.h"
+	"pnginfo.h"
+	"pngdebug.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pnglibconf.h
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\png.h
+	"pnglibconf.h"
+	"pngconf.h"
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngconf.h
+	<limits.h>
+	<stddef.h>
+	<stdio.h>
+	<setjmp.h>
+	<time.h>
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngstruct.h
+	"zlib.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\zlib.h
+	"zconf.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\zconf.h
+	<windows.h>
+	<limits.h>
+	<sys/types.h>
+	<stddef.h>
+	<unistd.h>
+	<unixio.h>
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pnginfo.h
+
+1390552470 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngdebug.h
+	<crtdbg.h>
+	<stdio.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngerror.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngget.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngmem.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngpread.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngread.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngrio.c
+	"pngpriv.h"
+
+1413311924 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngrtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngrutil.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngset.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngtrans.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngwio.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngwrite.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngwtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\libpng\pngwutil.c
+	"pngpriv.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\adler32.c
+	"zutil.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\compress.c
+	"zlib.h"
+
+1411907620 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\crc32.c
+	<stdio.h>
+	"zutil.h"
+	"crc32.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\crc32.h
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\deflate.c
+	"deflate.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\deflate.h
+	"zutil.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\gzclose.c
+	"gzguts.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<stddef.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\gzlib.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\gzread.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inftrees.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inflate.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inffast.h
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inffixed.h
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1390552472 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\trees.h
+
+1390552472 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\uncompr.c
+	"zlib.h"
+
+1411908025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\libs\zlib\zutil.c
+	"zutil.h"
+	"gzguts.h"
+
+1427921520 source:d:\programming\android\projects\novaenginetest\jni\ne\src\log\nlog.cpp
+	"NLog.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<wchar.h>
+	<android/log.h>
+
+1427925980 source:d:\programming\android\projects\novaenginetest\jni\ne\src\novaengine.cpp
+	"NovaEngine.h"
+	"CNovaEngine.h"
+	"NLog.h"
+	"CompileConfig.h"
+	"IWindow.h"
+	"IRenderer.h"
+
+1419313971 d:\programming\android\projects\novaenginetest\jni\ne\src\cnovaengine.h
+	"../version.h"
+	"INovaEngine.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+
+1425920560 d:\programming\android\projects\novaenginetest\jni\ne\version.h
+
+1427922647 d:\programming\android\projects\novaenginetest\jni\ne\src\compileconfig.h
+
+1427919489 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\canimatedmesh.cpp
+	"CAnimatedMesh.h"
+	<assert.h>
+
+1426192965 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1427085025 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cimage.cpp
+	"CImage.h"
+
+1390989343 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cimage.h
+	"IImage.h"
+
+1415303948 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\crendererperformancecounter.cpp
+	"CRendererPerformanceCounter.h"
+
+1419305923 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\crendererperformancecounter.h
+	"NTypes.h"
+	"NTime.h"
+	"IRendererPerformanceCounter.h"
+
+1426194040 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cstaticmesh.cpp
+	"CStaticMesh.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1427832878 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglcontext.cpp
+	"COpenGLContext.h"
+
+1412855841 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglcontext.h
+	<windows.h>
+	"NLog.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderContext.h"
+	"GL\glew.h"
+	"wglext.h"
+
+1412855841 d:\programming\android\projects\novaenginetest\jni\ne\include\irendercontext.h
+	"Object.h"
+
+1389272102 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\wglext.h
+	<windows.h>
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglshaderprogram.cpp
+	"COpenGLShaderProgram.h"
+
+1424893874 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglshaderprogram.h
+	"NovaEngine.h"
+	"IShaderProgram.h"
+	"NLog.h"
+	<GL\glew.h>
+
+1422993906 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copengltexture.cpp
+	"COpenGLTexture.h"
+
+1419313975 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copengltexture.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"ITexture.h"
+	"STextureParameters.h"
+	"renderer/opengl/COpenGLRenderer.h"
+	"renderer/CImage.h"
+	<GL/gl.h>
+
+1427943558 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglrenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLog.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	<map>
+	"CBaseRenderer.h"
+	"opengl/COpenGLShaderProgram.h"
+	"opengl/COpenGLTexture.h"
+	"opengl/COpenGLVertexBuffer.h"
+	<windows.h>
+	"wglext.h"
+
+1427913547 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cbaserenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"NLog.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"renderer\CVertexBuffer.h"
+	<map>
+
+1425919773 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglvertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLog.h"
+	"GL/glew.h"
+
+1414785370 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglvertexbuffer.cpp
+	"COpenGLVertexBuffer.h"
+
+1427935861 source:d:\programming\android\projects\novaenginetest\jni\ne\src\resources\cresourcemanager.cpp
+	"CResourceManager.h"
+	"CompileConfig.h"
+	"loaders\\CImagePNGLoader.h"
+	"loaders\\CStaticMeshLoader_OBJ.h"
+	"loaders\\CAssimpMeshLoader.h"
+	"NovaEngine.h"
+	"renderer\\CImage.h"
+	"renderer\\CStaticMesh.h"
+	"renderer\\CAnimatedMesh.h"
+	"renderer\\CMaterial.h"
+
+1426439117 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\cresourcemanager.h
+	<vector>
+	"NTime.h"
+	"Log/NLog.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	<vector>
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427101116 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1427086990 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\importer.hpp
+	"types.h"
+	"config.h"
+
+1403900846 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\types.h
+	<sys/types.h>
+	<memory.h>
+	<math.h>
+	<stddef.h>
+	<cstring>
+	"defs.h"
+	"vector3.h"
+	"vector2.h"
+	"color4.h"
+	"matrix3x3.h"
+	"matrix4x4.h"
+	"quaternion.h"
+	<new>
+	<string>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"vector2.inl"
+	"vector3.inl"
+	"color4.inl"
+	"quaternion.inl"
+	"matrix3x3.inl"
+	"matrix4x4.inl"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\defs.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\vector3.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\compiler\pushpack1.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\compiler\poppack1.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\vector2.h
+	<math.h>
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\color4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\matrix3x3.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\matrix4x4.h
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\quaternion.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\vector2.inl
+	"vector2.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\vector3.inl
+	"vector3.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\color4.inl
+	"color4.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\quaternion.inl
+	"quaternion.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\matrix3x3.inl
+	"matrix3x3.h"
+	"matrix4x4.h"
+	<algorithm>
+	<limits>
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\matrix4x4.inl
+	"matrix4x4.h"
+	"matrix3x3.h"
+	"quaternion.h"
+	<algorithm>
+	<limits>
+	<math.h>
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\config.h
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\scene.h
+	"types.h"
+	"texture.h"
+	"mesh.h"
+	"light.h"
+	"camera.h"
+	"material.h"
+	"anim.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\texture.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\mesh.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\light.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\camera.h
+	"types.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\material.h
+	"types.h"
+	"./Compiler/pushpack1.h"
+	"./Compiler/poppack1.h"
+	"material.inl"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\material.inl
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\anim.h
+	"types.h"
+	"quaternion.h"
+
+1396163115 d:\programming\android\projects\novaenginetest\jni\ne\src\libs\assimp\include\assimp\postprocess.h
+	"types.h"
+
+1390989343 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\\cimage.h
+	"IImage.h"
+
+1426192815 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1426192965 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1419764728 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1426194067 source:d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cassimpmeshloader.cpp
+	"CompileConfig.h"
+	"CAssimpMeshLoader.h"
+	"log/NLog.h"
+	"NovaEngine.h"
+	"IVertexBuffer.h"
+	"ERendererEnums.h"
+
+1427086990 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cassimpmeshloader.h
+	"CompileConfig.h"
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMeshLoader.h"
+	"IResourceManager.h"
+	"libs\assimp\include\assimp\Importer.hpp"
+	"libs\assimp\include\assimp\scene.h"
+	"libs\assimp\include\assimp\postprocess.h"
+	"log/NLog.h"
+
+1427820815 source:d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cimagepngloader.cpp
+	"CompileConfig.h"
+	"CImagePNGLoader.h"
+	"renderer/CImage.h"
+	"png.h"
+
+1425919456 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLog.h"
+	<cstring>
+
+1427828685 source:d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cstaticmeshloader_obj.cpp
+	"CStaticMeshLoader_OBJ.h"
+	"CStaticMesh.h"
+	"CVertexBuffer.h"
+	<stdio.h>
+
+1427101116 d:\programming\android\projects\novaenginetest\jni\ne\src\resources\loaders\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLog.h"
+	<vector>
+	<map>
+
+1423087739 source:d:\programming\android\projects\novaenginetest\jni\ne\src\scene\cscene.cpp
+	"CScene.h"
+
+1419270483 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\cscene.h
+	"IScene.h"
+	"ISceneManager.h"
+	"ISceneNode.h"
+	"ISceneCamera.h"
+	<vector>
+	<list>
+
+1423081466 source:d:\programming\android\projects\novaenginetest\jni\ne\src\scene\cscenemanager.cpp
+	"CSceneManager.h"
+	"nodes\CSceneEmptyNode.h"
+	"nodes\CSceneCamera.h"
+	"nodes\CSceneSprite.h"
+	"nodes\CSceneStaticMesh.h"
+
+1423081466 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\cscenemanager.h
+	"ISceneManager.h"
+	"IRenderer.h"
+	"CScene.h"
+
+1423082905 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\nodes\csceneemptynode.h
+	"ISceneNode.h"
+
+1423088636 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\nodes\cscenecamera.h
+	"NTypes.h"
+	"ISceneCamera.h"
+	"NLog.h"
+
+1423082825 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\nodes\cscenesprite.h
+	"ISceneManager.h"
+	"ISceneSprite.h"
+
+1426193045 d:\programming\android\projects\novaenginetest\jni\ne\src\scene\nodes\cscenestaticmesh.h
+	"ISceneStaticMesh.h"
+	"log/NLog.h"
+
+1427940995 source:d:\programming\android\projects\novaenginetest\jni\ne\src\window\cwin32window.cpp
+	"CWin32Window.h"
+	"log\NLog.h"
+	<map>
+
+1415261150 d:\programming\android\projects\novaenginetest\jni\ne\src\window\cwin32window.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"SEngineConf.h"
+	"SEvent.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	<windows.h>
+
+1388399207 d:\programming\android\projects\novaenginetest\jni\ne\src\ckeymap.h
+	<map>
+
+1427941069 source:d:\programming\android\projects\novaenginetest\jni\ne\src\cnovaengine.cpp
+	"CNovaEngine.h"
+	"window\CWin32Window.h"
+	"window\CAndroidWindow.h"
+	"opengl\COpenGLRenderer.h"
+	"opengles1/COpenGLES1Renderer.h"
+	"NLog.h"
+	"CEventManager.h"
+	"CFileSystem.h"
+	"CResourceManager.h"
+	"CGeometryManager.h"
+	"CSceneManager.h"
+
+1427913525 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\cbaserenderer.cpp
+	"CBaseRenderer.h"
+
+1427943557 source:d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengl\copenglrenderer.cpp
+	"COpenGLRenderer.h"
+
+1427938572 d:\programming\android\projects\novaenginetest\jni\ne\src\window\candroidwindow.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"IEventListener.h"
+	"SEvent.h"
+	"SEngineConf.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	"NLog.h"
+	<jni.h>
+	<errno.h>
+	<android/sensor.h>
+	<android_native_app_glue.h>
+
+1427941675 source:d:\programming\android\projects\novaenginetest\jni\ne\src\window\candroidwindow.cpp
+	"CAndroidWindow.h"
+	<map>
+
+1427943558 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengles1\copengles1renderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLog.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<map>
+	<jni.h>
+	<errno.h>
+	<android_native_app_glue.h>
+	"CBaseRenderer.h"
+	"opengles1/COpenGLES1VertexBuffer.h"
+
+1427942520 d:\programming\android\projects\novaenginetest\jni\ne\src\renderer\opengles1\copengles1vertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLog.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+
+1427938572 d:\programming\novaengine\novaengine\src\window\candroidwindow.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"IEventListener.h"
+	"SEvent.h"
+	"SEngineConf.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	"NLog.h"
+	<jni.h>
+	<errno.h>
+	<android/sensor.h>
+	<android_native_app_glue.h>
+
+1429524363 d:\programming\novaengine\novaengine\src\renderer\opengles1\copengles1renderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLog.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<map>
+	<jni.h>
+	<errno.h>
+	<android_native_app_glue.h>
+	"CBaseRenderer.h"
+	"opengles1/COpenGLES1VertexBuffer.h"
+
+1429524435 d:\programming\novaengine\novaengine\src\renderer\opengles1\copengles1vertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLog.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+
+1427941675 source:d:\programming\novaengine\novaengine\src\window\candroidwindow.cpp
+	"CAndroidWindow.h"
+	<map>
+
+1429524446 source:d:\programming\novaengine\novaengine\src\renderer\opengles1\copengles1renderer.cpp
+	"COpenGLES1Renderer.h"
+
+1429524482 source:d:\programming\novaengine\novaengine\src\renderer\opengles1\copengles1vertexbuffer.cpp
+	"COpenGLES1VertexBuffer.h"
+
+1429659960 source:d:\programming\git\novaengine\src\compileconfig.h
+
+1427940945 source:d:\programming\git\novaengine\src\ceventmanager.cpp
+	"CEventManager.h"
+
+1429667050 d:\programming\git\novaengine\src\ceventmanager.h
+	"IEventManager.h"
+	"EKeycodes.h"
+	"NLogger.h"
+	<vector>
+
+1408873410 d:\programming\git\novaengine\include\ieventmanager.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"SEvent.h"
+	"IEventListener.h"
+
+1427080823 d:\programming\git\novaengine\include\object.h
+	"NTypes.h"
+	<string.h>
+	<stdexcept>
+
+1427936017 d:\programming\git\novaengine\include\ntypes.h
+	<windows.h>
+	<android_native_app_glue.h>
+	<cstddef>
+
+1411983176 d:\programming\git\novaengine\include\nextypes.h
+	"NTypes.h"
+	"types/matrix.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/quaternion.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"types/color3.h"
+	"types/color4.h"
+	<string>
+	<vector>
+
+1427919446 d:\programming\git\novaengine\include\types\matrix.h
+	"../NTypes.h"
+	"../NMath.h"
+	"vector2.h"
+	"vector3.h"
+	<cstring>
+
+1411665624 d:\programming\git\novaengine\include\nmath.h
+	<cmath>
+	"NTypes.h"
+
+1411935097 d:\programming\git\novaengine\include\types\vector2.h
+	"../NTypes.h"
+	<math.h>
+
+1411743811 d:\programming\git\novaengine\include\types\vector3.h
+	"../NTypes.h"
+	"../NMath.h"
+
+1429667050 d:\programming\git\novaengine\include\types\quaternion.h
+	"../NTypes.h"
+	"matrix.h"
+
+1411743838 d:\programming\git\novaengine\include\types\dim2.h
+	"../NMath.h"
+
+1427917924 d:\programming\git\novaengine\include\types\rect.h
+	"../NTypes.h"
+	<cmath>
+
+1411743858 d:\programming\git\novaengine\include\types\color3.h
+	"../NTypes.h"
+
+1427084991 d:\programming\git\novaengine\include\types\color4.h
+
+1427938538 d:\programming\git\novaengine\include\sevent.h
+	"NTypes.h"
+
+1408986085 d:\programming\git\novaengine\include\ieventlistener.h
+	"Object.h"
+	"SEvent.h"
+
+1425651918 d:\programming\git\novaengine\include\ekeycodes.h
+
+1429666644 d:\programming\git\novaengine\src\log\nlog.h
+	"NTypes.h"
+	"ILogger.h"
+	<cstdarg>
+
+1427922292 d:\programming\git\novaengine\include\ilog.h
+	"NTypes.h"
+
+1427943401 source:d:\programming\git\novaengine\src\cgeometrymanager.cpp
+	"CGeometryManager.h"
+	"renderer\CVertexBuffer.h"
+
+1426192374 d:\programming\git\novaengine\src\cgeometrymanager.h
+	"NovaEngine.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IGeometryManager.h"
+
+1429666663 d:\programming\git\novaengine\include\novaengine.h
+	"NTypes.h"
+	"NMath.h"
+	"NExTypes.h"
+	"types/matrix.h"
+	"types/quaternion.h"
+	"types/vector2.h"
+	"types/vector3.h"
+	"types/color3.h"
+	"types/color4.h"
+	"types/dim2.h"
+	"types/rect.h"
+	"NMath.h"
+	"ILogger.h"
+	"Object.h"
+	"INovaEngine.h"
+	"IWindow.h"
+	"ERendererEnums.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNode.h"
+	"IScene2DNode.h"
+	"ISceneCamera.h"
+	"ISceneSprite.h"
+	"ISceneStaticMesh.h"
+	"SEngineConf.h"
+	"SPixelFormat.h"
+	"STextureParameters.h"
+	"SPrimitive.h"
+	"EKeycodes.h"
+	"ERendererEnums.h"
+
+1429666714 d:\programming\git\novaengine\include\inovaengine.h
+	"Object.h"
+	"IEventManager.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	"IGeometryManager.h"
+	"ISceneManager.h"
+	"ILogger.h"
+
+1415259554 d:\programming\git\novaengine\include\iwindow.h
+	"Object.h"
+	"NTypes.h"
+	"NExTypes.h"
+	"types/dim2.h"
+	"types/vector2.h"
+	"IEventListener.h"
+
+1429666171 d:\programming\git\novaengine\include\irenderer.h
+	"Object.h"
+	"IRendererPerformanceCounter.h"
+	"NTypes.h"
+	"ERendererEnums.h"
+	"SVertex.h"
+	"IVertexBuffer.h"
+	"IShaderProgram.h"
+	"IImage.h"
+	"ITexture.h"
+	"IMaterial.h"
+
+1419191763 d:\programming\git\novaengine\include\irendererperformancecounter.h
+	"NTypes.h"
+
+1418236090 d:\programming\git\novaengine\include\erendererenums.h
+
+1413863492 d:\programming\git\novaengine\include\svertex.h
+	"NTypes.h"
+	"NExTypes.h"
+
+1427943440 d:\programming\git\novaengine\include\ivertexbuffer.h
+	"NTypes.h"
+	"Resource.h"
+	"SVertex.h"
+	"SPrimitive.h"
+	"ERendererEnums.h"
+
+1427080823 d:\programming\git\novaengine\include\resource.h
+	"Object.h"
+	"string.h"
+
+1418224257 d:\programming\git\novaengine\include\sprimitive.h
+	"NTypes.h"
+	"NExTypes.h"
+	"SVertex.h"
+
+1424896164 d:\programming\git\novaengine\include\ishaderprogram.h
+	"Object.h"
+	"NExTypes.h"
+
+1395066838 d:\programming\git\novaengine\include\iimage.h
+	"NExTypes.h"
+	"Resource.h"
+	"SPixelFormat.h"
+
+1411595245 d:\programming\git\novaengine\include\spixelformat.h
+	"NTypes.h"
+
+1406542328 d:\programming\git\novaengine\include\itexture.h
+	"NTypes.h"
+	"Resource.h"
+	"IImage.h"
+	"STextureParameters.h"
+
+1425923249 d:\programming\git\novaengine\include\stextureparameters.h
+	"NTypes.h"
+
+1427084300 d:\programming\git\novaengine\include\imaterial.h
+	"Resource.h"
+	"ITexture.h"
+
+1425915781 d:\programming\git\novaengine\include\ifilesystem.h
+	"Object.h"
+	"IFile.h"
+
+1427081085 d:\programming\git\novaengine\include\ifile.h
+	"Object.h"
+	"NTypes.h"
+
+1426439158 d:\programming\git\novaengine\include\iresourcemanager.h
+	"Object.h"
+	"IImage.h"
+	"ITexture.h"
+	"IImageLoader.h"
+	"IStaticMesh.h"
+	"IStaticMeshLoader.h"
+	"IAnimatedMesh.h"
+	"IAnimatedMeshLoader.h"
+	"IMaterial.h"
+	"IVertexBuffer.h"
+
+1425919456 d:\programming\git\novaengine\include\iimageloader.h
+	"Object.h"
+	"IFile.h"
+	"IImage.h"
+
+1426192815 d:\programming\git\novaengine\include\istaticmesh.h
+	"Object.h"
+	"Resource.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+
+1425919456 d:\programming\git\novaengine\include\istaticmeshloader.h
+	"IFile.h"
+	"IStaticMesh.h"
+
+1426192859 d:\programming\git\novaengine\include\ianimatedmesh.h
+	"IStaticMesh.h"
+
+1425919456 d:\programming\git\novaengine\include\ianimatedmeshloader.h
+	"Object.h"
+	"IFile.h"
+	"IAnimatedMesh.h"
+
+1426192374 d:\programming\git\novaengine\include\igeometrymanager.h
+	"Object.h"
+	"NTypes.h"
+
+1423087547 d:\programming\git\novaengine\include\iscenemanager.h
+	"Object.h"
+	"NTypes.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"ITexture.h"
+	"IStaticMesh.h"
+	"IScene.h"
+
+1419270483 d:\programming\git\novaengine\include\iscene.h
+	"NTypes.h"
+	"Object.h"
+
+1423082662 d:\programming\git\novaengine\include\iscenenode.h
+	<vector>
+	"Object.h"
+	"NTypes.h"
+	"ISceneManager.h"
+	"IScene.h"
+	"ISceneNodeAnimator.h"
+
+1419305132 d:\programming\git\novaengine\include\iscenenodeanimator.h
+	"NTypes.h"
+	"Object.h"
+	"ISceneNode.h"
+
+1408815990 d:\programming\git\novaengine\include\iscene2dnode.h
+	"Object.h"
+	"NTypes.h"
+	"ISceneNode.h"
+
+1423084919 d:\programming\git\novaengine\include\iscenecamera.h
+	"ISceneNode.h"
+	"NTypes.h"
+
+1411829804 d:\programming\git\novaengine\include\iscenesprite.h
+	"IScene2DNode.h"
+
+1423087499 d:\programming\git\novaengine\include\iscenestaticmesh.h
+	"ISceneNode.h"
+	"IStaticMesh.h"
+
+1429667105 d:\programming\git\novaengine\include\sengineconf.h
+	"NTypes.h"
+	"types/dim2.h"
+	"ERendererEnums.h"
+	"ILogger.h"
+
+1427943439 d:\programming\git\novaengine\src\renderer\cvertexbuffer.h
+	<vector>
+	"IVertexBuffer.h"
+
+1429667070 source:d:\programming\git\novaengine\src\cnovaengine.cpp
+	"CNovaEngine.h"
+	"window\CWin32Window.h"
+	"window\CAndroidWindow.h"
+	"opengl\COpenGLRenderer.h"
+	"opengles1/COpenGLES1Renderer.h"
+	"NLogger.h"
+	"CEventManager.h"
+	"CFileSystem.h"
+	"CResourceManager.h"
+	"CGeometryManager.h"
+	"CSceneManager.h"
+
+1429666714 d:\programming\git\novaengine\src\cnovaengine.h
+	"../version.h"
+	"INovaEngine.h"
+	"SEngineConf.h"
+	"IWindow.h"
+	"IRenderer.h"
+	"IEventManager.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+
+1425920560 d:\programming\git\novaengine\version.h
+
+1429524322 d:\programming\git\novaengine\src\window\cwin32window.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"SEngineConf.h"
+	"SEvent.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	<windows.h>
+
+1388399207 d:\programming\git\novaengine\src\ckeymap.h
+	<map>
+
+1429667050 d:\programming\git\novaengine\src\window\candroidwindow.h
+	"NTypes.h"
+	"IWindow.h"
+	"IEventManager.h"
+	"IEventListener.h"
+	"SEvent.h"
+	"SEngineConf.h"
+	"CKeyMap.h"
+	"EKeycodes.h"
+	"NLogger.h"
+	<jni.h>
+	<errno.h>
+	<android/sensor.h>
+	<android_native_app_glue.h>
+
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLogger.h"
+	"GL\glew.h"
+	<GL\gl.h>
+	<map>
+	"CBaseRenderer.h"
+	"opengl/COpenGLShaderProgram.h"
+	"opengl/COpenGLTexture.h"
+	"opengl/COpenGLVertexBuffer.h"
+	<windows.h>
+	"wglext.h"
+
+1419305923 d:\programming\git\novaengine\src\renderer\crendererperformancecounter.h
+	"NTypes.h"
+	"NTime.h"
+	"IRendererPerformanceCounter.h"
+
+1429667050 d:\programming\git\novaengine\src\time\ntime.h
+	<chrono>
+	<time.h>
+	<sys/time.h>
+	"NTypes.h"
+	"ITimer.h"
+	"NLogger.h"
+
+1419271009 d:\programming\git\novaengine\include\itimer.h
+	"Object.h"
+
+1414673464 d:\programming\git\novaengine\src\libs\glew\include\gl\glew.h
+	<stddef.h>
+	<intNTypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1429667050 d:\programming\git\novaengine\src\renderer\cbaserenderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"NLogger.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"renderer\CVertexBuffer.h"
+	<map>
+
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglshaderprogram.h
+	"NovaEngine.h"
+	"IShaderProgram.h"
+	"NLogger.h"
+	<GL\glew.h>
+
+1419313975 d:\programming\git\novaengine\src\renderer\opengl\copengltexture.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"ITexture.h"
+	"STextureParameters.h"
+	"renderer/opengl/COpenGLRenderer.h"
+	"renderer/CImage.h"
+	<GL/gl.h>
+
+1390989343 d:\programming\git\novaengine\src\renderer\cimage.h
+	"IImage.h"
+
+1429667050 d:\programming\git\novaengine\src\renderer\opengl\copenglvertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLogger.h"
+	"GL/glew.h"
+
+1389272102 d:\programming\git\novaengine\src\renderer\opengl\wglext.h
+	<windows.h>
+
+1429667050 d:\programming\git\novaengine\src\renderer\opengles1\copengles1renderer.h
+	"IWindow.h"
+	"IRenderer.h"
+	"SEngineConf.h"
+	"ERendererEnums.h"
+	"renderer\CRendererPerformanceCounter.h"
+	"log\NLogger.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<map>
+	<jni.h>
+	<errno.h>
+	<android_native_app_glue.h>
+	"CBaseRenderer.h"
+	"opengles1/COpenGLES1VertexBuffer.h"
+
+1429667050 d:\programming\git\novaengine\src\renderer\opengles1\copengles1vertexbuffer.h
+	"NovaEngine.h"
+	"IRenderer.h"
+	"CVertexBuffer.h"
+	"log/NLogger.h"
+	<EGL/egl.h>
+	<GLES/gl.h>
+
+1429667050 d:\programming\git\novaengine\src\filesystem\cfilesystem.h
+	"IFileSystem.h"
+	"CVirtualFile.h"
+	"CNativeFile.h"
+	"log/NLogger.h"
+	<stdio.h>
+
+1429667050 d:\programming\git\novaengine\src\filesystem\cvirtualfile.h
+	"IFile.h"
+	<malloc.h>
+	<cstring>
+	<memory.h>
+	"Log\NLogger.h"
+
+1429667050 d:\programming\git\novaengine\src\filesystem\cnativefile.h
+	"IFile.h"
+	<stdio.h>
+	"log\NLogger.h"
+
+1429667050 d:\programming\git\novaengine\src\resources\cresourcemanager.h
+	<vector>
+	"NTime.h"
+	"Log/NLogger.h"
+	"IFileSystem.h"
+	"IResourceManager.h"
+	<vector>
+
+1423081466 d:\programming\git\novaengine\src\scene\cscenemanager.h
+	"ISceneManager.h"
+	"IRenderer.h"
+	"CScene.h"
+
+1419270483 d:\programming\git\novaengine\src\scene\cscene.h
+	"IScene.h"
+	"ISceneManager.h"
+	"ISceneNode.h"
+	"ISceneCamera.h"
+	<vector>
+	<list>
+
+1427820815 source:d:\programming\git\novaengine\src\filesystem\cfilesystem.cpp
+	"CFileSystem.h"
+
+1413873353 source:d:\programming\git\novaengine\src\libs\glew\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1374187628 d:\programming\git\novaengine\src\libs\glew\include\gl\wglew.h
+	<windows.h>
+
+1374187628 d:\programming\git\novaengine\src\libs\glew\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1390552469 source:d:\programming\git\novaengine\src\libs\libpng\png.c
+	"pngpriv.h"
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pngpriv.h
+	<stdlib.h>
+	<string.h>
+	<config.h>
+	"pnglibconf.h"
+	"pngprefix.h"
+	"pngusr.h"
+	"png.h"
+	<float.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<windows.h>
+	"pngstruct.h"
+	"pnginfo.h"
+	"pngdebug.h"
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pnglibconf.h
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\png.h
+	"pnglibconf.h"
+	"pngconf.h"
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pngconf.h
+	<limits.h>
+	<stddef.h>
+	<stdio.h>
+	<setjmp.h>
+	<time.h>
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pngstruct.h
+	"zlib.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\zlib.h
+	"zconf.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\zconf.h
+	<windows.h>
+	<limits.h>
+	<sys/types.h>
+	<stddef.h>
+	<unistd.h>
+	<unixio.h>
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pnginfo.h
+
+1390552470 d:\programming\git\novaengine\src\libs\libpng\pngdebug.h
+	<crtdbg.h>
+	<stdio.h>
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngerror.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngget.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngmem.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngpread.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngread.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngrio.c
+	"pngpriv.h"
+
+1413311924 source:d:\programming\git\novaengine\src\libs\libpng\pngrtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngrutil.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngset.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngtrans.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngwio.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngwrite.c
+	"pngpriv.h"
+	<errno.h>
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngwtran.c
+	"pngpriv.h"
+
+1390552470 source:d:\programming\git\novaengine\src\libs\libpng\pngwutil.c
+	"pngpriv.h"
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\adler32.c
+	"zutil.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\compress.c
+	"zlib.h"
+
+1411907620 source:d:\programming\git\novaengine\src\libs\zlib\crc32.c
+	<stdio.h>
+	"zutil.h"
+	"crc32.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\crc32.h
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\deflate.c
+	"deflate.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\deflate.h
+	"zutil.h"
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\gzclose.c
+	"gzguts.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<stddef.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\gzlib.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\gzread.c
+	"gzguts.h"
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\inftrees.h
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\inflate.h
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\inffast.h
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\inffixed.h
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1390552472 d:\programming\git\novaengine\src\libs\zlib\trees.h
+
+1390552472 source:d:\programming\git\novaengine\src\libs\zlib\uncompr.c
+	"zlib.h"
+
+1411908025 source:d:\programming\git\novaengine\src\libs\zlib\zutil.c
+	"zutil.h"
+	"gzguts.h"
+
+1427921520 source:d:\programming\git\novaengine\src\log\nlog.cpp
+	"NLog.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<wchar.h>
+	<android/log.h>
+
+1429667015 source:d:\programming\git\novaengine\src\novaengine.cpp
+	"NovaEngine.h"
+	"CNovaEngine.h"
+	"NLogger.h"
+	"CompileConfig.h"
+	"IWindow.h"
+	"IRenderer.h"
+
+1429659960 d:\programming\git\novaengine\src\compileconfig.h
+
+1429667050 source:d:\programming\git\novaengine\src\renderer\canimatedmesh.cpp
+	"CAnimatedMesh.h"
+	<assert.h>
+
+1426192965 d:\programming\git\novaengine\src\renderer\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1427913525 source:d:\programming\git\novaengine\src\renderer\cbaserenderer.cpp
+	"CBaseRenderer.h"
+
+1427085025 source:d:\programming\git\novaengine\src\renderer\cimage.cpp
+	"CImage.h"
+
+1415303948 source:d:\programming\git\novaengine\src\renderer\crendererperformancecounter.cpp
+	"CRendererPerformanceCounter.h"
+
+1426194040 source:d:\programming\git\novaengine\src\renderer\cstaticmesh.cpp
+	"CStaticMesh.h"
+
+1426192815 d:\programming\git\novaengine\src\renderer\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1429666171 source:d:\programming\git\novaengine\src\renderer\opengl\copenglrenderer.cpp
+	"COpenGLRenderer.h"
+
+1427820815 source:d:\programming\git\novaengine\src\renderer\opengl\copenglshaderprogram.cpp
+	"COpenGLShaderProgram.h"
+
+1422993906 source:d:\programming\git\novaengine\src\renderer\opengl\copengltexture.cpp
+	"COpenGLTexture.h"
+
+1427943615 source:d:\programming\git\novaengine\src\renderer\opengl\copenglvertexbuffer.cpp
+	"COpenGLVertexBuffer.h"
+
+1429524446 source:d:\programming\git\novaengine\src\renderer\opengles1\copengles1renderer.cpp
+	"COpenGLES1Renderer.h"
+
+1429524482 source:d:\programming\git\novaengine\src\renderer\opengles1\copengles1vertexbuffer.cpp
+	"COpenGLES1VertexBuffer.h"
+
+1429659960 source:d:\programming\git\novaengine\src\resources\cresourcemanager.cpp
+	"CResourceManager.h"
+	"CompileConfig.h"
+	"loaders\\CImagePNGLoader.h"
+	"loaders\\CStaticMeshLoader_OBJ.h"
+	"NovaEngine.h"
+	"renderer\\CImage.h"
+	"renderer\\CStaticMesh.h"
+	"renderer\\CAnimatedMesh.h"
+	"renderer\\CMaterial.h"
+
+1429667050 d:\programming\git\novaengine\src\resources\loaders\\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLogger.h"
+	<cstring>
+
+1429667050 d:\programming\git\novaengine\src\resources\loaders\\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLogger.h"
+	<vector>
+	<map>
+
+1390989343 d:\programming\git\novaengine\src\renderer\\cimage.h
+	"IImage.h"
+
+1426192815 d:\programming\git\novaengine\src\renderer\\cstaticmesh.h
+	"IStaticMesh.h"
+	"IVertexBuffer.h"
+	"IMaterial.h"
+	<vector>
+
+1426192965 d:\programming\git\novaengine\src\renderer\\canimatedmesh.h
+	"IAnimatedMesh.h"
+
+1419764728 d:\programming\git\novaengine\src\renderer\\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1427820815 source:d:\programming\git\novaengine\src\resources\loaders\cimagepngloader.cpp
+	"CompileConfig.h"
+	"CImagePNGLoader.h"
+	"renderer/CImage.h"
+	"png.h"
+
+1429667050 d:\programming\git\novaengine\src\resources\loaders\cimagepngloader.h
+	"CompileConfig.h"
+	"IImageLoader.h"
+	"IFileSystem.h"
+	"IFile.h"
+	"log/NLogger.h"
+	<cstring>
+
+1427828685 source:d:\programming\git\novaengine\src\resources\loaders\cstaticmeshloader_obj.cpp
+	"CStaticMeshLoader_OBJ.h"
+	"CStaticMesh.h"
+	"CVertexBuffer.h"
+	<stdio.h>
+
+1429667050 d:\programming\git\novaengine\src\resources\loaders\cstaticmeshloader_obj.h
+	"IFileSystem.h"
+	"IStaticMeshLoader.h"
+	"IResourceManager.h"
+	"log/NLogger.h"
+	<vector>
+	<map>
+
+1423087739 source:d:\programming\git\novaengine\src\scene\cscene.cpp
+	"CScene.h"
+
+1423081466 source:d:\programming\git\novaengine\src\scene\cscenemanager.cpp
+	"CSceneManager.h"
+	"nodes\CSceneEmptyNode.h"
+	"nodes\CSceneCamera.h"
+	"nodes\CSceneSprite.h"
+	"nodes\CSceneStaticMesh.h"
+
+1423082905 d:\programming\git\novaengine\src\scene\nodes\csceneemptynode.h
+	"ISceneNode.h"
+
+1429667050 d:\programming\git\novaengine\src\scene\nodes\cscenecamera.h
+	"NTypes.h"
+	"ISceneCamera.h"
+	"NLogger.h"
+
+1423082825 d:\programming\git\novaengine\src\scene\nodes\cscenesprite.h
+	"ISceneManager.h"
+	"ISceneSprite.h"
+
+1429667050 d:\programming\git\novaengine\src\scene\nodes\cscenestaticmesh.h
+	"ISceneStaticMesh.h"
+	"log/NLogger.h"
+
+1427941675 source:d:\programming\git\novaengine\src\window\candroidwindow.cpp
+	"CAndroidWindow.h"
+	<map>
+
+1429667050 source:d:\programming\git\novaengine\src\window\cwin32window.cpp
+	"CWin32Window.h"
+	"log\NLogger.h"
+	<map>
+
+1429666613 source:d:\programming\git\novaengine\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<cstdio>
+	<wchar.h>
+	<iostream>
+	<fstream>
+	<time.h>
+	<windows.h>
+	"Memorywatcher.h"
+	"NovaEngine.h"
+	"NTime.h"
+	"GL\glew.h"
+	<GL\gl.h>
+
+1420551956 d:\programming\git\novaengine\memorywatcher.h
+	<stdlib.h>
+	<memory>
+	<vector>
+
+1419764728 d:\programming\git\novaengine\src\renderer\cmaterial.h
+	"NovaEngine.h"
+	"NTypes.h"
+	"IMaterial.h"
+	"ITexture.h"
+	<map>
+
+1429666613 d:\programming\git\novaengine\include\ilogger.h
+	"NTypes.h"
+
+1429667006 source:d:\programming\git\novaengine\src\log\nlogger.cpp
+	"NLogger.h"
+	"NTypes.h"
+	<stdio.h>
+	<string.h>
+	<wchar.h>
+	<android/log.h>
+
+1429666943 d:\programming\git\novaengine\src\log\nlogger.h
+	"NTypes.h"
+	"ILogger.h"
+	<cstdarg>
+
