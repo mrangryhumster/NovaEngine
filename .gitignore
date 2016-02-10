@@ -227,3 +227,5 @@ res/
 *.dll
 *.exp
 *.lib
+
+gmon.out
