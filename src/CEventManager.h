@@ -6,6 +6,7 @@
 
 #include "NLogger.h"
 
+#include <algorithm>
 #include <vector>
 
 namespace novaengine
@@ -17,7 +18,7 @@ public:
     CEventManager();
     virtual ~CEventManager();
 
-    bool OnEvent(SEvent event);
+    bool pushEvent(SEvent event);
 
     void registerEventListener(IEventListener* proc);
     void unregisterEventListener(IEventListener* proc);

@@ -6,7 +6,7 @@
 
 namespace novaengine
 {
-class IEventListener : public Object
+class IEventListener
 {
     public:
         virtual bool OnEvent(SEvent incoming_event) = 0;

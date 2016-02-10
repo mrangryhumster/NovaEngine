@@ -12,6 +12,7 @@ namespace novaengine
 class Object
 {
 public:
+
     /// \brief Default constructor
     /// Set ReferenceCounter in 1,ObjectName in "NotDefined"
     Object() :
@@ -43,7 +44,7 @@ public:
     /// \brief Increment referencecount
     inline void capture() const
     {
-        if(not ObjectFreeze)
+        if(!ObjectFreeze)
         {
             ReferenceCount++;
         }
@@ -52,7 +53,7 @@ public:
     /// Decrement referencecount and delete object if ReferenceCount < 1
     inline void release() const
     {
-        if(not ObjectFreeze)
+        if(!ObjectFreeze)
         {
             ReferenceCount--;
             if(ReferenceCount < 1)
@@ -64,7 +65,7 @@ public:
     /// \brief decrement referencecount (no delete if referencecount < 1)
     inline void release_next() const
     {
-        if(not ObjectFreeze)
+        if(!ObjectFreeze)
         {
             ReferenceCount--;
         }
@@ -104,7 +105,7 @@ public:
     /// \return 1 if this != NULL else 0
     inline int is_null() const
     {
-        if(not this)
+        if(!this)
             return 1;
         else
             return 0;

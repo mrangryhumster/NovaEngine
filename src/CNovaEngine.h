@@ -1,7 +1,7 @@
 #ifndef CNOVAENGINE_H
 #define CNOVAENGINE_H
 
-#include "../version.h"
+#include "version.h"
 #include "INovaEngine.h"
 #include "SEngineConf.h"
 #include "IWindow.h"

@@ -71,7 +71,7 @@ public:
         if(Flags & EVA_TANGENT)
             TangentAttribute   = SVertexAttribute(EVA_TANGENT ,NTYPE_f32,3);
         if(Flags & EVA_COLOR)
-            ColorAttribute     = SVertexAttribute(EVA_COLOR   ,NTYPE_u8 ,4);
+            ColorAttribute     = SVertexAttribute(EVA_COLOR   ,NTYPE_f32 ,4);
         if(Flags & EVA_TEXCOORD)
             TexCoordAttribute.push_back(SVertexAttribute(EVA_TEXCOORD,NTYPE_f32,2));
 
@@ -104,6 +104,7 @@ public:
             return CustomAttribute.size();
         }
     }
+
     const SVertexAttribute* getAttributeFormat(u32 attrib,u32 index = 0) const
     {
         switch(attrib)
@@ -132,7 +133,9 @@ public:
             if(index < CustomAttribute.size())
                 return &CustomAttribute[index];
             return nullptr;
-        }
+		default:
+			return nullptr;
+		}
     }
 
     u32 getVertexFormatType()

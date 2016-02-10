@@ -1,20 +1,20 @@
 #ifndef NOVAENGINE_H
 #define NOVAENGINE_H
 
+#include "CompileConfig.h"
 
-//Types
 #include "NTypes.h"
 #include "NMath.h"
 #include "NExTypes.h"
 
-#include "types/matrix.h"
-#include "types/quaternion.h"
-#include "types/vector2.h"
-#include "types/vector3.h"
-#include "types/color3.h"
-#include "types/color4.h"
-#include "types/dim2.h"
-#include "types/rect.h"
+#include "matrix.h"
+#include "quaternion.h"
+#include "vector2.h"
+#include "vector3.h"
+#include "color3.h"
+#include "color4.h"
+#include "dim2.h"
+#include "rect.h"
 
 #include "NMath.h"
 
@@ -28,7 +28,7 @@
 #include "IImage.h"
 #include "ITexture.h"
 #include "IMaterial.h"
-#include "IVertexBuffer.h"
+#include "IMeshBuffer.h"
 #include "IShaderProgram.h"
 #include "IRenderer.h"
 
@@ -63,25 +63,24 @@
 
 namespace novaengine
 {
-INovaEngine* createEngine();
-INovaEngine* createEngineEx(SEngineConf);
-void         closeEngine();
+	_NOVAENGINE_API INovaEngine* createEngine();
+	_NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf);
+	_NOVAENGINE_API void         closeEngine();
 
 
-INovaEngine*            getNovaEngine();
-
+_NOVAENGINE_API  INovaEngine*    getNovaEngine();
 
 namespace window
 {
-IWindow*        getWindow();
+_NOVAENGINE_API  IWindow*        getWindow();
 }
 namespace renderer
 {
-IRenderer*      getRenderer();
+_NOVAENGINE_API  IRenderer*      getRenderer();
 }
 namespace log
 {
-ILogger*           getLogger();
+_NOVAENGINE_API  ILogger*        getLogger();
 }
 
 

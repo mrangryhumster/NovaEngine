@@ -33,7 +33,7 @@ const f64 PI64 = 3.1415926535897932384626433832795028841971693993751; //MOAR PI!
 #endif // FLT_EPSILON
 
 #ifndef FLT_EPSILON
-const f32 FLT_EPSILON = 1E-5;
+const f64 FLT_EPSILON = 1E-5;
 #endif // FLT_EPSILON
 
 #ifdef DBL_EPSILON
@@ -83,7 +83,7 @@ inline f64 DegToRad(const f64 degrees)
     return DEGTORAD64 * degrees;
 }
 //-----------------------------
-inline bool is_equalf(const f32 val_1,const f32 val_2,const f32 epsilon = FLT_EPSILON)
+inline bool is_equalf(const f32 val_1,const f32 val_2,const f64 epsilon = FLT_EPSILON)
 {
     if(std::abs((double)val_1 - val_2) < epsilon)
         return true;

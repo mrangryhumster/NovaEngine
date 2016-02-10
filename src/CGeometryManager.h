@@ -7,6 +7,8 @@
 #include "INovaEngine.h"
 #include "IGeometryManager.h"
 
+#include "NLogger.h"
+
 
 namespace novaengine
 {

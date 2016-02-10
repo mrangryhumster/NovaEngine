@@ -47,6 +47,7 @@ enum E_RENDER_STATE
     ERS_FOG_START_DISTANCE         ,
     ERS_FOG_END_DISTANCE           ,
     ERS_FOG_DENSITY                ,
+    ERS_FOG_COLOR                  ,
     ERS_LINE_WIDTH                 ,
     ERS_POINT_SIZE                 ,
     ERS_LAST_STATE                 ,
@@ -112,12 +113,27 @@ enum E_ATTRIB_TYPE
 //------------------------------------------
 enum E_RENDER_TARGET_TYPE
 {
-    ERTT_COLOR_BUFFER_1 = 0x1,
-    ERTT_COLOR_BUFFER_2 = 0x2,
-    ERTT_COLOR_BUFFER_3 = 0x3,
-    ERTT_COLOR_BUFFER_4 = 0x4,
-    ERTT_DEPTH_BUFFER   = 0x5,
-    ERTT_STENCIL_BUFFER = 0x6,
+	ERTT_COLOR_BUFFER_0		 =  1,
+    ERTT_COLOR_BUFFER_1		 =  2,
+    ERTT_COLOR_BUFFER_2		 =  3,
+    ERTT_COLOR_BUFFER_3		 =  4,
+    ERTT_COLOR_BUFFER_4		 =  5,
+	ERTT_COLOR_BUFFER_5		 =  6,
+	ERTT_COLOR_BUFFER_6		 =  7,
+	ERTT_COLOR_BUFFER_7		 =  8,
+	ERTT_COLOR_BUFFER_8		 =  9,
+	ERTT_COLOR_BUFFER_9		 = 10,
+	ERTT_COLOR_BUFFER_10	 = 11,
+	ERTT_COLOR_BUFFER_11	 = 12,
+	ERTT_COLOR_BUFFER_12	 = 13,
+	ERTT_COLOR_BUFFER_13	 = 14,
+	ERTT_COLOR_BUFFER_14     = 15,
+	ERTT_COLOR_BUFFER_15     = 16,
+	ERTT_COLOR_BUFFERS_COUNT = 16,
+
+
+    ERTT_DEPTH_BUFFER   = 64,
+    ERTT_STENCIL_BUFFER = 65,
 
 };
 
