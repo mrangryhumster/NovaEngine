@@ -160,7 +160,7 @@ int run()
     animator->setActive(true);
     animator->release();
 
-    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\..\\res\\ssao_mesh.obj");
+    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\res\\ssao_mesh.obj");
 
 
     //-------------------------------------------------------------------------------
