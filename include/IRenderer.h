@@ -74,9 +74,9 @@ public:
     virtual void setViewport(core::rectu) = 0;
     virtual core::rectu getViewport()     = 0;
     //--------------------------------------------------------------------------
-    virtual void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype) = 0;
+    virtual void  setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype) = 0;
     virtual const core::matrixf getTransform(E_MATRIX_TYPE mtype) = 0;
-    virtual void resetTransform(E_MATRIX_TYPE mtype) = 0;
+    virtual void  resetTransform(E_MATRIX_TYPE mtype) = 0;
     //--------------------------------------------------------------------------
     virtual IShaderProgram* GenShaderProgram() = 0;
     //--------------------------------------------------------------------------

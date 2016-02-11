@@ -23,7 +23,7 @@ public:
     matrix(bool skip_indetify = false)
     {
         if(!skip_indetify)
-            makeIndetify();
+            makeIdentify();
     }
     matrix(const matrix<T>& other)
     {
@@ -40,7 +40,7 @@ public:
 
     }
 
-    inline void makeIndetify()
+    inline void makeIdentify()
     {
         memset(native_matrix,0,16*sizeof(T));
         native_matrix[0]  = native_matrix[5] = native_matrix[10] = native_matrix[15] = 1;
@@ -233,7 +233,7 @@ public:
 
     inline matrix<T>& buildOrthographicProjectionMatrix(f32 left,f32 right,f32 top,f32 bottom,f32 znear,f32 zfar)
     {
-        makeIndetify();
+        makeIdentify();
         native_matrix[0]  = (T)  2 / (right - left);
         native_matrix[5]  = (T)  2 / (top - bottom);
         native_matrix[10] = (T) -2 / (zfar - znear);
@@ -246,7 +246,7 @@ public:
 
     inline matrix<T>& buildPerspectiveProjectionMatrix(f32 fov,f32 aspect,f32 znear,f32 zfar)
     {
-        makeIndetify();
+        makeIdentify();
         double right,left,top,bottom;
         double temp, temp2, temp3, temp4;
 
@@ -295,7 +295,7 @@ public:
         }
 
         //! --------
-        makeIndetify();
+        makeIdentify();
 
         vector3<T> XAxis,YAxis,ZAxis;
 

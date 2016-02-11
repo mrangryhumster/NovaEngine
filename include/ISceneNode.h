@@ -96,7 +96,7 @@ public:
     {
         if(update_transform)
         {
-            RelativeTransformation.makeIndetify();
+            RelativeTransformation.makeIdentify();
             RelativeTransformation.setTranslate(Position);
             RelativeTransformation.setRotationDegrees(Rotation);
             RelativeTransformation.setScale(Scale);
