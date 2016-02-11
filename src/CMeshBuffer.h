@@ -60,28 +60,29 @@ public:
     u32  getMappingHint();
 
 protected:
-    inline std::vector<u8>* getBuffer(u32& buffer)
-    {
-        switch(buffer)
-        {
-        case EVA_POSITION:
-            return &Positions;
-        case EVA_NORMAL:
-            return &Normals;
-        case EVA_BINORMAL:
-            return &Binormals;
-        case EVA_TANGENT:
-            return &Tangents;
-        case EVA_COLOR:
-            return &Colors;
-        case EVA_TEXCOORD:
-            return &TexCoords;
-        case EVA_CUSTOM:
-            return &CustomVerticles;
-        default:
-            return nullptr;
-        }
-    }
+
+	inline std::vector<u8>* getBuffer(const u32& buffer)
+	{
+		switch (buffer)
+		{
+		case EVA_POSITION:
+			return &Positions;
+		case EVA_NORMAL:
+			return &Normals;
+		case EVA_BINORMAL:
+			return &Binormals;
+		case EVA_TANGENT:
+			return &Tangents;
+		case EVA_COLOR:
+			return &Colors;
+		case EVA_TEXCOORD:
+			return &TexCoords;
+		case EVA_CUSTOM:
+			return &CustomVerticles;
+		default:
+			return nullptr;
+		}
+	}
 
     renderer::IMaterial* Material;
 

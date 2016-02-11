@@ -21,6 +21,9 @@ public:
     COpenGLMeshBuffer();
     virtual ~COpenGLMeshBuffer();
 	
+	u32 getVertexCount();
+	u32 getIndicesCount();
+
 	void bind_buffer();
 	void unbind_buffer();
 
@@ -31,6 +34,7 @@ public:
 
 private:
 
+	void clear_native_buffers();
 	void create_vbo();
 	void delete_vbo();
 	void build_vbo();

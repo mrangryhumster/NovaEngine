@@ -21,6 +21,20 @@ COpenGLMeshBuffer::~COpenGLMeshBuffer()
 		delete_vbo();
 }
 
+u32 COpenGLMeshBuffer::getVertexCount()
+{
+	if (CurrentMapping == EMBMH_DEFAULT)
+		return CMeshBuffer::getVertexCount();
+	return OpenGL_VBO_verticles_count;
+}
+
+u32 COpenGLMeshBuffer::getIndicesCount()
+{
+	if (CurrentMapping == EMBMH_DEFAULT)
+		return CMeshBuffer::getIndicesCount();
+	return OpenGL_VBO_indices_count;
+}
+
 void COpenGLMeshBuffer::update()
 {
 	UpdateRequired = false;
@@ -35,7 +49,6 @@ void COpenGLMeshBuffer::update()
 			if (GLEW_ARB_vertex_array_object)
 				build_vao();
 		}
-		return;
 		//--------------------------------------
 	}
 	else if ((CurrentMapping == EMBMH_DEFAULT) && (MappingHint != EMBMH_DEFAULT))
@@ -61,6 +74,10 @@ void COpenGLMeshBuffer::update()
 		CurrentMapping = MappingHint;
 	}
 
+	if ((CurrentMapping == EMBMH_VBO_STATIC) || (CurrentMapping == EMBMH_VBO_STREAM))
+	{
+		clear_native_buffers();
+	}
 }
 
 void COpenGLMeshBuffer::bind_buffer()
@@ -101,6 +118,28 @@ u32 COpenGLMeshBuffer::getBufferedVertexCount()
 u32 COpenGLMeshBuffer::getBufferedIndicesCount()
 {
 	return OpenGL_VBO_indices_count;
+}
+
+void COpenGLMeshBuffer::clear_native_buffers()
+{
+	Positions.clear();
+	Normals.clear();
+	Binormals.clear();
+	Tangents.clear();
+	Colors.clear();
+	TexCoords.clear();
+	CustomVerticles.clear();
+	Indices.clear();
+
+	Positions.shrink_to_fit();
+	Normals.shrink_to_fit();
+	Binormals.shrink_to_fit();
+	Tangents.shrink_to_fit();
+	Colors.shrink_to_fit();
+	TexCoords.shrink_to_fit();
+	CustomVerticles.shrink_to_fit();
+	Indices.shrink_to_fit();
+
 }
 
 void COpenGLMeshBuffer::create_vbo()
@@ -149,9 +188,14 @@ void COpenGLMeshBuffer::build_vbo()
 	if (VertexFormatFlags & EVA_TEXCOORD)
 		BufferSize += getBufferSize(EVA_TEXCOORD);
 
+	GLenum OpenGL_Buffer_Usage = GL_DYNAMIC_DRAW;
+
+	if (CurrentMapping == EMBMH_VBO_STATIC || CurrentMapping == EMBMH_VBO_STATIC_COPY)
+		OpenGL_Buffer_Usage = GL_STATIC_DRAW;
+
 
 	glBindBuffer(GL_ARRAY_BUFFER, OpenGL_VBO_verticles);
-	glBufferData(GL_ARRAY_BUFFER, BufferSize, 0, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, BufferSize, 0, OpenGL_Buffer_Usage);
 
 	u32 BufferInsertShift = 0;
 	if (VertexFormatFlags & EVA_POSITION)
@@ -180,7 +224,7 @@ void COpenGLMeshBuffer::build_vbo()
 	if (IndicesCount)
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, OpenGL_VBO_indices);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndicesBufferSize(), getIndicesBufferData(), GL_DYNAMIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndicesBufferSize(), getIndicesBufferData(), OpenGL_Buffer_Usage);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 

@@ -18,6 +18,8 @@
 #include "GL\glew.h"
 #include <GL\gl.h>
 
+#include "CMeshBuffer.h"
+
 using namespace std;
 using namespace novaengine;
 
@@ -160,7 +162,7 @@ int run()
     animator->setActive(true);
     animator->release();
 
-    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\res\\ssao_mesh.obj");
+    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\..\\res\\ssao_mesh.obj");
 
 
     //-------------------------------------------------------------------------------
@@ -178,6 +180,8 @@ int run()
     Shader->bindUniform_TextureUnit(Shader->getUniformLocation("depth_texture"),1);
 
 	Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STREAM);
+	
+	renderer::CMeshBuffer* cm = reinterpret_cast<renderer::CMeshBuffer*>(Mesh->getMeshBuffer(0));
 
     //-------------------------------------------------------------------------------
     u32 FPS = 0;
