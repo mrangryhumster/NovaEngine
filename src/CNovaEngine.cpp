@@ -47,7 +47,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     PerformanceCounter = new CPerformanceCounter();
 //------------------------------------------
 #if defined(NE_WINDOW_WIN32)
-    Window = new window::CWin32Window(engine_conf,EventManager);
+    Window = new window::CWin32Window(engine_conf,EventManager); //Создание окна для Windows
 #elif defined(NE_WINDOW_ANDROID)
     Window = nullptr; //!< Android support removed temporary due rewrites of window class(again)
     //Over and over
