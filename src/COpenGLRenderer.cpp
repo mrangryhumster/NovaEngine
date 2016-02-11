@@ -417,9 +417,6 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
-        if(ProjectionMatrix == mat)
-            return;
-        //--------------------------------------
         ProjectionMatrix = mat;
         glMatrixMode(GL_PROJECTION);
         glLoadMatrixf(ProjectionMatrix.getPointer());
@@ -429,26 +426,15 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     case EMT_MODEL:
         //--------------------------------------
         if(mtype == EMT_VIEW)
-        {
-            if(ViewMatrix == mat)
-                return;
             ViewMatrix  = mat;
-        }
         else
-        {
-            if(ModelMatrix == mat)
-                return;
             ModelMatrix = mat;
-        }
         //--------------------------------------
         glMatrixMode(GL_MODELVIEW);
         glLoadMatrixf((ViewMatrix * ModelMatrix).getPointer());
         //--------------------------------------
         break;
     case EMT_TEXTURE:
-        //--------------------------------------
-        if(TextureMatrix == mat)
-            return;
         //--------------------------------------
         TextureMatrix = mat;
         glMatrixMode(GL_TEXTURE);

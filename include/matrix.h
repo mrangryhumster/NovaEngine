@@ -222,9 +222,7 @@ public:
 
     inline matrix<T> operator*(const matrix<T> &other)
     {
-        matrix result;
-        result = multiply(*this,other);
-        return result;
+        return multiply(*this, other);
     }
 
     inline matrix<T>& operator*= (const matrix<T> &other)

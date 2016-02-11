@@ -232,18 +232,12 @@ public:
 
     inline vector3<T> operator * (const vector3 &other)
     {
-        T tx = x* other.x;
-        T ty = y* other.y;
-        T tz = z* other.z;
-        return vector3<T>(tx,ty,tz);
+        return vector3<T>(x * other.x, y * other.y, z * other.z);
     }
 
     inline vector3<T> operator * (const T value)
     {
-        T tx = x* value;
-        T ty = y* value;
-        T tz = z* value;
-        return vector3<T>(tx,ty,tz);
+        return vector3<T>(x * value, y * value, z * value);
     }
 
     inline vector3<T> operator /= (const vector3 &other)
@@ -264,18 +258,12 @@ public:
 
     inline vector3<T> operator / (const vector3 &other)
     {
-        T tx = x/ other.x;
-        T ty = y/ other.y;
-        T tz = z/ other.z;
-        return vector3<T>(tx,ty,tz);
+        return vector3<T>(x / other.x, y / other.y, z / other.z);
     }
 
     inline vector3<T> operator / (const T value)
     {
-        T tx = x/ value;
-        T ty = y/ value;
-        T tz = z/ value;
-        return vector3<T>(tx,ty,tz);
+        return vector3<T>(x / value, y / value, z / value);
     }
 
     inline bool operator == (const vector3 &other ) const

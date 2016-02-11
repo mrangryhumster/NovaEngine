@@ -99,8 +99,6 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
-        if(ProjectionMatrix == mat)
-            return;
         ProjectionMatrix = mat;
         //--------------------------------------
         break;
@@ -108,24 +106,13 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     case EMT_MODEL:
         //--------------------------------------
         if(mtype == EMT_VIEW)
-        {
-            if(ViewMatrix == mat)
-                return;
             ViewMatrix  = mat;
-        }
         else
-
-        {
-            if(ModelMatrix == mat)
-                return;
             ModelMatrix = mat;
-        }
         //--------------------------------------
         break;
     case EMT_TEXTURE:
         //--------------------------------------
-        if(TextureMatrix == mat)
-            return;
         TextureMatrix = mat;
         //--------------------------------------
         break;
