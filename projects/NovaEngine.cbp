@@ -5,7 +5,7 @@
 		<Option title="NovaEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="include\Struct\;src\;debug\;include\S\;include\types\;include\Interfaces\;src\window\;include\Enum\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;include\I\scene\;src\scene\nodes\;include\I\scene\nodes\;include\C\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\resources\loaders\font\;src\gui\;include\;" />
+		<Option virtualFolders="include/Struct/;src/;debug/;include/S/;include/types/;include/Interfaces/;src/window/;include/Enum/;src/Log/;src/renderer/;src/renderer/mesh/;src/libs/;src/libs/glew/;src/renderer/opengl/;src/FileSystem/;src/libs/libpng/;src/libs/zlib/;src/scene/;include/I/scene/;src/scene/nodes/;include/I/scene/nodes/;include/C/;src/renderer/mesh/static/;src/renderer/mesh/animated/;src/window/win32/;src/window/android/;src/time/;src/resources/;src/resources/loaders/;src/resources/loaders/mesh/;src/resources/loaders/image/;src/resources/loaders/font/;src/gui/;include/;include/Interfaces/scene/nodes/;include/Interfaces/scene/;src/window/X11/;" />
 		<Build>
 			<Target title="Debug Win32 App">
 				<Option output="bin/DebugApp/NovaEngine" prefix_auto="1" extension_auto="1" />
@@ -83,6 +83,35 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="mingw32" />
+					<Add library="gdi32" />
+					<Add library="user32" />
+					<Add library="winmm" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+			<Target title="Debug X11 App">
+				<Option platforms="Unix;" />
+				<Option output="bin/DebugApp/NovaEngine" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../novaengine" />
+				<Option object_output="bin/obj/DebugApp/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_OPENGL_RENDERER" />
+					<Add option="-DNE_DEBUG" />
+					<Add directory="../src/scene/nodes" />
+					<Add directory="../include" />
+					<Add directory="../src" />
+					<Add directory="../src/resources/loaders" />
+					<Add directory="../src/gui" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg -lgmon" />
 					<Add library="mingw32" />
 					<Add library="gdi32" />
 					<Add library="user32" />
@@ -434,6 +463,12 @@
 		<Unit filename="../src/CWin32Window.h">
 			<Option virtualFolder="src/window/win32/" />
 		</Unit>
+		<Unit filename="../src/CX11Window.cpp">
+			<Option virtualFolder="src/window/X11/" />
+		</Unit>
+		<Unit filename="../src/CX11Window.h">
+			<Option virtualFolder="src/window/X11/" />
+		</Unit>
 		<Unit filename="../src/NLogger.cpp">
 			<Option virtualFolder="src/Log/" />
 		</Unit>
@@ -633,6 +668,7 @@
 		<Unit filename="../test/main.cpp">
 			<Option virtualFolder="debug/" />
 			<Option target="Debug Win32 App" />
+			<Option target="Debug X11 App" />
 		</Unit>
 		<Extensions>
 			<code_completion />
