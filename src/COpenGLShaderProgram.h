@@ -5,7 +5,7 @@
 
 #include "IShaderProgram.h"
 #include "NLogger.h"
-#include <GL\glew.h>
+#include <GL/glew.h>
 
 namespace novaengine
 {

@@ -9,8 +9,8 @@
 #include "NLogger.h"
 #include "NTime.h"
 
-#include "GL\glew.h"
-#include <GL\gl.h>
+#include "GL/glew.h"
+#include <GL/gl.h>
 #include <map>
 
 #include "CBaseRenderer.h"

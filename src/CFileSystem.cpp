@@ -3,7 +3,7 @@
 
 #if defined(_NE_WIN32_PLATFORM)
 #include <windows.h>
-#endif  
+#endif
 
 
 namespace novaengine
@@ -148,7 +148,7 @@ void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& Absolut
     delete[] buffer;
 #else
     //TODO write something
-#error "Missing code"
+//#error "Missing code"
 #endif
 
 }

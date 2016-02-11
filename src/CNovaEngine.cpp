@@ -53,6 +53,8 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     //Over and over
     //Over and over
     //I rewrite this piece of shiiiit...
+#elif defined(NE_WINDOW_X11)
+#error "Oops missing code"
 #else
 #error "No window system selected"
 #endif
