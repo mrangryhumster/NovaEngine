@@ -5,7 +5,7 @@
 		<Option title="NovaEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="include/Struct/;src/;debug/;include/S/;include/types/;include/Interfaces/;src/window/;include/Enum/;src/Log/;src/renderer/;src/renderer/mesh/;src/libs/;src/libs/glew/;src/renderer/opengl/;src/FileSystem/;src/libs/libpng/;src/libs/zlib/;src/scene/;include/I/scene/;src/scene/nodes/;include/I/scene/nodes/;include/C/;src/renderer/mesh/static/;src/renderer/mesh/animated/;src/window/win32/;src/window/android/;src/time/;src/resources/;src/resources/loaders/;src/resources/loaders/mesh/;src/resources/loaders/image/;src/resources/loaders/font/;src/gui/;include/;include/Interfaces/scene/nodes/;include/Interfaces/scene/;src/window/X11/;" />
+		<Option virtualFolders="include/Struct/;src/;debug/;include/types/;include/Interfaces/;src/window/;include/Enum/;src/Log/;src/renderer/;src/renderer/mesh/;src/libs/;src/libs/glew/;src/renderer/opengl/;src/FileSystem/;src/libs/libpng/;src/libs/zlib/;src/scene/;src/scene/nodes/;src/renderer/mesh/static/;src/renderer/mesh/animated/;src/window/win32/;src/window/android/;src/time/;src/resources/;src/resources/loaders/;src/resources/loaders/mesh/;src/resources/loaders/image/;src/resources/loaders/font/;src/gui/;include/;include/Interfaces/scene/nodes/;include/Interfaces/scene/;src/window/X11/;" />
 		<Build>
 			<Target title="Debug Win32 App">
 				<Option output="bin/DebugApp/NovaEngine" prefix_auto="1" extension_auto="1" />
