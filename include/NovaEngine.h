@@ -1,7 +1,6 @@
 #ifndef NOVAENGINE_H
 #define NOVAENGINE_H
 
-
 #include "CompileConfig.h"
 
 #include "NTypes.h"

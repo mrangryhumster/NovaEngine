@@ -40,22 +40,18 @@ else
 $(error "Platform '$(SYSTEM)' not supported")
 endif
 
-GLEW_PREFIX ?= /usr
 GLEW_DEST ?= /usr
 BINDIR    ?= $(GLEW_DEST)/bin
 LIBDIR    ?= $(GLEW_DEST)/lib
 INCDIR    ?= $(GLEW_DEST)/include/GL
 
-ifneq ($(GLEW_NO_GLU), -DGLEW_NO_GLU)
-LIBGLU = glu
-endif
+TARDIR = ../glew-$(GLEW_VERSION)
+TARBALL = ../glew-$(GLEW_VERSION).tar.gz
 
-DIST_NAME     ?= glew-$(GLEW_VERSION)
-DIST_SRC_ZIP ?= $(shell pwd)/$(DIST_NAME).zip
-DIST_SRC_TGZ ?= $(shell pwd)/$(DIST_NAME).tgz
-DIST_WIN32   ?= $(shell pwd)/$(DIST_NAME)-win32.zip
-
-DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
+DIST_DIR     = glew-$(GLEW_VERSION)
+DIST_WIN32   = glew-$(GLEW_VERSION)-win32.zip
+DIST_SRC_ZIP = glew-$(GLEW_VERSION).zip
+DIST_SRC_TGZ = glew-$(GLEW_VERSION).tgz
 
 # To disable stripping of binaries either:
 #   - use STRIP= on gmake command-line
@@ -65,13 +61,12 @@ DIST_DIR := $(shell mktemp -d /tmp/glew.XXXXXX)/$(DIST_NAME)
 #   - use LN= on gmake command-line
 
 AR      ?= ar
-ARFLAGS ?= cr
 INSTALL ?= install
 STRIP   ?= strip
 RM      ?= rm -f
 LN      ?= ln -sf
 
-ifneq (,$(filter debug,$(MAKECMDGOALS)))
+ifeq ($(MAKECMDGOALS), debug)
 OPT = -g
 else
 OPT = $(POPT)
@@ -105,11 +100,7 @@ lib:
 	mkdir lib
 
 lib/$(LIB.STATIC): $(LIB.OBJS)
-ifneq ($(AR),)
-	$(AR) $(ARFLAGS) $@ $^
-else ifneq ($(LIBTOOL),)
-	$(LIBTOOL) $@ $^
-endif
+	$(AR) cr $@ $^
 ifneq ($(STRIP),)
 	$(STRIP) -x $@
 endif
@@ -130,22 +121,17 @@ tmp/$(SYSTEM)/default/static/glew.o: src/glew.c include/GL/glew.h include/GL/wgl
 
 tmp/$(SYSTEM)/default/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_BUILD $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-# Force re-write of glew.pc, GLEW_DEST can vary
-
-.PHONY: glew.pc
+	$(CC) -DGLEW_NO_GLU $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
 glew.pc: glew.pc.in
 	sed \
-		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
+		-e "s|@prefix@|$(GLEW_DEST)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
 		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@||g" \
-		-e "s|@libname@|$(NAME)|g" \
-		-e "s|@requireslib@|$(LIBGLU)|g" \
+		-e "s|@libname@|GLEW|g" \
 		< $< > $@
 
 # GLEW MX static and shared libraries
@@ -153,14 +139,7 @@ glew.pc: glew.pc.in
 glew.lib.mx:  lib lib/$(LIB.SHARED.MX) lib/$(LIB.STATIC.MX) glewmx.pc
 
 lib/$(LIB.STATIC.MX): $(LIB.OBJS.MX)
-ifneq ($(AR),)
-	$(AR) $(ARFLAGS) $@ $^
-else ifneq ($(LIBTOOL),)
-	$(LIBTOOL) $@ $^
-endif
-ifneq ($(STRIP),)
-	$(STRIP) -x $@
-endif
+	$(AR) cr $@ $^
 
 lib/$(LIB.SHARED.MX): $(LIB.SOBJS.MX)
 	$(LD) $(LDFLAGS.SO.MX) -o $@ $^ $(LIB.LDFLAGS) $(LIB.LIBS)
@@ -178,22 +157,17 @@ tmp/$(SYSTEM)/mx/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h 
 
 tmp/$(SYSTEM)/mx/shared/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
 	@mkdir -p $(dir $@)
-	$(CC) -DGLEW_NO_GLU -DGLEW_MX -DGLEW_BUILD $(CFLAGS) $(CFLAGS.SO) -o $@ -c $<
-
-# Force re-write of glewmx.pc, GLEW_DEST can vary
-
-.PHONY: glewmx.pc
+	$(CC) -DGLEW_NO_GLU -DGLEW_MX $(CFLAGS) $(PICFLAG) $(CFLAGS.SO) -o $@ -c $<
 
 glewmx.pc: glew.pc.in
 	sed \
-		-e "s|@prefix@|$(GLEW_PREFIX)|g" \
+		-e "s|@prefix@|$(GLEW_DEST)|g" \
 		-e "s|@libdir@|$(LIBDIR)|g" \
 		-e "s|@exec_prefix@|$(BINDIR)|g" \
 		-e "s|@includedir@|$(INCDIR)|g" \
 		-e "s|@version@|$(GLEW_VERSION)|g" \
 		-e "s|@cflags@|-DGLEW_MX|g" \
-		-e "s|@libname@|$(NAME)mx|g" \
-		-e "s|@requireslib@|$(LIBGLU)|g" \
+		-e "s|@libname@|GLEWmx|g" \
 		< $< > $@
 
 # GLEW utility programs
@@ -210,13 +184,7 @@ VISUALINFO.BIN.SRC := src/visualinfo.c
 VISUALINFO.BIN.OBJ := $(addprefix tmp/$(SYSTEM)/default/shared/,$(notdir $(VISUALINFO.BIN.SRC)))
 VISUALINFO.BIN.OBJ := $(VISUALINFO.BIN.OBJ:.c=.o)
 
-# Don't build glewinfo or visualinfo for NaCL, yet.
-
-ifneq ($(filter nacl%,$(SYSTEM)),)
-glew.bin: glew.lib bin
-else
 glew.bin: glew.lib bin bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) 
-endif
 
 bin:
 	mkdir bin
@@ -250,81 +218,81 @@ install:     install.include install.lib install.pkgconfig
 install.mx:  install.include install.lib.mx install.pkgconfig.mx
 
 install.lib: glew.lib
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
+	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -m 0755 lib/$(LIB.SHARED) "$(DESTDIR)$(BINDIR)/"
+	$(INSTALL) -d -m 0755 $(BINDIR)
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED) $(BINDIR)/
 else
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED) $(LIBDIR)/
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)"
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.SONAME)
 endif
 
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK) $(LIBDIR)/
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)"
+	$(LN) $(LIB.SHARED) $(LIBDIR)/$(LIB.DEVLNK)
 endif
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC) $(LIBDIR)/
 
 install.lib.mx: glew.lib.mx
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
+	$(INSTALL) -d -m 0755 $(LIBDIR)
 # runtime
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(BINDIR)/"
+	$(INSTALL) -d -m 0755 $(BINDIR)
+	$(INSTALL) -m 0755 lib/$(LIB.SHARED.MX) $(BINDIR)/
 else
-	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.SHARED.MX) $(LIBDIR)/
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
+	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.SONAME.MX)
 endif
 # development files
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.DEVLNK.MX) $(LIBDIR)/
 endif
 ifneq ($(LN),)
-	$(LN) $(LIB.SHARED.MX) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
+	$(LN) $(LIB.SHARED.MX) $(LIBDIR)/$(LIB.DEVLNK.MX)
 endif
-	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) "$(DESTDIR)$(LIBDIR)/"
+	$(INSTALL) -m 0644 lib/$(LIB.STATIC.MX) $(LIBDIR)/
 
 install.bin: glew.bin
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(BINDIR)"
-	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) "$(DESTDIR)$(BINDIR)/"
+	$(INSTALL) -d -m 0755 $(BINDIR)
+	$(INSTALL) -s -m 0755 bin/$(GLEWINFO.BIN) bin/$(VISUALINFO.BIN) $(BINDIR)/
 
 install.include:
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(INCDIR)"
-	$(INSTALL) -m 0644 include/GL/wglew.h "$(DESTDIR)$(INCDIR)/"
-	$(INSTALL) -m 0644 include/GL/glew.h "$(DESTDIR)$(INCDIR)/"
-	$(INSTALL) -m 0644 include/GL/glxew.h "$(DESTDIR)$(INCDIR)/"
+	$(INSTALL) -d -m 0755 $(INCDIR)
+	$(INSTALL) -m 0644 include/GL/wglew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glew.h $(INCDIR)/
+	$(INSTALL) -m 0644 include/GL/glxew.h $(INCDIR)/
 
 install.pkgconfig: glew.pc
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
-	$(INSTALL) -m 0644 glew.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
+	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
+	$(INSTALL) -m 0644 glew.pc $(LIBDIR)/pkgconfig/
 
 install.pkgconfig.mx: glewmx.pc
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)"
-	$(INSTALL) -d -m 0755 "$(DESTDIR)$(LIBDIR)/pkgconfig"
-	$(INSTALL) -m 0644 glewmx.pc "$(DESTDIR)$(LIBDIR)/pkgconfig/"
+	$(INSTALL) -d -m 0755 $(LIBDIR)
+	$(INSTALL) -d -m 0755 $(LIBDIR)/pkgconfig
+	$(INSTALL) -m 0644 glewmx.pc $(LIBDIR)/pkgconfig/
 
 uninstall:
-	$(RM) "$(DESTDIR)$(INCDIR)/wglew.h"
-	$(RM) "$(DESTDIR)$(INCDIR)/glew.h"
-	$(RM) "$(DESTDIR)$(INCDIR)/glxew.h"
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK)" "$(DESTDIR)$(LIBDIR)/$(LIB.DEVLNK.MX)"
+	$(RM) $(INCDIR)/wglew.h
+	$(RM) $(INCDIR)/glew.h
+	$(RM) $(INCDIR)/glxew.h
+	$(RM) $(LIBDIR)/$(LIB.DEVLNK) $(LIBDIR)/$(LIB.DEVLNK.MX)
 ifeq ($(filter-out mingw% cygwin,$(SYSTEM)),)
-	$(RM) "$(DESTDIR)$(BINDIR)/$(LIB.SHARED)" "$(DESTDIR)$(BINDIR)/$(LIB.SHARED.MX)"
+	$(RM) $(BINDIR)/$(LIB.SHARED) $(BINDIR)/$(LIB.SHARED.MX)
 else
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME)" "$(DESTDIR)$(LIBDIR)/$(LIB.SONAME.MX)"
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED)" "$(DESTDIR)$(LIBDIR)/$(LIB.SHARED.MX)"
+	$(RM) $(LIBDIR)/$(LIB.SONAME) $(LIBDIR)/$(LIB.SONAME.MX)
+	$(RM) $(LIBDIR)/$(LIB.SHARED) $(LIBDIR)/$(LIB.SHARED.MX)
 endif
-	$(RM) "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC)" "$(DESTDIR)$(LIBDIR)/$(LIB.STATIC.MX)"
-	$(RM) "$(DESTDIR)$(BINDIR)/$(GLEWINFO.BIN)" "$(DESTDIR)$(BINDIR)/$(VISUALINFO.BIN)"
+	$(RM) $(LIBDIR)/$(LIB.STATIC) $(LIBDIR)/$(LIB.STATIC.MX)
+	$(RM) $(BINDIR)/$(GLEWINFO.BIN) $(BINDIR)/$(VISUALINFO.BIN)
 
 clean:
 	$(RM) -r tmp/
@@ -339,81 +307,84 @@ distclean: clean
 # Distributions
 
 dist-win32:
-	$(RM) -r $(DIST_DIR)
-	mkdir -p $(DIST_DIR)
-	cp -a include $(DIST_DIR)
-	cp -a doc $(DIST_DIR)
-	cp -a *.txt $(DIST_DIR)
-	cp -a bin $(DIST_DIR)
-	cp -a lib $(DIST_DIR)
-	$(RM) -f $(DIST_DIR)/bin/*/*/*.pdb $(DIST_DIR)/bin/*/*/*.exp
-	$(RM) -f $(DIST_DIR)/bin/*/*/glewinfo-*.exe $(DIST_DIR)/bin/*/*/visualinfo-*.exe 
-	$(RM) -f $(DIST_DIR)/lib/*/*/*.pdb $(DIST_DIR)/lib/*/*/*.exp
-	unix2dos $(DIST_DIR)/include/GL/*.h
-	unix2dos $(DIST_DIR)/doc/*.txt
-	unix2dos $(DIST_DIR)/doc/*.html
-	unix2dos $(DIST_DIR)/*.txt
-	rm -f $(DIST_WIN32)
-	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_WIN32) $(DIST_NAME)
-	$(RM) -r $(DIST_DIR)
+	$(RM) -r $(TARDIR)
+	mkdir -p $(TARDIR)
+	mkdir -p $(TARDIR)/bin
+	mkdir -p $(TARDIR)/lib
+	cp -a include $(TARDIR)
+	cp -a doc $(TARDIR)
+	cp -a *.txt $(TARDIR)
+	cp -a lib/glew32.lib     $(TARDIR)/lib
+	cp -a lib/glew32s.lib    $(TARDIR)/lib
+	cp -a lib/glew32mx.lib   $(TARDIR)/lib
+	cp -a lib/glew32mxs.lib  $(TARDIR)/lib
+	cp -a bin/glew32.dll     $(TARDIR)/bin
+	cp -a bin/glew32mx.dll   $(TARDIR)/bin
+	cp -a bin/glewinfo.exe   $(TARDIR)/bin
+	cp -a bin/visualinfo.exe $(TARDIR)/bin
+	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(TARDIR) -name .svn | xargs $(RM) -r
+	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
+	unix2dos $(TARDIR)/include/GL/*.h
+	unix2dos $(TARDIR)/doc/*.txt
+	unix2dos $(TARDIR)/doc/*.html
+	unix2dos $(TARDIR)/*.txt
+	rm -f ../$(DIST_WIN32)
+	cd .. && zip -rv9 $(DIST_WIN32) $(DIST_DIR)
 
 dist-src:
-	$(RM) -r $(DIST_DIR)
-	mkdir -p $(DIST_DIR)
-	mkdir -p $(DIST_DIR)/bin
-	mkdir -p $(DIST_DIR)/lib
-	cp -a auto $(DIST_DIR)
-	$(RM) -Rf $(DIST_DIR)/auto/registry
-	cp -a build $(DIST_DIR)
-	cp -a config $(DIST_DIR)
-	cp -a src $(DIST_DIR)
-	cp -a doc $(DIST_DIR)
-	cp -a include $(DIST_DIR)
-	cp -a *.txt $(DIST_DIR)
-	cp -a Makefile $(DIST_DIR)
-	cp -a glew.pc.in $(DIST_DIR)
-	find $(DIST_DIR) -name '*.o' | xargs $(RM) -r
-	find $(DIST_DIR) -name '*~' | xargs $(RM) -r
-	find $(DIST_DIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
-	find $(DIST_DIR) -name .svn | xargs $(RM) -r
-	find $(DIST_DIR) -name "*.patch" | xargs $(RM) -r
-	dos2unix $(DIST_DIR)/Makefile
-	dos2unix $(DIST_DIR)/auto/Makefile
-	dos2unix $(DIST_DIR)/config/*
-	unix2dos $(DIST_DIR)/auto/core/*
-	unix2dos $(DIST_DIR)/auto/extensions/*
-	find $(DIST_DIR) -name '*.h' | xargs unix2dos
-	find $(DIST_DIR) -name '*.c' | xargs unix2dos
-	find $(DIST_DIR) -name '*.txt' | xargs unix2dos
-	find $(DIST_DIR) -name '*.html' | xargs unix2dos
-	find $(DIST_DIR) -name '*.css' | xargs unix2dos
-	find $(DIST_DIR) -name '*.sh' | xargs unix2dos
-	find $(DIST_DIR) -name '*.pl' | xargs unix2dos
-	find $(DIST_DIR) -name 'Makefile' | xargs unix2dos
-	find $(DIST_DIR) -name '*.in' | xargs unix2dos
-	find $(DIST_DIR) -name '*.pm' | xargs unix2dos
-	find $(DIST_DIR) -name '*.rc' | xargs unix2dos
-	rm -f $(DIST_SRC_ZIP)
-	cd $(DIST_DIR)/.. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_NAME)
-	dos2unix $(DIST_DIR)/Makefile
-	dos2unix $(DIST_DIR)/auto/Makefile
-	dos2unix $(DIST_DIR)/config/*
-	dos2unix $(DIST_DIR)/auto/core/*
-	dos2unix $(DIST_DIR)/auto/extensions/*
-	find $(DIST_DIR) -name '*.h' | xargs dos2unix
-	find $(DIST_DIR) -name '*.c' | xargs dos2unix
-	find $(DIST_DIR) -name '*.txt' | xargs dos2unix
-	find $(DIST_DIR) -name '*.html' | xargs dos2unix
-	find $(DIST_DIR) -name '*.css' | xargs dos2unix
-	find $(DIST_DIR) -name '*.sh' | xargs dos2unix
-	find $(DIST_DIR) -name '*.pl' | xargs dos2unix
-	find $(DIST_DIR) -name 'Makefile' | xargs dos2unix
-	find $(DIST_DIR) -name '*.in' | xargs dos2unix
-	find $(DIST_DIR) -name '*.pm' | xargs dos2unix
-	find $(DIST_DIR) -name '*.rc' | xargs dos2unix
-	rm -f $(DIST_SRC_TGZ)
-	cd $(DIST_DIR)/.. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_NAME)
-	$(RM) -r $(DIST_DIR)
+	$(RM) -r $(TARDIR)
+	mkdir -p $(TARDIR)
+	mkdir -p $(TARDIR)/bin
+	mkdir -p $(TARDIR)/lib
+	cp -a auto $(TARDIR)
+	$(RM) -Rf $(TARDIR)/auto/registry
+	cp -a build $(TARDIR)
+	cp -a config $(TARDIR)
+	cp -a src $(TARDIR)
+	cp -a doc $(TARDIR)
+	cp -a include $(TARDIR)
+	cp -a *.txt $(TARDIR)
+	cp -a Makefile $(TARDIR)
+	cp -a glew.pc.in $(TARDIR)
+	find $(TARDIR) -name '*.o' | xargs $(RM) -r
+	find $(TARDIR) -name '*~' | xargs $(RM) -r
+	find $(TARDIR) -name CVS -o -name .cvsignore | xargs $(RM) -r
+	find $(TARDIR) -name .svn | xargs $(RM) -r
+	find $(TARDIR) -name "*.patch" | xargs $(RM) -r
+	unix2dos $(TARDIR)/Makefile
+	unix2dos $(TARDIR)/config/*
+	unix2dos $(TARDIR)/auto/core/*
+	unix2dos $(TARDIR)/auto/extensions/*
+	find $(TARDIR) -name '*.h' | xargs unix2dos
+	find $(TARDIR) -name '*.c' | xargs unix2dos
+	find $(TARDIR) -name '*.txt' | xargs unix2dos
+	find $(TARDIR) -name '*.html' | xargs unix2dos
+	find $(TARDIR) -name '*.css' | xargs unix2dos
+	find $(TARDIR) -name '*.sh' | xargs unix2dos
+	find $(TARDIR) -name '*.pl' | xargs unix2dos
+	find $(TARDIR) -name 'Makefile' | xargs unix2dos
+	find $(TARDIR) -name '*.in' | xargs unix2dos
+	find $(TARDIR) -name '*.pm' | xargs unix2dos
+	find $(TARDIR) -name '*.rc' | xargs unix2dos
+	rm -f ../$(DIST_SRC_ZIP)
+	cd .. && zip -rv9 $(DIST_SRC_ZIP) $(DIST_DIR)
+	dos2unix $(TARDIR)/Makefile
+	dos2unix $(TARDIR)/config/*
+	dos2unix $(TARDIR)/auto/core/*
+	dos2unix $(TARDIR)/auto/extensions/*
+	find $(TARDIR) -name '*.h' | xargs dos2unix
+	find $(TARDIR) -name '*.c' | xargs dos2unix
+	find $(TARDIR) -name '*.txt' | xargs dos2unix
+	find $(TARDIR) -name '*.html' | xargs dos2unix
+	find $(TARDIR) -name '*.css' | xargs dos2unix
+	find $(TARDIR) -name '*.sh' | xargs dos2unix
+	find $(TARDIR) -name '*.pl' | xargs dos2unix
+	find $(TARDIR) -name 'Makefile' | xargs dos2unix
+	find $(TARDIR) -name '*.in' | xargs dos2unix
+	find $(TARDIR) -name '*.pm' | xargs dos2unix
+	find $(TARDIR) -name '*.rc' | xargs dos2unix
+	cd .. && env GZIP=-9 tar cvzf $(DIST_SRC_TGZ) $(DIST_DIR)
 
 extensions:
 	$(MAKE) -C auto

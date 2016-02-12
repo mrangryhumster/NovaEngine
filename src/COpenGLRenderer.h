@@ -18,13 +18,9 @@
 #include "COpenGLTexture.h"
 #include "COpenGLMeshBuffer.h"
 
-#if defined(NE_WINDOW_WIN32)
+#ifdef NE_WINDOW_WIN32
 #include <windows.h>
 #include "wglext.h"
-#elif defined(NE_WINDOW_X11)
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#include <GL/glx.h>
 #endif // NE_WINDOW_WIN32
 
 

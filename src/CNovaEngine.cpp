@@ -1,12 +1,9 @@
 #include "CNovaEngine.h"
-
 //------------------------------------------------------
 #if     defined(NE_WINDOW_WIN32)
 #include "CWin32Window.h"
 #elif   defined(NE_WINDOW_ANDROID)
 #include "CAndroidWindow.h"
-#elif   defined(NE_WINDOW_X11)
-#include "CX11Window.h"
 #endif // NE_WINDOW_WIN32
 
 #if   defined(NE_OPENGL_RENDERER)
@@ -57,7 +54,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     //Over and over
     //I rewrite this piece of shiiiit...
 #elif defined(NE_WINDOW_X11)
-    Window = new window::CX11Window(engine_conf,EventManager);
+#error "Oops missing code"
 #else
 #error "No window system selected"
 #endif
