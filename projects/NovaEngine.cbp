@@ -101,7 +101,7 @@
 				<Compiler>
 					<Add option="-pg" />
 					<Add option="-g" />
-					<Add option="-DNE_WINDOW_WIN32" />
+					<Add option="-DNE_WINDOW_X11" />
 					<Add option="-DNE_OPENGL_RENDERER" />
 					<Add option="-DNE_DEBUG" />
 					<Add directory="../src/scene/nodes" />
@@ -111,13 +111,10 @@
 					<Add directory="../src/gui" />
 				</Compiler>
 				<Linker>
-					<Add option="-pg -lgmon" />
-					<Add library="mingw32" />
-					<Add library="gdi32" />
-					<Add library="user32" />
-					<Add library="winmm" />
-					<Add library="opengl32" />
-					<Add library="glu32" />
+					<Add option="-pg" />
+					<Add library="X11" />
+					<Add library="GL" />
+					<Add library="GLU" />
 				</Linker>
 			</Target>
 		</Build>
@@ -461,7 +458,7 @@
 			<Option virtualFolder="src/window/win32/" />
 		</Unit>
 		<Unit filename="../src/CWin32Window.h">
-			<Option virtualFolder="src/window/win32/" />
+			<Option virtualFolder="include/Interfaces/" />
 		</Unit>
 		<Unit filename="../src/CX11Window.cpp">
 			<Option virtualFolder="src/window/X11/" />

@@ -1,4 +1,5 @@
 //#include <vld.h>
+#define GLX_FEATURE 0x0000
 #include <stdlib.h>
 
 
@@ -8,15 +9,15 @@
 #include <iostream>
 #include <fstream>
 #include <time.h>
-#include <windows.h>
+//#include <windows.h>
 
 #include "NovaEngine.h"
-#include "MemoryWatcher.h"
+//#include "test/MemoryWatcher.h"
 
 #include "NTime.h"
 
-#include "GL\glew.h"
-#include <GL\gl.h>
+#include "GL/glew.h"
+#include <GL/gl.h>
 
 #include "CMeshBuffer.h"
 
@@ -134,11 +135,12 @@ const char* f_shader =
     "                + texture2D(depth_texture,AOSelector[7]).r"
     "                + texture2D(depth_texture,AOSelector[8]).r;"
     "    float _mod = 1.0 - (curr - (_avg / 9.0))*3;"
-	"    gl_FragData[0] = color * (clamp(_mod,0.9,1.1));"
+    "    gl_FragData[0] = color * (clamp(_mod,0.9,1.1));"
     "}";
 
 int run()
 {
+
 
     SEngineConf conf;
     conf.WindowSize = core::dim2u(1920,1080);
@@ -146,6 +148,12 @@ int run()
     conf.StartWindowHidden = false;
 
     novaengine::INovaEngine* Engine = novaengine::createEngineEx(conf);
+
+    if(Engine == nullptr)
+    {
+        printf("Fuck you, im out\n");
+        return 0xBAADF00D;
+    }
 
     scene::ISceneCamera* Camera = Engine->getSceneManager()->createSceneCamera();
     Camera->setPerspectiveProjectionMatrix(90.f,1920.f / 1080.f,1,1000);
@@ -179,9 +187,9 @@ int run()
     Shader->bindUniform_TextureUnit(Shader->getUniformLocation("color_texture"),0);
     Shader->bindUniform_TextureUnit(Shader->getUniformLocation("depth_texture"),1);
 
-	Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STREAM);
-	
-	renderer::CMeshBuffer* cm = reinterpret_cast<renderer::CMeshBuffer*>(Mesh->getMeshBuffer(0));
+    Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STREAM);
+
+    renderer::CMeshBuffer* cm = reinterpret_cast<renderer::CMeshBuffer*>(Mesh->getMeshBuffer(0));
 
     //-------------------------------------------------------------------------------
     u32 FPS = 0;
@@ -223,7 +231,7 @@ int run()
         Engine->getRenderer()->end_frame();
     }
     Mesh->release();
-	Shader->release();
+    Shader->release();
     closeEngine();
 
     return 0;
