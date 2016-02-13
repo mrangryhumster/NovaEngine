@@ -167,7 +167,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         versionname   =  reinterpret_cast<const char*>(glGetString(GL_VERSION));
         vendorname    =  reinterpret_cast<const char*>(glGetString(GL_VENDOR));
         renderername  =  reinterpret_cast<const char*>(glGetString(GL_RENDERER));
-        extensionlist =  reinterpret_cast<const char*>(glGetString(GL_FEATURE));
+        extensionlist =  reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS));
         //-------------------------------------------------------------------------
         LOG_INFO("Renderer type   : OpenGLRenderer\n");
         LOG_INFO("Renderer version: %s\n",versionname);
