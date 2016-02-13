@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NovaEngine", "NovaEngine_vs14.vcxproj", "{1F775AC9-C74E-4B82-AAF8-C082CE913390}"
 EndProject
@@ -9,23 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		DebugApp -O3|Win32 = DebugApp -O3|Win32
-		DebugApp|Win32 = DebugApp|Win32
-		DLL_Debug|Win32 = DLL_Debug|Win32
-		DLL_Release|Win32 = DLL_Release|Win32
-		ReleaseApp|Win32 = ReleaseApp|Win32
+		APP DEBUG|Win32 = APP DEBUG|Win32
+		DLL DEBUG|Win32 = DLL DEBUG|Win32
+		DLL RELEASE|Win32 = DLL RELEASE|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp -O3|Win32.ActiveCfg = DebugApp -O3|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp -O3|Win32.Build.0 = DebugApp -O3|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp|Win32.ActiveCfg = Debug|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DebugApp|Win32.Build.0 = Debug|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Debug|Win32.ActiveCfg = DLL Debug|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Debug|Win32.Build.0 = DLL Debug|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Release|Win32.ActiveCfg = DLL Release|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL_Release|Win32.Build.0 = DLL Release|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.ReleaseApp|Win32.ActiveCfg = Release|Win32
-		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.ReleaseApp|Win32.Build.0 = Release|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.APP DEBUG|Win32.ActiveCfg = APP Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.APP DEBUG|Win32.Build.0 = APP Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL DEBUG|Win32.ActiveCfg = DLL Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL DEBUG|Win32.Build.0 = DLL Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL RELEASE|Win32.ActiveCfg = APP Debug|Win32
+		{1F775AC9-C74E-4B82-AAF8-C082CE913390}.DLL RELEASE|Win32.Build.0 = APP Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
