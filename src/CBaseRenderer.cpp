@@ -139,7 +139,7 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::bindTexture(ITexture* Texture,u32 id)
 {
-    if(ActiveTexture[id] != Texture && id < EMTN_TEXTURE_COUNT)
+    if(id < EMTN_TEXTURE_COUNT && ActiveTexture[id] != Texture)
     {
         if(ActiveTexture[id])
             ActiveTexture[id]->release();

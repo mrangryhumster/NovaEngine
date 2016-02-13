@@ -29,6 +29,7 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     Renderer(nullptr),
     FileSystem(nullptr),
     ResourceManager(nullptr),
+	GeometryManager(nullptr),
     SceneManager(nullptr),
     PerformanceCounter(nullptr),
     noerror(true),

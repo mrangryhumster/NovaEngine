@@ -43,8 +43,6 @@ public:
     u16 name;
     u16 type;
     u16 size;
-
-    //u16 hint;
 };
 
 struct SVertexFormat
@@ -55,7 +53,20 @@ public:
         setFlags(Flags);
     }
 
-    u32  getFlags() const
+	SVertexFormat(const SVertexFormat& other)
+	{
+		AttributeFlags = other.AttributeFlags;
+
+		PositionsAttribute	= other.PositionsAttribute;
+		NormalAttribute		= other.NormalAttribute;
+		BinormalAttribute	= other.BinormalAttribute;
+		TangentAttribute	= other.TangentAttribute;
+		ColorAttribute		= other.ColorAttribute;
+		TexCoordAttribute   = other.TexCoordAttribute;
+		CustomAttribute     = other.CustomAttribute;
+	}
+
+    const u32&  getFlags() const
     {
         return AttributeFlags;
     }
@@ -143,7 +154,7 @@ public:
         return EVF_DEFAULT;
     }
 
-private:
+//private:
 
     u32 AttributeFlags;
 

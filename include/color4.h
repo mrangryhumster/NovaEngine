@@ -33,14 +33,6 @@ public:
         return *this;
     }
 
-    color4 invert()
-    {
-        r = 255 - r;
-        g = 255 - g;
-        b = 255 - b;
-        a = 255 - a;
-    }
-
     inline color4<T>& set(const T r_,const T g_,const T b_,const T a_)
     {
         r = r_;

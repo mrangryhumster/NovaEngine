@@ -122,7 +122,7 @@ u32 CMeshBuffer::getIndicesBufferType()
     return IndicesType;
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::setVertexFormat(SVertexFormat newFormat)
+void CMeshBuffer::setVertexFormat(const SVertexFormat& newFormat)
 {
     VertexFormat = newFormat;
 }

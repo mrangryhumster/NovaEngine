@@ -56,7 +56,7 @@ public:
     virtual void setIndicesBufferType(u32 type) = 0;
     virtual u32  getIndicesBufferType() = 0;
 
-    virtual void                 setVertexFormat(SVertexFormat newFormat) = 0;
+    virtual void                 setVertexFormat(const SVertexFormat& newFormat) = 0;
     virtual const SVertexFormat& getVertexFormat() = 0;
 
     virtual void setPrimitiveType(E_PRIMITIVE_TYPE) = 0;

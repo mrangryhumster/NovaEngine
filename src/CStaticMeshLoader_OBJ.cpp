@@ -153,7 +153,8 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
             //!identify index format
             int index_format = 0;
-            for(u32 i = 0; i < strlen(tok); i++)
+			size_t strl = strlen(tok);
+            for(u32 i = 0; i < strl; i++)
             {
                 if(tok[i] == '/' && tok[i+1] == '/')
                 {

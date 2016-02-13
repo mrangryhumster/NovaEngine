@@ -68,7 +68,7 @@ public:
         z = tmp.z;
         w = tmp.w;
 
-        return tmp;
+        return *this;
     }
 
 

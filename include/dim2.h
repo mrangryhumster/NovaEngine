@@ -33,6 +33,7 @@ public:
         dim2<T> result;
         width *= other.width;
         height *= other.height;
+		return this;
     }
 
     bool operator == (const dim2<T> &other ) const

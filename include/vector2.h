@@ -119,8 +119,8 @@ public:
 
     inline vector2<T> operator= (const T other)
     {
-        x = x;
-        y = y;
+        x = other.x;
+        y = other.y;
         return *this;
     }
 

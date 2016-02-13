@@ -101,16 +101,6 @@ public:
         return ObjectName;
     }
 
-    /// \brief Get object state
-    /// \return 1 if this != NULL else 0
-    inline int is_null() const
-    {
-        if(!this)
-            return 1;
-        else
-            return 0;
-    }
-
 protected:
     Object(Object&){};
     mutable bool ObjectFreeze;

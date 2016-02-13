@@ -405,6 +405,7 @@ public:
         rotation *= math::DEGTORAD64;
         vector3<T> vec3d = vector3f(rotation.x,rotation.y,0);
         setRotationRadians(vec3d);
+		return *this;
     }
 
     inline void setScale(vector2<T> scale)

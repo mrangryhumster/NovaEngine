@@ -186,13 +186,13 @@ void COpenGLShaderProgram::shader_log(GLuint source)
 {
     int   LogLen   = 0;
     int   Len      = 0;
-    char *Log;
+    
 
     glGetShaderiv(source, GL_INFO_LOG_LENGTH, &LogLen);
 
     if(LogLen > 1)
     {
-        Log = new char[LogLen];
+        char* Log = new char[LogLen];
         glGetShaderInfoLog(source, LogLen, &Len, Log);
         LOG_ERROR("Shaders log : %s\n",Log);
         delete[] Log;

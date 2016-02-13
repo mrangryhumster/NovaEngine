@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <vector>
 #include "IMeshBuffer.h"
+#include "NLogger.h"
 
 namespace novaengine
 {
@@ -39,7 +40,7 @@ public:
     void   setIndicesBufferType(u32 type);
     u32    getIndicesBufferType();
     //---------------------------------------------------------------------------
-    void                  setVertexFormat(SVertexFormat newFormat);
+    void                  setVertexFormat(const SVertexFormat& newFormat);
 	const SVertexFormat&  getVertexFormat();
 
     u32  getPrimitiveType();

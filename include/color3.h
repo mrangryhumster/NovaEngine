@@ -32,12 +32,6 @@ public:
         return *this;
     }
 
-    color3 invert()
-    {
-        Red   = 255 - Red;
-        Green = 255 - Green;
-        Blue  = 255 - Blue;
-    }
 
     T Red;
     T Green;
