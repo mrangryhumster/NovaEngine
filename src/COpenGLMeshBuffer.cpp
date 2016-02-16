@@ -1,5 +1,9 @@
 #include "COpenGLMeshBuffer.h"
 
+//warning undef GLEW_ARB_vertex_array_object
+#undef GLEW_ARB_vertex_array_object
+#define GLEW_ARB_vertex_array_object 0
+
 namespace novaengine
 {
 namespace renderer
@@ -11,6 +15,7 @@ COpenGLMeshBuffer::COpenGLMeshBuffer():
 	OpenGL_VBO_indices(0),
 	OpenGL_VBO_indices_count(0),
 	OpenGL_VAO(0)
+
 {
 
 }
@@ -33,6 +38,32 @@ u32 COpenGLMeshBuffer::getIndicesCount()
 	if (CurrentMapping == EMBMH_DEFAULT)
 		return CMeshBuffer::getIndicesCount();
 	return OpenGL_VBO_indices_count;
+}
+
+size_t COpenGLMeshBuffer::getBufferSize(u32 buffer)
+{
+	if (CurrentMapping == EMBMH_DEFAULT)
+		return CMeshBuffer::getBufferSize(buffer);
+	
+	switch (buffer)
+	{
+	case EVA_POSITION:
+		return VBO_buffer_positions_size;
+	case EVA_NORMAL:
+		return VBO_buffer_normals_size;
+	case EVA_BINORMAL:
+		return VBO_buffer_binormals_size;
+	case EVA_TANGENT:
+		return VBO_buffer_tangents_size;
+	case EVA_COLOR:
+		return VBO_buffer_colors_size;
+	case EVA_TEXCOORD:
+		return VBO_buffer_texcoords_size;
+	case EVA_CUSTOM:
+		return VBO_buffer_custom_size;
+	default: //in this case undefined behavior will begin =D
+		return 0;
+	}
 }
 
 void COpenGLMeshBuffer::update()
@@ -110,12 +141,12 @@ void COpenGLMeshBuffer::unbind_buffer()
 	}
 }
 
-u32 COpenGLMeshBuffer::getBufferedVertexCount()
+const u32& COpenGLMeshBuffer::getBufferedVertexCount()
 {
 	return OpenGL_VBO_verticles_count;
 }
 
-u32 COpenGLMeshBuffer::getBufferedIndicesCount()
+const u32& COpenGLMeshBuffer::getBufferedIndicesCount()
 {
 	return OpenGL_VBO_indices_count;
 }
@@ -201,25 +232,24 @@ void COpenGLMeshBuffer::build_vbo()
 	if (VertexFormatFlags & EVA_POSITION)
 	{
 		glBufferSubData(GL_ARRAY_BUFFER, BufferInsertShift, getBufferSize(EVA_POSITION), getBufferData(EVA_POSITION));
-		BufferInsertShift += getBufferSize(EVA_POSITION);
+		BufferInsertShift += (VBO_buffer_positions_size = getBufferSize(EVA_POSITION));
 	}
 	if (VertexFormatFlags & EVA_NORMAL)
 	{
 		glBufferSubData(GL_ARRAY_BUFFER, BufferInsertShift, getBufferSize(EVA_NORMAL), getBufferData(EVA_NORMAL));
-		BufferInsertShift += getBufferSize(EVA_NORMAL);
+		BufferInsertShift += (VBO_buffer_normals_size = getBufferSize(EVA_NORMAL));
 	}
 	if (VertexFormatFlags & EVA_COLOR)
 	{
 		glBufferSubData(GL_ARRAY_BUFFER, BufferInsertShift, getBufferSize(EVA_COLOR), getBufferData(EVA_COLOR));
-		BufferInsertShift += getBufferSize(EVA_COLOR);
+		BufferInsertShift += (VBO_buffer_colors_size = getBufferSize(EVA_COLOR));
 	}
 	if (VertexFormatFlags & EVA_TEXCOORD)
 	{
 		glBufferSubData(GL_ARRAY_BUFFER, BufferInsertShift, getBufferSize(EVA_TEXCOORD), getBufferData(EVA_TEXCOORD));
-		BufferInsertShift += getBufferSize(EVA_TEXCOORD);
+		BufferInsertShift += (VBO_buffer_texcoords_size = getBufferSize(EVA_TEXCOORD));
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	if (IndicesCount)
 	{
@@ -227,6 +257,8 @@ void COpenGLMeshBuffer::build_vbo()
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndicesBufferSize(), getIndicesBufferData(), OpenGL_Buffer_Usage);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
 	OpenGL_VBO_verticles_count = VertexCount;
 	OpenGL_VBO_indices_count   = IndicesCount;
@@ -274,6 +306,7 @@ void COpenGLMeshBuffer::build_vao()
 		glTexCoordPointer(3, to_opengl_type(VertexFormat.getAttributeFormat(EVA_TEXCOORD)->type), 0, (void*)BufferShift);
 		BufferShift += getBufferSize(EVA_TEXCOORD);
 	}
+	glBindVertexArray(0);
 }
 
 u32 COpenGLMeshBuffer::to_opengl_type(u32 ne_type)

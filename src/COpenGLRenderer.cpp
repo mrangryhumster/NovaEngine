@@ -1,5 +1,10 @@
 #include "COpenGLRenderer.h"
 
+//warning undef GLEW_ARB_vertex_array_object
+#undef GLEW_ARB_vertex_array_object
+#define GLEW_ARB_vertex_array_object 0
+
+
 namespace novaengine
 {
 namespace renderer
@@ -783,12 +788,15 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 			const SVertexFormat& Format = MeshBuffer->getVertexFormat();
 			//------------------------------------------------------------
 			bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
+			bool have_normals   = (Format.getFlags() & EVA_NORMAL)   != 0;
 			bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD) != 0;
-			bool have_normals   = (Format.getFlags() & EVA_NORMAL) != 0;
-			bool have_colors    = (Format.getFlags() & EVA_COLOR) != 0;
+			bool have_colors    = (Format.getFlags() & EVA_COLOR)    != 0;
 
 			if (have_verticles == false)
 				return;
+
+			//!Enable/disable client states for drawing
+			enable_client_states(have_verticles, have_texcoords, have_normals, have_colors);
 
 			u32 BufferShift = 0;
 			if (have_verticles)
