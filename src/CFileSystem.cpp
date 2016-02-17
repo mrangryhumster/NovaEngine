@@ -148,7 +148,7 @@ void CFileSystem::getAbsolutePath(std::string& RelativePath,std::string& Absolut
     delete[] buffer;
 #else
     //TODO write something
-//#error "Missing code"
+	AbsolutePath = RelativePath;
 #endif
 
 }

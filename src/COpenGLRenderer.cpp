@@ -628,7 +628,7 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
 					target->capture();
 				RTT_color_buffers[target_type - 1] = target;
 
-				glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1), gl_texture, 0);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1),GL_TEXTURE_2D, gl_texture, 0);
 
 				std::vector<GLenum> RenderBuffers;
 				for (u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
@@ -639,7 +639,7 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
             }
             else if (target_type == ERTT_DEPTH_BUFFER)
             {
-				glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, gl_texture, 0);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D, gl_texture, 0);
             }
             else if (target_type == ERTT_STENCIL_BUFFER)
             {
