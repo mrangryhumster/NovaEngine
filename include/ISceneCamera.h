@@ -59,7 +59,7 @@ public:
     }
     virtual void updateLookAtMatrix()
     {
-        ViewMatrix.buildLookAtMatrix(getAbsolutePosition(),Target,UpVector);
+        ViewMatrix.buildLookAtMatrix(getAbsolutePosition(), Target, UpVector);
     }
     //------------------------------------------------------------------------------------
     virtual core::matrixf getProjectionMatrix()

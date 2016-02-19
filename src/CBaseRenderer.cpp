@@ -192,7 +192,6 @@ void CBaseRenderer::begin_frame(bool clear_color_buffer,bool clear_zbuffer,core:
         flags |= ECF_DEPTH_BUFFER;
 
     clear(flags,clear_color);
-
 }
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::end_frame()

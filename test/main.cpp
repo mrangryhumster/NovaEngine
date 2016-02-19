@@ -133,8 +133,8 @@ const char* f_shader =
     "                + texture2D(depth_texture,AOSelector[6]).r"
     "                + texture2D(depth_texture,AOSelector[7]).r"
     "                + texture2D(depth_texture,AOSelector[8]).r;"
-    "    float _mod = 1.0 - (curr - (_avg / 9.0))*3;"
-	"    gl_FragData[0] = color * (clamp(_mod,0.9,1.1));"
+    "    float _mod = 1.0 - (curr - (_avg / 9.0))*8;"
+	"    gl_FragData[0] = color * (clamp(_mod,0.5,1.5));"
     "}";
 
 int run()
@@ -148,7 +148,7 @@ int run()
     novaengine::INovaEngine* Engine = novaengine::createEngineEx(conf);
 
     scene::ISceneCamera* Camera = Engine->getSceneManager()->createSceneCamera();
-    Camera->setPerspectiveProjectionMatrix(90.f,1920.f / 1080.f,1,1000);
+    Camera->setPerspectiveProjectionMatrix(90.f,1920.f/1080.f,1,1000);
     Camera->RegisterNode();
     Camera->setActive();
     Camera->setPosition(core::vector3f(0,0,4));
@@ -162,9 +162,7 @@ int run()
     animator->setActive(true);
     animator->release();
 
-    renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\res\\ssao_mesh.obj");
-
-
+	renderer::IStaticMesh* Mesh = Engine->getResourceManager()->loadStaticMesh("..\\res\\ssao_mesh.obj");
     //-------------------------------------------------------------------------------
 
     renderer::ITexture* RTT_Color = Engine->getResourceManager()->createTexture(core::dim2u(1920,1080));
@@ -179,10 +177,6 @@ int run()
     Shader->bindUniform_TextureUnit(Shader->getUniformLocation("color_texture"),0);
     Shader->bindUniform_TextureUnit(Shader->getUniformLocation("depth_texture"),1);
 
-	Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STREAM);
-
-	renderer::CMeshBuffer* cm = reinterpret_cast<renderer::CMeshBuffer*>(Mesh->getMeshBuffer(0));
-
     //-------------------------------------------------------------------------------
     u32 FPS = 0;
 
@@ -195,17 +189,24 @@ int run()
         char buf[256];
         sprintf(buf,"%f %f %d %d\n",EPC->getFramesPerSecond(),EPC->getMilisecondsPerFrame(),EPC->getDrawCallsPerFrame(),EPC->getVerticesPerFrame());
         Engine->getWindow()->setTittle(buf);
-
+		
         Engine->getRenderer()->begin_frame(1,1,core::color4f(0.1f,0.1f,0.4f,1.f));
-        Engine->getSceneManager()->animateActiveScene(EPC->getMilisecondsPerFrame());
-        Camera->render();
-
+       
+		Engine->getSceneManager()->animateActiveScene(EPC->getMilisecondsPerFrame());
+        
+		Camera->render();
+		
+		
+		
         Engine->getRenderer()->bindShaderProgram(nullptr);
         Engine->getRenderer()->setRenderTarget(RTT_Color,renderer::ERTT_COLOR_BUFFER_0);
         Engine->getRenderer()->setRenderTarget(RTT_Depth,renderer::ERTT_DEPTH_BUFFER);
-        Engine->getRenderer()->setViewport(core::rectu(0,0,1920,1080));
+        
+		Engine->getRenderer()->setViewport(core::rectu(0,0,1920,1080));
         Engine->getRenderer()->clear(renderer::ECF_COLOR_BUFFER | renderer::ECF_DEPTH_BUFFER);
-        for(u32 i = 0; i < Mesh->getMeshBuffersCount(); i++)
+        
+		Engine->getRenderer()->bindTexture(nullptr, 0);
+		for(u32 i = 0; i < Mesh->getMeshBuffersCount(); i++)
         {
             if(Mesh->getMeshBuffer(i)->getMaterial())
                 Engine->getRenderer()->bindMaterial(Mesh->getMeshBuffer(i)->getMaterial());
@@ -215,7 +216,7 @@ int run()
         Engine->getRenderer()->bindShaderProgram(Shader);
         Engine->getRenderer()->setRenderTarget(0,0);
         Engine->getRenderer()->setViewport(core::rectu(0,0,1920,1080));
-        Engine->getRenderer()->clear(renderer::ECF_COLOR_BUFFER | renderer::ECF_DEPTH_BUFFER);
+        Engine->getRenderer()->clear(renderer::ECF_DEPTH_BUFFER);
 
         Engine->getRenderer()->bindTexture(RTT_Depth,1);
         Engine->getRenderer()->drawScreenQuad(RTT_Color);
