@@ -25,84 +25,84 @@ public:
     {};
 
 
-    vector2<T> set(const T _val)
+    inline vector2<T>& set(const T& _val)
     {
         x = _val;
         y = _val;
         return *this;
     }
 
-    vector2<T> set(const T _x,const T _y)
+    inline vector2<T>& set(const T& _x,const T& _y)
     {
         x = _x;
         y = _y;
         return *this;
     }
 
-    vector2<T> set(const vector2<T>& other)
+    inline vector2<T>& set(const vector2<T>& other)
     {
         x = other.x;
         y = other.y;
         return *this;
     }
 
-    vector2<T> add(const T _val)
+    inline vector2<T>& add(const T& _val)
     {
         x += _val;
         y += _val;
         return *this;
     }
 
-    vector2<T> add(const T _x,const T _y)
+    inline vector2<T>& add(const T& _x,const T& _y)
     {
         x += _x;
         y += _y;
         return *this;
     }
 
-    vector2<T> add(const vector2<T>& other)
+    inline vector2<T>& add(const vector2<T>& other)
     {
         x += other.x;
         y += other.y;
         return *this;
     }
 
-    vector2<T> mul(const T _val)
+    inline vector2<T>& mul(const T& _val)
     {
         x *= _val;
         y *= _val;
         return *this;
     }
 
-    vector2<T> mul(const T _x,const T _y)
+    inline vector2<T>& mul(const T& _x,const T& _y)
     {
         x *= _x;
         y *= _y;
         return *this;
     }
 
-    vector2<T> mul(const vector2<T>& other)
+    inline vector2<T>& mul(const vector2<T>& other)
     {
         x *= other.x;
         y *= other.y;
         return *this;
     }
 
-    vector2<T> div(const T _val)
+    inline vector2<T>& div(const T& _val)
     {
         x /= _val;
         y /= _val;
         return *this;
     }
 
-    vector2<T> div(const T _x,const T _y)
+    inline vector2<T>& div(const T& _x,const T& _y)
     {
         x /= _x;
         y /= _y;
         return *this;
     }
 
-    vector2<T> div(const vector2<T>& other)
+    inline vector2<T>& div(const vector2<T>& other)
     {
         x /= other.x;
         y /= other.y;
@@ -110,14 +110,14 @@ public:
     }
 
 
-    vector2<T> operator= (const vector2 &other)
+    inline vector2<T>& operator= (const vector2 &other)
     {
         x = other.x;
         y = other.y;
         return *this;
     }
 
-    inline vector2<T> operator= (const T other)
+    inline vector2<T>& operator= (const T& other)
     {
         x = other.x;
         y = other.y;

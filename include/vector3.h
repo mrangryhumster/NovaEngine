@@ -25,7 +25,7 @@ public:
     {};
 
 
-    inline vector3<T>& set(const T _val)
+    inline vector3<T>& set(const T& _val)
     {
         x = _val;
         y = _val;
@@ -34,7 +34,7 @@ public:
     }
 
 
-    inline vector3<T>& set(const T _x,const T _y,const T _z)
+    inline vector3<T>& set(const T& _x,const T& _y,const T& _z)
     {
         x = _x;
         y = _y;
@@ -50,7 +50,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& add(const T _val)
+    inline vector3<T>& add(const T& _val)
     {
         x+=_val;
         y+=_val;
@@ -58,7 +58,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& add(const T _x,const T _y,const T _z)
+    inline vector3<T>& add(const T& _x,const T& _y,const T& _z)
     {
         x += _x;
         y += _y;
@@ -74,7 +74,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& mul(const T _val)
+    inline vector3<T>& mul(const T& _val)
     {
         x *= _val;
         y *= _val;
@@ -82,7 +82,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& mul(const T _x,const T _y,const T _z)
+    inline vector3<T>& mul(const T& _x,const T& _y,const T& _z)
     {
         x *= _x;
         y *= _y;
@@ -98,7 +98,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& div(const T _val)
+    inline vector3<T>& div(const T& _val)
     {
         x /= _val;
         y /= _val;
@@ -106,7 +106,7 @@ public:
         return *this;
     }
 
-    inline vector3<T>& div(const T _x,const T _y,const T _z)
+    inline vector3<T>& div(const T& _x,const T& _y,const T& _z)
     {
         x /= _x;
         y /= _y;
@@ -132,7 +132,7 @@ public:
         return (x == other.x && y == other.y && z == other.z);
     }
 
-    inline vector3<T> operator= (const vector3 &other)
+    inline vector3<T>& operator= (const vector3 &other)
     {
         x = other.x;
         y = other.y;
@@ -140,7 +140,7 @@ public:
         return *this;
     }
 
-    inline vector3<T> operator= (const T other)
+    inline vector3<T>& operator= (const T& other)
     {
         x = other;
         y = other;
