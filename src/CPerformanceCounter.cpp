@@ -5,8 +5,8 @@ namespace novaengine
 {
 
 CPerformanceCounter::CPerformanceCounter():
-    FramesPerSecond(60),
-    MilisecondsPerFrame(16.6),
+    FramesPerSecond(0),
+    MilisecondsPerFrame(0),
     FramesCount(0),
     DeltaUpdate(time::getRealTime()),
     CounterUpdate(250),
