@@ -260,7 +260,7 @@ public:
         temp =  2.0 * znear;
         temp2 = right - left;
 
-        temp3 = -(top - bottom);
+        temp3 = (top - bottom);
         temp4 = zfar - znear;
 
         native_matrix[0]  = (T)(temp / temp2);
@@ -277,6 +277,8 @@ public:
 
     inline matrix<T>& buildLookAtMatrix(vector3<T> Position,vector3<T> Target,vector3<T> UpVector)
     {
+		//TODO: Check inverted dot product at native_matrix[14] = (T) ZAxis.dot_product(Position); 
+
         //! Temp fix
         if(Position == Target)
             Target.z--;
@@ -310,7 +312,7 @@ public:
 
         native_matrix[12] = (T)-XAxis.dot_product(Position);
         native_matrix[13] = (T)-YAxis.dot_product(Position);
-        native_matrix[14] = (T)-ZAxis.dot_product(Position);
+        native_matrix[14] = (T) ZAxis.dot_product(Position); 
         native_matrix[15] = 1;
 
         return *this;
