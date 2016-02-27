@@ -231,17 +231,19 @@ public:
         return *this;
     }
 
-    inline matrix<T>& buildOrthographicProjectionMatrix(f32 left,f32 right,f32 top,f32 bottom,f32 znear,f32 zfar)
+    inline matrix<T>& buildOrthographicProjectionMatrix(f32 left,f32 right,f32 bottom,f32 top,f32 znear,f32 zfar)
     {
         makeIdentify();
-        native_matrix[0]  = (T)  2 / (right - left);
+        
+		native_matrix[0]  = (T)  2 / (right - left);
         native_matrix[5]  = (T)  2 / (top - bottom);
         native_matrix[10] = (T) -2 / (zfar - znear);
+
         native_matrix[12] = (T) -((right + left) / (right - left));
         native_matrix[13] = (T) -((top + bottom) / (top - bottom));
         native_matrix[14] = (T) -((zfar + znear) / (zfar - znear));
-        native_matrix[15] = 1;
-        return *this;
+        
+		return *this;
     }
 
     inline matrix<T>& buildPerspectiveProjectionMatrix(f32 fov,f32 aspect,f32 znear,f32 zfar)
@@ -261,8 +263,6 @@ public:
         temp3 = -(top - bottom);
         temp4 = zfar - znear;
 
-
-
         native_matrix[0]  = (T)(temp / temp2);
         native_matrix[5]  = (T)(temp / temp3);
         native_matrix[8]  = (T)((right + left) / temp2);
@@ -277,49 +277,35 @@ public:
 
     inline matrix<T>& buildLookAtMatrix(vector3<T> Position,vector3<T> Target,vector3<T> UpVector)
     {
-        /*
-         zaxis = normal(At - Eye)
-         xaxis = normal(cross(Up, zaxis))
-         yaxis = cross(zaxis, xaxis)
-
-         xaxis.x           yaxis.x           zaxis.x          0
-         xaxis.y           yaxis.y           zaxis.y          0
-         xaxis.z           yaxis.z           zaxis.z          0
-        -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  l
-        */
-
         //! Temp fix
         if(Position == Target)
-        {
             Target.z--;
-        }
-
         //! --------
         makeIdentify();
 
         vector3<T> XAxis,YAxis,ZAxis;
 
-        ZAxis = Position-Target;
+        ZAxis = Target - Position;
         ZAxis.normalize();
 
-        XAxis = UpVector.cross_product(ZAxis);
+        XAxis = ZAxis.cross_product(UpVector);
         XAxis.normalize();
 
         YAxis = XAxis.cross_product(ZAxis);
 
-        native_matrix[0]  = (T)XAxis.x;
-        native_matrix[1]  = (T)YAxis.x;
-        native_matrix[2]  = (T)ZAxis.x;
+        native_matrix[0]  =  (T)XAxis.x;
+        native_matrix[1]  =  (T)YAxis.x;
+        native_matrix[2]  = -(T)ZAxis.x;
         native_matrix[3]  = 0;
 
-        native_matrix[4]  = (T)XAxis.y;
-        native_matrix[5]  = (T)YAxis.y;
-        native_matrix[6]  = (T)ZAxis.y;
+        native_matrix[4]  =  (T)XAxis.y;
+        native_matrix[5]  =  (T)YAxis.y;
+        native_matrix[6]  = -(T)ZAxis.y;
         native_matrix[7]  = 0;
 
-        native_matrix[8]  = (T)XAxis.z;
-        native_matrix[9]  = (T)YAxis.z;
-        native_matrix[10] = (T)ZAxis.z;
+        native_matrix[8]  =  (T)XAxis.z;
+        native_matrix[9]  =  (T)YAxis.z;
+        native_matrix[10] = -(T)ZAxis.z;
         native_matrix[11] = 0;
 
         native_matrix[12] = (T)-XAxis.dot_product(Position);

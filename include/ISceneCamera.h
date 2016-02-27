@@ -53,7 +53,7 @@ public:
     {
         ProjectionMatrix.buildPerspectiveProjectionMatrix(p_FOV,p_Aspect,p_zNear,p_zFar);
     }
-    virtual void setOrthographicProjectionMatrix(float p_Left = -1.f,float p_Right = 1.f,float p_Top = -1.f,float p_Bottom = 1.f,float p_zNear = -1.f,float p_zFar = 1.f)
+    virtual void setOrthographicProjectionMatrix(float p_Left = -1.f,float p_Right = 1.f,float p_Bottom = -1.f,float p_Top = 1.f,float p_zNear = -1.f,float p_zFar = 1.f)
     {
         ProjectionMatrix.buildOrthographicProjectionMatrix(p_Left,p_Right,p_Bottom,p_Top,p_zNear,p_zFar);
     }
