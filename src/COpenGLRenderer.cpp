@@ -19,7 +19,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
     LOG_ENGINE_DEBUG("COpenGLRenderer() begin\n");
     //---------------------------------------------------------------
     //preparing opengl context
-#ifdef NE_WINDOW_WIN32
+#if defined(NE_WINDOW_WIN32)
     LOG_ENGINE_DEBUG("Initializing opengl context for Win32Window\n");
     if(EngineConfiguration.ExternalWindowPointer == nullptr)
     {
@@ -149,7 +149,13 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         noerror = false;
         return;
     }
-#endif // NE_WINDOW_WIN32
+#else
+
+#ifndef __NE_MAKE_SOME_SHIT__
+	#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
+#endif
+
+#endif // 
 //---------------------------------------------------------------
 //common openglgl initialization
     if(noerror)
@@ -172,7 +178,6 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         versionname   =  reinterpret_cast<const char*>(glGetString(GL_VERSION));
         vendorname    =  reinterpret_cast<const char*>(glGetString(GL_VENDOR));
         renderername  =  reinterpret_cast<const char*>(glGetString(GL_RENDERER));
-        extensionlist =  reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS));
         //-------------------------------------------------------------------------
         LOG_INFO("Renderer type   : OpenGLRenderer\n");
         LOG_INFO("Renderer version: %s\n",versionname);
@@ -436,8 +441,9 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
             ModelMatrix = mat;
         //--------------------------------------
         glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf((ViewMatrix * ModelMatrix).getPointer());
-        //--------------------------------------
+		glLoadMatrixf(ViewMatrix.getPointer());
+		glMultMatrixf(ModelMatrix.getPointer());	
+		//--------------------------------------
         break;
     case EMT_TEXTURE:
         //--------------------------------------
@@ -521,6 +527,7 @@ IImage*   COpenGLRenderer::GenImage(ITexture* tx)
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 {
+	
     CBaseRenderer::bindTexture(Texture,id);
     switch(id)
     {
@@ -619,7 +626,6 @@ void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
             {
                 gl_texture = reinterpret_cast<COpenGLTexture*>(target)->getTexture();
             }
-
             if (target_type >= ERTT_COLOR_BUFFER_0 && target_type <= ERTT_COLOR_BUFFER_15)
             {
 				if (RTT_color_buffers[target_type - 1])

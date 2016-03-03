@@ -16,7 +16,6 @@ CBaseRenderer::CBaseRenderer(CPerformanceCounter* pc,window::IWindow* wnd,SEngin
     versionname(nullptr),
     vendorname(nullptr),
     renderername(nullptr),
-    extensionlist(nullptr),
     PerformanceCounter(pc),
     ActiveProgram(nullptr),
     ActiveMaterial(nullptr)
@@ -198,7 +197,7 @@ void CBaseRenderer::end_frame()
 {
     flush();
 }
-//-------------------------------a-------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)
 {
     drawIndexedPrimitiveList(NULL,0,verticles,VertexCount,PrimitiveType,VertexFormat);

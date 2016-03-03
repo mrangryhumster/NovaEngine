@@ -32,7 +32,7 @@ private:
     f32 MilisecondsPerFrame;
 
     u32 FramesCount;
-    u32 DeltaUpdate;
+    f32 DeltaUpdate;
     u32 CounterUpdate;
 
     //VPF/DCPF

@@ -71,7 +71,6 @@ protected:
     const char* versionname;
     const char* vendorname;
     const char* renderername;
-    const char* extensionlist;
     //------------------------
     core::rectu ViewportRect;
     core::dim2u ViewportSize;

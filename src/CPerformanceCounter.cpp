@@ -31,14 +31,14 @@ void CPerformanceCounter::register_frame()
 
     FramesCount++;
 
-    const u32 RealTime = time::getRealTime();
-    const u32 Time = RealTime - DeltaUpdate;
+    const f32 RealTime = time::getPerfTime();
+    const f32 Time = RealTime - DeltaUpdate;
 
     if(Time >= CounterUpdate)
     {
-        FramesPerSecond = (FramesCount/(f32)Time)*1000;
+		FramesPerSecond = ((f32)FramesCount/Time) * 1000.0f;
 
-        FramesCount=0;
+        FramesCount = 0;
         DeltaUpdate = RealTime;
         //---------------------
     }
