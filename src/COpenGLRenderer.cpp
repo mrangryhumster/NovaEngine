@@ -226,8 +226,6 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 
         memset(RendererClientStatesList,0,RCSL_STATES_COUNT);
         //---------------------------------------------------------------
-        active_framebuffer_object = 0;
-        //---------------------------------------------------------------
         ready = true;
     }
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
@@ -235,6 +233,8 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 //-----------------------------------------------------------------------------------------------
 COpenGLRenderer::~COpenGLRenderer()
 {
+	CBaseRenderer::__ClearCache();
+
 #ifdef NE_WINDOW_WIN32
     wglMakeCurrent(NULL, NULL);
     if(hRC && !wglDeleteContext(hRC))
@@ -496,17 +496,22 @@ void COpenGLRenderer::resetTransform(E_MATRIX_TYPE mtype)
     }
 }
 //-----------------------------------------------------------------------------------------------
-IShaderProgram* COpenGLRenderer::GenShaderProgram()
+IRenderTarget * COpenGLRenderer::createRenderTarget()
+{
+	return new COpenGLRenderTarget(this);
+}
+//-----------------------------------------------------------------------------------------------
+IShaderProgram* COpenGLRenderer::createShaderProgram()
 {
     return new COpenGLShaderProgram();
 }
 //-----------------------------------------------------------------------------------------------
-IMeshBuffer* COpenGLRenderer::GenMeshBuffer()
+IMeshBuffer* COpenGLRenderer::createMeshBuffer()
 {
     return new COpenGLMeshBuffer();
 }
 //-----------------------------------------------------------------------------------------------
-ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
+ITexture* COpenGLRenderer::createTexture(IImage* img,STextureParameters params)
 {
     if(!img)
         return NULL;
@@ -515,14 +520,6 @@ ITexture* COpenGLRenderer::GenTexture(IImage* img,STextureParameters params)
     COpenGLTexture* OpenGLTexture = new COpenGLTexture(this,img,params);
     LOG_INFO("Texture generated : tx_id:%d [%d ms]\n",OpenGLTexture->getTexture(),time::getRealTime() - time);
     return OpenGLTexture;
-}
-//-----------------------------------------------------------------------------------------------
-IImage*   COpenGLRenderer::GenImage(ITexture* tx)
-{
-    tx->lock();
-    tx->unlock();
-
-    return NULL;
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
@@ -604,83 +601,17 @@ void COpenGLRenderer::bindMaterial(IMaterial* Material)
     ActiveMaterial = Material;
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::setRenderTarget(ITexture* target,u32 target_type)
+void COpenGLRenderer::setRenderTarget(IRenderTarget * p_RenderTarget)
 {
-    if(GLEW_ARB_framebuffer_object)
-    {
-        if(active_framebuffer_object == 0)
-            glGenFramebuffers(1,&active_framebuffer_object);
+	CBaseRenderer::setRenderTarget(p_RenderTarget);
 
-
-        if(target_type == 0)
-        {
-            glBindFramebuffer(GL_FRAMEBUFFER,0);
-        }
-        else
-        {
-            glBindFramebuffer(GL_FRAMEBUFFER,active_framebuffer_object);
-
-
-            GLuint gl_texture = 0;
-            if(target != NULL)
-            {
-                gl_texture = reinterpret_cast<COpenGLTexture*>(target)->getTexture();
-            }
-            if (target_type >= ERTT_COLOR_BUFFER_0 && target_type <= ERTT_COLOR_BUFFER_15)
-            {
-				if (RTT_color_buffers[target_type - 1])
-					RTT_color_buffers[target_type - 1]->release();
-				if (target)
-					target->capture();
-				RTT_color_buffers[target_type - 1] = target;
-
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + (target_type - 1),GL_TEXTURE_2D, gl_texture, 0);
-
-				std::vector<GLenum> RenderBuffers;
-				for (u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
-					if (RTT_color_buffers[i])
-						RenderBuffers.push_back(GL_COLOR_ATTACHMENT0 + i);
-
-				glDrawBuffers(RenderBuffers.size(), RenderBuffers.data());
-            }
-            else if (target_type == ERTT_DEPTH_BUFFER)
-            {
-				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D, gl_texture, 0);
-            }
-            else if (target_type == ERTT_STENCIL_BUFFER)
-            {
-				//not implemented yet
-            }
-
-
-            //----------------------------------------------------------------------
-            //FBO error check block
-            GLenum err = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-            if(err != GL_FRAMEBUFFER_COMPLETE)
-            {
-                LOG_ERROR("Something wrong with framebuffer...\n");
-                switch(err)
-                {
-                case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-                    LOG_ENGINE_DEBUG("GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT\n");
-                    break;
-                case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT:
-                    LOG_ENGINE_DEBUG("GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT\n");
-                    break;
-                case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-                    LOG_ENGINE_DEBUG("GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT\n");
-                    break;
-                case GL_FRAMEBUFFER_UNSUPPORTED:
-                    LOG_ENGINE_DEBUG("GL_FRAMEBUFFER_UNSUPPORTED\n");
-                    break;
-                default:
-                    LOG_ENGINE_DEBUG("Unknow error.\n");
-                }
-                return;
-            }
-            //----------------------------------------------------------------------
-        }
-    }
+	if (QueryRendererFeature(ERF_RENDER_TO_TEXTURE))
+	{
+		if (p_RenderTarget == nullptr || !p_RenderTarget->isOk())
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		else
+			glBindFramebuffer(GL_FRAMEBUFFER, reinterpret_cast<COpenGLRenderTarget*>(p_RenderTarget)->getFramebuffer());
+	}
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::clear(u32 flags,core::color4f clear_color)

@@ -34,8 +34,6 @@ public:
 
     GLuint getTexture();
 
-
-
 protected:
 private:
     IRenderer* OpenGLRenderer;

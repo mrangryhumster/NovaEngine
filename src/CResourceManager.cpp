@@ -97,7 +97,7 @@ renderer::ITexture* CResourceManager::loadTexture(const char* TexturePath)
     renderer::IImage* Image = loadImage(TexturePath);
     if(!Image)
         return NULL;
-    renderer::ITexture* Texture = renderer::getRenderer()->GenTexture(Image);
+    renderer::ITexture* Texture = renderer::getRenderer()->createTexture(Image);
     Image->release();
     return Texture;
 }
@@ -206,14 +206,14 @@ renderer::IImage*        CResourceManager::createImage  (core::dim2u resolution,
 renderer::ITexture*      CResourceManager::createTexture(core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat,u8* pixels)
 {
     renderer::IImage* image = createImage(resolution,pixelformat,pixels);
-    renderer::ITexture* texture = renderer::getRenderer()->GenTexture(image);
+    renderer::ITexture* texture = renderer::getRenderer()->createTexture(image);
     image->release();
     return texture;
 }
 //-------------------------------------------------------------------------------------------
 renderer::IMeshBuffer* CResourceManager::createMeshBuffer()
 {
-    return renderer::getRenderer()->GenMeshBuffer();;
+    return renderer::getRenderer()->createMeshBuffer();;
 }
 //-------------------------------------------------------------------------------------------
 renderer::IMaterial*     CResourceManager::createMaterial()

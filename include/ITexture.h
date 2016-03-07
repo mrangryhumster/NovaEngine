@@ -18,7 +18,6 @@ public:
     virtual void setTextureParameter(u32 Parameter,u32 value) = 0;
     virtual u32  getTextureParameter(u32 Parameter) = 0;
 
-
     virtual core::dim2u getTextureDimension() = 0;
 
     virtual void bind() = 0;

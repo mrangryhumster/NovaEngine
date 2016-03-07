@@ -5,13 +5,14 @@
 #include "NTypes.h"
 #include "ERendererEnums.h"
 #include "SVertex.h"
-#include "IMeshBuffer.h"
-#include "IShaderProgram.h"
 
 #include "IImage.h"
-#include "ITexture.h"
 #include "IMaterial.h"
 
+#include "ITexture.h"
+#include "IMeshBuffer.h"
+#include "IShaderProgram.h"
+#include "IRenderTarget.h"
 
 namespace novaengine
 {
@@ -78,12 +79,13 @@ public:
     virtual const core::matrixf getTransform(E_MATRIX_TYPE mtype) = 0;
     virtual void  resetTransform(E_MATRIX_TYPE mtype) = 0;
     //--------------------------------------------------------------------------
-    virtual IShaderProgram* GenShaderProgram() = 0;
+	virtual IRenderTarget* createRenderTarget() = 0;
+	//--------------------------------------------------------------------------
+    virtual IShaderProgram* createShaderProgram() = 0;
     //--------------------------------------------------------------------------
-    virtual IMeshBuffer* GenMeshBuffer() = 0;
+    virtual IMeshBuffer* createMeshBuffer() = 0;
     //--------------------------------------------------------------------------
-    virtual ITexture* GenTexture(IImage*,STextureParameters = STextureParameters()) = 0;
-    virtual IImage*   GenImage(ITexture*) = 0;
+    virtual ITexture* createTexture(IImage*,STextureParameters = STextureParameters()) = 0;
     //--------------------------------------------------------------------------
     virtual void bindTexture(ITexture* texture,u32 texture_unit_id = 0) = 0;
     virtual void bindShaderProgram(IShaderProgram* Shader) = 0;
@@ -91,6 +93,7 @@ public:
     virtual void bindMaterial(IMaterial* material) = 0;
     //--------------------------------------------------------------------------
     virtual void setRenderTarget(ITexture* target,u32 target_type) = 0;
+	virtual void setRenderTarget(IRenderTarget* p_RenderTarget) = 0;
     //--------------------------------------------------------------------------
     virtual void begin_frame(bool clear_color_buffer = true,bool clear_zbuffer = true,core::color4f clear_color = core::color4f(0,0,0,1)) = 0;
     virtual void end_frame()   = 0;

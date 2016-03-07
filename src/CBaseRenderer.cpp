@@ -18,36 +18,18 @@ CBaseRenderer::CBaseRenderer(CPerformanceCounter* pc,window::IWindow* wnd,SEngin
     renderername(nullptr),
     PerformanceCounter(pc),
     ActiveProgram(nullptr),
-    ActiveMaterial(nullptr)
+    ActiveMaterial(nullptr),
+	ActiveRenderTarget(nullptr),
+	RenderTarget(nullptr)
 {
 
     for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
         ActiveTexture[i] = nullptr;
 
-    for(u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
-        RTT_color_buffers[i] = nullptr;
-    RTT_depth_buffer   = nullptr;
-    RTT_stencil_buffer = nullptr;
 }
 
 CBaseRenderer::~CBaseRenderer()
 {
-    //Release active texture cache
-    for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
-        if(ActiveTexture[i])
-            ActiveTexture[i]->release();
-    //Release active material cache
-    if(ActiveMaterial)
-        ActiveMaterial->release();
-
-    //Release all RTT buffers
-    for(u32 i = 0; i < ERTT_COLOR_BUFFERS_COUNT; i++)
-        if(RTT_color_buffers[i])
-            RTT_color_buffers[i]->release();
-    if(RTT_depth_buffer)
-        RTT_depth_buffer->release();
-    if(RTT_stencil_buffer)
-        RTT_stencil_buffer->release();
 
 }
 
@@ -181,6 +163,43 @@ void CBaseRenderer::bindMaterial(IMaterial* Material)
 
     ActiveMaterial = Material;
 }
+void CBaseRenderer::setRenderTarget(ITexture * p_Target, u32 p_Attachment)
+{
+	if (QueryRendererFeature(ERF_RENDER_TO_TEXTURE))
+	{
+
+		//Init RenderTarget if need
+		if (RenderTarget == nullptr)
+			RenderTarget = createRenderTarget();
+
+		RenderTarget->setTexture(p_Target, p_Attachment);
+
+		setRenderTarget(RenderTarget);
+	}
+}
+//-----------------------------------------------------------------------------------------------
+void CBaseRenderer::setRenderTarget(IRenderTarget * p_RenderTarget)
+{
+	if (p_RenderTarget == nullptr)
+	{
+		if (ActiveRenderTarget)
+		{
+			ActiveRenderTarget->release();
+			ActiveRenderTarget = nullptr;
+		}
+	}
+	else
+	{
+		if (p_RenderTarget != ActiveRenderTarget)
+		{
+			if (ActiveRenderTarget)
+				ActiveRenderTarget->release();
+			if (p_RenderTarget)
+				p_RenderTarget->capture();
+			ActiveRenderTarget = p_RenderTarget;
+		}
+	}
+}
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::begin_frame(bool clear_color_buffer,bool clear_zbuffer,core::color4f clear_color)
 {
@@ -265,6 +284,21 @@ void CBaseRenderer::drawScreenQuad(ITexture* Texture,core::color4f color)
 bool CBaseRenderer::isOk()
 {
     return !(!noerror || exit);
+}
+//-----------------------------------------------------------------------------------------------
+void CBaseRenderer::__ClearCache()
+{
+	//Release active texture cache
+	for (u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
+		if (ActiveTexture[i])
+			ActiveTexture[i]->release();
+	//Release active material cache
+	if (ActiveMaterial)
+		ActiveMaterial->release();
+
+	//Release RTT buffer
+	if (RenderTarget)
+		RenderTarget->release();
 }
 //-----------------------------------------------------------------------------------------------
 }

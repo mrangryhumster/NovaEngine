@@ -40,6 +40,9 @@ public:
     void bindShaderProgram(IShaderProgram*);
     //--------------------------------------------------------------------------
     void bindMaterial(IMaterial*);
+	//--------------------------------------------------------------------------
+	void setRenderTarget(ITexture*, u32);
+	void setRenderTarget(IRenderTarget*);
     //--------------------------------------------------------------------------
     void begin_frame(bool clear_color_buffer,bool clear_zbuffer,core::color4f clear_color);
     void end_frame();
@@ -60,6 +63,8 @@ public:
 
 
 protected:
+
+	void __ClearCache();
 
     bool ready;
     bool noerror;
@@ -86,10 +91,11 @@ protected:
     ITexture*       ActiveTexture[EMTN_TEXTURE_COUNT];
     IShaderProgram* ActiveProgram;
     IMaterial*      ActiveMaterial;
-	//-RTT
-	ITexture* RTT_color_buffers[ERTT_COLOR_BUFFERS_COUNT];
-    ITexture* RTT_depth_buffer;
-	ITexture* RTT_stencil_buffer;
+	IRenderTarget*  ActiveRenderTarget;
+
+	//Simple RTT
+	IRenderTarget* RenderTarget;
+
     //Render States
     std::map<int,URenderStateValue> RenderStates;
     //VSync(RLY?0_0)

@@ -151,6 +151,7 @@
     <ClInclude Include="..\include\INovaEngine.h" />
     <ClInclude Include="..\include\IPerformanceCounter.h" />
     <ClInclude Include="..\include\IRenderer.h" />
+    <ClInclude Include="..\include\IRenderTarget.h" />
     <ClInclude Include="..\include\IResourceManager.h" />
     <ClInclude Include="..\include\IScene.h" />
     <ClInclude Include="..\include\IScene2DNode.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\src\CNovaEngine.h" />
     <ClInclude Include="..\src\COpenGLMeshBuffer.h" />
     <ClInclude Include="..\src\COpenGLRenderer.h" />
+    <ClInclude Include="..\src\COpenGLRenderTarget.h" />
     <ClInclude Include="..\src\COpenGLShaderProgram.h" />
     <ClInclude Include="..\src\COpenGLTexture.h" />
     <ClInclude Include="..\src\CPerformanceCounter.h" />
@@ -253,6 +255,7 @@
     <ClCompile Include="..\src\CNovaEngine.cpp" />
     <ClCompile Include="..\src\COpenGLMeshBuffer.cpp" />
     <ClCompile Include="..\src\COpenGLRenderer.cpp" />
+    <ClCompile Include="..\src\COpenGLRenderTarget.cpp" />
     <ClCompile Include="..\src\COpenGLShaderProgram.cpp" />
     <ClCompile Include="..\src\COpenGLTexture.cpp" />
     <ClCompile Include="..\src\CPerformanceCounter.cpp" />

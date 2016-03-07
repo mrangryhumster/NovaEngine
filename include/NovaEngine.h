@@ -30,6 +30,7 @@
 #include "IMaterial.h"
 #include "IMeshBuffer.h"
 #include "IShaderProgram.h"
+#include "IRenderTarget.h"
 #include "IRenderer.h"
 
 #include "IFileSystem.h"

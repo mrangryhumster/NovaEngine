@@ -411,6 +411,12 @@
     <ClInclude Include="..\include\CompileConfig.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\IRenderTarget.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLRenderTarget.h">
+      <Filter>src\renderer\opengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
@@ -580,6 +586,9 @@
     </ClCompile>
     <ClCompile Include="..\src\CStaticMesh.cpp">
       <Filter>src\renderer\mesh\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLRenderTarget.cpp">
+      <Filter>src\renderer\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

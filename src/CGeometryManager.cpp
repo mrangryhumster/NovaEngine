@@ -168,7 +168,7 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     Indices[34]  = 23;
     Indices[35]  = 20;
 	
-    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->GenMeshBuffer();
+    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
 
     MeshBuffer->addBufferData(renderer::EVA_POSITION,Positions,24 * sizeof(core::vector3f));
 	MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,TexCoords,24 * sizeof(core::vector2f));
@@ -192,7 +192,7 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
 renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,core::dim2u CellCount)
 {
     //----------------------------
-    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->GenMeshBuffer();
+    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
     //----------------------------
 
     u32* Indices = new u32[CellCount.width * CellCount.height * 6];
@@ -301,7 +301,7 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
         }
     }
 
-    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->GenMeshBuffer();
+    renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
 
     MeshBuffer->setBufferData(renderer::EVA_POSITION,Positions,VCount * sizeof(core::vector3f));
     MeshBuffer->setBufferData(renderer::EVA_TEXCOORD,TexCoords,VCount * sizeof(core::vector2f));

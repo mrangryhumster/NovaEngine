@@ -17,6 +17,7 @@
 #include "COpenGLShaderProgram.h"
 #include "COpenGLTexture.h"
 #include "COpenGLMeshBuffer.h"
+#include "COpenGLRenderTarget.h"
 
 #ifdef NE_WINDOW_WIN32
 #include <windows.h>
@@ -61,20 +62,21 @@ public:
     void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype);
     const core::matrixf getTransform(E_MATRIX_TYPE mtype);
     void resetTransform(E_MATRIX_TYPE mtype);
+	//--------------------------------------------------------------------------
+	IRenderTarget* createRenderTarget();
     //--------------------------------------------------------------------------
-    IShaderProgram* GenShaderProgram();
+    IShaderProgram* createShaderProgram();
     //--------------------------------------------------------------------------
-    IMeshBuffer* GenMeshBuffer();
+    IMeshBuffer* createMeshBuffer();
     //--------------------------------------------------------------------------
-    ITexture* GenTexture(IImage*,STextureParameters);
-    IImage*   GenImage(ITexture*);
+    ITexture* createTexture(IImage*,STextureParameters);
     //--------------------------------------------------------------------------
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);
     //--------------------------------------------------------------------------
     void bindMaterial(IMaterial*);
     //--------------------------------------------------------------------------
-    void setRenderTarget(ITexture* target,u32 target_type);
+	void setRenderTarget(IRenderTarget* p_RenderTarget);
     //--------------------------------------------------------------------------
     void clear(u32 flag,core::color4f clear_color = core::color4f(0,0,0,1));
     void flush();
@@ -101,11 +103,6 @@ private:
     inline void enable_client_states(bool vert,bool tex,bool norm,bool color);
 
     bool RendererClientStatesList[RCSL_STATES_COUNT];
-
-
-    //------------------------RTT
-    u32 active_framebuffer_object;
-	//---------------------------
 
     #ifdef NE_WINDOW_WIN32
     HWND  hWnd;
