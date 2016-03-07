@@ -169,7 +169,7 @@ renderer::IImage* CImageLoader_PNG::LoadPNG(io::IFile* file)
 
     delete [] row_pointers;
 
-    png_destroy_read_struct(&png_ptr, 0, 0);
+	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
 
     renderer::E_PIXEL_FORMAT PixelFomat;
     if (color_type == PNG_COLOR_TYPE_RGB_ALPHA)
