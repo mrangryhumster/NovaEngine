@@ -157,7 +157,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 
 #endif // 
 //---------------------------------------------------------------
-//common openglgl initialization
+//common opengl initialization
     if(noerror)
     {
         //------------------GLEW
@@ -295,6 +295,13 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
         if(value.flags == EDTM_GEQUAL)    glDepthFunc(GL_GEQUAL);
         if(value.flags == EDTM_ALWAYS)    glDepthFunc(GL_ALWAYS);
         break;
+	//!-------------------------------COLOR_BUFFER
+	case ERS_ENABLE_COLOR_WRITE:
+		if (value.bool_value)
+			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		else
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+		break;
     //!-------------------------------PIXEL_BLEND
     case ERS_ENABLE_BLENDING:
         if(value.bool_value)
