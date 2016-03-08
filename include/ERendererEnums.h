@@ -34,6 +34,7 @@ enum E_RENDER_STATE
     ERS_ENABLE_DEPTH_TEST       = 0,
     ERS_ENABLE_DEPTH_WRITE         ,
     ERS_DEPTH_TEST_MODE            ,
+	ERS_ENABLE_COLOR_WRITE         ,
     ERS_ENABLE_BLENDING            ,
     ERS_BLENDING_MODE              ,
     ERS_ENABLE_TEXTURES_2D         ,
@@ -72,7 +73,6 @@ enum E_CULL_FACE_MODE
     ECFM_ALL   = 0x3,
 };
 //------------------------------------------
-#define NE_BLENDMODE(MODE_1,MODE_2) (MODE_1 << 16) | (MODE_2)
 enum E_BLENDING_MODE
 {
     EBM_ZERO                    = 0x0,

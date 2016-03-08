@@ -184,15 +184,15 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         LOG_INFO("Renderer name   : %s\n",renderername);
         LOG_INFO("Renderer vendor : %s\n",vendorname);
         //----------------------
-        glClearColor(0,0,0,1);
-        glClearDepth(1.0f);
+//        glClearColor(0,0,0,1);
+//        glClearDepth(1.0f);
 
         glFrontFace(GL_CCW);
 
         setRenderState(ERS_ENABLE_TEXTURES_2D,true);
 
         setRenderState(ERS_ENABLE_BLENDING,true);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		setRenderState(ERS_BLENDING_MODE, URenderStateValue(EBM_SRC_ALPHA, EBM_ONE_MINUS_SRC_ALPHA));
 
         setRenderState(ERS_ENABLE_DEPTH_TEST,true);
         setRenderState(ERS_ENABLE_DEPTH_WRITE,true);
@@ -204,16 +204,6 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setRenderState(ERS_ENABLE_ALPHA_TEST,true);
         setRenderState(ERS_ALPHA_TEST_THRESHOLD,0.0f);
 
-        GLfloat fogColor[4]= {0,0,0,1.0f};  // Fog Color
-
-        glFogi(GL_FOG_MODE, GL_LINEAR);     // Fog Mode
-        glFogfv(GL_FOG_COLOR, fogColor);    // Set Fog Color
-        glFogf(GL_FOG_DENSITY, 0.35f);      // How Dense Will The Fog Be
-        glHint(GL_FOG_HINT, GL_DONT_CARE);  // Fog Hint Value
-        glFogf(GL_FOG_START, 50.0f);         // Fog Start Depth
-        glFogf(GL_FOG_END, 200.0f);         // Fog End Depth
-        glEnable(GL_FOG);                   // Enables GL_FOG
-
         setRenderState(ERS_LINE_WIDTH,1);
         setRenderState(ERS_POINT_SIZE,1);
 
@@ -221,9 +211,6 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setTransform(core::matrixf(),EMT_VIEW);
         setTransform(core::matrixf(),EMT_MODEL);
         //----------------------
-        FrameSize = Window->getResolution();
-        setViewport(core::rectu(0,0,FrameSize.width,FrameSize.height));
-
         memset(RendererClientStatesList,0,RCSL_STATES_COUNT);
         //---------------------------------------------------------------
         ready = true;
