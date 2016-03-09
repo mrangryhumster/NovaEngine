@@ -157,6 +157,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 
 #endif // 
 //---------------------------------------------------------------
+
 //common opengl initialization
     if(noerror)
     {
@@ -520,35 +521,8 @@ void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 {
 	
     CBaseRenderer::bindTexture(Texture,id);
-    switch(id)
-    {
-    case 0:
-        glActiveTexture(GL_TEXTURE0);
-        break;
-    case 1:
-        glActiveTexture(GL_TEXTURE1);
-        break;
-    case 2:
-        glActiveTexture(GL_TEXTURE2);
-        break;
-    case 3:
-        glActiveTexture(GL_TEXTURE3);
-        break;
-    case 4:
-        glActiveTexture(GL_TEXTURE4);
-        break;
-    case 5:
-        glActiveTexture(GL_TEXTURE5);
-        break;
-    case 6:
-        glActiveTexture(GL_TEXTURE6);
-        break;
-    case 7:
-        glActiveTexture(GL_TEXTURE7);
-        break;
-    default:
-        glActiveTexture(GL_TEXTURE0);
-    }
+
+	enable_texture_unit(id);
 
     if(Texture)
         glBindTexture(GL_TEXTURE_2D,((COpenGLTexture*)Texture)->getTexture());
@@ -1081,6 +1055,40 @@ void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool col
             glDisableClientState(GL_COLOR_ARRAY);
         }
     }
+}
+//-----------------------------------------------------------------------------------------------
+inline void COpenGLRenderer::enable_texture_unit(u32 p_TextureUnit)
+{
+	if (glActiveTexture == nullptr)
+		return;
+
+	switch (p_TextureUnit)
+	{
+	case RTUL_TEXTURE_0:
+			glActiveTexture(GL_TEXTURE0);
+		break;
+	case RTUL_TEXTURE_1:
+			glActiveTexture(GL_TEXTURE1);
+		break;
+	case RTUL_TEXTURE_2:
+			glActiveTexture(GL_TEXTURE2);
+		break;
+	case RTUL_TEXTURE_3:
+			glActiveTexture(GL_TEXTURE3);
+		break;
+	case RTUL_TEXTURE_4:
+			glActiveTexture(GL_TEXTURE4);
+		break;
+	case RTUL_TEXTURE_5:
+			glActiveTexture(GL_TEXTURE5);
+		break;
+	case RTUL_TEXTURE_6:
+			glActiveTexture(GL_TEXTURE6);
+		break;
+	case RTUL_TEXTURE_7:
+			glActiveTexture(GL_TEXTURE7);
+		break;
+	}
 }
 //-----------------------------------------------------------------------------------------------
 }

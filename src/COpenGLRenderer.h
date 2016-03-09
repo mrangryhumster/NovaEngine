@@ -39,6 +39,19 @@ enum R_CLIENT_STATES_LIST
     RCSL_COLOR_ARRAY   = 3,
     RCSL_STATES_COUNT  = 4,
 };
+
+enum R_TEXTURE_UNITS_LIST
+{
+	RTUL_TEXTURE_0 = 0,
+	RTUL_TEXTURE_1    ,
+	RTUL_TEXTURE_2    ,
+	RTUL_TEXTURE_3    ,
+	RTUL_TEXTURE_4    ,
+	RTUL_TEXTURE_5    ,
+	RTUL_TEXTURE_6    ,
+	RTUL_TEXTURE_7    ,
+	RTUL_TEXTURE_COUNT,
+};
 //-------------------------
 
 class COpenGLRenderer : public CBaseRenderer
@@ -100,9 +113,12 @@ private:
     inline void to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive);
     inline u32  to_opengl_type(u32 type);
     inline u32  to_opengl_blendmodes(E_BLENDING_MODE engine_mode);
+
     inline void enable_client_states(bool vert,bool tex,bool norm,bool color);
+	inline void enable_texture_unit(u32 p_TextureUnit);
 
     bool RendererClientStatesList[RCSL_STATES_COUNT];
+	bool RendererActiveTextureUnitsList[RTUL_TEXTURE_COUNT];
 
     #ifdef NE_WINDOW_WIN32
     HWND  hWnd;
