@@ -71,7 +71,11 @@ CNovaEngine::CNovaEngine(SEngineConf engine_conf):
     {
     case renderer::ERT_OPENGL:
 #if   defined(NE_OPENGL_RENDERER)
-        Renderer = new renderer::COpenGLRenderer(PerformanceCounter,Window,engine_conf);
+		{
+			renderer::COpenGLRenderer* OpenGLRenderer = new renderer::COpenGLRenderer(PerformanceCounter, Window, engine_conf);
+			EventManager->registerEventListener((IEventListener*)OpenGLRenderer, EET_WINDOW_EVENT, 1);
+			Renderer = OpenGLRenderer;
+		}
 #elif defined(NE_OPENGLES1_RENDERER)
         Renderer = new renderer::COpenGLES1Renderer(Window,engine_conf);
 #else

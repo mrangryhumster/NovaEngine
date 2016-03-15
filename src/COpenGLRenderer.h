@@ -19,6 +19,8 @@
 #include "COpenGLMeshBuffer.h"
 #include "COpenGLRenderTarget.h"
 
+#include "IEventListener.h" //also renderer can listen events to process specific, like window resize
+
 #ifdef NE_WINDOW_WIN32
 #include <windows.h>
 #include "wglext.h"
@@ -54,13 +56,15 @@ enum R_TEXTURE_UNITS_LIST
 };
 //-------------------------
 
-class COpenGLRenderer : public CBaseRenderer
+class COpenGLRenderer : public CBaseRenderer,IEventListener
 {
 public:
     COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window::IWindow* Window,SEngineConf conf);
     virtual ~COpenGLRenderer();
 
     u32 getType();
+	//--------------------------------------------------------------------------
+	void OnEvent(SEvent& Event);
     //--------------------------------------------------------------------------
     void setVSync(bool);
     //--------------------------------------------------------------------------

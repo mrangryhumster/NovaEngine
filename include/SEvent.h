@@ -7,9 +7,12 @@ namespace novaengine
 //----------------------------------
 enum E_EVENT_TYPE
 {
-    EET_POINTER_EVENT   = 1 ,
-    EET_KEYBOARD_EVENT      ,
-    EET_WINDOW_EVENT        ,
+	EET_UNKNOWN_EVENT   = 1,
+	EET_CUSTOM_EVENT    = 2,
+	EET_WINDOW_EVENT    = 4,
+	EET_RENDERER_EVENT  = 8,
+    EET_POINTER_EVENT   = 16,
+    EET_KEYBOARD_EVENT  = 32,
 };
 //----------------------------------
 enum E_POINTER_EVENT_TYPE

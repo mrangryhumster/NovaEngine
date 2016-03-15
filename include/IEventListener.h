@@ -1,5 +1,5 @@
-#ifndef IEVENTHANDLER_H
-#define IEVENTHANDLER_H
+#ifndef IEVENTLISTENER_H
+#define IEVENTLISTENER_H
 
 #include "Object.h"
 #include "SEvent.h"
@@ -9,9 +9,9 @@ namespace novaengine
 class IEventListener
 {
     public:
-        virtual bool OnEvent(SEvent incoming_event) = 0;
+        virtual void OnEvent(SEvent& incoming_event) = 0;
     protected:
     private:
 };
 }
-#endif // IEVENTHANDLER_H
+#endif // IEVENTLISTENER_H

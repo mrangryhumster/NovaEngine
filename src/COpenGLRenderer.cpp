@@ -237,6 +237,11 @@ u32 COpenGLRenderer::getType()
     return ERT_OPENGL;
 }
 //-----------------------------------------------------------------------------------------------
+void COpenGLRenderer::OnEvent(SEvent & Event)
+{
+
+}
+//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setVSync(bool flag)
 {
 #ifdef NE_WINDOW_WIN32
