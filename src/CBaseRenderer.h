@@ -58,48 +58,49 @@ public:
 
     void drawScreenQuad(ITexture* Texture,core::color4f color);
 
-
+	bool isReady();
     bool isOk();
 
 
 protected:
 
-	void __ClearCache();
+	void _BaseRenderer_ClearCache();
 
-    bool ready;
-    bool noerror;
-    bool exit;
+	u32  m_RendererLastError;
+    bool m_RendererReady;
+	bool m_Renderer_Exit; // ?!
 
-    SEngineConf       EngConf;
-    window::IWindow*  Window;
+    SEngineConf       m_EngineConf;
+    window::IWindow*  m_EngineWindow;
     //------------------------
-    const char* versionname;
-    const char* vendorname;
-    const char* renderername;
+    const char* m_RendererVersionName;
+    const char* m_RendererVendorName;
+    const char* m_RendererName;
     //------------------------
-    core::rectu ViewportRect;
-    core::dim2u ViewportSize;
-    core::dim2u FrameSize;
+    core::rectu m_ViewportRect;
+    core::dim2u m_ViewportSize;
+    core::dim2u m_FrameSize;
     //------------------------
-    core::matrixf ProjectionMatrix;
-    core::matrixf ViewMatrix;
-    core::matrixf ModelMatrix;
-    core::matrixf TextureMatrix;
+    core::matrixf m_ProjectionMatrix;
+    core::matrixf m_ViewMatrix;
+    core::matrixf m_ModelMatrix;
+    core::matrixf m_TextureMatrix;
     //------------------------
-    CPerformanceCounter* PerformanceCounter;
+    CPerformanceCounter* m_PerformanceCounter;
     //cache
-    ITexture*       ActiveTexture[EMTN_TEXTURE_COUNT];
-    IShaderProgram* ActiveProgram;
-    IMaterial*      ActiveMaterial;
-	IRenderTarget*  ActiveRenderTarget;
+    ITexture*       m_ActiveTexture[EMTN_TEXTURE_COUNT];
+    IShaderProgram* m_ActiveProgram;
+    IMaterial*      m_ActiveMaterial;
+	IRenderTarget*  m_ActiveRenderTarget;
 
 	//Simple RTT
-	IRenderTarget* RenderTarget;
+	IRenderTarget* m_RenderTarget;
 
     //Render States
-    std::map<int,URenderStateValue> RenderStates;
-    //VSync(RLY?0_0)
-    bool VSync;
+    std::map<int,URenderStateValue> m_RenderStates;
+    
+	//VSync(no idea where put this)
+    bool m_VSync;
 
 private:
 

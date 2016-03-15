@@ -74,7 +74,6 @@ public:
     s32  QueryRendererFeature(E_RENDERER_FEATURE feature);
     //--------------------------------------------------------------------------
     void setViewport(core::rectu);
-    core::rectu getViewport();
     //--------------------------------------------------------------------------
     void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype);
     const core::matrixf getTransform(E_MATRIX_TYPE mtype);
@@ -106,6 +105,7 @@ public:
     void drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat);
     void drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE);
 
+
     bool isOk();
     bool update();
 
@@ -121,8 +121,8 @@ private:
     inline void enable_client_states(bool vert,bool tex,bool norm,bool color);
 	inline void enable_texture_unit(u32 p_TextureUnit);
 
-    bool RendererClientStatesList[RCSL_STATES_COUNT];
-	bool RendererActiveTextureUnitsList[RTUL_TEXTURE_COUNT];
+    bool m_RendererClientStatesList[RCSL_STATES_COUNT];
+	bool m_RendererActiveTextureUnitsList[RTUL_TEXTURE_COUNT];
 
     #ifdef NE_WINDOW_WIN32
     HWND  hWnd;

@@ -63,6 +63,7 @@ public:
     //--------------------------------------------------------------------------
     virtual bool update() = 0;
     virtual bool isOk()   = 0;
+	virtual bool isReady() = 0;
     //--------------------------------------------------------------------------
     virtual void setVSync(bool) = 0;
     virtual bool getVSync()     = 0;

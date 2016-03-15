@@ -34,7 +34,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!hDC)
         {
             LOG_FATAL_ERROR("Cant request DC.\n");
-            noerror = false;
+			m_RendererLastError = 1;
         }
 
         if(EngineConfiguration.DoubleBuf)
@@ -128,7 +128,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!SetPixelFormat(hDC,pFormat,&pfd))
         {
             LOG_FATAL_ERROR("Unable to set PixelFormat.\n");
-            noerror = false;
+			m_RendererLastError = 1;
             return;
         }
 
@@ -137,7 +137,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!hRC)
         {
             LOG_FATAL_ERROR("Cannot create render context [err:%d]\n",GetLastError());
-            noerror = false;
+			m_RendererLastError = 1;
             return;
         }
 
@@ -146,7 +146,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
     }
     else
     {
-        noerror = false;
+		m_RendererLastError = 1;
         return;
     }
 #else
@@ -159,14 +159,14 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 //---------------------------------------------------------------
 
 //common opengl initialization
-    if(noerror)
+    if(m_RendererLastError)
     {
         //------------------GLEW
         GLenum err = glewInit();
         if (GLEW_OK != err)
         {
             LOG_FATAL_ERROR("Cannot init GLEW %s\n",glewGetErrorString(err));
-            noerror = false;
+			m_RendererLastError = 1;
             return;
         }
         else
@@ -176,18 +176,15 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 
         LOG_ENGINE_DEBUG("Common opengl initialization\n");
         //------------------PrintBasicInformation
-        versionname   =  reinterpret_cast<const char*>(glGetString(GL_VERSION));
-        vendorname    =  reinterpret_cast<const char*>(glGetString(GL_VENDOR));
-        renderername  =  reinterpret_cast<const char*>(glGetString(GL_RENDERER));
+        m_RendererVersionName   =  reinterpret_cast<const char*>(glGetString(GL_VERSION));
+        m_RendererVendorName    =  reinterpret_cast<const char*>(glGetString(GL_VENDOR));
+        m_RendererName          =  reinterpret_cast<const char*>(glGetString(GL_RENDERER));
         //-------------------------------------------------------------------------
         LOG_INFO("Renderer type   : OpenGLRenderer\n");
-        LOG_INFO("Renderer version: %s\n",versionname);
-        LOG_INFO("Renderer name   : %s\n",renderername);
-        LOG_INFO("Renderer vendor : %s\n",vendorname);
+        LOG_INFO("Renderer version: %s\n", m_RendererVersionName);
+        LOG_INFO("Renderer name   : %s\n", m_RendererVendorName);
+        LOG_INFO("Renderer vendor : %s\n", m_RendererName);
         //----------------------
-//        glClearColor(0,0,0,1);
-//        glClearDepth(1.0f);
-
         glFrontFace(GL_CCW);
 
         setRenderState(ERS_ENABLE_TEXTURES_2D,true);
@@ -212,16 +209,16 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setTransform(core::matrixf(),EMT_VIEW);
         setTransform(core::matrixf(),EMT_MODEL);
         //----------------------
-        memset(RendererClientStatesList,0,RCSL_STATES_COUNT);
+        memset(m_RendererClientStatesList,0,RCSL_STATES_COUNT);
         //---------------------------------------------------------------
-        ready = true;
+        m_RendererReady = true;
     }
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
 }
 //-----------------------------------------------------------------------------------------------
 COpenGLRenderer::~COpenGLRenderer()
 {
-	CBaseRenderer::__ClearCache();
+	CBaseRenderer::_BaseRenderer_ClearCache();
 
 #ifdef NE_WINDOW_WIN32
     wglMakeCurrent(NULL, NULL);
@@ -251,7 +248,7 @@ void COpenGLRenderer::setVSync(bool flag)
     if(wglSwapIntervalEXT)
     {
         wglSwapIntervalEXT(flag);
-        VSync = flag;
+        m_VSync = flag;
     }
     else
     {
@@ -408,16 +405,10 @@ s32  COpenGLRenderer::QueryRendererFeature(E_RENDERER_FEATURE feature)
     return false;
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::setViewport(core::rectu nvp)
+void COpenGLRenderer::setViewport(core::rectu p_Viewport)
 {
-    glViewport(nvp.X1,nvp.Y1,nvp.X2,nvp.Y2);
-    ViewportRect = nvp;
-    ViewportSize = core::dim2u(nvp.X2 - nvp.X1,nvp.Y2 - nvp.Y1);
-}
-//-----------------------------------------------------------------------------------------------
-core::rectu COpenGLRenderer::getViewport()
-{
-    return ViewportRect;
+    glViewport(p_Viewport.X1, p_Viewport.Y1, p_Viewport.X2, p_Viewport.Y2);
+	CBaseRenderer::setViewport(p_Viewport);
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
@@ -427,29 +418,29 @@ void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
-        ProjectionMatrix = mat;
+		m_ProjectionMatrix = mat;
         glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf(ProjectionMatrix.getPointer());
+        glLoadMatrixf(m_ProjectionMatrix.getPointer());
         //--------------------------------------
         break;
     case EMT_VIEW:
     case EMT_MODEL:
         //--------------------------------------
         if(mtype == EMT_VIEW)
-            ViewMatrix  = mat;
+			m_ViewMatrix  = mat;
         else
-            ModelMatrix = mat;
+			m_ModelMatrix = mat;
         //--------------------------------------
         glMatrixMode(GL_MODELVIEW);
-		glLoadMatrixf(ViewMatrix.getPointer());
-		glMultMatrixf(ModelMatrix.getPointer());	
+		glLoadMatrixf(m_ViewMatrix.getPointer());
+		glMultMatrixf(m_ModelMatrix.getPointer());
 		//--------------------------------------
         break;
     case EMT_TEXTURE:
         //--------------------------------------
-        TextureMatrix = mat;
+		m_TextureMatrix = mat;
         glMatrixMode(GL_TEXTURE);
-        glLoadMatrixf(TextureMatrix.getPointer());
+        glLoadMatrixf(m_TextureMatrix.getPointer());
         //--------------------------------------
         break;
     }
@@ -460,13 +451,13 @@ const core::matrixf COpenGLRenderer::getTransform(E_MATRIX_TYPE mtype)
     switch(mtype)
     {
     case EMT_PROJECTION:
-        return ProjectionMatrix;
+        return m_ProjectionMatrix;
     case EMT_VIEW:
-        return ViewMatrix;
+        return m_ViewMatrix;
     case EMT_MODEL:
-        return ModelMatrix;
+        return m_ModelMatrix;
     case EMT_TEXTURE:
-        return TextureMatrix;
+        return m_TextureMatrix;
     default:
         return core::matrixf();
     }
@@ -511,20 +502,19 @@ IMeshBuffer* COpenGLRenderer::createMeshBuffer()
     return new COpenGLMeshBuffer();
 }
 //-----------------------------------------------------------------------------------------------
-ITexture* COpenGLRenderer::createTexture(IImage* img,STextureParameters params)
+ITexture* COpenGLRenderer::createTexture(IImage* p_Image,STextureParameters p_TextureParameters)
 {
-    if(!img)
-        return NULL;
+    if(!p_Image)
+        return nullptr;
 
     u32 time = time::getRealTime();
-    COpenGLTexture* OpenGLTexture = new COpenGLTexture(this,img,params);
+    COpenGLTexture* OpenGLTexture = new COpenGLTexture(this, p_Image, p_TextureParameters);
     LOG_INFO("Texture generated : tx_id:%d [%d ms]\n",OpenGLTexture->getTexture(),time::getRealTime() - time);
     return OpenGLTexture;
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 {
-	
     CBaseRenderer::bindTexture(Texture,id);
 
 	enable_texture_unit(id);
@@ -536,11 +526,13 @@ void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 
 }
 //-------------------------------------------------------------------------------------------------------
-void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
+void COpenGLRenderer::bindShaderProgram(IShaderProgram* p_ShaderProgram)
 {
-    if(ShaderProgram != NULL)
+	CBaseRenderer::bindShaderProgram(p_ShaderProgram);
+
+    if(p_ShaderProgram != nullptr)
     {
-        COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(ShaderProgram);
+        COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(p_ShaderProgram);
         if(Program->getLastError() == 0)
             glUseProgram(Program->getProgramID());
     }
@@ -550,28 +542,21 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* ShaderProgram)
     }
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::bindMaterial(IMaterial* Material)
+void COpenGLRenderer::bindMaterial(IMaterial* p_Material)
 {
-    if(ActiveMaterial != Material)
-    {
-        if(Material)
-            Material->capture();
-        if(ActiveMaterial)
-            ActiveMaterial->release();
-    }
+	CBaseRenderer::bindMaterial(p_Material);
 
-
-    switch(Material->getType())
+    switch(p_Material->getType())
     {
     case ERMT_DEFAULT:
     default:
     {
-        bindTexture(Material->getTexture(0),0);
+        bindTexture(p_Material->getTexture(0),0);
     }
     }
-    core::color4f color = Material->getDiffuseColor();
+    core::color4f color = p_Material->getDiffuseColor();
     glColor4fv((float*)&color);
-    ActiveMaterial = Material;
+	m_ActiveMaterial = p_Material;
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setRenderTarget(IRenderTarget * p_RenderTarget)
@@ -660,7 +645,7 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 				0,
 				MeshBuffer->getVertexCount());
         //----------------------------------------------
-        PerformanceCounter->register_draw(MeshBuffer->getVertexCount());
+        m_PerformanceCounter->register_draw(MeshBuffer->getVertexCount());
         //----------------------------------------------
     }
     else
@@ -688,7 +673,7 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 
 			MeshBuffer->unbind_buffer();
 			//----------------------------------------------
-			PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
+			m_PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
 			//----------------------------------------------
 		}
 		else if (GLEW_ARB_vertex_buffer_object)
@@ -749,7 +734,7 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 
 			MeshBuffer->unbind_buffer();
 			//----------------------------------------------
-			PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
+			m_PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
 			//----------------------------------------------
 		}
     }
@@ -801,53 +786,53 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
     else
         glDrawArrays(GLPrimitiveType,0,VertexCount);
     //----------------------------------------------
-    PerformanceCounter->register_draw(VertexCount);
+    m_PerformanceCounter->register_draw(VertexCount);
     //----------------------------------------------
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE PrimitiveType)
+void COpenGLRenderer::drawArrays(u16 indices_count, u32 vertex_count, const u16* indices, const core::vector3f* verticles, const core::vector2f* texverts, const core::vector3f* normals, const core::color4f* colors, E_PRIMITIVE_TYPE PrimitiveType)
 {
 
-    //------------------------------------------------------------
-    bool have_verticles = (verticles!=NULL);
-    bool have_texcoords = (texverts !=NULL);
-    bool have_normals   = (normals  !=NULL);
-    bool have_colors    = (colors   !=NULL);
+	//------------------------------------------------------------
+	bool have_verticles = (verticles != NULL);
+	bool have_texcoords = (texverts != NULL);
+	bool have_normals = (normals != NULL);
+	bool have_colors = (colors != NULL);
 
-    //!If no positions in MeshBuffer then nothing to render
-    if(have_verticles == false)
-        return;
+	//!If no positions in MeshBuffer then nothing to render
+	if (have_verticles == false)
+		return;
 
-    //!Enable/disable client states for drawing
-    enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
+	//!Enable/disable client states for drawing
+	enable_client_states(have_verticles, have_texcoords, have_normals, have_colors);
 
-    //!Send verticles to vram
-    if(have_verticles)
-        glVertexPointer(    3,  GL_FLOAT, 0,  verticles);
-    if(have_texcoords)
-        glTexCoordPointer(  2,  GL_FLOAT, 0,  texverts);
-    if(have_normals)
-        glNormalPointer(        GL_FLOAT, 0,  normals);
-    if(have_colors)
-        glColorPointer(     4,  GL_FLOAT, 0,  colors);
-    //------------------------------------------------------------
-    GLenum GLPrimitiveType   = 0;
-    u32    VertexInPrimitive = 0;
-    //!Convert E_PRIMITIVE_TYPE to GLenum
-    to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType,GLPrimitiveType,VertexInPrimitive);
-    //----------------------------------------------
-    if(indices != NULL && indices_count != 0)
-        glDrawElements(GLPrimitiveType,indices_count,GL_UNSIGNED_SHORT,indices);
-    else
-        glDrawArrays(GLPrimitiveType,0,vertex_count);
-    //----------------------------------------------
-    PerformanceCounter->register_draw(vertex_count);
-    //----------------------------------------------
+	//!Send verticles to vram
+	if (have_verticles)
+		glVertexPointer(3, GL_FLOAT, 0, verticles);
+	if (have_texcoords)
+		glTexCoordPointer(2, GL_FLOAT, 0, texverts);
+	if (have_normals)
+		glNormalPointer(GL_FLOAT, 0, normals);
+	if (have_colors)
+		glColorPointer(4, GL_FLOAT, 0, colors);
+	//------------------------------------------------------------
+	GLenum GLPrimitiveType = 0;
+	u32    VertexInPrimitive = 0;
+	//!Convert E_PRIMITIVE_TYPE to GLenum
+	to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType, GLPrimitiveType, VertexInPrimitive);
+	//----------------------------------------------
+	if (indices != NULL && indices_count != 0)
+		glDrawElements(GLPrimitiveType, indices_count, GL_UNSIGNED_SHORT, indices);
+	else
+		glDrawArrays(GLPrimitiveType, 0, vertex_count);
+	//----------------------------------------------
+	m_PerformanceCounter->register_draw(vertex_count);
+	//----------------------------------------------
 }
 //-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::isOk()
 {
-    return !(!noerror || exit);
+    return !(m_RendererLastError || m_Renderer_Exit);
 }
 //-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::update()
@@ -995,68 +980,68 @@ void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool col
     //---------------------------------------------------------MeshBuffer
     if(vert)
     {
-        if(RendererClientStatesList[RCSL_VERTEX_ARRAY] == false)
+        if(m_RendererClientStatesList[RCSL_VERTEX_ARRAY] == false)
         {
-            RendererClientStatesList[RCSL_VERTEX_ARRAY] = true;
+            m_RendererClientStatesList[RCSL_VERTEX_ARRAY] = true;
             glEnableClientState(GL_VERTEX_ARRAY);
         }
     }
     else
     {
-        if(RendererClientStatesList[RCSL_VERTEX_ARRAY] == true)
+        if(m_RendererClientStatesList[RCSL_VERTEX_ARRAY] == true)
         {
-            RendererClientStatesList[RCSL_VERTEX_ARRAY] = false;
+            m_RendererClientStatesList[RCSL_VERTEX_ARRAY] = false;
             glDisableClientState(GL_VERTEX_ARRAY);
         }
     }
     //---------------------------------------------------------TextureCoordArray
     if(tex)
     {
-        if(RendererClientStatesList[RCSL_TEXCORD_ARRAY] == false)
+        if(m_RendererClientStatesList[RCSL_TEXCORD_ARRAY] == false)
         {
-            RendererClientStatesList[RCSL_TEXCORD_ARRAY] = true;
+            m_RendererClientStatesList[RCSL_TEXCORD_ARRAY] = true;
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         }
     }
     else
     {
-        if(RendererClientStatesList[RCSL_TEXCORD_ARRAY] == true)
+        if(m_RendererClientStatesList[RCSL_TEXCORD_ARRAY] == true)
         {
-            RendererClientStatesList[RCSL_TEXCORD_ARRAY] = false;
+            m_RendererClientStatesList[RCSL_TEXCORD_ARRAY] = false;
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         }
     }
     //---------------------------------------------------------NormalArray
     if(norm)
     {
-        if(RendererClientStatesList[RCSL_NORMAL_ARRAY] == false)
+        if(m_RendererClientStatesList[RCSL_NORMAL_ARRAY] == false)
         {
-            RendererClientStatesList[RCSL_NORMAL_ARRAY] = true;
+            m_RendererClientStatesList[RCSL_NORMAL_ARRAY] = true;
             glEnableClientState(GL_NORMAL_ARRAY);
         }
     }
     else
     {
-        if(RendererClientStatesList[RCSL_NORMAL_ARRAY] == true)
+        if(m_RendererClientStatesList[RCSL_NORMAL_ARRAY] == true)
         {
-            RendererClientStatesList[RCSL_NORMAL_ARRAY] = false;
+            m_RendererClientStatesList[RCSL_NORMAL_ARRAY] = false;
             glDisableClientState(GL_NORMAL_ARRAY);
         }
     }
     //---------------------------------------------------------ColorArray
     if(color)
     {
-        if(RendererClientStatesList[RCSL_COLOR_ARRAY] == false)
+        if(m_RendererClientStatesList[RCSL_COLOR_ARRAY] == false)
         {
-            RendererClientStatesList[RCSL_COLOR_ARRAY] = true;
+            m_RendererClientStatesList[RCSL_COLOR_ARRAY] = true;
             glEnableClientState(GL_COLOR_ARRAY);
         }
     }
     else
     {
-        if(RendererClientStatesList[RCSL_COLOR_ARRAY] == true)
+        if(m_RendererClientStatesList[RCSL_COLOR_ARRAY] == true)
         {
-            RendererClientStatesList[RCSL_COLOR_ARRAY] = false;
+            m_RendererClientStatesList[RCSL_COLOR_ARRAY] = false;
             glDisableClientState(GL_COLOR_ARRAY);
         }
     }

@@ -7,70 +7,69 @@ namespace novaengine
 namespace renderer
 {
 
-CBaseRenderer::CBaseRenderer(CPerformanceCounter* pc,window::IWindow* wnd,SEngineConf conf):
-    ready(false),
-    noerror(true),
-    exit(false),
-    EngConf(conf),
-    Window(wnd),
-    versionname(nullptr),
-    vendorname(nullptr),
-    renderername(nullptr),
-    PerformanceCounter(pc),
-    ActiveProgram(nullptr),
-    ActiveMaterial(nullptr),
-	ActiveRenderTarget(nullptr),
-	RenderTarget(nullptr)
+CBaseRenderer::CBaseRenderer(CPerformanceCounter* p_PerfCounter,window::IWindow* p_EngineWindow,SEngineConf p_EngineConf):
+	m_RendererLastError(0),
+	m_RendererReady(false),
+    m_Renderer_Exit(false),
+    m_EngineConf(p_EngineConf),
+    m_EngineWindow(p_EngineWindow),
+    m_RendererVersionName(nullptr),
+    m_RendererVendorName(nullptr),
+    m_RendererName(nullptr),
+    m_PerformanceCounter(p_PerfCounter),
+    m_ActiveProgram(nullptr),
+    m_ActiveMaterial(nullptr),
+	m_ActiveRenderTarget(nullptr),
+	m_RenderTarget(nullptr)
 {
 
     for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
-        ActiveTexture[i] = nullptr;
+        m_ActiveTexture[i] = nullptr;
 
 }
-
+//-----------------------------------------------------------------------------------------------
 CBaseRenderer::~CBaseRenderer()
 {
 
 }
-
 //-----------------------------------------------------------------------------------------------
 u32 CBaseRenderer::getType()
 {
     return ERT_NULL;
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::setVSync(bool flag)
+void CBaseRenderer::setVSync(bool p_Flag)
 {
-    VSync = flag;
+    m_VSync = p_Flag;
 }
 //-----------------------------------------------------------------------------------------------
 bool CBaseRenderer::getVSync()
 {
-    return VSync;
+    return m_VSync;
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::setRenderState(u32 flag,URenderStateValue value)
+void CBaseRenderer::setRenderState(u32 p_Flag,URenderStateValue p_StateValue)
 {
-    if(flag < ERS_LAST_STATE)
-        RenderStates[flag] = value;
+    if(p_Flag < ERS_LAST_STATE)
+        m_RenderStates[p_Flag] = p_StateValue;
 }
 //-----------------------------------------------------------------------------------------------
-URenderStateValue CBaseRenderer::getRenderState(u32 flag)
+URenderStateValue CBaseRenderer::getRenderState(u32 p_Flag)
 {
-    if(flag < ERS_LAST_STATE)
-        return RenderStates[flag];
+    if(p_Flag < ERS_LAST_STATE)
+        return m_RenderStates[p_Flag];
     return 0;
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::setViewport(core::rectu nvp)
+void CBaseRenderer::setViewport(core::rectu p_ViewPort)
 {
-    ViewportRect = nvp;
-    ViewportSize = core::dim2u(nvp.X2 - nvp.X1,nvp.Y2 - nvp.Y1);
+    m_ViewportRect = p_ViewPort;
+    m_ViewportSize = core::dim2u(p_ViewPort.X2 - p_ViewPort.X1, p_ViewPort.Y2 - p_ViewPort.Y1);
 }
 //-----------------------------------------------------------------------------------------------
 core::rectu CBaseRenderer::getViewport()
 {
-    return ViewportRect;
+    return m_ViewportRect;
 }
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
@@ -80,21 +79,21 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
-        ProjectionMatrix = mat;
+        m_ProjectionMatrix = mat;
         //--------------------------------------
         break;
     case EMT_VIEW:
     case EMT_MODEL:
         //--------------------------------------
         if(mtype == EMT_VIEW)
-            ViewMatrix  = mat;
+            m_ViewMatrix  = mat;
         else
-            ModelMatrix = mat;
+            m_ModelMatrix = mat;
         //--------------------------------------
         break;
     case EMT_TEXTURE:
         //--------------------------------------
-        TextureMatrix = mat;
+        m_TextureMatrix = mat;
         //--------------------------------------
         break;
     }
@@ -105,63 +104,56 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
     switch(mtype)
     {
     case EMT_PROJECTION:
-        return ProjectionMatrix;
+        return m_ProjectionMatrix;
     case EMT_VIEW:
-        return ViewMatrix;
+        return m_ViewMatrix;
     case EMT_MODEL:
-        return ModelMatrix;
+        return m_ModelMatrix;
     case EMT_TEXTURE:
-        return TextureMatrix;
+        return m_TextureMatrix;
     default:
 
         return core::matrixf();
     }
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::bindTexture(ITexture* Texture,u32 id)
+void CBaseRenderer::bindTexture(ITexture* p_Texture,u32 p_Unit)
 {
-    if(id < EMTN_TEXTURE_COUNT && ActiveTexture[id] != Texture)
+    if(p_Unit < EMTN_TEXTURE_COUNT && m_ActiveTexture[p_Unit] != p_Texture)
     {
-        if(ActiveTexture[id])
-            ActiveTexture[id]->release();
+        if(m_ActiveTexture[p_Unit])
+            m_ActiveTexture[p_Unit]->release();
+        if(p_Texture)
+			p_Texture->capture();
 
-        if(Texture)
-            Texture->capture();
-
-        ActiveTexture[id] = Texture;
+        m_ActiveTexture[p_Unit] = p_Texture;
     }
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::bindShaderProgram(IShaderProgram*)
+void CBaseRenderer::bindShaderProgram(IShaderProgram* p_ShaderProgram)
 {
+	if (p_ShaderProgram != m_ActiveProgram)
+	{
+		if (p_ShaderProgram)
+			p_ShaderProgram->capture();
+		if (m_ActiveProgram)
+			m_ActiveProgram->release();
 
+		m_ActiveProgram = p_ShaderProgram;
+	}
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::bindMaterial(IMaterial* Material)
+void CBaseRenderer::bindMaterial(IMaterial* p_Material)
 {
-    if(ActiveMaterial != Material)
+    if(m_ActiveMaterial != p_Material)
     {
-        if(Material)
-            Material->capture();
-        if(ActiveMaterial)
-            ActiveMaterial->release();
+        if(p_Material)
+			p_Material->capture();
+        if(m_ActiveMaterial)
+            m_ActiveMaterial->release();
+
+		m_ActiveMaterial = p_Material;
     }
-
-
-    switch(Material->getType())
-    {
-
-
-    case ERMT_DEFAULT:
-    default:
-    {
-        bindTexture(Material->getTexture(),0);
-    }
-    break;
-
-    }
-
-    ActiveMaterial = Material;
 }
 void CBaseRenderer::setRenderTarget(ITexture * p_Target, u32 p_Attachment)
 {
@@ -169,12 +161,12 @@ void CBaseRenderer::setRenderTarget(ITexture * p_Target, u32 p_Attachment)
 	{
 
 		//Init RenderTarget if need
-		if (RenderTarget == nullptr)
-			RenderTarget = createRenderTarget();
+		if (m_RenderTarget == nullptr)
+			m_RenderTarget = createRenderTarget();
 
-		RenderTarget->setTexture(p_Target, p_Attachment);
+		m_RenderTarget->setTexture(p_Target, p_Attachment);
 
-		setRenderTarget(RenderTarget);
+		setRenderTarget(m_RenderTarget);
 	}
 }
 //-----------------------------------------------------------------------------------------------
@@ -182,21 +174,21 @@ void CBaseRenderer::setRenderTarget(IRenderTarget * p_RenderTarget)
 {
 	if (p_RenderTarget == nullptr)
 	{
-		if (ActiveRenderTarget)
+		if (m_ActiveRenderTarget)
 		{
-			ActiveRenderTarget->release();
-			ActiveRenderTarget = nullptr;
+			m_ActiveRenderTarget->release();
+			m_ActiveRenderTarget = nullptr;
 		}
 	}
 	else
 	{
-		if (p_RenderTarget != ActiveRenderTarget)
+		if (p_RenderTarget != m_ActiveRenderTarget)
 		{
-			if (ActiveRenderTarget)
-				ActiveRenderTarget->release();
+			if (m_ActiveRenderTarget)
+				m_ActiveRenderTarget->release();
 			if (p_RenderTarget)
 				p_RenderTarget->capture();
-			ActiveRenderTarget = p_RenderTarget;
+			m_ActiveRenderTarget = p_RenderTarget;
 		}
 	}
 }
@@ -281,24 +273,29 @@ void CBaseRenderer::drawScreenQuad(ITexture* Texture,core::color4f color)
     drawArrays(0,4,NULL,ScreenQuad_verticles,ScreenQuad_texcoord,NULL,ScreenQuad_color,EPT_TRIANGLE_STRIP);
 }
 //-----------------------------------------------------------------------------------------------
-bool CBaseRenderer::isOk()
+bool CBaseRenderer::isReady()
 {
-    return !(!noerror || exit);
+	return m_RendererReady;
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::__ClearCache()
+bool CBaseRenderer::isOk()
+{
+    return !(m_RendererLastError || m_Renderer_Exit);
+}
+//-----------------------------------------------------------------------------------------------
+void CBaseRenderer::_BaseRenderer_ClearCache()
 {
 	//Release active texture cache
 	for (u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
-		if (ActiveTexture[i])
-			ActiveTexture[i]->release();
+		if (m_ActiveTexture[i])
+			m_ActiveTexture[i]->release();
 	//Release active material cache
-	if (ActiveMaterial)
-		ActiveMaterial->release();
+	if (m_ActiveMaterial)
+		m_ActiveMaterial->release();
 
 	//Release RTT buffer
-	if (RenderTarget)
-		RenderTarget->release();
+	if (m_RenderTarget)
+		m_RenderTarget->release();
 }
 //-----------------------------------------------------------------------------------------------
 }
