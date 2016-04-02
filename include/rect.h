@@ -2,7 +2,7 @@
 #define RECT_H
 
 #include "NTypes.h"
-#include <cmath>
+#include "NMath.h"
 
 namespace novaengine
 {

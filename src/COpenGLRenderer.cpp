@@ -159,7 +159,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 //---------------------------------------------------------------
 
 //common opengl initialization
-    if(m_RendererLastError)
+    if(m_RendererLastError == 0)
     {
         //------------------GLEW
         GLenum err = glewInit();
@@ -213,6 +213,10 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         //---------------------------------------------------------------
         m_RendererReady = true;
     }
+	else
+	{
+		throw;
+	}
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
 }
 //-----------------------------------------------------------------------------------------------
