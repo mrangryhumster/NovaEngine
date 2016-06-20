@@ -36,7 +36,7 @@
 				</Linker>
 			</Target>
 			<Target title="Dynamic Win32 Debug">
-				<Option output="../bin/gcc_mingw/dll_debug/NovaEngine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME)lala2.a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option output="../bin/gcc_mingw/dll_debug/NovaEngine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../" />
 				<Option object_output="../obj/gcc_mingw/dll_debug/" />
 				<Option type="3" />
@@ -386,6 +386,12 @@
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="../src/COpenGLMeshBuffer.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLRenderTarget.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLRenderTarget.h">
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="../src/COpenGLRenderer.cpp">
