@@ -28,6 +28,7 @@ public:
     IResourceManager*       getResourceManager();
     IGeometryManager*       getGeometryManager();
     scene::ISceneManager*   getSceneManager();
+    gui::IGUIManager*       getGUIManager();
     log::ILogger*           getLogger();
 
     IPerformanceCounter*    getPerformanceCounter();
@@ -38,18 +39,19 @@ public:
 protected:
 private:
 
-    IEventManager*          EventManager;
-    window::IWindow*        Window;
-    renderer::IRenderer*    Renderer;
-    io::IFileSystem*        FileSystem;
-    IResourceManager*       ResourceManager;
-    IGeometryManager*       GeometryManager;
-    scene::ISceneManager*   SceneManager;
+    IEventManager*          m_EventManager;
+    window::IWindow*        m_Window;
+    renderer::IRenderer*    m_Renderer;
+    io::IFileSystem*        m_FileSystem;
+    IResourceManager*       m_ResourceManager;
+    IGeometryManager*       m_GeometryManager;
+    scene::ISceneManager*   m_SceneManager;
+    gui::IGUIManager*       m_GUIManager;
     //--------------------------
-    CPerformanceCounter*    PerformanceCounter;
+    CPerformanceCounter*    m_PerformanceCounter;
     //--------------------------
-    bool noerror;
-    bool exit;
+    bool m_noerror;
+    bool m_exit;
     //--------------------------
 };
 

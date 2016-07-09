@@ -5,7 +5,7 @@
 		<Option title="NovaEngine" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="include\Struct\;src\;debug\;include\types\;include\Interfaces\;src\window\;include\Enum\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;src\scene\nodes\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\resources\loaders\font\;src\gui\;include\;include\Interfaces\scene\nodes\;include\Interfaces\scene\;src\window\X11\;" />
+		<Option virtualFolders="include\Struct\;src\;debug\;include\types\;include\Interfaces\;src\window\;include\Enum\;src\Log\;src\renderer\;src\renderer\mesh\;src\libs\;src\libs\glew\;src\renderer\opengl\;src\FileSystem\;src\libs\libpng\;src\libs\zlib\;src\scene\;src\scene\nodes\;src\renderer\mesh\static\;src\renderer\mesh\animated\;src\window\win32\;src\window\android\;src\time\;src\resources\;src\resources\loaders\;src\resources\loaders\mesh\;src\resources\loaders\image\;src\resources\loaders\font\;src\gui\;include\;include\Interfaces\scene\nodes\;include\Interfaces\scene\;src\window\X11\;include\Interfaces\gui\;include\Interfaces\gui\nodes\;" />
 		<Build>
 			<Target title="Debug Win32 App">
 				<Option output="../bin/gcc_mingw/app_debug/NovaEngine" prefix_auto="1" extension_auto="1" />
@@ -24,6 +24,8 @@
 					<Add directory="../src" />
 					<Add directory="../src/resources/loaders" />
 					<Add directory="../src/gui" />
+					<Add directory="include" />
+					<Add directory="src" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
@@ -53,6 +55,8 @@
 					<Add directory="../src" />
 					<Add directory="../src/resources/loaders" />
 					<Add directory="../src/gui" />
+					<Add directory="include" />
+					<Add directory="src" />
 				</Compiler>
 				<Linker>
 					<Add library="mingw32" />
@@ -80,6 +84,8 @@
 					<Add directory="../src" />
 					<Add directory="../src/resources/loaders" />
 					<Add directory="../src/gui" />
+					<Add directory="include" />
+					<Add directory="src" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -109,6 +115,8 @@
 					<Add directory="../src" />
 					<Add directory="../src/resources/loaders" />
 					<Add directory="../src/gui" />
+					<Add directory="include" />
+					<Add directory="src" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg -lgmon" />
@@ -173,10 +181,19 @@
 			<Option virtualFolder="include/Interfaces/" />
 		</Unit>
 		<Unit filename="../include/IFont.h">
-			<Option virtualFolder="include/Interfaces/" />
+			<Option virtualFolder="include/Interfaces/gui/" />
 		</Unit>
 		<Unit filename="../include/IFontLoader.h">
 			<Option virtualFolder="include/Interfaces/" />
+		</Unit>
+		<Unit filename="../include/IGUILayout.h">
+			<Option virtualFolder="include/Interfaces/gui/" />
+		</Unit>
+		<Unit filename="../include/IGUIManager.h">
+			<Option virtualFolder="include/Interfaces/gui/" />
+		</Unit>
+		<Unit filename="../include/IGUINode.h">
+			<Option virtualFolder="include/Interfaces/gui/nodes/" />
 		</Unit>
 		<Unit filename="../include/IGeometryManager.h">
 			<Option virtualFolder="include/Interfaces/" />
@@ -345,6 +362,12 @@
 		</Unit>
 		<Unit filename="../src/CFontLoader_FNT.h">
 			<Option virtualFolder="src/resources/loaders/font/" />
+		</Unit>
+		<Unit filename="../src/CGUIManager.cpp">
+			<Option virtualFolder="src/gui/" />
+		</Unit>
+		<Unit filename="../src/CGUIManager.h">
+			<Option virtualFolder="src/gui/" />
 		</Unit>
 		<Unit filename="../src/CGeometryManager.cpp">
 			<Option virtualFolder="src/" />

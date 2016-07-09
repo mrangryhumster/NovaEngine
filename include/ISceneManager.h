@@ -50,7 +50,6 @@ class ISceneSprite;
 class ISceneStaticMesh;
 //Default animators
 
-
 class ISceneManager : public Object
 {
 public:

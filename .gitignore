@@ -229,3 +229,6 @@ res/
 *.lib
 
 gmon.out
+/src/NOpenGLHelper.h
+/test/main - Copy.cpp
+/test/main - копия.cpp

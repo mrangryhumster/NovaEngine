@@ -417,6 +417,15 @@
     <ClInclude Include="..\src\COpenGLRenderTarget.h">
       <Filter>src\renderer\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\IGUIManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IGUILayout.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CGUIManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
@@ -590,5 +599,13 @@
     <ClCompile Include="..\src\COpenGLRenderTarget.cpp">
       <Filter>src\renderer\opengl</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CGUIManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
 </Project>

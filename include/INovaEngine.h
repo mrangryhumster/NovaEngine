@@ -9,6 +9,7 @@
 #include "IResourceManager.h"
 #include "IGeometryManager.h"
 #include "ISceneManager.h"
+#include "IGUIManager.h"
 #include "ILogger.h"
 #include "IPerformanceCounter.h"
 
@@ -25,6 +26,7 @@ public:
     virtual IResourceManager*      getResourceManager()    = 0;
     virtual IGeometryManager*      getGeometryManager()    = 0;
     virtual scene::ISceneManager*  getSceneManager()       = 0;
+    virtual gui::IGUIManager*      getGUIManager()         = 0;
     virtual log::ILogger*          getLogger()             = 0;
 
     virtual IPerformanceCounter*   getPerformanceCounter() = 0;

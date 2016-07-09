@@ -189,6 +189,8 @@
     <ClInclude Include="..\include\IFont.h" />
     <ClInclude Include="..\include\IFontLoader.h" />
     <ClInclude Include="..\include\IGeometryManager.h" />
+    <ClInclude Include="..\include\IGUILayout.h" />
+    <ClInclude Include="..\include\IGUIManager.h" />
     <ClInclude Include="..\include\IImage.h" />
     <ClInclude Include="..\include\IImageLoader.h" />
     <ClInclude Include="..\include\ILogger.h" />
@@ -241,6 +243,7 @@
     <ClInclude Include="..\src\CFont.h" />
     <ClInclude Include="..\src\CFontLoader_FNT.h" />
     <ClInclude Include="..\src\CGeometryManager.h" />
+    <ClInclude Include="..\src\CGUIManager.h" />
     <ClInclude Include="..\src\CImage.h" />
     <ClInclude Include="..\src\CImageLoader_PNG.h" />
     <ClInclude Include="..\src\CMaterial.h" />
@@ -295,6 +298,7 @@
     <ClCompile Include="..\src\CFileSystem.cpp" />
     <ClCompile Include="..\src\CFontLoader_FNT.cpp" />
     <ClCompile Include="..\src\CGeometryManager.cpp" />
+    <ClCompile Include="..\src\CGUIManager.cpp" />
     <ClCompile Include="..\src\CImage.cpp" />
     <ClCompile Include="..\src\CImageLoader_PNG.cpp" />
     <ClCompile Include="..\src\CMeshBuffer.cpp" />
@@ -351,6 +355,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
