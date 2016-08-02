@@ -2,8 +2,7 @@
 #define IWINDOW_H
 
 #include "Object.h"
-#include "NTypes.h"
-#include "NExTypes.h"
+#include "ne_types.h"
 
 
 #include "dim2.h"

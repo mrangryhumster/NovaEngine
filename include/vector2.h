@@ -1,8 +1,8 @@
-#ifndef VECTOR2_H
-#define VECTOR2_H
 
-#include "NTypes.h"
-#include <math.h>
+#pragma once
+
+#include "ne_types.h"
+#include "ne_math.h"
 
 namespace novaengine
 {
@@ -129,7 +129,7 @@ public:
         return vector2(-x,-y);
     }
 
-    vector2<T> operator += (const vector2 &other)
+    vector2<T>& operator += (const vector2 &other)
     {
         x += other.x;
         y += other.y;
@@ -137,7 +137,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator -= (const vector2 &other)
+    vector2<T>& operator -= (const vector2 &other)
     {
         x -= other.x;
         y -= other.y;
@@ -145,7 +145,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator += (const T v)
+    vector2<T>& operator += (const T v)
     {
         x += v;
         y += v;
@@ -153,7 +153,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator -= (const T v)
+    vector2<T>& operator -= (const T v)
     {
         x -= v;
         y -= v;
@@ -161,7 +161,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator *= (const vector2 &other)
+    vector2<T>& operator *= (const vector2 &other)
     {
         x *= other.x;
         y *= other.y;
@@ -169,7 +169,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator *= (const T v)
+    vector2<T>& operator *= (const T v)
     {
         x *= v;
         y *= v;
@@ -177,7 +177,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator /= (const vector2 &other)
+    vector2<T>& operator /= (const vector2 &other)
     {
         x /= other.x;
         y /= other.y;
@@ -185,7 +185,7 @@ public:
         return *this;
     }
 
-    vector2<T> operator /= (const T v)
+    vector2<T>& operator /= (const T v)
     {
         x /= v;
         y /= v;
@@ -277,13 +277,16 @@ public:
         return sqr(x - other.x) + sqr(y - other.y);
     }
 
+    T x;
+    T y;
+
+    private:
+
     T sqr(T num)
     {
         return num*num;
     }
 
-    T x;
-    T y;
 };
 
 }
@@ -291,6 +294,3 @@ public:
 }
 
 
-
-
-#endif // VECTOR2_H

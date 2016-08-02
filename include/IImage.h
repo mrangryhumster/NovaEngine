@@ -1,7 +1,7 @@
 #ifndef IIMAGE_H
 #define IIMAGE_H
 
-#include "NExTypes.h"
+
 #include "Resource.h"
 #include "SPixelFormat.h"
 

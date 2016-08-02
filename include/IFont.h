@@ -1,7 +1,6 @@
 #ifndef IFONT_H
 #define IFONT_H
 
-#include "NExTypes.h"
 #include "Resource.h"
 #include "ITexture.h"
 

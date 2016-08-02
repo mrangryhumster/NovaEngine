@@ -2,7 +2,7 @@
 #define IGEOMETRYMANAGER_H
 
 #include "Object.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 namespace novaengine
 {

@@ -3,7 +3,7 @@
 #ifndef CWIN32WINDOW_H
 #define CWIN32WINDOW_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "IWindow.h"
 #include "IEventManager.h"
 

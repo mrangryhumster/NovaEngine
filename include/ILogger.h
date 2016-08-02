@@ -1,7 +1,7 @@
 #ifndef ILOGGER_H
 #define ILOGGER_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 
 namespace novaengine
 {

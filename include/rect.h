@@ -1,8 +1,8 @@
-#ifndef RECT_H
-#define RECT_H
 
-#include "NTypes.h"
-#include "NMath.h"
+#pragma once
+
+#include "ne_types.h"
+#include "ne_math.h"
 
 namespace novaengine
 {
@@ -70,4 +70,3 @@ public:
 }
 }
 
-#endif // RECT_H

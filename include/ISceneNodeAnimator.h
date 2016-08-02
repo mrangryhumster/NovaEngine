@@ -2,7 +2,7 @@
 #define ISCENENODEANIMATOR_H
 
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "Object.h"
 #include "ISceneNode.h"
 

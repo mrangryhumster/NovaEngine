@@ -4,7 +4,7 @@
 
 #include "NovaEngine.h"
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "ITexture.h"
 #include "STextureParameters.h"
 
@@ -32,7 +32,7 @@ public:
     IImage* lock();
     void unlock();
 
-    GLuint getTexture();
+    GLuint getTextureID();
 
 protected:
 private:

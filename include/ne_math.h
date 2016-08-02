@@ -2,7 +2,7 @@
 #define NEMATH_H
 
 #include <cmath>
-#include "NTypes.h"
+#include "ne_types.h"
 
 
 namespace novaengine

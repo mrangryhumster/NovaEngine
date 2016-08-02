@@ -1,8 +1,7 @@
-#ifndef VECTOR3_H
-#define VECTOR3_H
+#pragma once
 
-#include "NTypes.h"
-#include "NMath.h"
+#include "ne_types.h"
+#include "ne_math.h"
 
 namespace novaengine
 {
@@ -392,6 +391,7 @@ public:
     T x;
     T y;
     T z;
+
 private:
     T sqr(T num)
     {
@@ -402,4 +402,3 @@ private:
 
 }
 }
-#endif // VECTOR3_H

@@ -15,7 +15,6 @@ COpenGLMeshBuffer::COpenGLMeshBuffer():
 	OpenGL_VBO_indices(0),
 	OpenGL_VBO_indices_count(0),
 	OpenGL_VAO(0)
-
 {
 
 }
@@ -44,7 +43,7 @@ size_t COpenGLMeshBuffer::getBufferSize(u32 buffer)
 {
 	if (CurrentMapping == EMBMH_DEFAULT)
 		return CMeshBuffer::getBufferSize(buffer);
-	
+
 	switch (buffer)
 	{
 	case EVA_POSITION:

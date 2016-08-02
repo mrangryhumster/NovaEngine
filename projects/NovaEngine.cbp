@@ -261,15 +261,6 @@
 		<Unit filename="../include/IWindow.h">
 			<Option virtualFolder="include/Interfaces/" />
 		</Unit>
-		<Unit filename="../include/NExTypes.h">
-			<Option virtualFolder="include/types/" />
-		</Unit>
-		<Unit filename="../include/NMath.h">
-			<Option virtualFolder="include/" />
-		</Unit>
-		<Unit filename="../include/NTypes.h">
-			<Option virtualFolder="include/types/" />
-		</Unit>
 		<Unit filename="../include/NovaEngine.h">
 			<Option virtualFolder="include/" />
 		</Unit>
@@ -307,6 +298,12 @@
 			<Option virtualFolder="include/types/" />
 		</Unit>
 		<Unit filename="../include/matrix.h">
+			<Option virtualFolder="include/types/" />
+		</Unit>
+		<Unit filename="../include/ne_math.h">
+			<Option virtualFolder="include/" />
+		</Unit>
+		<Unit filename="../include/ne_types.h">
 			<Option virtualFolder="include/types/" />
 		</Unit>
 		<Unit filename="../include/quaternion.h">

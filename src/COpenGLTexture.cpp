@@ -158,10 +158,12 @@ core::dim2u COpenGLTexture::getTextureDimension()
 {
     return TextureDimension;
 }
+//-------------------------------------------------------------------------------------------
 void COpenGLTexture::bind()
 {
     getRenderer()->bindTexture(this,0);
 }
+//-------------------------------------------------------------------------------------------
 IImage* COpenGLTexture::lock()
 {
     if(TextureImg != NULL)
@@ -188,7 +190,7 @@ void COpenGLTexture::unlock()
     TextureImg = NULL;
 }
 //-------------------------------------------------------------------------------------------
-GLuint COpenGLTexture::getTexture()
+GLuint COpenGLTexture::getTextureID()
 {
     return GLTexture;
 }

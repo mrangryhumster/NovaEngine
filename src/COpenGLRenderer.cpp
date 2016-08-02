@@ -149,13 +149,14 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
 		m_RendererLastError = 1;
         return;
     }
+
 #else
 
 #ifndef __NE_MAKE_SOME_SHIT__
 	#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
 #endif
 
-#endif // 
+#endif //
 //---------------------------------------------------------------
 
 //common opengl initialization
@@ -513,7 +514,7 @@ ITexture* COpenGLRenderer::createTexture(IImage* p_Image,STextureParameters p_Te
 
     u32 time = time::getRealTime();
     COpenGLTexture* OpenGLTexture = new COpenGLTexture(this, p_Image, p_TextureParameters);
-    LOG_INFO("Texture generated : tx_id:%d [%d ms]\n",OpenGLTexture->getTexture(),time::getRealTime() - time);
+    LOG_INFO("Texture generated : tx_id:%d [%d ms]\n",OpenGLTexture->getTextureID(),time::getRealTime() - time);
     return OpenGLTexture;
 }
 //-----------------------------------------------------------------------------------------------
@@ -524,7 +525,7 @@ void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 	enable_texture_unit(id);
 
     if(Texture)
-        glBindTexture(GL_TEXTURE_2D,((COpenGLTexture*)Texture)->getTexture());
+        glBindTexture(GL_TEXTURE_2D,((COpenGLTexture*)Texture)->getTextureID());
     else
         glBindTexture(GL_TEXTURE_2D,0);
 

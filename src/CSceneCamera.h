@@ -1,7 +1,7 @@
 #ifndef CSCENECAMERA_H
 #define CSCENECAMERA_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "ISceneCamera.h"
 #include "NLogger.h"
 

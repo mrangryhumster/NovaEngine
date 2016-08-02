@@ -3,9 +3,8 @@
 
 #include "CompileConfig.h"
 
-#include "NTypes.h"
-#include "NMath.h"
-#include "NExTypes.h"
+#include "ne_types.h"
+#include "ne_math.h"
 
 #include "matrix.h"
 #include "quaternion.h"
@@ -15,8 +14,6 @@
 #include "color4.h"
 #include "dim2.h"
 #include "rect.h"
-
-#include "NMath.h"
 
 #include "ILogger.h"
 #include "Object.h"
@@ -64,9 +61,9 @@
 
 namespace novaengine
 {
-	_NOVAENGINE_API INovaEngine* createEngine();
-	_NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf);
-	_NOVAENGINE_API void         closeEngine();
+_NOVAENGINE_API INovaEngine* createEngine();
+_NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf);
+_NOVAENGINE_API void         closeEngine();
 
 
 _NOVAENGINE_API  INovaEngine*    getNovaEngine();

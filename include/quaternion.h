@@ -1,7 +1,7 @@
-#ifndef QUATERNION_H
-#define QUATERNION_H
 
-#include "NTypes.h"
+#pragma once
+
+#include "ne_types.h"
 #include "matrix.h"
 //#include "log/NLogger.h"
 
@@ -290,4 +290,3 @@ private:
 
 }
 }
-#endif // QUATERNION_H

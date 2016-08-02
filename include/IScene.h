@@ -1,7 +1,7 @@
 #ifndef ISCENE_H
 #define ISCENE_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "Object.h"
 
 

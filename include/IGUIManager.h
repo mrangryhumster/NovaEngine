@@ -2,7 +2,7 @@
 #define IGUIMANAGER_H
 
 #include "Object.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 #include "IRenderer.h"
 #include "IEventManager.h"

@@ -1,7 +1,7 @@
 #ifndef CPERFORMANCECOUNTER_H
 #define CPERFORMANCECOUNTER_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "NTime.h"
 #include "IPerformanceCounter.h"
 

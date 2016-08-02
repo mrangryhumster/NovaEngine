@@ -1,5 +1,5 @@
 #include "NLogger.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 #include <stdio.h>
 #include <string.h>

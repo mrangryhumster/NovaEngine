@@ -1,8 +1,7 @@
 #ifndef SVERTEX_H
 #define SVERTEX_H
 
-#include "NTypes.h"
-#include "NExTypes.h"
+#include "ne_types.h"
 
 #define GET_COOKIE ;
 

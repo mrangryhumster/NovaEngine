@@ -2,7 +2,7 @@
 #define ISCENECAMERA_H
 
 #include "ISceneNode.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 namespace novaengine
 {

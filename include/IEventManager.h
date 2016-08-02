@@ -2,8 +2,8 @@
 #define IEVENTMANAGER_H
 
 #include "Object.h"
-#include "NTypes.h"
-#include "NExTypes.h"
+#include "ne_types.h"
+
 
 #include "SEvent.h"
 #include "IEventListener.h"

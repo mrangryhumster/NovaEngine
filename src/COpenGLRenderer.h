@@ -79,13 +79,13 @@ public:
     const core::matrixf getTransform(E_MATRIX_TYPE mtype);
     void resetTransform(E_MATRIX_TYPE mtype);
 	//--------------------------------------------------------------------------
-	IRenderTarget* createRenderTarget();
+	IRenderTarget*  createRenderTarget();
     //--------------------------------------------------------------------------
     IShaderProgram* createShaderProgram();
     //--------------------------------------------------------------------------
-    IMeshBuffer* createMeshBuffer();
+    IMeshBuffer*    createMeshBuffer();
     //--------------------------------------------------------------------------
-    ITexture* createTexture(IImage*,STextureParameters);
+    ITexture*       createTexture(IImage*,STextureParameters);
     //--------------------------------------------------------------------------
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);

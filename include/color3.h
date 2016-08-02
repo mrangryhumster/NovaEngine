@@ -1,7 +1,7 @@
-#ifndef COLOR3_H
-#define COLOR3_H
 
-#include "NTypes.h"
+#pragma once
+
+#include "ne_types.h"
 
 namespace novaengine
 {
@@ -16,30 +16,28 @@ public:
     {
     }
 
-    color3(T Red_,T Green_,T Blue_)
+    color3(T r_,T g_,T b_)
     {
-        Red = Red_;
-        Green = Green_;
-        Blue = Blue_;
+        r = r_;
+        g = g_;
+        b = b_;
     }
 
 
     color3 operator= (const color3 &other)
     {
-        Red = other.Red;
-        Green = other.Green;
-        Blue = other.Blue;
+        r = other.r;
+        g = other.g;
+        b = other.b;
         return *this;
     }
 
 
-    T Red;
-    T Green;
-    T Blue;
+    T r;
+    T g;
+    T b;
 };
 
 
 }
 }
-
-#endif // COLOR3_H

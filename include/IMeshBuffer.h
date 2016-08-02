@@ -3,7 +3,7 @@
 
 
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "Resource.h"
 
 

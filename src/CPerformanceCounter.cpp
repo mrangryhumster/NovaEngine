@@ -1,6 +1,7 @@
 #include "CPerformanceCounter.h"
 
-#include "NMath.h"
+//#include "ne_math.h"
+
 namespace novaengine
 {
 

@@ -2,7 +2,7 @@
 #define ISCENE2DNODE_H
 
 #include "Object.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 #include "ISceneNode.h"
 

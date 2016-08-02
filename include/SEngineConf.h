@@ -1,7 +1,7 @@
 #ifndef SENGINECONF_H
 #define SENGINECONF_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "dim2.h"
 #include "ERendererEnums.h"
 #include "ILogger.h"

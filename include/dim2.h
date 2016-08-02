@@ -1,7 +1,7 @@
-#ifndef DIMENSION2D_T_H
-#define DIMENSION2D_T_H
 
-#include "NMath.h"
+#pragma once
+
+#include "ne_math.h"
 
 namespace novaengine
 {
@@ -60,5 +60,3 @@ public:
 
 }
 
-
-#endif // dim2_H

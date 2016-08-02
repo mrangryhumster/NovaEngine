@@ -1,7 +1,7 @@
 #ifndef SEVENT_H
 #define SEVENT_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 namespace novaengine
 {
 //----------------------------------

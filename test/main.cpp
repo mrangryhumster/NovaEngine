@@ -93,118 +93,6 @@ private:
 	s32 last_x;
 	s32 last_y;
 };
-const char* v_h_shader =
-
-"varying vec2 v_texCoord;"
-"varying vec2 v_blurTexCoords[14];"
-
-"void main()"
-"{"
-"    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-"    v_texCoord = gl_MultiTexCoord0;"
-"    v_blurTexCoords[ 0] = v_texCoord + vec2(-0.014, 0.0);"
-"    v_blurTexCoords[ 1] = v_texCoord + vec2(-0.012, 0.0);"
-"    v_blurTexCoords[ 2] = v_texCoord + vec2(-0.010, 0.0);"
-"    v_blurTexCoords[ 3] = v_texCoord + vec2(-0.008, 0.0);"
-"    v_blurTexCoords[ 4] = v_texCoord + vec2(-0.006, 0.0);"
-"    v_blurTexCoords[ 5] = v_texCoord + vec2(-0.004, 0.0);"
-"    v_blurTexCoords[ 6] = v_texCoord + vec2(-0.002, 0.0);"
-"    v_blurTexCoords[ 7] = v_texCoord + vec2( 0.002, 0.0);"
-"    v_blurTexCoords[ 8] = v_texCoord + vec2( 0.004, 0.0);"
-"    v_blurTexCoords[ 9] = v_texCoord + vec2( 0.006, 0.0);"
-"    v_blurTexCoords[10] = v_texCoord + vec2( 0.008, 0.0);"
-"    v_blurTexCoords[11] = v_texCoord + vec2( 0.010, 0.0);"
-"    v_blurTexCoords[12] = v_texCoord + vec2( 0.012, 0.0);"
-"    v_blurTexCoords[13] = v_texCoord + vec2( 0.014, 0.0);"
-"}";
-const char* v_v_shader =
-
-"varying vec2 v_texCoord;"
-"varying vec2 v_blurTexCoords[14];"
-
-"void main()"
-"{"
-"    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-"    v_texCoord = gl_MultiTexCoord0;"
-"    v_blurTexCoords[ 0] = v_texCoord + vec2(0.0, -0.014);"
-"    v_blurTexCoords[ 1] = v_texCoord + vec2(0.0, -0.012);"
-"    v_blurTexCoords[ 2] = v_texCoord + vec2(0.0, -0.010);"
-"    v_blurTexCoords[ 3] = v_texCoord + vec2(0.0, -0.008);"
-"    v_blurTexCoords[ 4] = v_texCoord + vec2(0.0, -0.006);"
-"    v_blurTexCoords[ 5] = v_texCoord + vec2(0.0, -0.004);"
-"    v_blurTexCoords[ 6] = v_texCoord + vec2(0.0, -0.002);"
-"    v_blurTexCoords[ 7] = v_texCoord + vec2(0.0,  0.002);"
-"    v_blurTexCoords[ 8] = v_texCoord + vec2(0.0,  0.004);"
-"    v_blurTexCoords[ 9] = v_texCoord + vec2(0.0,  0.006);"
-"    v_blurTexCoords[10] = v_texCoord + vec2(0.0,  0.008);"
-"    v_blurTexCoords[11] = v_texCoord + vec2(0.0,  0.010);"
-"    v_blurTexCoords[12] = v_texCoord + vec2(0.0,  0.012);"
-"    v_blurTexCoords[13] = v_texCoord + vec2(0.0,  0.014);"
-"}";
-
-const char* f_shader =
-"uniform sampler2D s_texture;"
-
-"varying vec2 v_texCoord;"
-"varying vec2 v_blurTexCoords[14];"
-
-"void main()"
-"{"
-"    gl_FragData[0] = vec4(0.0);"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 0])*0.0044299121055113265;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 1])*0.00895781211794;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 2])*0.0215963866053;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 3])*0.0443683338718;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 4])*0.0776744219933;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 5])*0.115876621105;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 6])*0.147308056121;"
-"    gl_FragData[0] += texture2D(s_texture, v_texCoord         )*0.209576912161;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 7])*0.147308056121;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 8])*0.115876621105;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[ 9])*0.0776744219933;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[10])*0.0443683338718;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[11])*0.0215963866053;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[12])*0.00895781211794;"
-"    gl_FragData[0] += texture2D(s_texture, v_blurTexCoords[13])*0.0044299121055113265;"
-"}";
-
-const char* v_d_shader =
-
-"varying vec2 v_texCoord;"
-
-"void main()"
-"{"
-"    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-"    v_texCoord = gl_MultiTexCoord0;"
-"}";
-
-const char* f_d_shader =
-"uniform sampler2D s_texture;"
-"varying vec2 v_texCoord;"
-
-"void main()"
-"{"
-"    gl_FragData[0] = texture2D(s_texture,v_texCoord);"
-"    vec3 color = texture2D(s_texture,v_texCoord).rgb;"
-"    if(length(color) < 1.0)"
-"	 {"
-"		gl_FragData[1] = vec4(0.0,0.0,0.0,1.0);"
-"	 }"
-"	 else"
-"		gl_FragData[1] = vec4(color,1.0);"
-"}";
-
-const char* f_d2_shader =
-"uniform sampler2D s_texture;"
-"varying vec2 v_texCoord;"
-
-"void main()"
-"{"
-"    vec4 color = texture2D(s_texture,v_texCoord);"
-"    color.w = length(color.xyz)*2;"
-"    color.rgb /= length(color.rgb);"
-"    gl_FragData[0] = color;"
-"}";
 
 
 int run()
@@ -219,6 +107,21 @@ int run()
 
 	u32 FPS = 0;
 	novaengine::IPerformanceCounter * EPC = Engine->getPerformanceCounter();
+
+	renderer::IStaticMesh* Mesh = Engine->getGeometryManager()->createCubeMesh();
+
+    core::matrixf proj;
+    core::matrixf view;
+    core::matrixf modl;
+
+    proj.buildPerspectiveProjectionMatrix(90,1.6666,1.0,1000.0);
+    view.buildLookAtMatrix(core::vector3f(0,0,3),core::vector3f(0,0,0),core::vector3f(0,1,0));
+
+    Engine->getRenderer()->setTransform(proj,renderer::EMT_PROJECTION);
+    Engine->getRenderer()->setTransform(view,renderer::EMT_VIEW);
+
+    Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STATIC);
+
 	while (Engine->update())
 	{
 		if (FPS != EPC->getFramesPerSecond())
@@ -229,11 +132,14 @@ int run()
 			FPS = EPC->getFramesPerSecond();
 		}
 
+        modl.applyRotationDegrees(core::vector3f(0.05,0.075,0.1));
+        Engine->getRenderer()->setTransform(modl,renderer::EMT_MODEL);
 
-
+		Engine->getRenderer()->begin_frame();
+		Engine->getRenderer()->drawMeshBuffer(Mesh->getMeshBuffer(0));
+		Engine->getRenderer()->end_frame();
 
 	}
-	//Mesh->release();
 
 	closeEngine();
 

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Object.h"
-#include "NTypes.h"
+#include "ne_types.h"
 
 #include "ISceneManager.h"
 #include "IScene.h"

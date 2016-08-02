@@ -2,7 +2,7 @@
 #define ISHADERPROGRAM_H
 
 #include "Object.h"
-#include "NExTypes.h"
+
 
 namespace novaengine
 {

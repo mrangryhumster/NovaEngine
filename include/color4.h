@@ -1,6 +1,5 @@
-#ifndef COLOR4_H
-#define COLOR4_H
 
+#pragma once
 
 
 namespace novaengine
@@ -53,10 +52,10 @@ public:
 
     inline color4<T>& mul(const f32 val)
     {
-        r     *= val;
-        g   *= val;
+        r    *= val;
+        g    *= val;
         b    *= val;
-        //Alpha   *= val;
+        a    *= val;
         return *this;
     }
 
@@ -72,4 +71,3 @@ public:
 }
 }
 
-#endif // COLOR4_H

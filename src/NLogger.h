@@ -1,7 +1,7 @@
 #ifndef NLOG_H
 #define NLOG_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "ILogger.h"
 
 #include <cstdarg>

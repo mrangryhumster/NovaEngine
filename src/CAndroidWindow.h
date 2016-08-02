@@ -3,7 +3,7 @@
 
 #ifdef NE_WINDOW_ANDROID
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "IWindow.h"
 #include "IEventManager.h"
 #include "IEventListener.h"

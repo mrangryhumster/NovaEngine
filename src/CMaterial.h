@@ -3,7 +3,7 @@
 
 #include "NovaEngine.h"
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "IMaterial.h"
 #include "ITexture.h"
 

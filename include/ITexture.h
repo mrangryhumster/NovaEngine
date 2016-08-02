@@ -1,7 +1,7 @@
 #ifndef ITEXTURE_H
 #define ITEXTURE_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "Resource.h"
 #include "IImage.h"
 #include "STextureParameters.h"

@@ -1,7 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include <string.h>
 #include <stdexcept>
 

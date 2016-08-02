@@ -1,9 +1,8 @@
-#ifndef matrix_H
-#define matrix_H
 
+#pragma once
 
-#include "NTypes.h"
-#include "NMath.h"
+#include "ne_types.h"
+#include "ne_math.h"
 
 #include "vector2.h"
 #include "vector3.h"
@@ -234,7 +233,7 @@ public:
     inline matrix<T>& buildOrthographicProjectionMatrix(f32 left,f32 right,f32 bottom,f32 top,f32 znear,f32 zfar)
     {
         makeIdentify();
-        
+
 		native_matrix[0]  = (T)  2 / (right - left);
         native_matrix[5]  = (T)  2 / (top - bottom);
         native_matrix[10] = (T) -2 / (zfar - znear);
@@ -242,7 +241,7 @@ public:
         native_matrix[12] = (T) -((right + left) / (right - left));
         native_matrix[13] = (T) -((top + bottom) / (top - bottom));
         native_matrix[14] = (T) -((zfar + znear) / (zfar - znear));
-        
+
 		return *this;
     }
 
@@ -277,7 +276,7 @@ public:
 
     inline matrix<T>& buildLookAtMatrix(vector3<T> Position,vector3<T> Target,vector3<T> UpVector)
     {
-		//TODO: Check inverted dot product at native_matrix[14] = (T) ZAxis.dot_product(Position); 
+		//TODO: Check inverted dot product at native_matrix[14] = (T) ZAxis.dot_product(Position);
 
         //! Temp fix
         if(Position == Target)
@@ -312,7 +311,7 @@ public:
 
         native_matrix[12] = (T)-XAxis.dot_product(Position);
         native_matrix[13] = (T)-YAxis.dot_product(Position);
-        native_matrix[14] = (T) ZAxis.dot_product(Position); 
+        native_matrix[14] = (T) ZAxis.dot_product(Position);
         native_matrix[15] = 1;
 
         return *this;
@@ -591,4 +590,3 @@ private:
 };
 }
 }
-#endif // matrix_H

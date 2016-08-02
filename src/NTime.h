@@ -3,7 +3,7 @@
 
 #include <time.h>
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "NLogger.h"
 
 #include "CompileConfig.h"

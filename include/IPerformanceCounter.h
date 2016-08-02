@@ -1,7 +1,7 @@
 #ifndef IPERFORMANCECOUNTER_H
 #define IPERFORMANCECOUNTER_H
 
-#include "NTypes.h"
+#include "ne_types.h"
 #include "Object.h"
 namespace novaengine
 {

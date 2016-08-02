@@ -2,8 +2,8 @@
 #define SPRIMITIVE_H
 
 
-#include "NTypes.h"
-#include "NExTypes.h"
+#include "ne_types.h"
+
 #include "SVertex.h"
 
 namespace novaengine
