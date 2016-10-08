@@ -62,7 +62,7 @@ public:
         {
             if(StaticMesh->getMeshBuffer(i)->getMaterial())
             {
-                Renderer->bindMaterial(StaticMesh->getMeshBuffer(i)->getMaterial());
+//                Renderer->bindMaterial(StaticMesh->getMeshBuffer(i)->getMaterial());
             }
             Renderer->drawMeshBuffer(StaticMesh->getMeshBuffer(i));
         }

@@ -43,7 +43,7 @@ public:
     virtual const char* getDir()  = 0;
 
 
-
+	///Dont use!
     virtual void* getNativePointer() = 0;
 
 protected:

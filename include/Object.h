@@ -7,11 +7,15 @@
 
 #define NOVAENGINE_OBJECT_START_REFERENCECOUNT_VAL 1
 
+#include <stdio.h>
+
 namespace novaengine
 {
+
 class Object
 {
 public:
+
 
     /// \brief Default constructor
     /// Set ReferenceCounter in 1,ObjectName in "NotDefined"

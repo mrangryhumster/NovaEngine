@@ -42,7 +42,7 @@ private:
     core::dim2u         TextureDimension;
     GLuint              GLTexture;
 
-    IImage* TextureImg; //!< Fills by using lock(), need to get pixles pixels of the current texture.Will be delete after call unlock().
+    IImage* TextureImg; //!< Fills by using lock(), will be deleted after call unlock().
 };
 
 }

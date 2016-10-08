@@ -100,7 +100,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='APP RELEASE|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;NE_WINDOW_WIN32;NE_OPENGL_RENDERER;NE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;_WINDOWS;NE_WINDOW_WIN32;NE_OPENGL_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
-      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Profile>false</Profile>
@@ -124,6 +124,8 @@
       <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
@@ -218,10 +220,9 @@
     <ClInclude Include="..\include\ITimer.h" />
     <ClInclude Include="..\include\IWindow.h" />
     <ClInclude Include="..\include\matrix.h" />
-    <ClInclude Include="..\include\NExTypes.h" />
-    <ClInclude Include="..\include\NMath.h" />
+    <ClInclude Include="..\include\ne_math.h" />
+    <ClInclude Include="..\include\ne_types.h" />
     <ClInclude Include="..\include\NovaEngine.h" />
-    <ClInclude Include="..\include\NTypes.h" />
     <ClInclude Include="..\include\Object.h" />
     <ClInclude Include="..\include\quaternion.h" />
     <ClInclude Include="..\include\rect.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="..\src\CGUIManager.cpp" />
     <ClCompile Include="..\src\CImage.cpp" />
     <ClCompile Include="..\src\CImageLoader_PNG.cpp" />
+    <ClCompile Include="..\src\CMaterial.cpp" />
     <ClCompile Include="..\src\CMeshBuffer.cpp" />
     <ClCompile Include="..\src\CNovaEngine.cpp" />
     <ClCompile Include="..\src\COpenGLMeshBuffer.cpp" />
@@ -352,11 +354,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram11.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

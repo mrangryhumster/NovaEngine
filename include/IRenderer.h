@@ -80,18 +80,16 @@ public:
     virtual const core::matrixf getTransform(E_MATRIX_TYPE mtype) = 0;
     virtual void  resetTransform(E_MATRIX_TYPE mtype) = 0;
     //--------------------------------------------------------------------------
-	virtual IRenderTarget* createRenderTarget() = 0;
+	virtual IRenderTarget*  createRenderTarget() = 0;
 	//--------------------------------------------------------------------------
     virtual IShaderProgram* createShaderProgram() = 0;
     //--------------------------------------------------------------------------
-    virtual IMeshBuffer* createMeshBuffer() = 0;
+    virtual IMeshBuffer*    createMeshBuffer() = 0;
     //--------------------------------------------------------------------------
-    virtual ITexture* createTexture(IImage*,STextureParameters = STextureParameters()) = 0;
+    virtual ITexture*       createTexture(IImage*,STextureParameters = STextureParameters()) = 0;
     //--------------------------------------------------------------------------
     virtual void bindTexture(ITexture* texture,u32 texture_unit_id = 0) = 0;
     virtual void bindShaderProgram(IShaderProgram* Shader) = 0;
-    //--------------------------------------------------------------------------
-    virtual void bindMaterial(IMaterial* material) = 0;
     //--------------------------------------------------------------------------
     virtual void setRenderTarget(ITexture* target,u32 target_type) = 0;
 	virtual void setRenderTarget(IRenderTarget* p_RenderTarget) = 0;

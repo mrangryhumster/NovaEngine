@@ -15,140 +15,156 @@
 
 #include "NTime.h"
 
-#include "GL\glew.h"
-#include <GL\gl.h>
+#include "gl/glew.h"
+
+#include "COpenGLShaderProgram.h"
 
 using namespace std;
 using namespace novaengine;
+using namespace renderer;
 
-#define SENS_FACTOR 0.2f
-#define TARGET core::vector3f(0,0,0)
-class FloatCameraAnimator : public scene::ISceneNodeAnimator, public IEventListener
+
+const char* Default_VertexShader_Source =
+"#version 330\n"
+"layout (location = 0) in vec3 ne_vertex;\n"
+"layout (location = 1) in vec2 ne_texcord;\n"
+"uniform mat4  ne_mvp_matrix;\n"
+"out vec2 texcord;\n"
+"void main() {\n"
+"gl_Position = (ne_mvp_matrix) * vec4(ne_vertex,1.0);\n"
+"texcord = ne_texcord;\n"
+"}\n";
+
+const char* Default_FragmentShader_Source =
+"#version 330\n"
+"uniform sampler2D ne_texture2de[2];\n"
+"in vec2 texcord;\n"
+"out vec4 Color;\n"
+"void main() {\n"
+"  Color = texture(ne_texture2de[0],texcord) - texture(ne_texture2de[1],texcord);\n"
+"  Color.a = 1.0;\n"
+"}\n";
+
+void debug_output(const char* szFormat, ...)
 {
-public:
-	FloatCameraAnimator()
-	{
-		angle_x = 0;
-		angle_y = 0;
-		distantion = 5;
-		track = 0;
-	}
-	void OnEvent(SEvent& event)
-	{
-		if (event.event_type == EET_POINTER_EVENT)
-		{
-			if (event.pointer.event_type == EPET_BUTTON)
-			{
-				if (event.pointer.keycode == KEY_MOUSE_LEFT)
-				{
-					track = event.pointer.key_state;
-					last_x = event.pointer.x;
-					last_y = event.pointer.y;
-				}
-			}
-			if (event.pointer.event_type == EPET_WHELL)
-			{
-				if (event.pointer.key_state == EKS_UP)
-					distantion -= 0.5f * SENS_FACTOR * (distantion / 2);
-				else
-					distantion += 0.5f * SENS_FACTOR * (distantion / 2);
-			}
-			if (track)
-			{
-				s32 diff_x = event.pointer.x - last_x;
-				last_x = event.pointer.x;
-				s32 diff_y = event.pointer.y - last_y;
-				last_y = event.pointer.y;
+	char szBuff[1024];
+	va_list arg;
+	va_start(arg, szFormat);
+	_vsnprintf(szBuff, sizeof(szBuff), szFormat, arg);
+	va_end(arg);
 
-				angle_y += diff_x * SENS_FACTOR;
-				angle_x += diff_y * SENS_FACTOR;
-				if (angle_x > 89)
-					angle_x = 89;
-				else if (angle_x < -89)
-					angle_x = -89;
-			}
-		}
-	}
-
-	void animate(scene::ISceneNode* AnimatedNode, f32 DeltaTime)
-	{
-		core::vector3f      Position(0, 0, distantion);
-		core::matrix<f32>   RotationMatrix;
-		RotationMatrix.applyRotationDegrees(core::vector3f(0, angle_y, 0));
-		RotationMatrix.applyRotationDegrees(core::vector3f(angle_x, 0, 0));
-
-		RotationMatrix.transform_vector(Position);
-		Position.add(TARGET);
-		AnimatedNode->setPosition(Position);
-	}
-
-private:
-	bool track;
-
-	f32 distantion;
-
-	f32 angle_y;
-	f32 angle_x;
-
-	s32 last_x;
-	s32 last_y;
-};
-
-
-int run()
-{
-
-	SEngineConf conf;
-	conf.WindowSize = core::dim2u(1920, 1080);
-	conf.VSync = false;
-	conf.StartWindowHidden = false;
-
-	novaengine::INovaEngine* Engine = novaengine::createEngineEx(conf);
-
-	u32 FPS = 0;
-	novaengine::IPerformanceCounter * EPC = Engine->getPerformanceCounter();
-
-	renderer::IStaticMesh* Mesh = Engine->getGeometryManager()->createCubeMesh();
-
-    core::matrixf proj;
-    core::matrixf view;
-    core::matrixf modl;
-
-    proj.buildPerspectiveProjectionMatrix(90,1.6666,1.0,1000.0);
-    view.buildLookAtMatrix(core::vector3f(0,0,3),core::vector3f(0,0,0),core::vector3f(0,1,0));
-
-    Engine->getRenderer()->setTransform(proj,renderer::EMT_PROJECTION);
-    Engine->getRenderer()->setTransform(view,renderer::EMT_VIEW);
-
-    Mesh->getMeshBuffer(0)->setMappingHint(renderer::EMBMH_VBO_STATIC);
-
-	while (Engine->update())
-	{
-		if (FPS != EPC->getFramesPerSecond())
-		{
-			char buf[256];
-			sprintf(buf, "fps:%f", EPC->getFramesPerSecond());
-			Engine->getWindow()->setTittle(buf);
-			FPS = EPC->getFramesPerSecond();
-		}
-
-        modl.applyRotationDegrees(core::vector3f(0.05,0.075,0.1));
-        Engine->getRenderer()->setTransform(modl,renderer::EMT_MODEL);
-
-		Engine->getRenderer()->begin_frame();
-		Engine->getRenderer()->drawMeshBuffer(Mesh->getMeshBuffer(0));
-		Engine->getRenderer()->end_frame();
-
-	}
-
-	closeEngine();
-
-	return 0;
+	OutputDebugString(szBuff);
 }
 
+IShaderProgram* Prog = nullptr;
+
+IMaterial* create_material(INovaEngine* Engine)
+{
+
+	if (Prog == nullptr)
+	{
+		Prog = Engine->getRenderer()->createShaderProgram();
+		Prog->setVertexShaderSource(Default_VertexShader_Source);
+		Prog->setFragmentShaderSource(Default_FragmentShader_Source);
+		Prog->build();
+	}
+	IMaterial* newMaterial = Engine->getResourceManager()->createMaterial();
+	newMaterial->setShaderProgram(Prog);
+	newMaterial->build();
+	//Prog->release();
+
+	return newMaterial;
+}
 
 int main()
 {
-	run();
-	return 0;
+    SEngineConf conf;
+    conf.WindowSize.width = 1920;
+    conf.WindowSize.height = 1080;
+
+    INovaEngine* Engine = createEngineEx(conf);
+    renderer::IRenderer* rndr = Engine->getRenderer();
+
+	ITexture* Texture1 = Engine->getResourceManager()->loadTexture("S:\\F\\git\\res\\m_ship.png");
+	ITexture* Texture2 = Engine->getResourceManager()->loadTexture("S:\\F\\git\\res\\m_ship_n.png");
+	ITexture* TextureM = Engine->getResourceManager()->loadTexture("S:\\F\\git\\res\\mask.png");
+
+	IStaticMesh* Cube = Engine->getResourceManager()->loadStaticMesh("S:\\F\\git\\res\\m_ship.obj");// Engine->getGeometryManager()->createCubeMesh();
+
+    core::matrixf proj,view,modl;
+    proj.buildPerspectiveProjectionMatrix(90, 1920.0 / 1080.0, 0.1, 1000);
+	view.buildLookAtMatrix(core::vector3f(-30, 10, 0), core::vector3f(0, 0, 0), core::vector3f(0, 1, 0));
+	modl.setTranslate(core::vector3f(0,0,-10));
+
+	rndr->setTransform(proj, EMT_PROJECTION);
+	rndr->setTransform(view, EMT_VIEW);
+	rndr->setTransform(modl, EMT_MODEL);
+
+	IMaterial* newMaterial1 = create_material(Engine);
+	IMaterial* newMaterial2 = create_material(Engine);
+
+	newMaterial1->setTexture(Texture1, 0);
+	newMaterial1->setTexture(TextureM, 1);
+
+	newMaterial2->setTexture(Texture2, 0);
+	newMaterial2->setTexture(TextureM, 1);
+
+	Prog->bind();
+
+	modl.setTranslate(core::vector3f(0, -4, 20));
+	rndr->setTransform(modl, EMT_MODEL);
+	newMaterial1->setValue("ne_mvp_matrix", getRenderer()->getTransform(EMT_MVP).getPointer());
+
+	modl.setTranslate(core::vector3f(0, -4, -20));
+	rndr->setTransform(modl, EMT_MODEL);
+	newMaterial2->setValue("ne_mvp_matrix", getRenderer()->getTransform(EMT_MVP).getPointer());
+
+    //------------------------------------------------------------------------------
+	f32 FPS = 0;
+	int ctr = 0;
+	int frm = 0;
+	IPerformanceCounter * EPC = Engine->getPerformanceCounter();
+    while (Engine->update())
+    {
+		if (FPS != EPC->getFramesPerSecond())
+		{
+			char buf[256];
+			sprintf(buf, "fps:%f ctr:%d frm:%d\n", EPC->getFramesPerSecond(),ctr,frm);
+			Engine->getWindow()->setTittle(buf);
+			FPS = EPC->getFramesPerSecond();
+			ctr++;
+		}
+		frm++;
+
+        rndr->begin_frame();
+
+		for (int i = 0; i < 128; i++)
+		{
+			newMaterial1->bind();
+			Cube->getMeshBuffer(0)->draw();
+
+
+			newMaterial2->bind();
+			Cube->getMeshBuffer(0)->draw();
+		}
+
+		rndr->end_frame();
+
+		if (frm > 1000)
+			break;
+    }
+	debug_output("fps:%f ctr:%d frm:%d\n", EPC->getFramesPerSecond(), ctr, frm);
+
+    Cube->release();
+    newMaterial1->release();
+	newMaterial2->release();
+	Prog->release();
+
+	Texture1->release();
+	Texture2->release();
+	TextureM->release();
+    closeEngine();
+
+    return 0;
+
 }

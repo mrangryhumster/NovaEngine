@@ -201,16 +201,7 @@
     <ClInclude Include="..\include\matrix.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\NExTypes.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\NMath.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\NovaEngine.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\NTypes.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Object.h">
@@ -426,6 +417,12 @@
     <ClInclude Include="..\src\CGUIManager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ne_types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ne_math.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
@@ -602,10 +599,8 @@
     <ClCompile Include="..\src\CGUIManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram11.cd" />
+    <ClCompile Include="..\src\CMaterial.cpp">
+      <Filter>src\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -41,19 +41,6 @@ enum R_CLIENT_STATES_LIST
     RCSL_COLOR_ARRAY   = 3,
     RCSL_STATES_COUNT  = 4,
 };
-
-enum R_TEXTURE_UNITS_LIST
-{
-	RTUL_TEXTURE_0 = 0,
-	RTUL_TEXTURE_1    ,
-	RTUL_TEXTURE_2    ,
-	RTUL_TEXTURE_3    ,
-	RTUL_TEXTURE_4    ,
-	RTUL_TEXTURE_5    ,
-	RTUL_TEXTURE_6    ,
-	RTUL_TEXTURE_7    ,
-	RTUL_TEXTURE_COUNT,
-};
 //-------------------------
 
 class COpenGLRenderer : public CBaseRenderer,IEventListener
@@ -90,8 +77,6 @@ public:
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);
     //--------------------------------------------------------------------------
-    void bindMaterial(IMaterial*);
-    //--------------------------------------------------------------------------
 	void setRenderTarget(IRenderTarget* p_RenderTarget);
     //--------------------------------------------------------------------------
     void clear(u32 flag,core::color4f clear_color = core::color4f(0,0,0,1));
@@ -113,6 +98,7 @@ public:
 protected:
 private:
 
+    inline void update_mvp_matrix(E_MATRIX_TYPE updated = static_cast<E_MATRIX_TYPE>(0));
 
     inline void to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive);
     inline u32  to_opengl_type(u32 type);
@@ -122,7 +108,9 @@ private:
 	inline void enable_texture_unit(u32 p_TextureUnit);
 
     bool m_RendererClientStatesList[RCSL_STATES_COUNT];
-	bool m_RendererActiveTextureUnitsList[RTUL_TEXTURE_COUNT];
+	bool m_RendererActiveTextureUnitsList[ERTU_TEXTURE_COUNT];
+
+
 
     #ifdef NE_WINDOW_WIN32
     HWND  hWnd;

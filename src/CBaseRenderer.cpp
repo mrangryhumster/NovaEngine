@@ -1,7 +1,5 @@
 #include "CBaseRenderer.h"
 
-#include "CMeshBuffer.h"
-
 namespace novaengine
 {
 namespace renderer
@@ -18,12 +16,11 @@ CBaseRenderer::CBaseRenderer(CPerformanceCounter* p_PerfCounter,window::IWindow*
     m_RendererName(nullptr),
     m_PerformanceCounter(p_PerfCounter),
     m_ActiveProgram(nullptr),
-    m_ActiveMaterial(nullptr),
 	m_ActiveRenderTarget(nullptr),
 	m_RenderTarget(nullptr)
 {
 
-    for(u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
+    for(u32 i = 0; i < ERTU_TEXTURE_COUNT; i++)
         m_ActiveTexture[i] = nullptr;
 
 }
@@ -74,28 +71,40 @@ core::rectu CBaseRenderer::getViewport()
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
 {
-
     switch(mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
         m_ProjectionMatrix = mat;
+        m_MVPMatrix = m_ProjectionMatrix * m_ViewMatrix * m_ModelMatrix;
         //--------------------------------------
-        break;
+        return;
+
     case EMT_VIEW:
+        //--------------------------------------
+        m_ViewMatrix  = mat;
+        m_MVPMatrix = m_ProjectionMatrix * m_ViewMatrix * m_ModelMatrix;
+        //--------------------------------------
+        return;
+
     case EMT_MODEL:
         //--------------------------------------
-        if(mtype == EMT_VIEW)
-            m_ViewMatrix  = mat;
-        else
-            m_ModelMatrix = mat;
+        m_ModelMatrix = mat;
+        m_MVPMatrix = m_ProjectionMatrix * m_ViewMatrix * m_ModelMatrix;
         //--------------------------------------
-        break;
+        return;
+
     case EMT_TEXTURE:
         //--------------------------------------
         m_TextureMatrix = mat;
         //--------------------------------------
-        break;
+        return;
+
+    default:
+        //--------------------------------------
+        m_MVPMatrix = mat;
+        //--------------------------------------
+        return;
     }
 }
 //-----------------------------------------------------------------------------------------------
@@ -112,14 +121,13 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
     case EMT_TEXTURE:
         return m_TextureMatrix;
     default:
-
-        return core::matrixf();
+        return m_MVPMatrix;
     }
 }
 //-----------------------------------------------------------------------------------------------
 void CBaseRenderer::bindTexture(ITexture* p_Texture,u32 p_Unit)
 {
-    if(p_Unit < EMTN_TEXTURE_COUNT && m_ActiveTexture[p_Unit] != p_Texture)
+    if(p_Unit < ERTU_TEXTURE_COUNT && m_ActiveTexture[p_Unit] != p_Texture)
     {
         if(m_ActiveTexture[p_Unit])
             m_ActiveTexture[p_Unit]->release();
@@ -143,18 +151,6 @@ void CBaseRenderer::bindShaderProgram(IShaderProgram* p_ShaderProgram)
 	}
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::bindMaterial(IMaterial* p_Material)
-{
-    if(m_ActiveMaterial != p_Material)
-    {
-        if(p_Material)
-			p_Material->capture();
-        if(m_ActiveMaterial)
-            m_ActiveMaterial->release();
-
-		m_ActiveMaterial = p_Material;
-    }
-}
 void CBaseRenderer::setRenderTarget(ITexture * p_Target, u32 p_Attachment)
 {
 	if (QueryRendererFeature(ERF_RENDER_TO_TEXTURE))
@@ -283,19 +279,18 @@ bool CBaseRenderer::isOk()
     return !(m_RendererLastError || m_Renderer_Exit);
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::_BaseRenderer_ClearCache()
+void CBaseRenderer::ClearCache()
 {
 	//Release active texture cache
-	for (u32 i = 0; i < EMTN_TEXTURE_COUNT; i++)
+	for (u32 i = 0; i < ERTU_TEXTURE_COUNT; i++)
 		if (m_ActiveTexture[i])
 			m_ActiveTexture[i]->release();
-	//Release active material cache
-	if (m_ActiveMaterial)
-		m_ActiveMaterial->release();
-
 	//Release RTT buffer
 	if (m_RenderTarget)
 		m_RenderTarget->release();
+    //drop shader program
+    if(m_ActiveProgram)
+        m_ActiveProgram->release();
 }
 //-----------------------------------------------------------------------------------------------
 }

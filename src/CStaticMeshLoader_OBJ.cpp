@@ -80,6 +80,12 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
     //-------------------------------
     //! default object/material
     OBJ_MaterialGroups["default"] = MeshBuffer = ResourceManager->createMeshBuffer();
+    MeshBuffer->createBuffer(0,renderer::EVA_POSITION);
+	MeshBuffer->createBuffer(1, renderer::EVA_TEXCOORD);
+	MeshBuffer->createBuffer(2, renderer::EVA_NORMAL);
+
+    MeshBuffer->lock();
+
     //-------------------------------
 
     char string[256];
@@ -256,13 +262,13 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
             {
                 renderer::SVertex Vertex;
 
-                MeshBuffer->addBufferData(renderer::EVA_POSITION,&Verticles[Face[i].x],sizeof(core::vector3f));
+                MeshBuffer->addBufferData(0,&Verticles[Face[i].x],sizeof(core::vector3f));
 
                 if(have_texcoords)
-                    MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,&TexCoords[Face[i].y],sizeof(core::vector2f));
+                    MeshBuffer->addBufferData(1,&TexCoords[Face[i].y],sizeof(core::vector2f));
 
                 if(have_normals)
-                    MeshBuffer->addBufferData(renderer::EVA_NORMAL,&Normals[Face[i].z],sizeof(core::vector3f));
+                    MeshBuffer->addBufferData(2,&Normals[Face[i].z],sizeof(core::vector3f));
 
             }
             break;
@@ -274,21 +280,18 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
     for(auto it = OBJ_MaterialGroups.begin(); it != OBJ_MaterialGroups.end(); it++)
     {
         renderer::IMeshBuffer* MeshBuffer = (*it).second;
+        MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
+        MeshBuffer->unlock();
+        Mesh->addMeshBuffer(MeshBuffer);
+        /*
         if(MeshBuffer->getBufferSize(renderer::EVA_POSITION) > 0)
         {
             MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
 
-            MeshBuffer->setVertexFormat(
-                renderer::SVertexFormat(
-                    (renderer::EVA_POSITION) |
-                    ((MeshBuffer->getBufferSize(renderer::EVA_TEXCOORD) > 0)?renderer::EVA_TEXCOORD:0) |
-                    ((MeshBuffer->getBufferSize(renderer::EVA_NORMAL) > 0)?renderer::EVA_NORMAL:0)
-                )
-            );
-
             Mesh->addMeshBuffer(MeshBuffer);
         }
-        MeshBuffer->release();
+        */
+        //MeshBuffer->release();
     }
 
     LOG_ENGINE_DEBUG("MESH LOADED\n");
@@ -347,7 +350,7 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
             {
                 core::color4f color(0,0,0,1);
                 sscanf(&string[i+2],"%f %f %f",&color.r,&color.g,&color.b);
-                Material->setDiffuseColor(color);
+//                Material->setDiffuseColor(color);
             }
             break;
         case 'N': //Ns/Ni
@@ -364,7 +367,7 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
 			renderer::ITexture* Texture = ResourceManager->loadTexture(full_texture_path.c_str());
             if(Texture)
             {
-                Material->setTexture(Texture,0);
+//                Material->setTexture(Texture,0);
                 Texture->release();
             }
             break;

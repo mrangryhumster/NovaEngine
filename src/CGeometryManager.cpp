@@ -23,7 +23,7 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     core::vector3f Normals[24];
     u32 Indices[36];
 
-	
+
     //front
     Positions[0].set(-1,-1, 1);
     Positions[1].set( 1,-1, 1);
@@ -167,19 +167,26 @@ renderer::IStaticMesh* CGeometryManager::createCubeMesh()
     Indices[33]  = 22;
     Indices[34]  = 23;
     Indices[35]  = 20;
-	
+
     renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
 
-    MeshBuffer->addBufferData(renderer::EVA_POSITION,Positions,24 * sizeof(core::vector3f));
-	MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,TexCoords,24 * sizeof(core::vector2f));
-	MeshBuffer->addBufferData(renderer::EVA_NORMAL  ,Normals  ,24 * sizeof(core::vector3f));
+    MeshBuffer->lock();
+
+    s32 Position_buffer_idx = MeshBuffer->createBuffer(0,renderer::EVA_POSITION);
+    s32 TexCoord_buffer_idx = MeshBuffer->createBuffer(1,renderer::EVA_TEXCOORD);
+    s32 Normal_buffer_idx   = MeshBuffer->createBuffer(2,renderer::EVA_NORMAL);
+
+    MeshBuffer->addBufferData(Position_buffer_idx,Positions,24 * sizeof(core::vector3f));
+	MeshBuffer->addBufferData(TexCoord_buffer_idx,TexCoords,24 * sizeof(core::vector2f));
+	MeshBuffer->addBufferData(Normal_buffer_idx  ,Normals  ,24 * sizeof(core::vector3f));
 
 	MeshBuffer->setIndicesBufferData(Indices,36 * sizeof(u32));
     MeshBuffer->setIndicesBufferType(NTYPE_u32);
 
     MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-    MeshBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD | renderer::EVA_NORMAL));
-	
+
+    MeshBuffer->unlock();
+
     //----------------
     renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
     Mesh->addMeshBuffer(MeshBuffer);
@@ -193,6 +200,10 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
 {
     //----------------------------
     renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
+
+    s32 Position_buffer_idx = MeshBuffer->createBuffer(0,renderer::EVA_POSITION);
+    s32 TexCoord_buffer_idx = MeshBuffer->createBuffer(1,renderer::EVA_TEXCOORD);
+
     //----------------------------
 
     u32* Indices = new u32[CellCount.width * CellCount.height * 6];
@@ -229,8 +240,8 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
             VCount+=4;
             ICount+=6;
 
-            MeshBuffer->addBufferData(renderer::EVA_POSITION,Positions,4 * sizeof(core::vector3f));
-            MeshBuffer->addBufferData(renderer::EVA_TEXCOORD,TexCoords,4 * sizeof(core::vector2f));
+            MeshBuffer->addBufferData(Position_buffer_idx,Positions,4 * sizeof(core::vector3f));
+            MeshBuffer->addBufferData(TexCoord_buffer_idx,TexCoords,4 * sizeof(core::vector2f));
         }
     }
 
@@ -238,7 +249,6 @@ renderer::IStaticMesh* CGeometryManager::createGridMesh(core::dim2f CellSize,cor
     MeshBuffer->setIndicesBufferType(NTYPE_u32);
 
     MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-    MeshBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD));
 
     delete[] Indices;
 
@@ -303,14 +313,22 @@ renderer::IStaticMesh* CGeometryManager::createSphereMesh(float Radius,unsigned 
 
     renderer::IMeshBuffer* MeshBuffer = renderer::getRenderer()->createMeshBuffer();
 
-    MeshBuffer->setBufferData(renderer::EVA_POSITION,Positions,VCount * sizeof(core::vector3f));
-    MeshBuffer->setBufferData(renderer::EVA_TEXCOORD,TexCoords,VCount * sizeof(core::vector2f));
+    MeshBuffer->lock();
+
+    s32 Position_buffer_idx = MeshBuffer->createBuffer(0,renderer::EVA_POSITION);
+    s32 TexCoord_buffer_idx = MeshBuffer->createBuffer(1,renderer::EVA_TEXCOORD);
+
+
+    MeshBuffer->setBufferData(Position_buffer_idx,Positions,VCount * sizeof(core::vector3f));
+    MeshBuffer->setBufferData(TexCoord_buffer_idx,TexCoords,VCount * sizeof(core::vector2f));
 
     MeshBuffer->setIndicesBufferData(Indices,ICount * sizeof(u32));
     MeshBuffer->setIndicesBufferType(NTYPE_u32);
 
     MeshBuffer->setPrimitiveType(renderer::EPT_TRIANGLE);
-    MeshBuffer->setVertexFormat(renderer::SVertexFormat(renderer::EVA_POSITION | renderer::EVA_TEXCOORD));
+
+    MeshBuffer->unlock();
+
 
     delete[] Positions;
     delete[] TexCoords;

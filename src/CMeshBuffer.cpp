@@ -6,8 +6,7 @@ namespace renderer
 {
 CMeshBuffer::CMeshBuffer():
     Material(nullptr),
-    VertexFormat(EVA_POSITION),
-    IndicesType(NTYPE_u16),
+    m_IndicesBufferType(NTYPE_u16),
     PrimitiveType(EPT_TRIANGLE),
     MappingHint(EMBMH_DEFAULT),
     UpdateRequired(true)
@@ -18,6 +17,10 @@ CMeshBuffer::~CMeshBuffer()
 {
     if(Material)
         Material->release();
+
+    for(auto it = m_Buffers.begin(); it != m_Buffers.end(); it++)
+        (*it).Data.clear();
+    m_Buffers.clear();
 }
 //---------------------------------------------------------------------------
 void CMeshBuffer::setMaterial(renderer::IMaterial* newMaterial)
@@ -36,64 +39,166 @@ renderer::IMaterial* CMeshBuffer::getMaterial()
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getVertexCount()
 {
-	return Positions.size() / (VertexFormat.getAttributeFormat(EVA_POSITION)->size * ne_sizeof((NE_TYPE)VertexFormat.getAttributeFormat(EVA_POSITION)->type));
+    s32 Buffer_index = getBufferIndexByHint(renderer::EVA_POSITION);
+
+    if(Buffer_index < 0)
+        DEBUG_EXCEPTION("NO_EVA_POSITION");
+
+    return m_Buffers[Buffer_index].Data.size() / (m_Buffers[Buffer_index].Format.size * ne_sizeof((NE_TYPE)m_Buffers[Buffer_index].Format.type));
 }
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getIndicesCount()
 {
-	return Indices.size() / ne_sizeof((NE_TYPE)IndicesType);
+    return m_IndicesBuffer.size() / ne_sizeof((NE_TYPE)m_IndicesBufferType);
 }
 //---------------------------------------------------------------------------
-void  CMeshBuffer::setBufferData(u32 buffer,const void* data,size_t size)
+s32 CMeshBuffer::createBuffer(u32 buffer_uid,u32 buffer_hint)
 {
-    std::vector<u8>* BufferData = getBuffer(buffer);
-    if(BufferData == nullptr) return;
+    SVertexBuffer newBuffer;
 
-    BufferData->clear();
+    newBuffer.UID   = buffer_uid;
+    newBuffer.Hint = buffer_hint;
+
+    switch (buffer_hint)
+    {
+    case EVA_POSITION:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        break;
+    case EVA_NORMAL:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        break;
+    case EVA_BINORMAL:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        break;
+    case EVA_TANGENT:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        break;
+    case EVA_COLOR:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_u8,4);
+        break;
+    case EVA_TEXCOORD:
+        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,2);
+        break;
+    default:
+        newBuffer.Format = SVertexBufferFormat();
+    }
+
+    m_Buffers.push_back(newBuffer);
+    return (getBuffersCount() - 1);
+}
+//---------------------------------------------------------------------------
+void CMeshBuffer::deleteBuffer(u32 buffer_uid)
+{
+    for(auto it = m_Buffers.begin(); it != m_Buffers.end(); it++)
+        if((*it).UID == buffer_uid)
+            {
+                (*it).Data.clear();
+                m_Buffers.erase(it);
+                break;
+            }
+}
+//---------------------------------------------------------------------------
+u32 CMeshBuffer::getBuffersCount()
+{
+    return m_Buffers.size();
+}
+//---------------------------------------------------------------------------
+s32 CMeshBuffer::getBufferIndexByUID(u32 buffer_uid)
+{
+    u32 BuffersCount = getBuffersCount();
+    for(u32 i = 0; i < BuffersCount; i++)
+        if(m_Buffers[i].UID == buffer_uid)
+            return static_cast<s32>(i);
+
+    return -1;
+}
+//---------------------------------------------------------------------------
+s32 CMeshBuffer::getBufferIndexByHint(u32 buffer_hint)
+{
+    u32 BuffersCount = getBuffersCount();
+    for(u32 i = 0; i < BuffersCount; i++)
+        if(m_Buffers[i].Hint == buffer_hint)
+            return static_cast<s32>(i);
+
+    return -1;
+}
+//---------------------------------------------------------------------------
+void CMeshBuffer::setBufferFormat(s32 buffer_index,const SVertexBufferFormat& newFormat)
+{
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("setBufferFormat");
+
+    m_Buffers[buffer_index].Format = newFormat;
+}
+//---------------------------------------------------------------------------
+const SVertexBufferFormat& CMeshBuffer::getBufferFormat(s32 buffer_index)
+{
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("setBufferFormat");
+
+    return m_Buffers[buffer_index].Format;
+}
+//---------------------------------------------------------------------------
+void  CMeshBuffer::setBufferData(s32 buffer_index,const void* data,size_t size)
+{
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("setBufferData");
+
+
+    m_Buffers[buffer_index].Data.clear();
     if(data && size)
-        BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
+        m_Buffers[buffer_index].Data.insert(m_Buffers[buffer_index].Data.end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
-void  CMeshBuffer::addBufferData(u32 buffer,const void* data,size_t size)
+void  CMeshBuffer::addBufferData(s32 buffer_index,const void* data,size_t size)
 {
-    std::vector<u8>* BufferData = getBuffer(buffer);
-    if(BufferData == nullptr) return;
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("addBufferData - OutOfBounds");
+    if(buffer_index > m_Buffers.size())
+        DEBUG_EXCEPTION("addBufferData - OutOfBounds");
+
 
     if(data && size)
-        BufferData->insert(BufferData->end(),(u8*)data,((u8*)data+size));
+        m_Buffers[buffer_index].Data.insert(m_Buffers[buffer_index].Data.end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
-void* CMeshBuffer::getBufferData(u32 buffer)
+void* CMeshBuffer::getBufferData(s32 buffer_index)
 {
-    std::vector<u8>* BufferData = getBuffer(buffer);
-    if(BufferData == nullptr) return nullptr;
-    return BufferData->data();
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("getBufferData");
+    return m_Buffers[buffer_index].Data.data();
 }
 //---------------------------------------------------------------------------
-size_t CMeshBuffer::getBufferSize(u32 buffer)
+size_t CMeshBuffer::getBufferSize(s32 buffer_index)
 {
-    std::vector<u8>* BufferData = getBuffer(buffer);
-    if(BufferData == nullptr) return 0;
+    if(buffer_index < 0)
+        DEBUG_EXCEPTION("getBufferSize");
 
-    return BufferData->size();
+    return m_Buffers[buffer_index].Data.size();
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::setBufferElement(u32 buffer,u32 index,const void* value,size_t size) {}
+void CMeshBuffer::setBufferElement(s32 buffer_index,u32 index,const void* value,size_t size) {}
 //---------------------------------------------------------------------------
-void CMeshBuffer::addBufferElement(u32 buffer,const void* value,size_t size) {}
+void CMeshBuffer::addBufferElement(s32 buffer_index,const void* value,size_t size) {}
 //---------------------------------------------------------------------------
-void* CMeshBuffer::getBufferElement(u32 buffer,u32 index) {return nullptr;}
+void* CMeshBuffer::getBufferElement(s32 buffer_index,u32 index)
+{
+    return nullptr;
+}
 //---------------------------------------------------------------------------
-u32 CMeshBuffer::getBufferElementCount(u32 buffer) {return 0;}
+u32 CMeshBuffer::getBufferElementCount(s32 buffer_index)
+{
+    return 0;
+}
 //---------------------------------------------------------------------------
 size_t CMeshBuffer::getIndicesBufferSize()
 {
-    return Indices.size();
+    return m_IndicesBuffer.size();
 }
 //---------------------------------------------------------------------------
 void CMeshBuffer::setIndicesBufferData(const void* data,size_t size)
 {
-    Indices.clear();
+    m_IndicesBuffer.clear();
     addIndicesBufferData(data,size);
 }
 //---------------------------------------------------------------------------
@@ -101,35 +206,25 @@ void CMeshBuffer::addIndicesBufferData(const void* data,size_t size)
 {
     if(data == nullptr) return;
     if(data && size)
-        Indices.insert(Indices.end(),(u8*)data,((u8*)data+size));
+        m_IndicesBuffer.insert(m_IndicesBuffer.end(),(u8*)data,((u8*)data+size));
 }
 //---------------------------------------------------------------------------
 void* CMeshBuffer::getIndicesBufferData()
 {
-    return Indices.data();
+    return m_IndicesBuffer.data();
 }
 //---------------------------------------------------------------------------
 void CMeshBuffer::setIndicesBufferType(u32 type)
 {
     if(type == NTYPE_u16 || type == NTYPE_u32)
-        IndicesType = type;
+        m_IndicesBufferType = type;
     else
-        IndicesType = NTYPE_u16;
+        m_IndicesBufferType = NTYPE_u16;
 }
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getIndicesBufferType()
 {
-    return IndicesType;
-}
-//---------------------------------------------------------------------------
-void CMeshBuffer::setVertexFormat(const SVertexFormat& newFormat)
-{
-    VertexFormat = newFormat;
-}
-//---------------------------------------------------------------------------
-const SVertexFormat& CMeshBuffer::getVertexFormat()
-{
-    return VertexFormat;
+    return m_IndicesBufferType;
 }
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getPrimitiveType()
@@ -137,14 +232,14 @@ u32 CMeshBuffer::getPrimitiveType()
     return PrimitiveType;
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::setPrimitiveType(E_PRIMITIVE_TYPE pt)
+void CMeshBuffer::setPrimitiveType(E_PRIMITIVE_TYPE newPrimitiveType)
 {
-    PrimitiveType = pt;
+    PrimitiveType = newPrimitiveType;
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::setUpdateRequest(bool up)
+void CMeshBuffer::setUpdateRequest(bool isUpdateRequired)
 {
-    UpdateRequired = up;
+    UpdateRequired = isUpdateRequired;
 }
 //---------------------------------------------------------------------------
 bool CMeshBuffer::getUpdateRequest()
@@ -157,17 +252,15 @@ void CMeshBuffer::update()
     UpdateRequired = false;
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::lock()
+void CMeshBuffer::lock(bool edit_only)
 {
-    Positions.clear();
-    TexCoords.clear();
+    setLockedFlag(true);
 }
 //---------------------------------------------------------------------------
 void CMeshBuffer::unlock()
-{}
-//---------------------------------------------------------------------------
-void CMeshBuffer::render()
-{}
+{
+    setLockedFlag(false);
+}
 //---------------------------------------------------------------------------
 bool CMeshBuffer::isValid()
 {
@@ -177,13 +270,18 @@ bool CMeshBuffer::isValid()
 void CMeshBuffer::setMappingHint(u32 Hint)
 {
 	UpdateRequired = true;
-    MappingHint = Hint;
+	MappingHint = Hint;
 }
 //---------------------------------------------------------------------------
 u32  CMeshBuffer::getMappingHint()
 {
-    return MappingHint;
+	return MappingHint;
 }
+//---------------------------------------------------------------------------
+void CMeshBuffer::draw()
+{
+}
+
 
 }
 }

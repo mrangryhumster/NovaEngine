@@ -26,6 +26,8 @@ public:
 	bool isOk();
 
 	GLuint& getFramebuffer();
+
+protected:
 private:
 
 	IRenderer* m_OGLRenderer;

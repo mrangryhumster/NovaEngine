@@ -45,6 +45,7 @@ class Resource : public Object
         {
             return ResourceName;
         }
+
         void setResourceName(const char* Name)
         {
             delete[] ResourceName;

@@ -21,7 +21,6 @@ typedef std::uint64_t   u64;
 //floating point types
 typedef float           f32;
 typedef double          f64;
-typedef long double     f96;
 //--------------------------
 
 
@@ -32,34 +31,30 @@ namespace novaengine
         template<typename T>class matrix;
         typedef matrix<f32>  matrixf;
         typedef matrix<f64>  matrixd;
-        typedef matrix<f96>  matrixld;
 
         template<typename T>class vector2;
         typedef vector2<s32> vector2s;
         typedef vector2<u32> vector2u;
         typedef vector2<f32> vector2f;
         typedef vector2<f64> vector2d;
-        typedef vector2<f96> vector2ld;
 
         template<typename T>class vector3;
         typedef vector3<s32> vector3s;
         typedef vector3<u32> vector3u;
         typedef vector3<f32> vector3f;
         typedef vector3<f64> vector3d;
-        typedef vector3<f96> vector3ld;
 
 #ifdef NE_POSITION_PRECISION_64
         typedef vector2<f64> vector2p;
         typedef vector3<f64> vector3p;
 #else
-        typedef vector2<f64> vector2p;
-        typedef vector3<f64> vector3p;
+        typedef vector2<f32> vector2p;
+        typedef vector3<f32> vector3p;
 #endif // NE_POSITION_PRECISION_64
 
         template<typename T>class quaternion;
         typedef quaternion<f32> quaternionf;
         typedef quaternion<f64> quaterniond;
-        typedef quaternion<f96> quaternionld;
 
         template<typename T>class dim2;
         typedef dim2<s32> dim2s;

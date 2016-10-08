@@ -44,14 +44,6 @@ const f64 FLT_EPSILON = 1E-5;
 const f64 DBL_EPSILON = 1E-9;
 #endif // FLT_EPSILON
 
-#ifdef LDBL_EPSILON
-#undef LDBL_EPSILON
-#endif // LDBL_EPSILON
-
-#ifndef LDBL_EPSILON
-const f96 LDBL_EPSILON = 1E-9;
-#endif // FLT_EPSILON
-
 //! DEG <-> RAD
 
 //32bit conversion

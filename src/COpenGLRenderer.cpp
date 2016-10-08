@@ -1,8 +1,7 @@
 #include "COpenGLRenderer.h"
 
 //warning undef GLEW_ARB_vertex_array_object
-#undef GLEW_ARB_vertex_array_object
-#define GLEW_ARB_vertex_array_object 0
+
 
 
 namespace novaengine
@@ -34,7 +33,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!hDC)
         {
             LOG_FATAL_ERROR("Cant request DC.\n");
-			m_RendererLastError = 1;
+            m_RendererLastError = 1;
         }
 
         if(EngineConfiguration.DoubleBuf)
@@ -128,7 +127,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!SetPixelFormat(hDC,pFormat,&pfd))
         {
             LOG_FATAL_ERROR("Unable to set PixelFormat.\n");
-			m_RendererLastError = 1;
+            m_RendererLastError = 1;
             return;
         }
 
@@ -137,7 +136,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if(!hRC)
         {
             LOG_FATAL_ERROR("Cannot create render context [err:%d]\n",GetLastError());
-			m_RendererLastError = 1;
+            m_RendererLastError = 1;
             return;
         }
 
@@ -146,14 +145,14 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
     }
     else
     {
-		m_RendererLastError = 1;
+        m_RendererLastError = 1;
         return;
     }
 
 #else
 
 #ifndef __NE_MAKE_SOME_SHIT__
-	#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
+#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
 #endif
 
 #endif //
@@ -167,7 +166,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         if (GLEW_OK != err)
         {
             LOG_FATAL_ERROR("Cannot init GLEW %s\n",glewGetErrorString(err));
-			m_RendererLastError = 1;
+            m_RendererLastError = 1;
             return;
         }
         else
@@ -191,7 +190,7 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setRenderState(ERS_ENABLE_TEXTURES_2D,true);
 
         setRenderState(ERS_ENABLE_BLENDING,true);
-		setRenderState(ERS_BLENDING_MODE, URenderStateValue(EBM_SRC_ALPHA, EBM_ONE_MINUS_SRC_ALPHA));
+        setRenderState(ERS_BLENDING_MODE, URenderStateValue(EBM_SRC_ALPHA, EBM_ONE_MINUS_SRC_ALPHA));
 
         setRenderState(ERS_ENABLE_DEPTH_TEST,true);
         setRenderState(ERS_ENABLE_DEPTH_WRITE,true);
@@ -209,21 +208,23 @@ COpenGLRenderer::COpenGLRenderer(CPerformanceCounter* PerformanceCounter,window:
         setTransform(core::matrixf(),EMT_PROJECTION);
         setTransform(core::matrixf(),EMT_VIEW);
         setTransform(core::matrixf(),EMT_MODEL);
+
+        glEnable(GL_MULTISAMPLE);
         //----------------------
         memset(m_RendererClientStatesList,0,RCSL_STATES_COUNT);
         //---------------------------------------------------------------
         m_RendererReady = true;
     }
-	else
-	{
-		throw;
-	}
+    else
+    {
+        throw;
+    }
     LOG_ENGINE_DEBUG("COpenGLRenderer() end\n");
 }
 //-----------------------------------------------------------------------------------------------
 COpenGLRenderer::~COpenGLRenderer()
 {
-	CBaseRenderer::_BaseRenderer_ClearCache();
+    CBaseRenderer::ClearCache();
 
 #ifdef NE_WINDOW_WIN32
     wglMakeCurrent(NULL, NULL);
@@ -290,13 +291,13 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
         if(value.flags == EDTM_GEQUAL)    glDepthFunc(GL_GEQUAL);
         if(value.flags == EDTM_ALWAYS)    glDepthFunc(GL_ALWAYS);
         break;
-	//!-------------------------------COLOR_BUFFER
-	case ERS_ENABLE_COLOR_WRITE:
-		if (value.bool_value)
-			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-		else
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-		break;
+    //!-------------------------------COLOR_BUFFER
+    case ERS_ENABLE_COLOR_WRITE:
+        if (value.bool_value)
+            glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+        else
+            glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+        break;
     //!-------------------------------PIXEL_BLEND
     case ERS_ENABLE_BLENDING:
         if(value.bool_value)
@@ -336,16 +337,6 @@ void COpenGLRenderer::setRenderState(u32 flag,URenderStateValue value)
         if(value.flags == ECFM_BACK)      glCullFace(GL_BACK);
         if(value.flags == ECFM_FRONT)     glCullFace(GL_FRONT);
         if(value.flags == ECFM_ALL)       glCullFace(GL_FRONT_AND_BACK);
-        break;
-    //!-------------------------------ALPHA_TEST
-    case ERS_ENABLE_ALPHA_TEST:
-        if(value.bool_value)
-            glEnable(GL_ALPHA_TEST);
-        else
-            glDisable(GL_ALPHA_TEST);
-        break;
-    case ERS_ALPHA_TEST_THRESHOLD:
-        glAlphaFunc(GL_GREATER,value.float_value);
         break;
     //!-------------------------------FOG
     case ERS_ENABLE_FOG:
@@ -413,41 +404,46 @@ s32  COpenGLRenderer::QueryRendererFeature(E_RENDERER_FEATURE feature)
 void COpenGLRenderer::setViewport(core::rectu p_Viewport)
 {
     glViewport(p_Viewport.X1, p_Viewport.Y1, p_Viewport.X2, p_Viewport.Y2);
-	CBaseRenderer::setViewport(p_Viewport);
+    CBaseRenderer::setViewport(p_Viewport);
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
 {
-
     switch(mtype)
     {
     case EMT_PROJECTION:
         //--------------------------------------
-		m_ProjectionMatrix = mat;
-        glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf(m_ProjectionMatrix.getPointer());
+        m_ProjectionMatrix = mat;
+        update_mvp_matrix(EMT_PROJECTION);
         //--------------------------------------
-        break;
+        return;
+
     case EMT_VIEW:
+        //--------------------------------------
+        m_ViewMatrix  = mat;
+        update_mvp_matrix(EMT_VIEW);
+        //--------------------------------------
+        return;
+
     case EMT_MODEL:
         //--------------------------------------
-        if(mtype == EMT_VIEW)
-			m_ViewMatrix  = mat;
-        else
-			m_ModelMatrix = mat;
+        m_ModelMatrix = mat;
+        update_mvp_matrix(EMT_MODEL);
         //--------------------------------------
-        glMatrixMode(GL_MODELVIEW);
-		glLoadMatrixf(m_ViewMatrix.getPointer());
-		glMultMatrixf(m_ModelMatrix.getPointer());
-		//--------------------------------------
-        break;
+        return;
+
     case EMT_TEXTURE:
         //--------------------------------------
-		m_TextureMatrix = mat;
-        glMatrixMode(GL_TEXTURE);
-        glLoadMatrixf(m_TextureMatrix.getPointer());
+        m_TextureMatrix = mat;
         //--------------------------------------
-        break;
+        return;
+
+    default:
+        //--------------------------------------
+        m_MVPMatrix = mat;
+        update_mvp_matrix(EMT_MVP);
+        //--------------------------------------
+        return;
     }
 }
 //-----------------------------------------------------------------------------------------------
@@ -464,7 +460,7 @@ const core::matrixf COpenGLRenderer::getTransform(E_MATRIX_TYPE mtype)
     case EMT_TEXTURE:
         return m_TextureMatrix;
     default:
-        return core::matrixf();
+        return m_MVPMatrix;
     }
 }
 //-----------------------------------------------------------------------------------------------
@@ -473,33 +469,49 @@ void COpenGLRenderer::resetTransform(E_MATRIX_TYPE mtype)
     switch(mtype)
     {
     case EMT_PROJECTION:
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
         //--------------------------------------
-        break;
+        m_ProjectionMatrix.makeIdentify();
+        update_mvp_matrix();
+        //--------------------------------------
+        return;
+
     case EMT_VIEW:
+        //--------------------------------------
+        m_ViewMatrix.makeIdentify();
+        update_mvp_matrix();
+        //--------------------------------------
+        return;
+
     case EMT_MODEL:
         //--------------------------------------
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        m_ModelMatrix.makeIdentify();
+        update_mvp_matrix();
         //--------------------------------------
-        break;
+        return;
+
     case EMT_TEXTURE:
-        glMatrixMode(GL_TEXTURE);
-        glLoadIdentity();
         //--------------------------------------
-        break;
+        m_TextureMatrix.makeIdentify();
+        //--------------------------------------
+        return;
+
+    default:
+        //--------------------------------------
+        m_MVPMatrix.makeIdentify();
+        update_mvp_matrix(EMT_MVP);
+        //--------------------------------------
+        return;
     }
 }
 //-----------------------------------------------------------------------------------------------
 IRenderTarget * COpenGLRenderer::createRenderTarget()
 {
-	return new COpenGLRenderTarget(this);
+    return new COpenGLRenderTarget(this);
 }
 //-----------------------------------------------------------------------------------------------
 IShaderProgram* COpenGLRenderer::createShaderProgram()
 {
-    return new COpenGLShaderProgram();
+    return new COpenGLShaderProgram(this);
 }
 //-----------------------------------------------------------------------------------------------
 IMeshBuffer* COpenGLRenderer::createMeshBuffer()
@@ -522,7 +534,7 @@ void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 {
     CBaseRenderer::bindTexture(Texture,id);
 
-	enable_texture_unit(id);
+    enable_texture_unit(id);
 
     if(Texture)
         glBindTexture(GL_TEXTURE_2D,((COpenGLTexture*)Texture)->getTextureID());
@@ -533,13 +545,15 @@ void COpenGLRenderer::bindTexture(ITexture* Texture,u32 id)
 //-------------------------------------------------------------------------------------------------------
 void COpenGLRenderer::bindShaderProgram(IShaderProgram* p_ShaderProgram)
 {
-	CBaseRenderer::bindShaderProgram(p_ShaderProgram);
+    CBaseRenderer::bindShaderProgram(p_ShaderProgram);
 
     if(p_ShaderProgram != nullptr)
     {
         COpenGLShaderProgram* Program = reinterpret_cast<COpenGLShaderProgram*>(p_ShaderProgram);
         if(Program->getLastError() == 0)
             glUseProgram(Program->getProgramID());
+
+        update_mvp_matrix(EMT_MVP);
     }
     else
     {
@@ -547,39 +561,23 @@ void COpenGLRenderer::bindShaderProgram(IShaderProgram* p_ShaderProgram)
     }
 }
 //-----------------------------------------------------------------------------------------------
-void COpenGLRenderer::bindMaterial(IMaterial* p_Material)
-{
-	CBaseRenderer::bindMaterial(p_Material);
-
-    switch(p_Material->getType())
-    {
-    case ERMT_DEFAULT:
-    default:
-    {
-        bindTexture(p_Material->getTexture(0),0);
-    }
-    }
-    core::color4f color = p_Material->getDiffuseColor();
-    glColor4fv((float*)&color);
-	m_ActiveMaterial = p_Material;
-}
-//-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::setRenderTarget(IRenderTarget * p_RenderTarget)
 {
-	CBaseRenderer::setRenderTarget(p_RenderTarget);
+    CBaseRenderer::setRenderTarget(p_RenderTarget);
 
-	if (QueryRendererFeature(ERF_RENDER_TO_TEXTURE))
-	{
-		if (p_RenderTarget == nullptr || !p_RenderTarget->isOk())
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		else
-			glBindFramebuffer(GL_FRAMEBUFFER, reinterpret_cast<COpenGLRenderTarget*>(p_RenderTarget)->getFramebuffer());
-	}
+    if (QueryRendererFeature(ERF_RENDER_TO_TEXTURE))
+    {
+        if (p_RenderTarget == nullptr || !p_RenderTarget->isOk())
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        else
+            glBindFramebuffer(GL_FRAMEBUFFER, reinterpret_cast<COpenGLRenderTarget*>(p_RenderTarget)->getFramebuffer());
+    }
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::clear(u32 flags,core::color4f clear_color)
 {
     glClearColor(clear_color.r,clear_color.g,clear_color.b,clear_color.a);
+
     GLbitfield GL_FLAGS = 0;
 
     if(flags & ECF_COLOR_BUFFER)
@@ -601,148 +599,7 @@ void COpenGLRenderer::drawMeshBuffer(IMeshBuffer* Buffer)
 {
     COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(Buffer);
 
-    if(MeshBuffer->getUpdateRequest())
-        MeshBuffer->update();
 
-    if(MeshBuffer->getMaterial())
-        bindMaterial(MeshBuffer->getMaterial());
-
-    if(MeshBuffer->getMappingHint() == EMBMH_DEFAULT)
-    {
-        const SVertexFormat& Format = MeshBuffer->getVertexFormat();
-        //------------------------------------------------------------
-        bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
-        bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD) != 0;
-        bool have_normals   = (Format.getFlags() & EVA_NORMAL)   != 0;
-        bool have_colors    = (Format.getFlags() & EVA_COLOR)    != 0;
-
-        //!If no positions in MeshBuffer then nothing to render
-        if(have_verticles == false)
-            return;
-
-        //!Enable/disable client states for drawing
-        enable_client_states(have_verticles,have_texcoords,have_normals,have_colors);
-        //!Send verticles to vram
-        if(have_verticles)
-            glVertexPointer(    3,  to_opengl_type(Format.getAttributeFormat(EVA_POSITION)->type),   0,  MeshBuffer->getBufferData(EVA_POSITION));
-        if(have_texcoords)
-            glTexCoordPointer(  2,  to_opengl_type(Format.getAttributeFormat(EVA_TEXCOORD)->type),   0,  MeshBuffer->getBufferData(EVA_TEXCOORD));
-        if(have_normals)
-            glNormalPointer(        to_opengl_type(Format.getAttributeFormat(EVA_NORMAL)->type),     0,  MeshBuffer->getBufferData(EVA_NORMAL));
-        if(have_colors)
-            glColorPointer(     4,  to_opengl_type(Format.getAttributeFormat(EVA_COLOR)->type),      0,  MeshBuffer->getBufferData(EVA_COLOR));
-        //------------------------------------------------------------
-
-        GLenum GLPrimitiveType   = 0;
-        u32    VertexInPrimitive = 0;
-        //!Convert E_PRIMITIVE_TYPE to GLenum
-        to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(),GLPrimitiveType,VertexInPrimitive);
-        //----------------------------------------------
-        if(MeshBuffer->getIndicesBufferSize())
-            glDrawElements(
-				GLPrimitiveType,
-				MeshBuffer->getIndicesCount(),
-				to_opengl_type(MeshBuffer->getIndicesBufferType()),
-				MeshBuffer->getIndicesBufferData());
-        else
-            glDrawArrays(
-				GLPrimitiveType,
-				0,
-				MeshBuffer->getVertexCount());
-        //----------------------------------------------
-        m_PerformanceCounter->register_draw(MeshBuffer->getVertexCount());
-        //----------------------------------------------
-    }
-    else
-    {
-		if (GLEW_ARB_vertex_array_object)
-		{
-			MeshBuffer->bind_buffer();
-
-			GLenum GLPrimitiveType = 0;
-			u32    VertexInPrimitive = 0;
-			//----------------------------------------------
-			to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(), GLPrimitiveType, VertexInPrimitive);
-
-			if (MeshBuffer->getBufferedIndicesCount())
-				glDrawElements(
-					GLPrimitiveType,
-					MeshBuffer->getBufferedIndicesCount(),
-					to_opengl_type(MeshBuffer->getIndicesBufferType()),
-					0);
-			else
-				glDrawArrays(
-					GLPrimitiveType,
-					0,
-					MeshBuffer->getBufferedVertexCount());
-
-			MeshBuffer->unbind_buffer();
-			//----------------------------------------------
-			m_PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
-			//----------------------------------------------
-		}
-		else if (GLEW_ARB_vertex_buffer_object)
-		{
-			MeshBuffer->bind_buffer();
-
-			const SVertexFormat& Format = MeshBuffer->getVertexFormat();
-			//------------------------------------------------------------
-			bool have_verticles = (Format.getFlags() & EVA_POSITION) != 0;
-			bool have_normals   = (Format.getFlags() & EVA_NORMAL)   != 0;
-			bool have_texcoords = (Format.getFlags() & EVA_TEXCOORD) != 0;
-			bool have_colors    = (Format.getFlags() & EVA_COLOR)    != 0;
-
-			if (have_verticles == false)
-				return;
-
-			//!Enable/disable client states for drawing
-			enable_client_states(have_verticles, have_texcoords, have_normals, have_colors);
-
-			u32 BufferShift = 0;
-			if (have_verticles)
-			{
-				glVertexPointer(3, to_opengl_type(Format.getAttributeFormat(EVA_POSITION)->type), 0, (void*)BufferShift);
-				BufferShift += MeshBuffer->getBufferSize(EVA_POSITION);
-			}
-			if (have_normals)
-			{
-				glNormalPointer(to_opengl_type(Format.getAttributeFormat(EVA_NORMAL)->type), 0, (void*)BufferShift);
-				BufferShift += MeshBuffer->getBufferSize(EVA_NORMAL);
-			}
-			if (have_colors)
-			{
-				glColorPointer(4, to_opengl_type(Format.getAttributeFormat(EVA_COLOR)->type), 0, (void*)BufferShift);
-				BufferShift += MeshBuffer->getBufferSize(EVA_COLOR);
-			}
-			if (have_texcoords)
-			{
-				glTexCoordPointer(3, to_opengl_type(Format.getAttributeFormat(EVA_TEXCOORD)->type), 0, (void*)BufferShift);
-				BufferShift += MeshBuffer->getBufferSize(EVA_TEXCOORD);
-			}
-			//----------------------------------------------
-			GLenum GLPrimitiveType = 0;
-			u32    VertexInPrimitive = 0;
-
-			to_opengl_primitive((E_PRIMITIVE_TYPE)MeshBuffer->getPrimitiveType(), GLPrimitiveType, VertexInPrimitive);
-
-			if (MeshBuffer->getBufferedIndicesCount())
-				glDrawElements(
-					GLPrimitiveType,
-					MeshBuffer->getBufferedIndicesCount(),
-					to_opengl_type(MeshBuffer->getIndicesBufferType()),
-					0);
-			else
-				glDrawArrays(
-					GLPrimitiveType,
-					0,
-					MeshBuffer->getBufferedVertexCount());
-
-			MeshBuffer->unbind_buffer();
-			//----------------------------------------------
-			m_PerformanceCounter->register_draw(MeshBuffer->getBufferedVertexCount());
-			//----------------------------------------------
-		}
-    }
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)
@@ -798,41 +655,41 @@ void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,c
 void COpenGLRenderer::drawArrays(u16 indices_count, u32 vertex_count, const u16* indices, const core::vector3f* verticles, const core::vector2f* texverts, const core::vector3f* normals, const core::color4f* colors, E_PRIMITIVE_TYPE PrimitiveType)
 {
 
-	//------------------------------------------------------------
-	bool have_verticles = (verticles != NULL);
-	bool have_texcoords = (texverts != NULL);
-	bool have_normals = (normals != NULL);
-	bool have_colors = (colors != NULL);
+    //------------------------------------------------------------
+    bool have_verticles = (verticles != NULL);
+    bool have_texcoords = (texverts != NULL);
+    bool have_normals = (normals != NULL);
+    bool have_colors = (colors != NULL);
 
-	//!If no positions in MeshBuffer then nothing to render
-	if (have_verticles == false)
-		return;
+    //!If no positions in MeshBuffer then nothing to render
+    if (have_verticles == false)
+        return;
 
-	//!Enable/disable client states for drawing
-	enable_client_states(have_verticles, have_texcoords, have_normals, have_colors);
+    //!Enable/disable client states for drawing
+    enable_client_states(have_verticles, have_texcoords, have_normals, have_colors);
 
-	//!Send verticles to vram
-	if (have_verticles)
-		glVertexPointer(3, GL_FLOAT, 0, verticles);
-	if (have_texcoords)
-		glTexCoordPointer(2, GL_FLOAT, 0, texverts);
-	if (have_normals)
-		glNormalPointer(GL_FLOAT, 0, normals);
-	if (have_colors)
-		glColorPointer(4, GL_FLOAT, 0, colors);
-	//------------------------------------------------------------
-	GLenum GLPrimitiveType = 0;
-	u32    VertexInPrimitive = 0;
-	//!Convert E_PRIMITIVE_TYPE to GLenum
-	to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType, GLPrimitiveType, VertexInPrimitive);
-	//----------------------------------------------
-	if (indices != NULL && indices_count != 0)
-		glDrawElements(GLPrimitiveType, indices_count, GL_UNSIGNED_SHORT, indices);
-	else
-		glDrawArrays(GLPrimitiveType, 0, vertex_count);
-	//----------------------------------------------
-	m_PerformanceCounter->register_draw(vertex_count);
-	//----------------------------------------------
+    //!Send verticles to vram
+    if (have_verticles)
+        glVertexPointer(3, GL_FLOAT, 0, verticles);
+    if (have_texcoords)
+        glTexCoordPointer(2, GL_FLOAT, 0, texverts);
+    if (have_normals)
+        glNormalPointer(GL_FLOAT, 0, normals);
+    if (have_colors)
+        glColorPointer(4, GL_FLOAT, 0, colors);
+    //------------------------------------------------------------
+    GLenum GLPrimitiveType = 0;
+    u32    VertexInPrimitive = 0;
+    //!Convert E_PRIMITIVE_TYPE to GLenum
+    to_opengl_primitive((E_PRIMITIVE_TYPE)PrimitiveType, GLPrimitiveType, VertexInPrimitive);
+    //----------------------------------------------
+    if (indices != NULL && indices_count != 0)
+        glDrawElements(GLPrimitiveType, indices_count, GL_UNSIGNED_SHORT, indices);
+    else
+        glDrawArrays(GLPrimitiveType, 0, vertex_count);
+    //----------------------------------------------
+    m_PerformanceCounter->register_draw(vertex_count);
+    //----------------------------------------------
 }
 //-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::isOk()
@@ -842,9 +699,9 @@ bool COpenGLRenderer::isOk()
 //-----------------------------------------------------------------------------------------------
 bool COpenGLRenderer::update()
 {
-    //return isOk();
-    GLenum last_error = glGetError();
 
+#ifdef NE_DEBUG
+    GLenum last_error = glGetError();
     while(last_error != GL_NO_ERROR)
     {
         switch(last_error)
@@ -871,12 +728,18 @@ bool COpenGLRenderer::update()
             LOG_ENGINE_DEBUG("OpenGL error - GL_INVALID_FRAMEBUFFER_OPERATION\n");
             break;
         }
-#ifdef NE_DEBUG
+
         throw;
-#endif // NE_DEBUG
     }
+#endif // NE_DEBUG
 
     return isOk();
+}
+//-----------------------------------------------------------------------------------------------
+void COpenGLRenderer::update_mvp_matrix(E_MATRIX_TYPE updated)
+{
+    if(updated != EMT_MVP)
+        m_MVPMatrix = m_ProjectionMatrix * m_ViewMatrix * m_ModelMatrix;
 }
 //-----------------------------------------------------------------------------------------------
 void COpenGLRenderer::to_opengl_primitive(E_PRIMITIVE_TYPE engine_primitive,u32& gl_primitive,u32& vertexperprimitive)
@@ -1054,36 +917,10 @@ void COpenGLRenderer::enable_client_states(bool vert,bool tex,bool norm,bool col
 //-----------------------------------------------------------------------------------------------
 inline void COpenGLRenderer::enable_texture_unit(u32 p_TextureUnit)
 {
-	if (glActiveTexture == nullptr)
-		return;
+    if (glActiveTexture == nullptr)
+        return;
 
-	switch (p_TextureUnit)
-	{
-	case RTUL_TEXTURE_0:
-			glActiveTexture(GL_TEXTURE0);
-		break;
-	case RTUL_TEXTURE_1:
-			glActiveTexture(GL_TEXTURE1);
-		break;
-	case RTUL_TEXTURE_2:
-			glActiveTexture(GL_TEXTURE2);
-		break;
-	case RTUL_TEXTURE_3:
-			glActiveTexture(GL_TEXTURE3);
-		break;
-	case RTUL_TEXTURE_4:
-			glActiveTexture(GL_TEXTURE4);
-		break;
-	case RTUL_TEXTURE_5:
-			glActiveTexture(GL_TEXTURE5);
-		break;
-	case RTUL_TEXTURE_6:
-			glActiveTexture(GL_TEXTURE6);
-		break;
-	case RTUL_TEXTURE_7:
-			glActiveTexture(GL_TEXTURE7);
-		break;
-	}
+	glActiveTexture(GL_TEXTURE0 + p_TextureUnit);
 }
 //-----------------------------------------------------------------------------------------------
 }

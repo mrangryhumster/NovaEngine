@@ -1,8 +1,10 @@
 #ifndef COPENGLSHADERPROGRAM_H
 #define COPENGLSHADERPROGRAM_H
 
-#include "NovaEngine.h"
+#include <unordered_map>
+#include <vector>
 
+#include "IRenderer.h"
 #include "IShaderProgram.h"
 #include "NLogger.h"
 #include <GL/glew.h>
@@ -15,35 +17,46 @@ namespace renderer
 class COpenGLShaderProgram : public IShaderProgram
 {
 public:
-    COpenGLShaderProgram();
+    COpenGLShaderProgram(IRenderer* p_OGLRenderer);
     virtual ~COpenGLShaderProgram();
 
-    void setVertexShaderSource(const char* );
+    void setVertexShaderSource(const char*);
     void setFragmentShaderSource(const char*);
 
-    bool compile();
+    bool build();
 
-    virtual s32  getUniformLocation(const char* UniformName);
+	u32                       getUniformInfoCount();
+	const SShaderUniformInfo* getUniformsInfo();
 
-    virtual void bindUniform_TextureUnit(s32 uniform_location,u32 TextureUnit);
-    virtual void bindUniform_s32(s32 uniform_location,u32 data_count,u32 uniform_format,s32* data);
-    virtual void bindUniform_u32(s32 uniform_location,u32 data_count,u32 uniform_format,u32* data);
-    virtual void bindUniform_f32(s32 uniform_location,u32 data_count,u32 uniform_format,f32* data);
+    s32 getUniformLocation(const char* UniformName);
+
+	void setUniform(s32 uniform_location, u32 uniform_type, u32 uniform_count, const void* data);
+	void setUniform(const char* uniform_name, u32 uniform_type, u32 uniform_count, const void* data);
 
     void bind();
+
     u32 getLastError();
-
+	//OpenGLShaderProgram public:
     u32 getProgramID();
-
 protected:
 private:
+	void update_uniform_info();
     void shader_log(GLuint source);
 
-    GLuint VertexShader;
-    GLuint FragmentShader;
-    GLuint Program;
 
-    u32 LastError;
+    IRenderer* m_OGLRenderer;
+
+    // NOTE (mrang#1#): Maybe map with const char* ?
+	std::unordered_map<std::string, GLint> m_UniformNames;
+	std::vector<SShaderUniformInfo>        m_Uniforms;
+
+
+	//OpenGL
+    GLuint m_GLVertexShader;
+    GLuint m_GLFragmentShader;
+    GLuint m_GLProgram;
+	//depricated
+    u32 m_LastError;
 
 };
 

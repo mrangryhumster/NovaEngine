@@ -546,7 +546,7 @@ public:
                );
     }
 
-    T* getPointer()
+    const T* getPointer() const
     {
         return native_matrix;
     }

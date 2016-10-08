@@ -213,7 +213,7 @@ renderer::ITexture*      CResourceManager::createTexture(core::dim2u resolution,
 //-------------------------------------------------------------------------------------------
 renderer::IMeshBuffer* CResourceManager::createMeshBuffer()
 {
-    return renderer::getRenderer()->createMeshBuffer();;
+    return renderer::getRenderer()->createMeshBuffer();
 }
 //-------------------------------------------------------------------------------------------
 renderer::IMaterial*     CResourceManager::createMaterial()
@@ -228,7 +228,7 @@ renderer::IStaticMesh*   CResourceManager::createStaticMesh()
 //-------------------------------------------------------------------------------------------
 renderer::IAnimatedMesh* CResourceManager::createAnimatedMesh()
 {
-    //REPAIR
+// TODO (mrang#1#): Return AnimatedMesh support ...
     return NULL;//new renderer::CAnimatedMesh();
 }
 //-------------------------------------------------------------------------------------------

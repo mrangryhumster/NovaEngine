@@ -161,7 +161,7 @@ core::dim2u COpenGLTexture::getTextureDimension()
 //-------------------------------------------------------------------------------------------
 void COpenGLTexture::bind()
 {
-    getRenderer()->bindTexture(this,0);
+	OpenGLRenderer->bindTexture(this,0);
 }
 //-------------------------------------------------------------------------------------------
 IImage* COpenGLTexture::lock()

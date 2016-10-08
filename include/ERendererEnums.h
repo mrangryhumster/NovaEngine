@@ -10,7 +10,7 @@ namespace renderer
 enum E_RENDERER_TYPE
 {
     ERT_NULL        = 0x0,
-    ERT_OPENGL      = 0x1
+    ERT_OPENGL      = 0x1,
 };
 //------------------------------------------
 enum E_CLEAR_FLAGS
@@ -27,6 +27,12 @@ enum E_RENDERER_FEATURE
     ERF_SHADERS_1_0             = 0x4,
     ERF_SHADERS_2_0             = 0x5,
     ERF_SHADERS_3_0             = 0x6
+};
+//------------------------------------------
+//depricated no more fixed shit
+enum E_RENDER_PIPELINE_STATE
+{
+    ERPS_SOME = 0
 };
 //------------------------------------------
 enum E_RENDER_STATE
@@ -96,10 +102,11 @@ enum E_FOG_MODE
 //------------------------------------------
 enum E_MATRIX_TYPE
 {
-    EMT_PROJECTION = 0x0,
-    EMT_VIEW       = 0x1,
-    EMT_MODEL      = 0x2,
-    EMT_TEXTURE    = 0x3,
+    EMT_MVP        = 0x0,
+    EMT_PROJECTION = 0x1,
+    EMT_VIEW       = 0x2,
+    EMT_MODEL      = 0x3,
+    EMT_TEXTURE    = 0x4,
 };
 //------------------------------------------
 enum E_ATTRIB_TYPE
@@ -108,6 +115,29 @@ enum E_ATTRIB_TYPE
     EAT_TEXCOORD    ,
     EAT_COLOR       ,
     EAT_NORMAL      ,
+};
+//------------------------------------------
+enum E_RENDER_TEXTURE_UNIT
+{
+	ERTU_TEXTURE_0 = 0,
+	ERTU_TEXTURE_1 = 1,
+	ERTU_TEXTURE_2 = 2,
+	ERTU_TEXTURE_3 = 3,
+	ERTU_TEXTURE_4 = 4,
+	ERTU_TEXTURE_5 = 5,
+	ERTU_TEXTURE_6 = 6,
+	ERTU_TEXTURE_7 = 7,
+	ERTU_TEXTURE_8 = 8,
+	ERTU_TEXTURE_9 = 9,
+	ERTU_TEXTURE_10 = 10,
+	ERTU_TEXTURE_11 = 11,
+	ERTU_TEXTURE_12 = 12,
+	ERTU_TEXTURE_13 = 13,
+	ERTU_TEXTURE_14 = 14,
+	ERTU_TEXTURE_15 = 15,
+	ERTU_TEXTURE_LAST = ERTU_TEXTURE_15,
+
+	ERTU_TEXTURE_COUNT
 };
 //------------------------------------------
 enum E_RENDER_TARGET_TYPE

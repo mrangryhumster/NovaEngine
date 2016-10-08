@@ -1,7 +1,7 @@
 #ifndef COPENGLMeshBuffer_H
 #define COPENGLMeshBuffer_H
 
-#include "NovaEngine.h"
+#include "ne_types.h"
 
 #include "IRenderer.h"
 #include "CMeshBuffer.h"
@@ -15,52 +15,62 @@ namespace novaengine
 namespace renderer
 {
 
+struct SOpenGLVertexBuffer
+{
+    SOpenGLVertexBuffer():vbo_size(0),vbo_state(0){}
+    size_t vbo_size;
+    u32    vbo_state;
+};
+
 class COpenGLMeshBuffer : public CMeshBuffer
 {
 public:
     COpenGLMeshBuffer();
     virtual ~COpenGLMeshBuffer();
-	
-	u32 getVertexCount();
-	u32 getIndicesCount();
 
-	size_t getBufferSize(u32 buffer);
+    u32 getVertexCount();
+    u32 getIndicesCount();
 
-	void bind_buffer();
-	void unbind_buffer();
+    s32   createBuffer(u32 buffer_uid,u32 buffer_hint);
+    void  deleteBuffer(u32 buffer_uid);
 
-	void update();
+    size_t getBufferSize(u32 buffer);
 
-	const u32& getBufferedVertexCount();
-	const u32& getBufferedIndicesCount();
+    void bind_buffer();
+    void unbind_buffer();
 
+    void lock(bool edit_only);
+    void unlock();
+
+    void update();
+	void draw();
+
+    const u32& getBufferedVertexCount();
+    const u32& getBufferedIndicesCount();
+
+protected:
 private:
 
-	void clear_native_buffers();
-	void create_vbo();
-	void delete_vbo();
-	void build_vbo();
-	void build_vao();
+    void clear_native_buffers();
 
-	u32 CurrentMapping;
+    void create_vbo();
+    void delete_vbo();
 
-	u32 OpenGL_VBO_verticles;
-	u32 OpenGL_VBO_verticles_count;
-	u32 OpenGL_VBO_indices;
-	u32 OpenGL_VBO_indices_count;
-	u32 OpenGL_VAO;
+    void build_vbo();
+    void build_vao();
 
-	//if no VAO using whis as shift in buffer
-	size_t VBO_buffer_positions_size;
-	size_t VBO_buffer_normals_size;
-	size_t VBO_buffer_binormals_size;
-	size_t VBO_buffer_tangents_size;
-	size_t VBO_buffer_colors_size;
-	size_t VBO_buffer_texcoords_size;
-	size_t VBO_buffer_custom_size;
+    u32 m_CurrentMapping;
 
+    std::vector<SOpenGLVertexBuffer> m_OpenGLBuffers;
 
-	u32 to_opengl_type(u32 ne_type);
+    u32 m_OpenGL_VBO_verticles;
+    u32 m_OpenGL_VBO_verticles_count;
+    u32 m_OpenGL_VBO_indices;
+    u32 m_OpenGL_VBO_indices_count;
+
+    u32 m_OpenGL_VAO;
+
+    u32 to_opengl_type(u32 ne_type);
 
 
 };

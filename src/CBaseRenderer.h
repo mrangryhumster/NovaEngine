@@ -39,8 +39,6 @@ public:
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);
     //--------------------------------------------------------------------------
-    void bindMaterial(IMaterial*);
-	//--------------------------------------------------------------------------
 	void setRenderTarget(ITexture*, u32);
 	void setRenderTarget(IRenderTarget*);
     //--------------------------------------------------------------------------
@@ -64,7 +62,7 @@ public:
 
 protected:
 
-	void _BaseRenderer_ClearCache();
+	void ClearCache();
 
 	u32  m_RendererLastError;
     bool m_RendererReady;
@@ -81,6 +79,7 @@ protected:
     core::dim2u m_ViewportSize;
     core::dim2u m_FrameSize;
     //------------------------
+    core::matrixf m_MVPMatrix;
     core::matrixf m_ProjectionMatrix;
     core::matrixf m_ViewMatrix;
     core::matrixf m_ModelMatrix;
@@ -88,9 +87,8 @@ protected:
     //------------------------
     CPerformanceCounter* m_PerformanceCounter;
     //cache
-    ITexture*       m_ActiveTexture[EMTN_TEXTURE_COUNT];
+    ITexture*       m_ActiveTexture[ERTU_TEXTURE_COUNT];
     IShaderProgram* m_ActiveProgram;
-    IMaterial*      m_ActiveMaterial;
 	IRenderTarget*  m_ActiveRenderTarget;
 
 	//Simple RTT
@@ -98,8 +96,8 @@ protected:
 
     //Render States
     std::map<int,URenderStateValue> m_RenderStates;
-    
-	//VSync(no idea where put this)
+
+	//VSync(no idea where to put this)
     bool m_VSync;
 
 private:
