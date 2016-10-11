@@ -77,12 +77,12 @@ public:
     virtual core::rectu getViewport()     = 0;
     //--------------------------------------------------------------------------
     virtual void  setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype) = 0;
-    virtual const core::matrixf getTransform(E_MATRIX_TYPE mtype) = 0;
-    virtual void  resetTransform(E_MATRIX_TYPE mtype) = 0;
+    virtual const core::matrixf& getTransform(E_MATRIX_TYPE mtype) = 0;
     //--------------------------------------------------------------------------
 	virtual IRenderTarget*  createRenderTarget() = 0;
 	//--------------------------------------------------------------------------
     virtual IShaderProgram* createShaderProgram() = 0;
+	virtual IShaderProgram* requestShaderProgram(u32 shader_features = 0) = 0;
     //--------------------------------------------------------------------------
     virtual IMeshBuffer*    createMeshBuffer() = 0;
     //--------------------------------------------------------------------------

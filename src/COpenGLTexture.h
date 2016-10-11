@@ -1,6 +1,4 @@
-#ifndef COPENGLTEXTURE_H
-#define COPENGLTEXTURE_H
-
+#pragma once
 
 #include "NovaEngine.h"
 
@@ -15,39 +13,35 @@
 
 namespace novaengine
 {
-namespace renderer
-{
+	namespace renderer
+	{
 
-class COpenGLTexture : public ITexture
-{
-public:
-    COpenGLTexture(IRenderer* OGLRenderer,IImage* Image,STextureParameters TextureParameters);
-    virtual ~COpenGLTexture();
+		class COpenGLTexture : public ITexture
+		{
+		public:
+			COpenGLTexture(IRenderer* OGLRenderer, IImage* Image, STextureParameters TextureParameters);
+			virtual ~COpenGLTexture();
 
-    void setTextureParameter(u32 Parameter,u32 value);
-    u32  getTextureParameter(u32 Parameter);
-    core::dim2u getTextureDimension();
+			void setTextureParameter(u32 Parameter, u32 value);
+			u32  getTextureParameter(u32 Parameter);
+			core::dim2u getTextureDimension();
 
-    void bind();
-    IImage* lock();
-    void unlock();
+			void bind();
+			IImage* lock();
+			void unlock();
 
-    GLuint getTextureID();
+			GLuint getTextureID();
 
-protected:
-private:
-    IRenderer* OpenGLRenderer;
+		protected:
+		private:
+			IRenderer* OpenGLRenderer;
 
-    STextureParameters  TextureParameters;
-    core::dim2u         TextureDimension;
-    GLuint              GLTexture;
+			STextureParameters  TextureParameters;
+			core::dim2u         TextureDimension;
+			GLuint              GLTexture;
 
-    IImage* TextureImg; //!< Fills by using lock(), will be deleted after call unlock().
-};
+			IImage* TextureImg; //!< Fills by using lock(), will be deleted after call unlock().
+		};
 
+	}
 }
-}
-
-
-
-#endif // COPENGLTEXTURE_H

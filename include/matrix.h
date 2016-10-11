@@ -84,6 +84,10 @@ public:
     {
         return native_matrix;
     }
+	inline operator const T*() const
+	{
+		return native_matrix;
+	}
 
     inline matrix<T> operator+ (const matrix<T>& other) const
     {
@@ -584,6 +588,7 @@ public:
     }
 
     T native_matrix[16];
+
 protected:
 private:
 

@@ -6,7 +6,7 @@ namespace novaengine
 	namespace renderer
 	{
 
-		COpenGLRenderTarget::COpenGLRenderTarget(IRenderer* p_OGLRenderer):
+		COpenGLRenderTarget::COpenGLRenderTarget(IRenderer* p_OGLRenderer) :
 			m_OGLRenderer(p_OGLRenderer),
 			m_Framebuffer_ContructFailed(false),
 			m_GLFramebufferID(0)
@@ -39,7 +39,7 @@ namespace novaengine
 
 			GLuint OGL_TextureID = 0;
 
-			if(p_Target)
+			if (p_Target)
 				OGL_TextureID = reinterpret_cast<COpenGLTexture*>(p_Target)->getTextureID();
 
 			glBindFramebuffer(GL_FRAMEBUFFER, m_GLFramebufferID);
@@ -76,8 +76,8 @@ namespace novaengine
 			for (u32 i = 0; i < ERTT_COLOR_BUFFER_LAST; i++)
 				if (m_AttachedTextures[i])
 					OGL_RenderBuffers_vector.push_back(GL_COLOR_ATTACHMENT0 + i);
-			if(OGL_RenderBuffers_vector.size() > 0)
-			glDrawBuffers(OGL_RenderBuffers_vector.size(),&OGL_RenderBuffers_vector.front());
+			if (OGL_RenderBuffers_vector.size() > 0)
+				glDrawBuffers(OGL_RenderBuffers_vector.size(), &OGL_RenderBuffers_vector.front());
 
 		}
 

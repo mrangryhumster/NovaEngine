@@ -79,6 +79,9 @@
     <Filter Include="src\renderer\mesh\animated">
       <UniqueIdentifier>{15388f7e-cdfc-42ab-bcba-55add904687f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\renderer\material">
+      <UniqueIdentifier>{883bc30b-32b2-4fe4-9dc0-388ec64cb4c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\color3.h">
@@ -381,12 +384,6 @@
     <ClInclude Include="..\src\CMeshBuffer.h">
       <Filter>src\renderer\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\CMaterial.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\CImage.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\CAnimatedMesh.h">
       <Filter>src\renderer\mesh\animated</Filter>
     </ClInclude>
@@ -422,6 +419,15 @@
     </ClInclude>
     <ClInclude Include="..\include\ne_math.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CMaterial.h">
+      <Filter>src\renderer\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CImage.h">
+      <Filter>src\renderer\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\COpenGLShaderProgramLibrary.h">
+      <Filter>src\renderer\opengl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,9 +590,6 @@
     <ClCompile Include="..\src\CMeshBuffer.cpp">
       <Filter>src\renderer\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CImage.cpp">
-      <Filter>src\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\CAnimatedMesh.cpp">
       <Filter>src\renderer\mesh\animated</Filter>
     </ClCompile>
@@ -599,8 +602,14 @@
     <ClCompile Include="..\src\CGUIManager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CImage.cpp">
+      <Filter>src\renderer\material</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\CMaterial.cpp">
-      <Filter>src\renderer</Filter>
+      <Filter>src\renderer\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\COpenGLShaderProgramLibrary.cpp">
+      <Filter>src\renderer\opengl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

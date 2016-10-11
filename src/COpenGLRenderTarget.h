@@ -1,5 +1,4 @@
-#ifndef COPENGLRENDERTARGET_H
-#define COPENGLRENDERTARGET_H
+#pragma once
 
 #include "IRenderTarget.h"
 #include "IRenderer.h"
@@ -13,32 +12,30 @@
 
 namespace novaengine
 {
-namespace renderer
-{
-class COpenGLRenderTarget : public IRenderTarget
-{
-public:
-	COpenGLRenderTarget(IRenderer* p_OGLRenderer);
-	virtual ~COpenGLRenderTarget();
+	namespace renderer
+	{
+		class COpenGLRenderTarget : public IRenderTarget
+		{
+		public:
+			COpenGLRenderTarget(IRenderer* p_OGLRenderer);
+			virtual ~COpenGLRenderTarget();
 
-	void setTexture(renderer::ITexture* Target, u32 AttachTo);
+			void setTexture(renderer::ITexture* Target, u32 AttachTo);
 
-	bool isOk();
+			bool isOk();
 
-	GLuint& getFramebuffer();
+			GLuint& getFramebuffer();
 
-protected:
-private:
+		protected:
+		private:
 
-	IRenderer* m_OGLRenderer;
-	bool m_Framebuffer_ContructFailed;
+			IRenderer* m_OGLRenderer;
+			bool m_Framebuffer_ContructFailed;
 
-	GLuint m_GLFramebufferID;
-	ITexture* m_AttachedTextures[ERTT_TARGET_COUNT];
-};
+			GLuint m_GLFramebufferID;
+			ITexture* m_AttachedTextures[ERTT_TARGET_COUNT];
+		};
 
+	}
 }
-}
 
-
-#endif

@@ -216,9 +216,12 @@ renderer::IMeshBuffer* CResourceManager::createMeshBuffer()
     return renderer::getRenderer()->createMeshBuffer();
 }
 //-------------------------------------------------------------------------------------------
-renderer::IMaterial*     CResourceManager::createMaterial()
+renderer::IMaterial*     CResourceManager::createMaterial(u32 features)
 {
-    return new renderer::CMaterial();
+    renderer::IMaterial* newMaterial = new renderer::CMaterial();
+	newMaterial->setShaderProgram(renderer::getRenderer()->requestShaderProgram(features));
+	newMaterial->build();
+	return newMaterial;
 }
 //-------------------------------------------------------------------------------------------
 renderer::IStaticMesh*   CResourceManager::createStaticMesh()

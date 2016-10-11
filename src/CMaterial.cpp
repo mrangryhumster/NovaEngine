@@ -20,7 +20,6 @@ CMaterial::~CMaterial()
 	for (auto&& Uniform : m_UniformArray)
 		if (Uniform.uniform_data != nullptr) delete[] Uniform.uniform_data;
 
-
     if(m_ShaderProgram)
         m_ShaderProgram->release();
 }
@@ -108,12 +107,15 @@ void CMaterial::build()
 	m_UniformArray.clear();
 
 	m_Uniform_ne_texture1d_location = -1;
-	m_Uniform_ne_texture1d_count    = 0;
+	m_Uniform_ne_texture1d_count    =  0;
 	m_Uniform_ne_texture2d_location = -1;
-	m_Uniform_ne_texture2d_count = 0;
+	m_Uniform_ne_texture2d_count	=  0;
 	m_Uniform_ne_texture3d_location = -1;
-	m_Uniform_ne_texture3d_count = 0;
+	m_Uniform_ne_texture3d_count	=  0;
 
+	//exit if no associated shader program
+	if (m_ShaderProgram == nullptr)
+		return;
 
 	//load uniform info
 	u32 ShaderUniformInfoCount = m_ShaderProgram->getUniformInfoCount();
@@ -127,28 +129,16 @@ void CMaterial::build()
 		{
 			m_Uniform_ne_texture1d_location = ShaderUniformInfo[i].location;
 			m_Uniform_ne_texture1d_count    = ShaderUniformInfo[i].count;
-			LOG_ENGINE_DEBUG("Located default uniform \"%s\" loc:%d count:%d\n",
-				ShaderUniformInfo[i].name.c_str(),
-				m_Uniform_ne_texture1d_location,
-				m_Uniform_ne_texture1d_count);
 		}
-		if (ShaderUniformInfo[i].name == "ne_texture2d" && ShaderUniformInfo[i].type == ESUT_TEXTURE_2D)
+		else if (ShaderUniformInfo[i].name == "ne_texture2d" && ShaderUniformInfo[i].type == ESUT_TEXTURE_2D)
 		{
 			m_Uniform_ne_texture2d_location = ShaderUniformInfo[i].location;
 			m_Uniform_ne_texture2d_count    = ShaderUniformInfo[i].count;
-			LOG_ENGINE_DEBUG("Located default uniform \"%s\" loc:%d count:%d\n",
-				ShaderUniformInfo[i].name.c_str(),
-				m_Uniform_ne_texture2d_location,
-				m_Uniform_ne_texture2d_count);
 		}
-		if (ShaderUniformInfo[i].name == "ne_texture3d" && ShaderUniformInfo[i].type == ESUT_TEXTURE_3D)
+		else if (ShaderUniformInfo[i].name == "ne_texture3d" && ShaderUniformInfo[i].type == ESUT_TEXTURE_3D)
 		{
 			m_Uniform_ne_texture3d_location = ShaderUniformInfo[i].location;
 			m_Uniform_ne_texture3d_count    = ShaderUniformInfo[i].count;
-			LOG_ENGINE_DEBUG("Located default uniform \"%s\" loc:%d count:%d\n",
-				ShaderUniformInfo[i].name.c_str(),
-				m_Uniform_ne_texture3d_location,
-				m_Uniform_ne_texture3d_count);
 		}
 		//--------------------
 		m_UniformArray.push_back(SMaterialUniformCache(ShaderUniformInfo[i]));

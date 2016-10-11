@@ -34,7 +34,7 @@ class IResourceManager : public Object
 
             virtual renderer::IImage*        createImage  (core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL) = 0;
             virtual renderer::ITexture*      createTexture(core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL) = 0;
-            virtual renderer::IMaterial*     createMaterial() = 0;
+            virtual renderer::IMaterial*     createMaterial(u32 features = 0) = 0;
             virtual renderer::IMeshBuffer*   createMeshBuffer() = 0;
             virtual renderer::IStaticMesh*   createStaticMesh() = 0;
             virtual renderer::IAnimatedMesh* createAnimatedMesh() = 0;

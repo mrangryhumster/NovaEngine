@@ -106,7 +106,6 @@ enum E_MATRIX_TYPE
     EMT_PROJECTION = 0x1,
     EMT_VIEW       = 0x2,
     EMT_MODEL      = 0x3,
-    EMT_TEXTURE    = 0x4,
 };
 //------------------------------------------
 enum E_ATTRIB_TYPE
@@ -138,6 +137,14 @@ enum E_RENDER_TEXTURE_UNIT
 	ERTU_TEXTURE_LAST = ERTU_TEXTURE_15,
 
 	ERTU_TEXTURE_COUNT
+};
+//------------------------------------------
+enum E_RENDER_MATERIAL_FEATURE
+{
+	ERMF_DEFAULT = 0x0,
+	ERMF_COLOR   = 0x1,
+	ERMF_TEXTURE = 0x2,
+	ERMF_SOMESHIT= 0x4,
 };
 //------------------------------------------
 enum E_RENDER_TARGET_TYPE

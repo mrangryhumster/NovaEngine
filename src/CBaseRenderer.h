@@ -34,7 +34,7 @@ public:
     core::rectu getViewport();
     //--------------------------------------------------------------------------
     void setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype);
-    const core::matrixf getTransform(E_MATRIX_TYPE mtype);
+	const core::matrixf& getTransform(E_MATRIX_TYPE mtype);
     //--------------------------------------------------------------------------
     void bindTexture(ITexture*,u32);
     void bindShaderProgram(IShaderProgram*);
@@ -83,7 +83,6 @@ protected:
     core::matrixf m_ProjectionMatrix;
     core::matrixf m_ViewMatrix;
     core::matrixf m_ModelMatrix;
-    core::matrixf m_TextureMatrix;
     //------------------------
     CPerformanceCounter* m_PerformanceCounter;
     //cache

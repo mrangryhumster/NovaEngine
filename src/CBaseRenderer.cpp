@@ -94,12 +94,6 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
         //--------------------------------------
         return;
 
-    case EMT_TEXTURE:
-        //--------------------------------------
-        m_TextureMatrix = mat;
-        //--------------------------------------
-        return;
-
     default:
         //--------------------------------------
         m_MVPMatrix = mat;
@@ -108,7 +102,7 @@ void CBaseRenderer::setTransform(const core::matrixf& mat,E_MATRIX_TYPE mtype)
     }
 }
 //-----------------------------------------------------------------------------------------------
-const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
+const core::matrixf& CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
 {
     switch(mtype)
     {
@@ -118,8 +112,6 @@ const core::matrixf CBaseRenderer::getTransform(E_MATRIX_TYPE mtype)
         return m_ViewMatrix;
     case EMT_MODEL:
         return m_ModelMatrix;
-    case EMT_TEXTURE:
-        return m_TextureMatrix;
     default:
         return m_MVPMatrix;
     }

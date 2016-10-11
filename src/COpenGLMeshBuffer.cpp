@@ -133,6 +133,8 @@ void COpenGLMeshBuffer::draw()
 		glDrawElements(GL_TRIANGLES, this->getIndicesCount(), to_opengl_type((NE_TYPE)this->getIndicesBufferType()), 0);
 	else
 		glDrawArrays(GL_TRIANGLES, 0, this->getVertexCount());
+
+	this->unbind_buffer();
 }
 //------------------------------------------------------------------------------
 void COpenGLMeshBuffer::bind_buffer()
@@ -241,7 +243,7 @@ void COpenGLMeshBuffer::build_vao()
     glGenVertexArrays(1,&m_OpenGL_VAO);
 
     //Setup VAO
-    bind_buffer();
+	glBindVertexArray(m_OpenGL_VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_OpenGL_VBO_verticles);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_OpenGL_VBO_indices);
@@ -252,10 +254,11 @@ void COpenGLMeshBuffer::build_vao()
     {
         const SVertexBufferFormat& Format = m_Buffers[i].Format;
 
-        glEnableVertexAttribArray(Format.id);
+        glEnableVertexArrayAttrib(m_OpenGL_VAO,Format.id);
         glVertexAttribPointer(Format.id,Format.size,to_opengl_type(Format.type),GL_FALSE,0,(void*)OpenGL_Buffer_offset);
         OpenGL_Buffer_offset += m_OpenGLBuffers[i].vbo_size;
     }
+	glBindVertexArray(0);
 }
 //------------------------------------------------------------------------------
 u32 COpenGLMeshBuffer::to_opengl_type(u32 ne_type)

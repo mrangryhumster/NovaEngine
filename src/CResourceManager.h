@@ -25,8 +25,8 @@ public:
 
     renderer::IImage*        createImage  (core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL);
     renderer::ITexture*      createTexture(core::dim2u resolution,renderer::E_PIXEL_FORMAT pixelformat = renderer::EPF_R8G8B8A8,u8* pixels = NULL);
-    renderer::IMaterial*     createMaterial();
-    renderer::IMeshBuffer* createMeshBuffer();
+    renderer::IMaterial*     createMaterial(u32 features = 0);
+    renderer::IMeshBuffer*   createMeshBuffer();
     renderer::IStaticMesh*   createStaticMesh();
     renderer::IAnimatedMesh* createAnimatedMesh();
 
