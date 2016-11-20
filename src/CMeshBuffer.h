@@ -43,6 +43,7 @@ public:
     void  setBufferFormat(s32 buffer_index,const SVertexBufferFormat& newFormat);
     const SVertexBufferFormat& getBufferFormat(s32 buffer_index);
     //---------------------------------------------------------------------------
+	void   resizeBuffer(s32 buffer_index, size_t size);
     void   setBufferData(s32 buffer_index,const void* data,size_t size);
     void   addBufferData(s32 buffer_index,const void* data,size_t size);
     void*  getBufferData(s32 buffer_index);
@@ -53,13 +54,14 @@ public:
     void* getBufferElement(s32 buffer_index,u32 index);
     u32   getBufferElementCount(s32 buffer_index);
 
+	void   resizeIndicesBuffer(size_t size);
     size_t getIndicesBufferSize();
     void   setIndicesBufferData(const void* data,size_t size);
     void   addIndicesBufferData(const void* data,size_t size);
     void*  getIndicesBufferData();
 
-    void   setIndicesBufferType(u32 type);
-    u32    getIndicesBufferType();
+	void setIndicesBuffer32(bool);
+	bool isIndicesBuffer32();
     //---------------------------------------------------------------------------
     u32  getPrimitiveType();
     void setPrimitiveType(E_PRIMITIVE_TYPE pt);
@@ -104,8 +106,8 @@ protected:
     std::vector<SVertexBuffer> m_Buffers;
 
     //Indexes
-    std::vector<u8>    m_IndicesBuffer;
-    u32                m_IndicesBufferType;
+    std::vector<u8> m_IndicesBuffer;
+    bool            m_isIndicesBuffer32;
 
     //Primitive type
     u32                PrimitiveType;

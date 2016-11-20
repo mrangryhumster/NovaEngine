@@ -97,7 +97,9 @@ void COpenGLMeshBuffer::lock(bool edit_only)
 
         m_IndicesBuffer.clear();
         m_IndicesBuffer.shrink_to_fit();
-        m_IndicesBuffer.insert(m_IndicesBuffer.end(),((u8*)OpenGL_VBO_Data),((u8*)OpenGL_VBO_Data + (m_OpenGL_VBO_indices_count * ne_sizeof((NE_TYPE)m_IndicesBufferType)) ));
+        m_IndicesBuffer.insert(m_IndicesBuffer.end(),
+								reinterpret_cast<u8*>(OpenGL_VBO_Data),
+							   (reinterpret_cast<u8*>(OpenGL_VBO_Data) + (m_OpenGL_VBO_indices_count * ((m_isIndicesBuffer32) ? 2 : 4)) ));
 
         glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
 
@@ -130,7 +132,7 @@ void COpenGLMeshBuffer::draw()
 	this->bind_buffer();
 
 	if (this->getIndicesCount() > 0)
-		glDrawElements(GL_TRIANGLES, this->getIndicesCount(), to_opengl_type((NE_TYPE)this->getIndicesBufferType()), 0);
+		glDrawElements(GL_TRIANGLES, this->getIndicesCount(), m_isIndicesBuffer32 ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT, 0);
 	else
 		glDrawArrays(GL_TRIANGLES, 0, this->getVertexCount());
 

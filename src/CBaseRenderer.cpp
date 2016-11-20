@@ -197,11 +197,6 @@ void CBaseRenderer::end_frame()
     flush();
 }
 //-----------------------------------------------------------------------------------------------
-void CBaseRenderer::drawPrimitiveList(const SVertex* verticles,u32 VertexCount,E_PRIMITIVE_TYPE PrimitiveType,u32 VertexFormat)
-{
-    drawIndexedPrimitiveList(NULL,0,verticles,VertexCount,PrimitiveType,VertexFormat);
-}
-//-----------------------------------------------------------------------------------------------
 void CBaseRenderer::drawPoint(core::vector3f Position)
 {
     drawArrays(0,1,NULL,&Position,NULL,NULL,NULL,renderer::EPT_POINT);

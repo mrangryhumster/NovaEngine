@@ -6,7 +6,7 @@ namespace renderer
 {
 CMeshBuffer::CMeshBuffer():
     Material(nullptr),
-    m_IndicesBufferType(NTYPE_u16),
+    m_isIndicesBuffer32(true),
     PrimitiveType(EPT_TRIANGLE),
     MappingHint(EMBMH_DEFAULT),
     UpdateRequired(true)
@@ -49,7 +49,7 @@ u32 CMeshBuffer::getVertexCount()
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getIndicesCount()
 {
-    return m_IndicesBuffer.size() / ne_sizeof((NE_TYPE)m_IndicesBufferType);
+    return m_IndicesBuffer.size() / (m_isIndicesBuffer32 ? 4 : 2) ;
 }
 //---------------------------------------------------------------------------
 s32 CMeshBuffer::createBuffer(u32 buffer_uid,u32 buffer_hint)
@@ -62,22 +62,22 @@ s32 CMeshBuffer::createBuffer(u32 buffer_uid,u32 buffer_hint)
     switch (buffer_hint)
     {
     case EVA_POSITION:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_f32,3);
         break;
     case EVA_NORMAL:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_f32,3);
         break;
     case EVA_BINORMAL:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_f32,3);
         break;
     case EVA_TANGENT:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,3);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_f32,3);
         break;
     case EVA_COLOR:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_u8,4);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_u8,4);
         break;
     case EVA_TEXCOORD:
-        newBuffer.Format = SVertexBufferFormat(m_Buffers.size(),NTYPE_f32,2);
+        newBuffer.Format = SVertexBufferFormat(buffer_uid,NTYPE_f32,2);
         break;
     default:
         newBuffer.Format = SVertexBufferFormat();
@@ -139,6 +139,13 @@ const SVertexBufferFormat& CMeshBuffer::getBufferFormat(s32 buffer_index)
     return m_Buffers[buffer_index].Format;
 }
 //---------------------------------------------------------------------------
+void CMeshBuffer::resizeBuffer(s32 buffer_index, size_t size)
+{
+	if (buffer_index < 0)
+		DEBUG_EXCEPTION("reserveBuffer");
+	m_Buffers[buffer_index].Data.resize(size);
+}
+//---------------------------------------------------------------------------
 void  CMeshBuffer::setBufferData(s32 buffer_index,const void* data,size_t size)
 {
     if(buffer_index < 0)
@@ -191,6 +198,11 @@ u32 CMeshBuffer::getBufferElementCount(s32 buffer_index)
     return 0;
 }
 //---------------------------------------------------------------------------
+void CMeshBuffer::resizeIndicesBuffer(size_t size)
+{
+	m_IndicesBuffer.resize(size);
+}
+//---------------------------------------------------------------------------
 size_t CMeshBuffer::getIndicesBufferSize()
 {
     return m_IndicesBuffer.size();
@@ -214,17 +226,14 @@ void* CMeshBuffer::getIndicesBufferData()
     return m_IndicesBuffer.data();
 }
 //---------------------------------------------------------------------------
-void CMeshBuffer::setIndicesBufferType(u32 type)
+void CMeshBuffer::setIndicesBuffer32(bool state)
 {
-    if(type == NTYPE_u16 || type == NTYPE_u32)
-        m_IndicesBufferType = type;
-    else
-        m_IndicesBufferType = NTYPE_u16;
+	m_isIndicesBuffer32 = state;
 }
 //---------------------------------------------------------------------------
-u32 CMeshBuffer::getIndicesBufferType()
+bool CMeshBuffer::isIndicesBuffer32()
 {
-    return m_IndicesBufferType;
+	return m_isIndicesBuffer32;
 }
 //---------------------------------------------------------------------------
 u32 CMeshBuffer::getPrimitiveType()

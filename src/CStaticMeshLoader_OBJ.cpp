@@ -1,20 +1,17 @@
 #include "CStaticMeshLoader_OBJ.h"
 
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_MESH_LOADER_OBJ
 
 #include "CStaticMesh.h"
 #include "CMeshBuffer.h"
 
-#include <stdio.h>
-
-
 namespace novaengine
 {
 
-CStaticMeshLoader_OBJ::CStaticMeshLoader_OBJ(io::IFileSystem* fs,IResourceManager* rm)
+CStaticMeshLoader_OBJ::CStaticMeshLoader_OBJ(io::IFileSystem* FileSystem,IResourceManager* ResourceManager) :
+	m_FileSystem(FileSystem),
+	m_ResourceManager(ResourceManager)
 {
-    FileSystem      = fs;
-    ResourceManager = rm;
 }
 //-----------------------------------------------------------------------------------------------
 CStaticMeshLoader_OBJ::~CStaticMeshLoader_OBJ()
@@ -37,17 +34,17 @@ bool CStaticMeshLoader_OBJ::isSupported(io::IFile* file)
 //-----------------------------------------------------------------------------------------------
 renderer::IStaticMesh* CStaticMeshLoader_OBJ::loadStaticMesh(const char* path)
 {
-    io::IFile* mesh_file = FileSystem->open_file(path);
+    io::IFile* mesh_file = m_FileSystem->open_file(path);
 
     if(!mesh_file)
-        return NULL;
+        return nullptr;
 
     renderer::IStaticMesh* mesh = LoadOBJ(mesh_file);
 
     mesh_file->release();
 
     if(!mesh)
-        return NULL;
+        return nullptr;
 
     return mesh;
 }
@@ -74,12 +71,12 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
     //! All meshes in this loader grouping by material
     std::map<std::string,renderer::IMeshBuffer*> OBJ_MaterialGroups;
 
-    renderer::IStaticMesh* Mesh = ResourceManager->createStaticMesh();
+    renderer::IStaticMesh* Mesh = m_ResourceManager->createStaticMesh();
 
     renderer::IMeshBuffer* MeshBuffer = nullptr;
     //-------------------------------
     //! default object/material
-    OBJ_MaterialGroups["default"] = MeshBuffer = ResourceManager->createMeshBuffer();
+    OBJ_MaterialGroups["default"] = MeshBuffer = m_ResourceManager->createMeshBuffer();
     MeshBuffer->createBuffer(0,renderer::EVA_POSITION);
 	MeshBuffer->createBuffer(1, renderer::EVA_TEXCOORD);
 	MeshBuffer->createBuffer(2, renderer::EVA_NORMAL);
@@ -94,7 +91,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 
         switch(string[0])
         {
-
+			/*
         case 'm': //mtllib
         {
 			//If file opened from hdd then we try to connect mtl file
@@ -129,6 +126,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
             have_normals   = false;
             break;
         }
+		*/
         case 'v': //v/vt/vn
         {
             if(string[1] == ' ')
@@ -260,7 +258,6 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
             u32 IndicesSize = Face.size();
             for(u32 i = 0; i < IndicesSize; i++)
             {
-                renderer::SVertex Vertex;
 
                 MeshBuffer->addBufferData(0,&Verticles[Face[i].x],sizeof(core::vector3f));
 
@@ -303,7 +300,7 @@ renderer::IStaticMesh* CStaticMeshLoader_OBJ::LoadOBJ(io::IFile* file)
 void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBuffer*>& obj_materialgroups,const char* mtl_file)
 {
 
-    io::IFile* mtl = FileSystem->open_file(mtl_file);
+    io::IFile* mtl = m_FileSystem->open_file(mtl_file);
     if(mtl == NULL)
         return;
     renderer::IMaterial* Material = nullptr;
@@ -327,7 +324,7 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
             {
                 LOG_ENGINE_DEBUG("warning: default mtl redefined\n");
 
-                Material = ResourceManager->createMaterial();
+                Material = m_ResourceManager->createMaterial();
                 obj_materialgroups["default"]->setMaterial(Material);
                 Material->release();
             }
@@ -335,9 +332,9 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
             {
                 LOG_ENGINE_DEBUG("new mtl loaded : %s\n",mtl_name);
 
-                Material = ResourceManager->createMaterial();
+                Material = m_ResourceManager->createMaterial();
                 Material->setObjectName(mtl_name);
-                renderer::IMeshBuffer* MeshBuffer = ResourceManager->createMeshBuffer();
+                renderer::IMeshBuffer* MeshBuffer = m_ResourceManager->createMeshBuffer();
                 MeshBuffer->setMaterial(Material);
                 Material->release();
 
@@ -364,7 +361,7 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
 			full_texture_path += mtl->getDir();
 			full_texture_path += texture_name;
 
-			renderer::ITexture* Texture = ResourceManager->loadTexture(full_texture_path.c_str());
+			renderer::ITexture* Texture = m_ResourceManager->loadTexture(full_texture_path.c_str());
             if(Texture)
             {
 //                Material->setTexture(Texture,0);
@@ -380,4 +377,4 @@ void CStaticMeshLoader_OBJ::read_mtl_file(std::map<std::string,renderer::IMeshBu
 
 }
 
-#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#endif // _NE_INCLUDE_MESH_LOADER_OBJ

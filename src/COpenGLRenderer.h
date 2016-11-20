@@ -87,8 +87,6 @@ namespace novaengine
 			///Render   HL
 			void drawMeshBuffer(IMeshBuffer*);
 
-			void drawPrimitiveList(const SVertex*, u32 VertexCount, E_PRIMITIVE_TYPE, u32 VertexFormat);
-			void drawIndexedPrimitiveList(const u16* Index, u16 IndexCount, const SVertex*, u32 VertexCount, E_PRIMITIVE_TYPE, u32 VertexFormat);
 			void drawArrays(u16 indices_count, u32 vertex_count, const u16* indices, const core::vector3f* verticles, const core::vector2f* texverts, const core::vector3f* normals, const core::color4f* colors, E_PRIMITIVE_TYPE);
 
 

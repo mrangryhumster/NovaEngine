@@ -425,6 +425,12 @@
 		<Unit filename="../src/CMeshBuffer.h">
 			<Option virtualFolder="src/renderer/mesh/" />
 		</Unit>
+		<Unit filename="../src/CMeshLoader_NMF.cpp">
+			<Option virtualFolder="src/resources/loaders/mesh/" />
+		</Unit>
+		<Unit filename="../src/CMeshLoader_NMF.h">
+			<Option virtualFolder="src/resources/loaders/mesh/" />
+		</Unit>
 		<Unit filename="../src/CNativeFile.h">
 			<Option virtualFolder="src/FileSystem/" />
 		</Unit>
@@ -456,6 +462,12 @@
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="../src/COpenGLShaderProgram.h">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLShaderProgramLibrary.cpp">
+			<Option virtualFolder="src/renderer/opengl/" />
+		</Unit>
+		<Unit filename="../src/COpenGLShaderProgramLibrary.h">
 			<Option virtualFolder="src/renderer/opengl/" />
 		</Unit>
 		<Unit filename="../src/COpenGLTexture.cpp">

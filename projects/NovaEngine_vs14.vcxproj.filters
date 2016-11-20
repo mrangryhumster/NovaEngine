@@ -228,9 +228,6 @@
     <ClInclude Include="..\include\SPixelFormat.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\SPrimitive.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\STextureParameters.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -429,6 +426,9 @@
     <ClInclude Include="..\src\COpenGLShaderProgramLibrary.h">
       <Filter>src\renderer\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\CMeshLoader_NMF.h">
+      <Filter>src\resources\loaders\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\test\main.cpp">
@@ -610,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="..\src\COpenGLShaderProgramLibrary.cpp">
       <Filter>src\renderer\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CMeshLoader_NMF.cpp">
+      <Filter>src\resources\loaders\mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

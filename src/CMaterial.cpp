@@ -7,7 +7,7 @@ namespace renderer
 
 CMaterial::CMaterial():
     m_ShaderProgram(nullptr),
-	m_Textures{}
+	m_Textures{ nullptr }
 {
     //ctor
 }
@@ -184,11 +184,11 @@ void CMaterial::bind()
 		texture_index++;
 	}
 
-	if (m_Uniform_ne_texture1d_location != -1)
+	if (m_Uniform_ne_texture1d_location != -1 && texture_units_1d_inc > 0)
 		m_ShaderProgram->setUniform(m_Uniform_ne_texture1d_location, ESUT_TEXTURE_1D, m_Uniform_ne_texture1d_count, texture_units_1d);
-	if (m_Uniform_ne_texture2d_location != -1)
+	if (m_Uniform_ne_texture2d_location != -1 && texture_units_2d_inc > 0)
 		m_ShaderProgram->setUniform(m_Uniform_ne_texture2d_location, ESUT_TEXTURE_2D, m_Uniform_ne_texture2d_count, texture_units_2d);
-	if (m_Uniform_ne_texture3d_location != -1)
+	if (m_Uniform_ne_texture3d_location != -1 && texture_units_3d_inc > 0)
 		m_ShaderProgram->setUniform(m_Uniform_ne_texture3d_location, ESUT_TEXTURE_3D, m_Uniform_ne_texture3d_count, texture_units_3d);
 
 	//--------------------

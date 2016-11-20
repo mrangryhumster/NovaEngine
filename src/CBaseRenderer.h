@@ -47,8 +47,6 @@ public:
     //--------------------------------------------------------------------------
 
     ///Render   HL
-    void drawPrimitiveList(const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat);
-
     void drawPoint(core::vector3f Position);
     void drawLine(core::vector3f Start,core::vector3f End);
     void drawTriangle(core::vector3f Pos1,core::vector3f Pos2,core::vector3f Pos3);

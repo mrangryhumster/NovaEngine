@@ -15,9 +15,12 @@ static window::IWindow*   NovaEngineWindow      = NULL;
 static renderer::IRenderer* NovaEngineRenderer  = NULL;
 }
 
-_NOVAENGINE_API INovaEngine* createEngine()
+_NOVAENGINE_API INovaEngine* createEngine(renderer::E_RENDERER_TYPE renderer_type,u32 window_width,u32 window_height)
 {
     SEngineConf engine_conf;
+    engine_conf.Renderer = renderer_type;
+    engine_conf.WindowSize.width  = window_width;
+    engine_conf.WindowSize.height = window_height;
     return createEngineEx(engine_conf);
 }
 

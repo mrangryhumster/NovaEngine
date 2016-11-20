@@ -102,9 +102,6 @@ public:
     //--------------------------------------------------------------------------
     virtual void drawMeshBuffer(IMeshBuffer*) = 0;
 
-    virtual void drawPrimitiveList       (const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat) = 0;
-    virtual void drawIndexedPrimitiveList(const u16* Index,u16 IndexCount,const SVertex*,u32 VertexCount,E_PRIMITIVE_TYPE,u32 VertexFormat) = 0;
-
     virtual void drawArrays(u16 indices_count,u32 vertex_count,const u16* indices,const core::vector3f* verticles,const core::vector2f* texverts,const core::vector3f* normals,const core::color4f* colors,E_PRIMITIVE_TYPE) = 0;
 
     virtual void drawPoint(core::vector3f Position) = 0;

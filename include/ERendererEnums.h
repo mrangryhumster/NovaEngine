@@ -108,6 +108,18 @@ enum E_MATRIX_TYPE
     EMT_MODEL      = 0x3,
 };
 //------------------------------------------
+enum E_PRIMITIVE_TYPE
+{
+	EPT_UNDEFINED		= 0x0,
+	EPT_POINT			= 0x1,
+	EPT_LINE			= 0x2,
+	EPT_LINE_STRIP		= 0x3,
+	EPT_TRIANGLE		= 0x4,
+	EPT_TRIANGLE_STRIP	= 0x5,
+	EPT_QUAD			= 0x6,
+	EPT_QUAD_STRIP		= 0x7,
+};
+//------------------------------------------
 enum E_ATTRIB_TYPE
 {
     EAT_VERTEX   = 0,

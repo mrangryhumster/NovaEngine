@@ -4,6 +4,7 @@
 
 #include "CImageLoader_PNG.h"
 
+#include "CMeshLoader_NMF.h"
 #include "CStaticMeshLoader_OBJ.h"
 
 #include "CFontLoader_FNT.h"
@@ -27,8 +28,12 @@ CResourceManager::CResourceManager(io::IFileSystem* FileSys)
     registerImageLoader(new CImageLoader_PNG(FileSystem));
 #endif // INCLUDE_LIBPNG
 
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
-    registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem,this));
+#ifdef _NE_INCLUDE_MESH_LOADER_NMF
+	registerStaticMeshLoader(new CMeshLoader_NMF(FileSystem, this));
+#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
+
+#ifdef _NE_INCLUDE_MESH_LOADER_OBJ
+	registerStaticMeshLoader(new CStaticMeshLoader_OBJ(FileSystem, this));
 #endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
 
 #ifdef _NE_INCLUDE_FONT_LOADER_FNT
@@ -76,7 +81,7 @@ renderer::IImage* CResourceManager::loadImage(const char* ImagePath)
     {
         if(ImageLoaders[irl]->isSupported(FileExtension))
 		{
-            u32 time = time::getRealTime();
+            u64 time = time::getRealTime();
             renderer::IImage* img = ImageLoaders[irl]->loadImage(ImagePath);
             if(img)
             {
@@ -116,7 +121,7 @@ renderer::IStaticMesh*  CResourceManager::loadStaticMesh(const char* MeshPath)
     {
         if(StaticMeshLoaders[irl]->isSupported(FileExtension))
         {
-            u32 time = time::getRealTime();
+            u64 time = time::getRealTime();
             renderer::IStaticMesh* mesh = StaticMeshLoaders[irl]->loadStaticMesh(MeshPath);
             if(mesh)
             {
@@ -146,7 +151,7 @@ renderer::IAnimatedMesh* CResourceManager::loadAnimatedMesh(const char* MeshPath
     {
         if(AnimatedMeshLoaders[irl]->isSupported(FileExtension))
         {
-            u32 time = time::getRealTime();
+            u64 time = time::getRealTime();
             renderer::IAnimatedMesh* mesh = AnimatedMeshLoaders[irl]->loadAnimatedMesh(MeshPath);
             if(mesh)
             {
@@ -176,7 +181,7 @@ gui::IFont* CResourceManager::loadFont(const char* FontPath)
     {
         if(FontLoaders[irl]->isSupported(FileExtension))
         {
-            u32 time = time::getRealTime();
+            u64 time = time::getRealTime();
             gui::IFont* font = FontLoaders[irl]->loadFont(FontPath);
             if(font)
             {

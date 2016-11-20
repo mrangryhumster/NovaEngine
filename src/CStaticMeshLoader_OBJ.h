@@ -1,9 +1,9 @@
-#ifndef CSTATICMESHLOADER_OBJ_H
-#define CSTATICMESHLOADER_OBJ_H
+#pragma once
 
 #include "CompileConfig.h"
 
-#ifdef _NE_INCLUDE_STATICMESH_LOADER_OBJ
+#ifdef _NE_INCLUDE_MESH_LOADER_OBJ
+
 #include "IFileSystem.h"
 #include "IStaticMeshLoader.h"
 #include "IResourceManager.h"
@@ -38,11 +38,11 @@ private:
     void read_mtl_file(std::map<std::string,renderer::IMeshBuffer*>&,const char*);
 
 
-    io::IFileSystem* FileSystem;
-    IResourceManager* ResourceManager;
+    io::IFileSystem*  m_FileSystem;
+    IResourceManager* m_ResourceManager;
 
 };
 
 }
-#endif // _NE_INCLUDE_STATICMESH_LOADER_OBJ
-#endif // CSTATICMESHLOADER_OBJ_H
+#endif // _NE_INCLUDE_MESH_LOADER_OBJ
+

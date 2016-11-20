@@ -49,7 +49,6 @@
 #include "SEngineConf.h"
 #include "SPixelFormat.h"
 #include "STextureParameters.h"
-#include "SPrimitive.h"
 
 #include "EKeycodes.h"
 #include "ERendererEnums.h"
@@ -61,7 +60,7 @@
 
 namespace novaengine
 {
-_NOVAENGINE_API INovaEngine* createEngine();
+_NOVAENGINE_API INovaEngine* createEngine(renderer::E_RENDERER_TYPE renderer_type = renderer::ERT_OPENGL,u32 window_width = 640,u32 window_height = 480);
 _NOVAENGINE_API INovaEngine* createEngineEx(SEngineConf);
 _NOVAENGINE_API void         closeEngine();
 

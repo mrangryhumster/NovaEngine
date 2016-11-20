@@ -534,16 +534,6 @@ namespace novaengine
 			COpenGLMeshBuffer* MeshBuffer = reinterpret_cast<COpenGLMeshBuffer*>(Buffer);
 		}
 		//-----------------------------------------------------------------------------------------------
-		void COpenGLRenderer::drawPrimitiveList(const SVertex* verticles, u32 VertexCount, E_PRIMITIVE_TYPE PrimitiveType, u32 VertexFormat)
-		{
-
-		}
-		//-----------------------------------------------------------------------------------------------
-		void COpenGLRenderer::drawIndexedPrimitiveList(const u16* Index, u16 IndexCount, const SVertex* verticles, u32 VertexCount, E_PRIMITIVE_TYPE PrimitiveType, u32 VertexFormat)
-		{
-
-		}
-		//-----------------------------------------------------------------------------------------------
 		void COpenGLRenderer::drawArrays(u16 indices_count, u32 vertex_count, const u16* indices, const core::vector3f* verticles, const core::vector2f* texverts, const core::vector3f* normals, const core::color4f* colors, E_PRIMITIVE_TYPE PrimitiveType)
 		{
 

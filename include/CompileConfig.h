@@ -18,8 +18,9 @@
 //Resource loader buildin
 //Image
 #define _NE_INCLUDE_LIBPNG
-//StaticMesh
-#define _NE_INCLUDE_STATICMESH_LOADER_OBJ
+//Mesh
+#define _NE_INCLUDE_MESH_LOADER_OBJ
+#define _NE_INCLUDE_MESH_LOADER_NMF
 //Font
 #define _NE_INCLUDE_FONT_LOADER_FNT
 //-----------------------

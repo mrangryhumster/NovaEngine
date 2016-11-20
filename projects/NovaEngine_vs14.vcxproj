@@ -230,7 +230,6 @@
     <ClInclude Include="..\include\SEngineConf.h" />
     <ClInclude Include="..\include\SEvent.h" />
     <ClInclude Include="..\include\SPixelFormat.h" />
-    <ClInclude Include="..\include\SPrimitive.h" />
     <ClInclude Include="..\include\STextureParameters.h" />
     <ClInclude Include="..\include\SVertex.h" />
     <ClInclude Include="..\include\vector2.h" />
@@ -249,6 +248,7 @@
     <ClInclude Include="..\src\CImageLoader_PNG.h" />
     <ClInclude Include="..\src\CMaterial.h" />
     <ClInclude Include="..\src\CMeshBuffer.h" />
+    <ClInclude Include="..\src\CMeshLoader_NMF.h" />
     <ClInclude Include="..\src\CNativeFile.h" />
     <ClInclude Include="..\src\CNovaEngine.h" />
     <ClInclude Include="..\src\COpenGLMeshBuffer.h" />
@@ -305,6 +305,7 @@
     <ClCompile Include="..\src\CImageLoader_PNG.cpp" />
     <ClCompile Include="..\src\CMaterial.cpp" />
     <ClCompile Include="..\src\CMeshBuffer.cpp" />
+    <ClCompile Include="..\src\CMeshLoader_NMF.cpp" />
     <ClCompile Include="..\src\CNovaEngine.cpp" />
     <ClCompile Include="..\src\COpenGLMeshBuffer.cpp" />
     <ClCompile Include="..\src\COpenGLRenderer.cpp" />

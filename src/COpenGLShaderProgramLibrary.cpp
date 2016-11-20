@@ -8,7 +8,7 @@ namespace novaengine
 		const char* Default_GLSL_VertexShader_Source =
 			"#version 330\n"
 			"layout (location = 0) in vec3 ne_vertex;\n"
-			"layout (location = 1) in vec2 ne_texcord;\n"
+			"layout (location = 5) in vec2 ne_texcord;\n"
 			"uniform mat4  ne_mvpmatrix;\n"
 			"out vec2 texCoord;\n"
 			"void main()\n"

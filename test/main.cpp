@@ -16,248 +16,95 @@
 #include "NTime.h"
 
 
+
 using namespace std;
 using namespace novaengine;
 using namespace renderer;
 
-//shaders
 
-const char* Default_VRTX =
-"#version 330\n"
-"layout (location = 0) in vec3 ne_vertex;\n"
-"uniform mat4  ne_mvpmatrix;\n"
-"void main()\n"
-"{\n"
-"gl_Position = ne_mvpmatrix * vec4(ne_vertex,1.0);\n"
-"}\n";
+struct S_NMF_Header
+{
+    uint32_t magic;
+    union
+    {
+        struct
+        {
+            uint16_t version;
+            uint16_t _reserved;
+        };
+        uint32_t info;
+    };
+};
 
-const char* White_FRAG =
-"#version 330\n"
-"out vec4 outColor;\n"
-"void main()\n"
-"{\n"
-"  outColor = vec4(1.0,1.0,1.0,1.0);\n"
-"}\n";
-const char* Black_FRAG =
-"#version 330\n"
-"out vec4 outColor;\n"
-"void main()\n"
-"{\n"
-"  outColor = vec4(0.0,0.0,0.0,1.0);\n"
-"}\n";
+struct S_NMF_Description_v0000
+{
+    uint32_t vertices_count;
+    uint32_t indices_count;
+    uint32_t contain_flags;
+};
 
-const char* Scat_VRTX =
-"#version 330\n"
-"layout (location = 0) in vec3 ne_vertex;\n"
-"layout (location = 1) in vec2 ne_tex;\n"
-"out vec2 TexCoord;\n"
-"void main()\n"
-"{\n"
-"gl_Position = vec4(ne_vertex,1.0);\n"
-"TexCoord = ne_tex;\n"
-"}\n";
-const char* Scat_FRAG =
-"#version 330\n"
-"\n"
-"    uniform float exposure;\n"
-"    uniform float decay;\n"
-"    uniform float density;\n"
-"    uniform float weight;\n"
-"    uniform vec2 lightPositionOnScreen;\n"
-"    uniform sampler2D firstPass;\n"
-"    const int NUM_SAMPLES = 100 ;\n"
-"	 in vec2 TexCoord;\n"
-"	 out vec4 FragColor;\n"
-"\n"
-"    void main()\n"
-"    {\t\n"
-"    \tvec2 deltaTextCoord = vec2( TexCoord.st - lightPositionOnScreen.xy );\n"
-"    \tvec2 textCoo = TexCoord.st;\n"
-"    \tdeltaTextCoord *= 1.0 /  float(NUM_SAMPLES) * density;\n"
-"    \tfloat illuminationDecay = 1.0;\n"
-"\t\n"
-"\t\n"
-"    \tfor(int i=0; i < NUM_SAMPLES ; i++)\n"
-"        {\n"
-"                 textCoo -= deltaTextCoord;\n"
-"                 vec4 sample = texture2D(firstPass, textCoo );\n"
-"\t\t\t\n"
-"                 sample *= illuminationDecay * weight;\n"
-"\n"
-"                 FragColor += sample;\n"
-"\n"
-"                 illuminationDecay *= decay;\n"
-"         }\n"
-"         FragColor *= exposure;\n"
-"    }";
-
-#include "GL/glew.h"
-
-//-------
 int main()
 {
-	SEngineConf conf;
-	conf.WindowSize.width = 1920;
-	conf.WindowSize.height = 1080;
+	//init engine
+	SEngineConf EngineStartupConf;
+	EngineStartupConf.WindowSize.width = 1620;
+	EngineStartupConf.WindowSize.height = 900;
+	EngineStartupConf.LogLevel = log::ELL_DEBUG;
 
-	INovaEngine* Engine = createEngineEx(conf);
-	renderer::IRenderer* rndr = Engine->getRenderer();
+	INovaEngine* Engine = createEngineEx(EngineStartupConf);
+	renderer::IRenderer* Renderer = Engine->getRenderer();
 
+	//dev things
+	scene::ISceneCamera* DevCamera = Engine->getSceneManager()->createSceneCamera();
+	DevCamera->setPerspectiveProjectionMatrix(60.0f, 1.8f, 1.0f, 1000.0f);
+	DevCamera->setPosition(core::vector3f(0, 10, 30));
 
-	scene::ISceneCamera* Camera = Engine->getSceneManager()->createSceneCamera();
-	Camera->setPerspectiveProjectionMatrix(120, 1920.0 / 1080.0, 1.0, 1000.0);
-	Camera->setPosition(core::vector3f(30, 0, 0));
-	Camera->setTarget(core::vector3f(-100, 0, 0));
+	renderer::ITexture*		DevTexture = Engine->getResourceManager()->loadTexture("..\\..\\res\\m_ship.png");
+	renderer::IMaterial*	DevMateial = Engine->getResourceManager()->createMaterial(renderer::ERMF_DEFAULT);
+	renderer::IMeshBuffer*	DevModel = Engine->getResourceManager()->loadStaticMesh("..\\..\\res\\monkey.obj.nmf")->getMeshBuffer(0);
+	renderer::IMeshBuffer*  DevCube = Engine->getGeometryManager()->createCubeMesh(1.0)->getMeshBuffer(0);
+	DevMateial->setTexture(DevTexture, 0);
 
-	scene::ISceneCamera* Camera2 = Engine->getSceneManager()->createSceneCamera();
-	Camera2->setOrthographicProjectionMatrix(-1.0, 1.0, -1.0, 1.0, -1000, 1000);
+	cout << DevModel->getVertexCount() << " vertices loaded (" << DevModel->getVertexCount()  / 3 << ")" << endl;
+    //-----------------------------
+    core::matrixf rotation;
+    //Renderer->setRenderState(renderer::ERS_ENABLE_WIREFRAME,true);
 
-	IShaderProgram* VLProg_w = Engine->getRenderer()->createShaderProgram();
-	IShaderProgram* VLProg_b = Engine->getRenderer()->createShaderProgram();
-
-	VLProg_w->setVertexShaderSource(Default_VRTX);
-	VLProg_w->setFragmentShaderSource(White_FRAG);
-	VLProg_b->setVertexShaderSource(Default_VRTX);
-	VLProg_b->setFragmentShaderSource(Black_FRAG);
-	VLProg_w->build();
-	VLProg_b->build();
-
-
-
-	IStaticMesh* Cube_Mesh = Engine->getGeometryManager()->createCubeMesh();
-	IStaticMesh* Sphere_Mesh = Engine->getGeometryManager()->createSphereMesh(7.0, 16);
-
-	core::matrixf Sphere_Transform, sqt;
-	Sphere_Transform.setTranslate(core::vector3f(-100, 0, 0));
-
-
-	core::matrixf Ship_Transform[2];
-	IMaterial* Ship_Material = Engine->getResourceManager()->createMaterial();
-	ITexture* Ship_Texture = Engine->getResourceManager()->loadTexture("S:\\F\\git\\res\\m_ship.png");
-	IStaticMesh* Ship_Mesh = Engine->getResourceManager()->loadStaticMesh("S:\\F\\git\\res\\m_ship.obj");
-
-	Ship_Material->setTexture(Ship_Texture, 0);
-	Ship_Transform[0].setTranslate(core::vector3f(-20, 5, -60));
-	Ship_Transform[0].setRotationDegrees(core::vector3f(-70, 0, 0));
-	Ship_Transform[1].setTranslate(core::vector3f(0, -5, 20));
-	Ship_Transform[1].setRotationDegrees(core::vector3f(20, 0, 0));
-
-	//----light
-	ITexture* DepthBuffer = Engine->getResourceManager()->createTexture(core::dim2u(1920, 1080), EPF_DEPTH);
-	ITexture* ColorBuffer = Engine->getResourceManager()->createTexture(core::dim2u(1920, 1080));
-	IRenderTarget* RenderTarget = Engine->getRenderer()->createRenderTarget();
-	RenderTarget->setTexture(ColorBuffer, ERTT_COLOR_BUFFER_0);
-	RenderTarget->setTexture(DepthBuffer, ERTT_DEPTH_BUFFER);
-
-	ITexture* DepthBuffer2 = Engine->getResourceManager()->createTexture(core::dim2u(1920, 1080), EPF_DEPTH);
-	ITexture* ColorBuffer2 = Engine->getResourceManager()->createTexture(core::dim2u(1920, 1080));
-	IRenderTarget* RenderTarget2 = Engine->getRenderer()->createRenderTarget();
-	RenderTarget2->setTexture(ColorBuffer2, ERTT_COLOR_BUFFER_0);
-	RenderTarget2->setTexture(DepthBuffer2, ERTT_DEPTH_BUFFER);
-
-	IShaderProgram* VLProg = Engine->getRenderer()->createShaderProgram();
-	VLProg->setVertexShaderSource(Scat_VRTX);
-	VLProg->setFragmentShaderSource(Scat_FRAG);
-	VLProg->build();
-	
-	float exposure(0.0034);
-	float decay(1.0);
-	float density(0.94);
-	float weight(5.64);
-
-	core::vector2f lightPositionOnScreen(0.5, 0.5);
-	int firstPass = 5;
-
-
-	VLProg->bind();
-	VLProg->setUniform("exposure", ESUT_FLOAT1, 1, &exposure);
-	VLProg->setUniform("decay", ESUT_FLOAT1, 1, &decay);
-	VLProg->setUniform("density", ESUT_FLOAT1, 1, &density);
-	VLProg->setUniform("weight", ESUT_FLOAT1, 1, &weight);
-	VLProg->setUniform("lightPositionOnScreen", ESUT_FLOAT2, 1, &lightPositionOnScreen.x);
-	VLProg->setUniform("firstPass", ESUT_TEXTURE_2D, 1, &firstPass);
-
-
-
-
-	core::matrixf dummy;
-	//------------------------------------------------------------------------------
-	f32 FPS = 0;
-	int ctr = 0;
-	int frm = 0;
-	IPerformanceCounter * EPC = Engine->getPerformanceCounter();
+	float FPS = 0;
+	IPerformanceCounter* EPC = Engine->getPerformanceCounter();
 	while (Engine->update())
 	{
-		//Camera->setPosition(core::vector3f(sin(frm/200.0)*100, 0, cos(frm/200.0)*100));
 		if (FPS != EPC->getFramesPerSecond())
 		{
-			char buf[256];
-			sprintf(buf, "fps:%f ctr:%d frm:%d\n", EPC->getFramesPerSecond(), ctr, frm);
-			Engine->getWindow()->setTittle(buf);
 			FPS = EPC->getFramesPerSecond();
-			ctr++;
+			printf("%f\n", FPS);
 		}
-		frm++;
 
-		rndr->begin_frame();
-		rndr->setRenderTarget(0);
+	    float rX = 0.0;
+	    float rY = 0.0;
+	    float rZ = 0.0;
+	    if(Engine->getEventManager()->getKeyState(KEY_KEY_W))
+            rZ = -0.01;
+        else if(Engine->getEventManager()->getKeyState(KEY_KEY_S))
+            rZ =  0.01;
+        else if(Engine->getEventManager()->getKeyState(KEY_KEY_A))
+            rY = -0.01;
+        else if(Engine->getEventManager()->getKeyState(KEY_KEY_D))
+            rY =  0.01;
 
-		Camera->render();
-		rndr->setViewport(core::rectu(0, 0, 1920, 1080));
-		//------------------------------------------------
-		rndr->setRenderTarget(RenderTarget);
+	    rotation.applyRotationDegrees(core::vector3f(0,rY,rZ));
+		//Rendering
+		Renderer->begin_frame(true, true, core::color4f(0.25f, 0.25f, 0.25f, 1.0f));
 
-		rndr->clear(ECF_COLOR_BUFFER | ECF_DEPTH_BUFFER,core::color4f(0.00,0.00,0.05,1.0));
+		DevCamera->render();
+		Renderer->setTransform(rotation,renderer::EMT_MODEL);
+		DevMateial->bind();
+		DevModel->draw();
 
-		VLProg_b->bind();
-		rndr->setTransform(Ship_Transform[0], EMT_MODEL);
-		Ship_Mesh->getMeshBuffer(0)->draw();
-		rndr->setTransform(Ship_Transform[1], EMT_MODEL);
-		Ship_Mesh->getMeshBuffer(0)->draw();
-
-		rndr->setRenderState(ERS_DEPTH_TEST_MODE, EDTM_ALWAYS);
-
-		VLProg_w->bind();
-		rndr->setTransform(Sphere_Transform, EMT_MODEL);
-		Sphere_Mesh->getMeshBuffer(0)->draw();
-		rndr->setRenderState(ERS_DEPTH_TEST_MODE, EDTM_LEQUAL);
-
-		//------------------------------------------------
-		rndr->setRenderTarget(RenderTarget2);
-		rndr->clear(ECF_COLOR_BUFFER | ECF_DEPTH_BUFFER, core::color4f(0.0, 0.0, 0.0, 1.0));
-
-		Ship_Material->bind();
-		rndr->setTransform(Ship_Transform[0], EMT_MODEL);
-		Ship_Mesh->getMeshBuffer(0)->draw();
-		rndr->setTransform(Ship_Transform[1], EMT_MODEL);
-		Ship_Mesh->getMeshBuffer(0)->draw();
-
-		rndr->setRenderState(ERS_BLENDING_MODE, URenderStateValue(EBM_SRC_ALPHA,EBM_ONE));
-		rndr->bindTexture(ColorBuffer, 5);
-		VLProg->bind();
-		Camera2->render();
-		rndr->setTransform(dummy, EMT_MODEL);
-
-		Cube_Mesh->getMeshBuffer(0)->draw();
-
-		//------------------------------------------------
-		rndr->setRenderState(ERS_BLENDING_MODE, URenderStateValue(EBM_SRC_ALPHA, EBM_ONE_MINUS_SRC_ALPHA));
-		rndr->setRenderTarget(0);
-		rndr->clear(ECF_COLOR_BUFFER | ECF_DEPTH_BUFFER, core::color4f(0.0, 0.0, 0.0, 1.0));
-
-		Ship_Material->bind();
-		rndr->bindTexture(ColorBuffer2, 0);
-		Camera2->render();
-		rndr->setTransform(dummy, EMT_MODEL);
-		Cube_Mesh->getMeshBuffer(0)->draw();
-
-		rndr->end_frame();
-
-		//if (frm > 30000)
-		//break;
+		Renderer->end_frame();
+		//end of rendering
 	}
-	Camera->release();
-
+    cout << "XXXXXXXXXXXXXXXXXXXX____exiting____XXXXXXXXXXXXXXXXXXXXX" << endl;
 	closeEngine();
 
 	return 0;
