@@ -255,8 +255,7 @@ void COpenGLMeshBuffer::build_vao()
     for(u32 i = 0; i < OpenGL_BuffersCount; i++)
     {
         const SVertexBufferFormat& Format = m_Buffers[i].Format;
-
-        glEnableVertexArrayAttrib(m_OpenGL_VAO,Format.id);
+        glEnableVertexAttribArray(Format.id);
         glVertexAttribPointer(Format.id,Format.size,to_opengl_type(Format.type),GL_FALSE,0,(void*)OpenGL_Buffer_offset);
         OpenGL_Buffer_offset += m_OpenGLBuffers[i].vbo_size;
     }

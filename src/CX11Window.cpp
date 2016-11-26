@@ -59,8 +59,6 @@ CX11Window::CX11Window(SEngineConf conf,IEventManager* p_EventManager):
     glXMakeCurrent(dpy,win,cx);
 //    glXSwapIntervalEXT(false);
 
-    //XFlush(dpy);
-    //sleep(1);
     if (conf.FullScreen)
         setFullscreenMode(true);
     else XMapWindow(dpy,win);
@@ -104,7 +102,6 @@ void CX11Window::setFullscreenMode(bool fullscreen_d)
     xevent.xclient.format = 32;
     xevent.xclient.data.l[0] = 1;
     xevent.xclient.data.l[1] = fullscreen;
-    xevent.xclient.data.l[2] = 0;
     xevent.xclient.data.l[2] = 0;
     XSendEvent (dpy, DefaultRootWindow(dpy), False,
                 SubstructureRedirectMask | SubstructureNotifyMask, &xevent);

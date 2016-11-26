@@ -149,8 +149,9 @@ namespace novaengine
 				return;
 			}
 
+#elif defined(NE_WINDOW_X11)
+    void* xdpy = Window->getWindowInternalVariable("xDisplay");
 #else
-
 #ifndef __NE_MAKE_SOME_SHIT__
 //#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
 #endif
