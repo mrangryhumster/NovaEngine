@@ -51,9 +51,9 @@ namespace novaengine
 
 
 
-			if (TextureParameters_.Generate_mipmaps)
-				gluBuild2DMipmaps(GL_TEXTURE_2D, GL_InternalFormat, Image->getImageDimension().width, Image->getImageDimension().height, GL_PixelFormat, GL_UNSIGNED_BYTE, Image->lock());
-			else
+//			if (TextureParameters_.Generate_mipmaps)
+//				gluBuild2DMipmaps(GL_TEXTURE_2D, GL_InternalFormat, Image->getImageDimension().width, Image->getImageDimension().height, GL_PixelFormat, GL_UNSIGNED_BYTE, Image->lock());
+//			else
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_InternalFormat, Image->getImageDimension().width, Image->getImageDimension().height, 0, GL_PixelFormat, GL_UNSIGNED_BYTE, Image->lock());
 
 			setTextureParameter(ETP_MAG_FILTER, TextureParameters.Texture_mag_filter);

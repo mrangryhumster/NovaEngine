@@ -6,7 +6,7 @@
 #include "NLogger.h"
 
 #include <GL/glew.h>
-#include <GL/GL.h>
+#include <GL/gl.h>
 
 #include "COpenGLTexture.h" //not sure if need this
 

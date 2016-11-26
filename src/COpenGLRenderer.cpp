@@ -152,7 +152,7 @@ namespace novaengine
 #else
 
 #ifndef __NE_MAKE_SOME_SHIT__
-#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
+//#error openglrenderer class not support this platform, but you still can use it with define __NE_MAKE_SOME_SHIT__
 #endif
 
 #endif //
@@ -214,7 +214,7 @@ namespace novaengine
 				m_ShaderProgramsLibrary = new COpenGLShaderProgramLibrary(this);
 
 				if(!m_ShaderProgramsLibrary->initShaderPrograms())
-				{ 
+				{
 					LOG_FATAL_ERROR("OpenGL default programs initialization failed...\n");
 					m_RendererLastError = 1;
 					return;
